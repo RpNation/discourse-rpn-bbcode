@@ -46,7 +46,8 @@ function setupMarkdownIt(md) {
 export function setup(helper) {
 
   helper.whiteList([
-    "table[class=*]",
+    "table.bbcode-table",
+    "table.table-style-*"
     "span.tr",
     "span.td"]);
 

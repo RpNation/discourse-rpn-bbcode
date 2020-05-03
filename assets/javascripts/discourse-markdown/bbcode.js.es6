@@ -46,7 +46,7 @@ function setupMarkdownIt(md) {
 export function setup(helper) {
 
   helper.whiteList([
-    "div.table",
+    "table",
     "span.tr",
     "span.td"]);
 

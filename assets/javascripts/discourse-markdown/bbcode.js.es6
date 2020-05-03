@@ -26,11 +26,10 @@ function setupMarkdownIt(md) {
 
   md.block.bbcode.ruler.push("table", {
     tag: "table",
-    wrap: wrap(
-      "table",
-      "class",
-      tagInfo => "bbcode-table table-style-" + tagInfo.attrs._default.trim()
-    )
+    wrap: function(token, tagInfo) {
+      token.attrs = [['style', "bbcode-table table-style-" + tagInfo.attrs['_default']]];
+      return true;
+    }
   });
 
   ruler.push("tr", {

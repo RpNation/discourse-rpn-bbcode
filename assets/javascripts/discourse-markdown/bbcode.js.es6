@@ -32,10 +32,7 @@ function setupMarkdownIt(md) {
 
 export function setup(helper) {
 
-  helper.whitelist({
-    custom(tag, name, value) {
-    }
-  });
+  helper.whitelist("table");
 
   if(helper.markdownIt) {
     helper.registerPlugin(setupMarkdownIt);

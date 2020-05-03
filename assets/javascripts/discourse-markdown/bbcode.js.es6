@@ -38,14 +38,4 @@ export function setup(helper) {
     helper.registerPlugin(setupMarkdownIt);
     return;
   }
-
-  const builders = requirejs("pretty-text/engines/discourse-markdown/bbcode")
-    .builders;
-
-  const {
-    register,
-    replaceBBCode,
-    rawBBCode,
-    replaceBBCodeParamsRaw
-  } = builders(helper);
 }

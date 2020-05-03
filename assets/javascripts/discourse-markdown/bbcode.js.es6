@@ -32,7 +32,7 @@ function setupMarkdownIt(md) {
 
 export function setup(helper) {
 
-  helper.whitelist("table");
+  helper.whiteList("table");
 
   if(helper.markdownIt) {
     helper.registerPlugin(setupMarkdownIt);

@@ -26,7 +26,17 @@ function setupMarkdownIt(md) {
 
   md.block.bbcode.ruler.push("table", {
     tag: "table",
-    wrap: "table"
+    wrap: "div.table"
+  });
+
+  ruler.push("tr", {
+    tag: "tr",
+    wrap: "span.tr"
+  });
+
+  ruler.push("td", {
+    tag: "td",
+    wrap: "span.td"
   });
 }
 

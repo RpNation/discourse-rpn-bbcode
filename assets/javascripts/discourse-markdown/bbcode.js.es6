@@ -42,5 +42,13 @@ export function setup(helper) {
     return;
   }
 
-  const builders = requirejs("")
+  const builders = requirejs("pretty-text/engines/discourse-markdown/bbcode")
+    .builders;
+
+  const {
+    register,
+    replaceBBCode,
+    rawBBCode,
+    replaceBBCodeParamsRaw
+  } = builders(helper);
 }

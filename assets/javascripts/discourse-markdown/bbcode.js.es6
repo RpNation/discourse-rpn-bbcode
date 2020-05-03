@@ -42,7 +42,10 @@ function setupMarkdownIt(md) {
 
 export function setup(helper) {
 
-  helper.whiteList("table");
+  helper.whiteList([
+    "div.table",
+    "span.tr",
+    "span.td"]);
 
   if(helper.markdownIt) {
     helper.registerPlugin(setupMarkdownIt);

@@ -101,6 +101,7 @@ export function setup(helper) {
   helper.whiteList([
     "div.bbcode-accordion",
     "div.bbcode-border",
+    "div.[border:*]",
     "dl",
     "dt",
     "imagefloat",

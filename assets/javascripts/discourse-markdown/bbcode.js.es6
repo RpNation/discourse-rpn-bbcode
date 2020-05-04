@@ -103,7 +103,6 @@ export function setup(helper) {
     "div.bbcode-border",
     "dl",
     "dt",
-    "imagefloat",
     "span.float-right",
     "span.float-left",
     "span.float-center"

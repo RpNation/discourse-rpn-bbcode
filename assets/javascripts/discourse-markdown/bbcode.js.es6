@@ -22,7 +22,12 @@ function wrap(tag, attr, callback) {
 }
 
 function getAccordionTabs(tokens, startToken) {
-  let i = tokens.length - 1;
+
+  for(i = 0; i < tokens.length; i++) {
+    console.log("Token Level: " + tokens[i].level + ", Tag: " + token.tag + ", Type: " + token.type);
+  }
+
+  /*let i = tokens.length - 1;
   let listItems = [];
   let buffer = [];
 
@@ -55,7 +60,7 @@ function getAccordionTabs(tokens, startToken) {
     }
   }
 
-  return listItems.reverse();
+  return listItems.reverse();*/
 }
 
 function invalidAccordion(state, tag) {

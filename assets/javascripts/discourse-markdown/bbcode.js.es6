@@ -89,7 +89,10 @@ export function setup(helper) {
     "imagefloat",
     "span.tr",
     "span.td",
-    "span[float-*]"
+    "span[float-*]",
+    "span.float-right",
+    "span.float-left",
+    "span.float-center"
   ]);
 
   if(helper.markdownIt) {

@@ -138,7 +138,7 @@ export function setup(helper) {
         return /^(background\-color:(.*))$/.exec(value);
       }
     }
-  })
+  });
 
   if(helper.markdownIt) {
     helper.registerPlugin(setupMarkdownIt);

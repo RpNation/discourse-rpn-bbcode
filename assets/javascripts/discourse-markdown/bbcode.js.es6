@@ -23,8 +23,8 @@ function wrap(tag, attr, callback) {
 
 function getAccordionTabs(tokens, startToken) {
 
-  for(i = 0; i < tokens.length; i++) {
-    console.log("Token Level: " + tokens[i].level + ", Tag: " + token.tag + ", Type: " + token.type);
+  for(let i = 0; i < tokens.length; i++) {
+    console.log("Token Level: " + tokens[i].level + ", Tag: " + tokens[i].tag + ", Type: " + tokens[i].type);
   }
 
   /*let i = tokens.length - 1;

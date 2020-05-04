@@ -91,7 +91,7 @@ function setupMarkdownIt(md) {
       endToken.content = '';
       endToken.nesting = -1;
     }
-  })
+  });
 
   md.block.bbcode.ruler.push("accordion", accordionRule);
 }

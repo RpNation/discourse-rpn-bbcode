@@ -101,7 +101,6 @@ export function setup(helper) {
   helper.whiteList([
     "div.bbcode-accordion",
     "div.bbcode-border",
-    "div[border:*]",
     "dl",
     "dt",
     "imagefloat",
@@ -109,6 +108,14 @@ export function setup(helper) {
     "span.float-left",
     "span.float-center"
   ]);
+
+  helper.whiteList({
+    custom(tag, name, value) {
+      if(tag === "div" && name === "style") {
+        return /^(border:(.*))$/.exec(value);
+      }
+    }
+  })
 
   if(helper.markdownIt) {
     helper.registerPlugin(setupMarkdownIt);

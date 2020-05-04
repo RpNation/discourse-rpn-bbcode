@@ -26,7 +26,7 @@ function getAccordionTabs(tokens, startToken) {
   tokens.forEach(loop);
 
   function loop(item, index) {
-    console.log("Token Level: " + item.level + ", Tag: " + item.tag + ", Type: " + item.type);
+    console.log("Token Level: " + item.level + ", Tag: " + item.tag + ", Type: " + item.type + ", Content: " + item.content);
   }
 
   /*let i = tokens.length - 1;

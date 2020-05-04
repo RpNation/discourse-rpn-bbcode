@@ -34,12 +34,12 @@ function setupMarkdownIt(md) {
 
   ruler.push("tr", {
     tag: "tr",
-    wrap: "span.tr"
+    wrap: "tr"
   });
 
   ruler.push("td", {
     tag: "td",
-    wrap: "span.td"
+    wrap: "td"
   });
 }
 
@@ -48,8 +48,8 @@ export function setup(helper) {
   helper.whiteList([
     "table.bbcode-table",
     "table.table-style-*",
-    "span.tr",
-    "span.td"]);
+    "tr",
+    "td"]);
 
   if(helper.markdownIt) {
     helper.registerPlugin(setupMarkdownIt);

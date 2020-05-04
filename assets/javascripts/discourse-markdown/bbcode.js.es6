@@ -115,7 +115,7 @@ export function setup(helper) {
         return /^(border:(.*))$/.exec(value);
       }
     }
-  })
+  });
 
   if(helper.markdownIt) {
     helper.registerPlugin(setupMarkdownIt);

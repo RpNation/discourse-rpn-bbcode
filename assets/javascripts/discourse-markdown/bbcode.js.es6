@@ -93,6 +93,24 @@ function setupMarkdownIt(md) {
     }
   });
 
+  ruler.push("bg", {
+    tag: "bg",
+    wrap: function(startToken, endToken, tagInfo, content) {
+      let bgOption = tagInfo.attrs['_default'];
+
+      startToken.type = "div_open";
+      startToken.tag = "div";
+      startToken.attrs = [["class", "bbcode-background"], ["style", "background-color: " + bgOption]];
+      startToken.content = content;
+      startToken.nesting = 1;
+
+      endToken.type = "div_close";
+      endToken.tag = "div";
+      endToken.content = '';
+      endToken.nesting = -1;
+    }
+  });
+
   md.block.bbcode.ruler.push("accordion", accordionRule);
 }
 
@@ -101,8 +119,6 @@ export function setup(helper) {
   helper.whiteList([
     "div.bbcode-accordion",
     "div.bbcode-border",
-    "dl",
-    "dt",
     "span.float-right",
     "span.float-left",
     "span.float-center"
@@ -115,6 +131,14 @@ export function setup(helper) {
       }
     }
   });
+
+  helper.whiteList({
+    custom(tag, name, value) {
+      if(tag === "div" && name === "style") {
+        return /^(background\-color:(.*))$/.exec(value);
+      }
+    }
+  })
 
   if(helper.markdownIt) {
     helper.registerPlugin(setupMarkdownIt);

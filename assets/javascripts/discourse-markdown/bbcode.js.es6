@@ -83,7 +83,7 @@ export function setup(helper) {
   helper.whiteList([
     "table[bbcode-table]",
     "table[table-style-*]",
-    "div.accordion",
+    "div.bbcode-accordion",
     "dl",
     "dt",
     "imagefloat",

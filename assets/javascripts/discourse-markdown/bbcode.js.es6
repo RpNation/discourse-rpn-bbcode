@@ -88,7 +88,9 @@ export function setup(helper) {
     "dt",
     "imagefloat",
     "span.tr",
-    "span.td"]);
+    "span.td",
+    "span[float-*]"
+  ]);
 
   if(helper.markdownIt) {
     helper.registerPlugin(setupMarkdownIt);

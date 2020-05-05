@@ -156,7 +156,7 @@ function setupMarkdownIt(md) {
     }
   });
 
-  ruler.push("scroll", {
+  md.block.bbcode.ruler.push("scroll", {
     tag: "scroll",
     wrap: function(startToken, endToken, tagInfo, content) {
       let heightOption = tagInfo.attrs['_default'];

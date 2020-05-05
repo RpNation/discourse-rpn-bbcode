@@ -138,7 +138,7 @@ function setupMarkdownIt(md) {
     }
   });
 
-  md.block.bbcode.ruler.push("side", {
+  ruler.push("side", {
     tag: "side",
     wrap: function(startToken, endToken, tagInfo, content) {
       let sideOption = tagInfo.attrs['_default'];
@@ -156,14 +156,27 @@ function setupMarkdownIt(md) {
     }
   });
 
-  md.core.textPostProcess.ruler.push('htmlcomment', {
+  ruler.push("htmlcomment", {
+    tag: "comment",
+    wrap: function(startToken, endToken, tagInfo, content) {
+      startToken.type = "comment_open";
+      startToken.tag = "<!--";
+      startToken.content = content;
+
+      endToken.type = "comment_close";
+      endToken.tag = "-->";
+      endToken.content = "";
+    }
+  })
+
+  /*md.core.textPostProcess.ruler.push('htmlcomment', {
     matcher: /\[comment\](.*)\[\/comment\]/,
     onMatch: function(buffer, matches, state) {
       let token = new state.Token("text", "", 0);
       token.content = '<!--' + matches[0] + '-->';
       buffer.push(token);
     }
-  });
+  });*/
 
   md.block.bbcode.ruler.push("accordion", accordionRule);
 }

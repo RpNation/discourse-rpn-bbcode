@@ -119,6 +119,7 @@ export function setup(helper) {
   helper.whiteList([
     "div.bbcode-accordion",
     "div.bbcode-border",
+    "div.bbcode-background",
     "span.float-right",
     "span.float-left",
     "span.float-center"

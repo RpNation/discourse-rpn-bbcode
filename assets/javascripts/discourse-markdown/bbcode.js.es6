@@ -169,7 +169,7 @@ export function setup(helper) {
     "div.bbcode-side-left",
     "div.bbcode-side-right",
     "div.bbcode-side bbcode-side-left",
-    "div.bbcode-side bbcode-side-right"
+    "div.bbcode-side bbcode-side-right",
     "span.float-right",
     "span.float-left",
     "span.float-center",

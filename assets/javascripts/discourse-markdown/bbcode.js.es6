@@ -114,17 +114,20 @@ function setupMarkdownIt(md) {
   md.block.bbcode.ruler.push("fieldset", {
     tag: "fieldset",
     replace: function(state, tagInfo, content) {
-      let text = content;
-      let name = tagInfo.attrs['_default'];
       let token = state.push("fieldset_open", "fieldset", 1);
       token.attrs = [["class", "bbcode-fieldset"]];
 
       token = state.push("legend_open", "legend", 1);
-      token.content = name;
+
+      token = state.push("text", "", 0);
+      token.content = tagInfo.attrs['_default']
+
       token = state.push("legend_close", "legend", -1);
 
       token = state.push("span_open", "span", 1);
-      token.content = text;
+
+      token = state.push("text", "", 0);
+      token.content = content;
 
       token = state.push("span_close", "span", -1);
       token = state.push("fieldset_close", "fieldset", -1);

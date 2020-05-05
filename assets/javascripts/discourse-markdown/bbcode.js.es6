@@ -158,7 +158,7 @@ function setupMarkdownIt(md) {
 
   md.block.bbcode.ruler.push("scroll", {
     tag: "scroll",
-    wrap: function(state, tagInfo, content) {
+    replace: function(state, tagInfo, content) {
       let heightOption = tagInfo.attrs['_default'];
 
       let token = state.push("div_open", "div", 1);

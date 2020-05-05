@@ -145,7 +145,7 @@ function setupMarkdownIt(md) {
 
       startToken.type = "div_open";
       startToken.tag = "div";
-      startToken.attrs = [["class", "bbcode-side-" + sideOption, "bbcode-side"]];
+      startToken.attrs = [["class",  + "bbcode-side " + "bbcode-side-" + sideOption]];
       startToken.content = content;
       startToken.nesting = 1;
 
@@ -168,6 +168,8 @@ export function setup(helper) {
     "div.bbcode-side",
     "div.bbcode-side-left",
     "div.bbcode-side-right",
+    "div.bbcode-side bbcode-side-left",
+    "div.bbcode-side bbcode-side-right"
     "span.float-right",
     "span.float-left",
     "span.float-center",

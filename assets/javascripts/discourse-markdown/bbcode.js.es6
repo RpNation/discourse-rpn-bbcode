@@ -211,7 +211,7 @@ export function setup(helper) {
   helper.whiteList({
     custom(tag, name, value) {
       if(tag === "div" && name === "style") {
-        return /^max\-width: 100%; padding: 5px; overflow:auto; border: 1px solid; height:[0-9]*px;$/.exec(value);
+        return /^(max-width: 100%; padding: 5px; overflow:auto; border: 1px solid; height:[0-9]*px;)$/.exec(value);
       }
     }
   });

@@ -111,6 +111,26 @@ function setupMarkdownIt(md) {
     }
   });
 
+  md.block.bbcode.ruler.push("fieldset", {
+    tag: "fieldset",
+    replace: function(state, tagInfo, content) {
+      let token = state.push("fieldset_open", "fieldset", 0);
+      token.attrs = [["class", "bbcode-fieldset"]];
+
+      token = state.push("legend_open", "legend", 0);
+      token.content = tagInfo.attrs['_default'];
+      token = state.push("legend_close", "legend", 0);
+
+      token = state.push("span_open", "span", 0);
+      token.content = content;
+
+      token = state.push("span_close", "span", 0);
+      token = state.push("fieldset_close", "fieldset", 0);
+
+      return true;
+    }
+  });
+
   md.block.bbcode.ruler.push("accordion", accordionRule);
 }
 
@@ -122,7 +142,9 @@ export function setup(helper) {
     "div.bbcode-background",
     "span.float-right",
     "span.float-left",
-    "span.float-center"
+    "span.float-center",
+    "fieldset.bbcode-fieldset",
+    "legend"
   ]);
 
   helper.whiteList({

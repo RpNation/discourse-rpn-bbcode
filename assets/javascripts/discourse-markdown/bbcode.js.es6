@@ -158,9 +158,19 @@ function setupMarkdownIt(md) {
 
   md.block.bbcode.ruler.push("scroll", {
     tag: "scroll",
-    wrap: function(startToken, endToken, tagInfo, content) {
+    wrap: function(state, tagInfo, content) {
       let heightOption = tagInfo.attrs['_default'];
 
+      let token = state.push("div_open", "div", 1);
+      token.attrs = [["style", "max-width: 100%; padding: 5px; overflow:auto; border: 1px solid; height:" + heightOption + ";"]];
+
+      token = state.push("text", "", 0);
+      token.content = content;
+
+      token = state.push("div_close", "div", -1);
+      token.content = "";
+
+      /*
       startToken.type = "div_open";
       startToken.tag = "div";
       startToken.attrs = [["style", "max-width: 100%; padding: 5px; overflow:auto; border: 1px solid; height:" + heightOption + ";"]];
@@ -170,7 +180,9 @@ function setupMarkdownIt(md) {
       endToken.type = "div_close";
       endToken.tag = "div";
       endToken.content = '';
-      endToken.nesting = -1;
+      endToken.nesting = -1;*/
+
+      return true;
     }
   });
 

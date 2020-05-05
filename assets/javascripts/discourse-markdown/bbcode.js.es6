@@ -191,6 +191,14 @@ export function setup(helper) {
     }
   });
 
+  helper.whiteList({
+    custom(tag, name, value) {
+      if(tag === "div" && name === "class") {
+        return /^(bbcode\-side(\-)+(\s)*)$/.exec(value);
+      }
+    }
+  });
+
   if(helper.markdownIt) {
     helper.registerPlugin(setupMarkdownIt);
     return;

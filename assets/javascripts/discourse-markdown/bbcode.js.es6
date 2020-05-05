@@ -138,6 +138,33 @@ function setupMarkdownIt(md) {
     }
   });
 
+  md.block.bbcode.ruler.push("side", {
+    tag: "side",
+    wrap: function(startToken, endToken, tagInfo, content) {
+      let sideOption = tagInfo.attrs['_default'];
+
+      startToken.type = "div_open";
+      startToken.tag = "div";
+      startToken.attrs = [["class", "bbcode-side bbcode-side-" + sideOption]];
+      startToken.content = content;
+      startToken.nesting = 1;
+
+      endToken.type = "div_close";
+      endToken.tag = "div";
+      endToken.content = '';
+      endToken.nesting = -1;
+    }
+  });
+
+  md.core.textPostProcess.ruler.push('htmlcomment', {
+    matcher: /\[comment\](.*)\[\/comment\]/,
+    onMatch: function(buffer, matches, state) {
+      let token = new state.Token("text", "", 0);
+      token.content = '<!--' + matches[0] + '-->';
+      buffer.push(token);
+    }
+  });
+
   md.block.bbcode.ruler.push("accordion", accordionRule);
 }
 
@@ -147,6 +174,9 @@ export function setup(helper) {
     "div.bbcode-accordion",
     "div.bbcode-border",
     "div.bbcode-background",
+    "div.bbcode-side",
+    "div.bbcode-side-left",
+    "div.bbcode-side-right",
     "span.float-right",
     "span.float-left",
     "span.float-center",

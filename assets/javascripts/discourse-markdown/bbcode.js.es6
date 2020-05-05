@@ -118,6 +118,7 @@ function setupMarkdownIt(md) {
       token.attrs = [["class", "bbcode-fieldset"]];
 
       token = state.push("legend_open", "legend", 1);
+      token.block = false;
 
       token = state.push("text", "", 0);
       token.content = tagInfo.attrs['_default']
@@ -125,6 +126,7 @@ function setupMarkdownIt(md) {
       token = state.push("legend_close", "legend", -1);
 
       token = state.push("span_open", "span", 1);
+      token.block = false;
 
       token = state.push("text", "", 0);
       token.content = content;

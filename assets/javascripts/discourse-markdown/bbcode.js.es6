@@ -145,7 +145,7 @@ function setupMarkdownIt(md) {
 
       startToken.type = "div_open";
       startToken.tag = "div";
-      startToken.attrs = [["class", "bbcode-side-" + sideOption + " bbcode-side"]];
+      startToken.attrs = [["class", "bbcode-side-" + sideOption, "bbcode-side"]];
       startToken.content = content;
       startToken.nesting = 1;
 
@@ -187,14 +187,6 @@ export function setup(helper) {
     custom(tag, name, value) {
       if(tag === "div" && name === "style") {
         return /^(background\-color:(.*))$/.exec(value);
-      }
-    }
-  });
-
-  helper.whiteList({
-    custom(tag, name, value) {
-      if(tag === "div" && name === "class") {
-        return /^(bbcode\-side(\-)+(\s)*)$/.exec(value);
       }
     }
   });

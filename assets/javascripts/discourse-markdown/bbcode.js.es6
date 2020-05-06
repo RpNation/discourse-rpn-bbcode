@@ -241,7 +241,7 @@ function setupMarkdownIt(md) {
     after: function(state, openToken) {
       let token = state.push("div_open", "div", 1);
       token.attrs = [["class", "bbcode-blockquote-speaker"]];
-      token.content = openToken.attrs['_default'];
+      token.content = openToken.bbcode_attrs['_default'];
 
       state.push("div_close", "div", -1);
 

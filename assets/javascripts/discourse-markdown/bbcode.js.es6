@@ -130,6 +130,7 @@ function setupMarkdownIt(md) {
 
       token = state.push("block", "", 0);
       token.content = content;
+      token.children = [];
 
       token = state.push("span_close", "span", -1);
       token = state.push("fieldset_close", "fieldset", -1);

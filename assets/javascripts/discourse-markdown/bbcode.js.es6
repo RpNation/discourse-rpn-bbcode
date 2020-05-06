@@ -222,7 +222,7 @@ function setupMarkdownIt(md) {
     }
   });
 
-  md.block.bbcode.ruler.push("blockquote", {
+  /*md.block.bbcode.ruler.push("blockquote", {
     tag: "blockquote",
     before: function(state, tagInfo) {
       let token = state.push("table_open", "table", 1);
@@ -260,7 +260,47 @@ function setupMarkdownIt(md) {
 
       state.push("table_close", "table", -1);
     }
-  });
+  });*/
+
+  md.block.bbcode.ruler.push("blockquote", {
+    tag: "blockquote",
+    replace: function(state, tagInfo, content) {
+      let token = state.push("table_open", "table", 1);
+      token.attrs = [["class", "bbcode-blockquote"]];
+
+      state.push("tr_open", "tr", 1);
+
+      token = state.push("td_open", "td", 1);
+      token.attrs = [["class", "bbcode-blockquote-left"]];
+
+      state.push("td_close", "td", -1);
+
+      token = state.push("td_open", "td", 1);
+      token.attrs = [["class", "bbcode-blockquote-content"]];
+
+      token = state.push("inline", "", 0);
+      token.content = content;
+
+      token = state.push("div_open", "div", 1);
+      token.attrs = [["class", "bbcode-blockquote-speaker"]];
+      token.content = tagInfo.attrs['_default'];
+
+      state.push("div_close", "div", -1);
+
+      state.push("td_close", "td", -1);
+
+      token = state.push("td_open", "td", 1);
+      token.attrs = [["class", "bbcode-blockquote-right"]];
+
+      state.push("td_close", "td", -1);
+
+      state.push("tr_close", "tr", -1);
+
+      state.push("table_close", "table", -1);
+
+      return true;
+    }
+  })
 
   ruler.push("sub", {
     tag: "sub",

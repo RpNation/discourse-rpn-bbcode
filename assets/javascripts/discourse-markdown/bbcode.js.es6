@@ -286,6 +286,8 @@ function setupMarkdownIt(md) {
 
       token = state.push("div_open", "div", 1);
       token.attrs = [["class", "bbcode-blockquote-speaker"]];
+
+      token = state.push("text", "", 0);
       token.content = author;
 
       state.push("div_close", "div", -1);

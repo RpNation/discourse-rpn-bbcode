@@ -258,6 +258,54 @@ function setupMarkdownIt(md) {
     }
   });
 
+  ruler.push("sub", {
+    tag: "sub",
+    wrap: function(startToken, endToken, tagInfo, content) {
+      startToken.type = "sub_open";
+      startToken.tag = "sub";
+      startToken.attrs = [["class", "bbcode-sub"]];
+      startToken.content = content;
+      startToken.nesting = 1;
+
+      endToken.type = "sub_close";
+      endToken.tag = "sub";
+      endToken.content = '';
+      endToken.nesting = -1;
+    }
+  });
+
+  ruler.push("sup", {
+    tag: "sup",
+    wrap: function(startToken, endToken, tagInfo, content) {
+      startToken.type = "sup_open";
+      startToken.tag = "sup";
+      startToken.attrs = [["class", "bbcode-sup"]];
+      startToken.content = content;
+      startToken.nesting = 1;
+
+      endToken.type = "sup_close";
+      endToken.tag = "sup";
+      endToken.content = '';
+      endToken.nesting = -1;
+    }
+  });
+
+  ruler.push("pindent", {
+    tag: "pindent",
+    wrap: function(startToken, endToken, tagInfo, content) {
+      startToken.type = "span_open";
+      startToken.tag = "span";
+      startToken.attrs = [["style", "display: inline-block; text-indent:2.5em"]];
+      startToken.content = content;
+      startToken.nesting = 1;
+
+      endToken.type = "span_close";
+      endToken.tag = "span";
+      endToken.content = '';
+      endToken.nesting = -1;
+    }
+  });
+
   md.block.bbcode.ruler.push("accordion", accordionRule);
 }
 
@@ -278,6 +326,8 @@ export function setup(helper) {
     "span.bbcode-horizontal-rule-dotted-thick",
     "span.inlineSpoiler",
     "span.bbcode-justify",
+    "sub.bbcode-sub",
+    "sup.bbcode_sup",
     "fieldset.bbcode-fieldset",
     "legend",
     "table.bbcode-blockquote",
@@ -316,7 +366,15 @@ export function setup(helper) {
         return /^(bbcode-column-width-[1-8])$/.exec(value);
       }
     }
-  })
+  });
+
+  helper.whiteList({
+    custom(tag, name, value) {
+      if(tag === "span" && name === "style") {
+        return /^(display: inline-block; text-indent:2\.5em)$/.exec(value);
+      }
+    }
+  });
 
   if(helper.markdownIt) {
     helper.registerPlugin(setupMarkdownIt);

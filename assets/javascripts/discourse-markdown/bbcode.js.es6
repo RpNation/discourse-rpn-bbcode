@@ -165,24 +165,6 @@ function setupMarkdownIt(md) {
     }
   });
 
-  /*md.block.bbcode.ruler.push("scroll", {
-    tag: "scroll",
-    replace: function(state, tagInfo, content) {
-      let heightOption = tagInfo.attrs['_default'];
-
-      let token = state.push("div_open", "div", 1);
-      token.attrs = [["style", "max-width: 100%; padding: 5px; overflow:auto; border: 1px solid; height:" + heightOption + ";"]];
-
-      token = state.push("text", "", 0);
-      token.content = content;
-
-      token = state.push("div_close", "div", -1);
-      token.content = "";
-
-      return true;
-    }
-  });*/
-
   md.block.bbcode.ruler.push("accordion", accordionRule);
 }
 

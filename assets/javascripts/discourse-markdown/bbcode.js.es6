@@ -120,7 +120,7 @@ function setupMarkdownIt(md) {
       token = state.push("legend_open", "legend", 1);
       token.block = false;
 
-      token = state.push("text", "", 0);
+      token = state.push("block", "", 0);
       token.content = tagInfo.attrs['_default']
 
       token = state.push("legend_close", "legend", -1);

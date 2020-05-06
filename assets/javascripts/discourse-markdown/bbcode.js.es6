@@ -161,7 +161,7 @@ function setupMarkdownIt(md) {
 
       startToken.type = "span_open";
       startToken.tag = "span";
-      startToken.attrs = [["class", "horizontal-rule"], ["class", "bbcode-horizontal-rule"]];
+      startToken.attrs = [["class", "bbcode-horizontal-rule-" + divideOption]];
       startToken.content = content;
       startToken.nesting = 1;
 
@@ -186,8 +186,9 @@ export function setup(helper) {
     "span.float-right",
     "span.float-left",
     "span.float-center",
-    "span.horizontal-rule",
-    "span.bbcode-horizontal-rule",
+    "span.bbcode-horizontal-rule-thick",
+    "span.bbcode-horizontal-rule-dotted",
+    "span.bbcode-horizontal-rule-dotted-thick",
     "fieldset.bbcode-fieldset",
     "legend"
   ]);

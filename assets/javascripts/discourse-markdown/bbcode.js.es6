@@ -265,6 +265,8 @@ function setupMarkdownIt(md) {
   md.block.bbcode.ruler.push("blockquote", {
     tag: "blockquote",
     replace: function(state, tagInfo, content) {
+      let author = tagInfo.attrs['_default'];
+
       let token = state.push("table_open", "table", 1);
       token.attrs = [["class", "bbcode-blockquote"]];
 
@@ -284,7 +286,7 @@ function setupMarkdownIt(md) {
 
       token = state.push("div_open", "div", 1);
       token.attrs = [["class", "bbcode-blockquote-speaker"]];
-      token.content = tagInfo.attrs['_default'];
+      token.content = author;
 
       state.push("div_close", "div", -1);
 

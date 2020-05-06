@@ -150,6 +150,7 @@ function setupMarkdownIt(md) {
 
       text = text.replace(/(\r\n|\n|\r)/gm," ");
       token.content = text;
+      return true;
     }
   });
 

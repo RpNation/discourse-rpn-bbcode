@@ -154,6 +154,24 @@ function setupMarkdownIt(md) {
     }
   });
 
+  ruler.push("divide", {
+    tag: "divide",
+    wrap: function(startToken, endToken, tagInfo, content) {
+      let divideOption = tagInfo.attrs['_default'];
+
+      startToken.type = "span_open";
+      startToken.tag = "span";
+      startToken.attrs = [["class", "horizontal-rule"], ["class", "bbcode-horizontal-rule"]];
+      startToken.content = content;
+      startToken.nesting = 1;
+
+      endToken.type = "span_close";
+      endToken.tag = "span";
+      endToken.content = '';
+      endToken.nesting = -1;
+    }
+  });
+
   md.block.bbcode.ruler.push("accordion", accordionRule);
 }
 
@@ -168,6 +186,8 @@ export function setup(helper) {
     "span.float-right",
     "span.float-left",
     "span.float-center",
+    "span.horizontal-rule",
+    "span.bbcode-horizontal-rule",
     "fieldset.bbcode-fieldset",
     "legend"
   ]);

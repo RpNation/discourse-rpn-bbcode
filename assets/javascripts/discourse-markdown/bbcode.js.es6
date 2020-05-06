@@ -280,6 +280,7 @@ function setupMarkdownIt(md) {
 
       token = state.push("inline", "", 0);
       token.content = content;
+      token.children = [];
 
       token = state.push("div_open", "div", 1);
       token.attrs = [["class", "bbcode-blockquote-speaker"]];
@@ -300,7 +301,7 @@ function setupMarkdownIt(md) {
 
       return true;
     }
-  })
+  });
 
   ruler.push("sub", {
     tag: "sub",

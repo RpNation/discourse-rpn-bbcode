@@ -128,7 +128,7 @@ function setupMarkdownIt(md) {
       token = state.push("span_open", "span", 1);
       token.block = false;
 
-      token = state.push("block", "", 0);
+      token = state.push("inline", "", 0);
       token.content = content;
       token.children = [];
 

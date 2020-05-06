@@ -190,6 +190,74 @@ function setupMarkdownIt(md) {
     }
   });
 
+  ruler.push("inlinespoiler", {
+    tag: "inlinespoiler",
+    wrap: function(startToken, endToken, tagInfo, content) {
+      startToken.type = "span_open";
+      startToken.tag = "span";
+      startToken.attrs = [["class", "inlineSpoiler"]];
+      startToken.content = content;
+      startToken.nesting = 1;
+
+      endToken.type = "span_close";
+      endToken.tag = "span";
+      endToken.content = '';
+      endToken.nesting = -1;
+    }
+  });
+
+  ruler.push("justify", {
+    tag: "justify",
+    wrap: function(startToken, endToken, tagInfo, content) {
+      startToken.type = "span_open";
+      startToken.tag = "span";
+      startToken.attrs = [["class", "bbcode-justify"]];
+      startToken.content = content;
+      startToken.nesting = 1;
+
+      endToken.type = "span_close";
+      endToken.tag = "span";
+      endToken.content = '';
+      endToken.nesting = -1;
+    }
+  });
+
+  md.block.bbcode.ruler.push("blockquote", {
+    tag: "blockquote",
+    before: function(state, tagInfo) {
+      let token = state.push("table_open", "table", 1);
+      token.attrs = [["class", "bbcode-blockquote"]];
+
+      state.push("tr_open", "tr", 1);
+
+      token = state.push("td_open", "td", 1);
+      token.attrs = [["class", "bbcode-blockquote-left"]];
+
+      state.push("td_close", "td", -1);
+
+      token = state.push("td_open", "td", 1);
+      token.attrs = [["class", "bbcode-blockquote-content"]];
+    },
+    after: function(state, openToken) {
+      let token = state.push("div_open", "div", 1);
+      token.attrs = [["class", "bbcode-blockquote-speaker"]];
+      token.content = openToken.attrs['_default'];
+
+      state.push("div_close", "div", -1);
+
+      state.push("td_close", "td", -1);
+
+      token = state.push("td_open", "td", 1);
+      token.attrs = [["class", "bbcode-blockquote-right"]];
+
+      state.push("td_close", "td", -1);
+
+      state.push("tr_close", "tr", -1);
+
+      state.push("table_close", "table", -1);
+    }
+  });
+
   md.block.bbcode.ruler.push("accordion", accordionRule);
 }
 
@@ -201,14 +269,21 @@ export function setup(helper) {
     "div.bbcode-background",
     "div.bbcode-side-left",
     "div.bbcode-side-right",
+    "div.bbcode-blockquote-speaker",
     "span.float-right",
     "span.float-left",
     "span.float-center",
     "span.bbcode-horizontal-rule-thick",
     "span.bbcode-horizontal-rule-dotted",
     "span.bbcode-horizontal-rule-dotted-thick",
+    "span.inlineSpoiler",
+    "span.bbcode-justify",
     "fieldset.bbcode-fieldset",
-    "legend"
+    "legend",
+    "table.bbcode-blockquote",
+    "td.bbcode-blockquote-left",
+    "td.bbcode-blockquote-right",
+    "td.bbcode-blockquote-content"
   ]);
 
   helper.whiteList({

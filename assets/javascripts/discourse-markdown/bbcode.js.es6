@@ -355,6 +355,131 @@ function setupMarkdownIt(md) {
     }
   });
 
+  md.block.bbcode.ruler.push("print", {
+    tag: "print",
+    replace: function(state, tagInfo, content) {
+      let printOption = tagInfo.attrs['_default'];
+
+      let token = state.push("div_open", "div", 1);
+      token.attrs = [["class", "bbcode-print-" + printOption]];
+
+      token = state.push("div_open", "div", 1);
+      token.attrs = [["class", "bbcode-print-top-tear"]];
+
+      state.push("div_close", "div", -1);
+
+      token = state.push("text", "", 0);
+      token.content = content;
+
+      token = state.push("div_open", "div", 1);
+      token.attrs = [["class", "bbcode-print-bottom-tear"]];
+
+      state.push("div_close", "div", -1);
+
+      state.push("div_close", "div", -1);
+
+      return true;
+    }
+  });
+
+  md.block.bbcode.ruler.push("textmessage", {
+    tag: "textmessage",
+    replace: function(state, tagInfo, content) {
+      let textOption = tagInfo.attrs['_default'];
+
+      let token = state.push("div_open", "div", 1);
+      token.attrs = [["class", "bbcode-textmessage"]];
+
+      token = state.push("div_open", "div", 1);
+      token.attrs = [["class", "bbcode-textmessage-name"]];
+
+      token = state.push("text", "", 0);
+      token.content = textOption;
+
+      state.push("div_close", "div", -1);
+
+      token = state.push("div_open", "div", 1);
+      token.attrs = [["class", "bbcode-textmessage-overflow"]];
+
+      token = state.push("div_open", "div", 1);
+      token.attrs = [["class", "bbcode-textmessage-content"]];
+
+      token = state.push("text", "", 0);
+      token.content = content;
+
+      state.push("div_close", "div", -1);
+
+      state.push("div_close", "div", -1);
+
+      state.push("div_close", "div", -1);
+
+      return true;
+    }
+  });
+
+  md.block.bbcode.ruler.push("block", {
+    tag: "block",
+    replace: function(state, tagInfo, content) {
+      let blockOption = tagInfo.attrs['_default'];
+
+      let token = state.push("table_open", "table", 1);
+      token.attrs = [["class", "bbcode-block-" + blockOption]];
+
+      state.push("tr_open", "tr", 1);
+
+      token = state.push("td_open", "td", 1);
+      token.attrs = [["class", "bbcode-block-icon"]];
+
+      state.push("td_close", "td", -1);
+
+      token = state.push("td_open", "td", 1);
+      token.attrs = [["class", "bbcode-block-content"]];
+
+      token = state.push("text", "", 0);
+      token.content = content;
+
+      state.push("td_close", "td", -1);
+
+      state.push("tr_close", "tr", -1);
+
+      state.push("table_close", "table", -1);
+
+      return true;
+    }
+  });
+
+  md.block.bbcode.ruler.push("progress", {
+    tag: "progress",
+    replace: function(state, tagInfo, content) {
+      let progressOption = tagInfo.attrs['_default'];
+
+      let token = state.push("div_open", "div", 1);
+      token.attrs = [["class", "bbcode-progress"]];
+
+      token = state.push("div_open", "div", 1);
+      token.attrs = [["class", "bbcode-progress-text"]];
+
+      token = state.push("text", "", 0);
+      token.content = content;
+
+      state.push("div_close", "div", -1);
+
+      token = state.push("div_open", "div", 1);
+      token.attrs = [["class", "bbcode-progress-bar"], ["style", "width: calc(" + progressOption + "% - 6px);"]];
+
+      state.push("div_close", "div", -1);
+
+      token = state.push("div_open", "div", 1);
+      token.attrs = [["class", "bbcode-progress-bar-other"]];
+
+      state.push("div_close", "div", -1);
+
+      state.push("div_close", "div", -1);
+
+      return true;
+    }
+  });
+
   md.block.bbcode.ruler.push("accordion", accordionRule);
 }
 
@@ -367,6 +492,18 @@ export function setup(helper) {
     "div.bbcode-side-left",
     "div.bbcode-side-right",
     "div.bbcode-blockquote-speaker",
+    "div.bbcode-print-top-tear",
+    "div.bbcode-print-bottom-tear",
+    "div.bbcode-print-line",
+    "div.bbcode-print-graph",
+    "div.bbcode-print-parchment",
+    "div.bbcode-textmessage",
+    "div.bbcode-textmessage-name",
+    "div.bbcode-textmessage-overflow",
+    "div.bbcode-progress",
+    "div.bbcode-progress-text",
+    "div.bbcode-progress-bar",
+    "div.bbcode-progress-bar-other",
     "span.float-right",
     "span.float-left",
     "span.float-center",
@@ -380,6 +517,7 @@ export function setup(helper) {
     "fieldset.bbcode-fieldset",
     "legend",
     "table.bbcode-blockquote",
+    "table.bbcode-block-dice",
     "td.bbcode-blockquote-left",
     "td.bbcode-blockquote-right",
     "td.bbcode-blockquote-content"
@@ -405,6 +543,14 @@ export function setup(helper) {
     custom(tag, name, value) {
       if(tag === "div" && name === "style") {
         return /^(max-width: 100%; padding: 5px; overflow:auto; border: 1px solid; height:[0-9]*px;)$/.exec(value);
+      }
+    }
+  });
+
+  helper.whiteList({
+    custom(tag, name, value) {
+      if(tag === "div" && name === "style") {
+        return /^(width: calc\([0-9]{1,2,3}% - 6px\);)$/.exec(value);
       }
     }
   });

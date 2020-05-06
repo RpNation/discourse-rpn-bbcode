@@ -24,24 +24,6 @@ function wrap(tag, attr, callback) {
 function setupMarkdownIt(md) {
   const ruler = md.inline.bbcode.ruler;
 
-  md.block.bbcode.ruler.push("table", {
-    tag: "table",
-    wrap: function(token, tagInfo) {
-      token.attrs = [['class', "bbcode-table table-style-" + tagInfo.attrs['_default']]];
-      return true;
-    }
-  });
-
-  ruler.push("tr", {
-    tag: "tr",
-    wrap: "span.tr"
-  });
-
-  ruler.push("td", {
-    tag: "td",
-    wrap: "span.td"
-  });
-
   const accordionRule = {
     tag: "accordion",
 
@@ -158,6 +140,16 @@ function setupMarkdownIt(md) {
       let heightOption = tagInfo.attrs['_default'];
       token.attrs = [["style", "max-width: 100%; padding: 5px; overflow:auto; border: 1px solid; height:" + heightOption + ";"]];
       return true;
+    }
+  });
+
+  md.block.bbcode.ruler.push("nobr", {
+    tag: "nobr",
+    wrap: function(token, tagInfo) {
+      let text = token.content;
+
+      text = text.replace(/(\r\n|\n|\r)/gm," ");
+      token.content = text;
     }
   });
 

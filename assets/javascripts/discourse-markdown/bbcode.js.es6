@@ -237,6 +237,10 @@ function setupMarkdownIt(md) {
 
       token = state.push("td_open", "td", 1);
       token.attrs = [["class", "bbcode-blockquote-content"]];
+
+      token = state.push("text", "", 0);
+      token.bbcode_attrs = tagInfo.attrs;
+      token.bbcode_type = "blockquote_open";
     },
     after: function(state, openToken) {
       let token = state.push("div_open", "div", 1);

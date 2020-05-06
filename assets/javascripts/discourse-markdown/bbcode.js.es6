@@ -172,6 +172,24 @@ function setupMarkdownIt(md) {
     }
   });
 
+  ruler.push("column", {
+    tag: "column",
+    wrap: function(startToken, endToken, tagInfo, content) {
+      let columnOption = tagInfo.attrs['_default'];
+
+      startToken.type = "div_open";
+      startToken.tag = "div";
+      startToken.attrs = [["class", "column-width-" + columnOption]];
+      startToken.content = content;
+      startToken.nesting = 1;
+
+      endToken.type = "div_close";
+      endToken.tag = "div";
+      endToken.content = '';
+      endToken.nesting = -1;
+    }
+  });
+
   md.block.bbcode.ruler.push("accordion", accordionRule);
 }
 
@@ -216,6 +234,14 @@ export function setup(helper) {
       }
     }
   });
+
+  helper.whiteList({
+    custom(tag, name, value) {
+      if(tag === "div" && name === "class") {
+        return /^(bbcode-column-width-[1-8])$/.exec(value);
+      }
+    }
+  })
 
   if(helper.markdownIt) {
     helper.registerPlugin(setupMarkdownIt);

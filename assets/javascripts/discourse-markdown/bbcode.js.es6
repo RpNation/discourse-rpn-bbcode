@@ -134,34 +134,6 @@ function setupMarkdownIt(md) {
     }
   });
 
-  /*md.block.bbcode.ruler.push("fieldset", {
-    tag: "fieldset",
-    replace: function(state, tagInfo, content) {
-      let token = state.push("fieldset_open", "fieldset", 1);
-      token.attrs = [["class", "bbcode-fieldset"]];
-
-      token = state.push("legend_open", "legend", 1);
-      token.block = false;
-
-      token = state.push("text", "", 0);
-      token.content = tagInfo.attrs['_default']
-
-      token = state.push("legend_close", "legend", -1);
-
-      token = state.push("span_open", "span", 1);
-      token.block = false;
-
-      token = state.push("inline", "", 0);
-      token.content = content;
-      token.children = [];
-
-      token = state.push("span_close", "span", -1);
-      token = state.push("fieldset_close", "fieldset", -1);
-
-      return true;
-    }
-  });*/
-
   ruler.push("side", {
     tag: "side",
     wrap: function(startToken, endToken, tagInfo, content) {

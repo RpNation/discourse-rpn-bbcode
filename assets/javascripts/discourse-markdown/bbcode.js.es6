@@ -480,6 +480,125 @@ function setupMarkdownIt(md) {
     }
   });
 
+  md.block.bbcode.ruler.push("note", {
+    tag: "note",
+    replace: function(state, tagInfo, content) {
+
+      let token = state.push("div_open", "div", 1);
+      token.attrs = [["class", "bbcode-note"]];
+
+      token = state.push("div_open", "div", 1);
+      token.attrs = [["class", "bbcode-note-tape"]];
+
+      state.push("div_close", "div", -1);
+
+      token = state.push("div_open", "div", 1);
+      token.attrs = [["class", "bbcode-note-content"]];
+
+      token = state.push("text", "", 0);
+      token.content = content;
+
+      token = state.push("div_open", "div", 1);
+      token.attrs = [["class", "bbcode-note-footer"]];
+
+      state.push("div_close", "div", -1);
+
+      state.push("div_close", "div", -1);
+
+      state.push("div_close", "div", -1);
+
+      return true;
+    }
+  });
+
+  md.block.bbcode.ruler.push("mail", {
+    tag: "mail",
+    replace: function(state, tagInfo, content) {
+      let mailOption = tagInfo.attrs['_default'];
+
+      let token = state.push("div_open", "div", 1);
+      token.attrs = [["class", "bbcode-email-" + mailOption]];
+
+      token = state.push("div_open", "div", 1);
+      token.attrs = [["class", "bbcode-email-top-send"]];
+
+      token = state.push("text", "", 0);
+      token.content = "Send New Email";
+
+      state.push("div_close", "div", -1);
+
+      token = state.push("div_open", "div", 1);
+      token.attrs = [["class", "bbcode-email-top-receive"]];
+
+      token = state.push("text", "", 0);
+      token.content = "New Email Received";
+
+      state.push("div_close", "div", -1);
+
+      token = state.push("div_open", "div", 1);
+      token.attrs = [["class", "bbcode-email-first-row"]];
+
+      state.push("div_close", "div", -1);
+
+      token = state.push("div_open", "div", 1);
+      token.attrs = [["class", "bbcode-email-second-row"]];
+
+      state.push("div_close", "div", -1);
+
+      token = state.push("div_open", "div", 1);
+      token.attrs = [["class", "bbcode-email-main"]];
+
+      token = state.push("text", "", 0);
+      token.content = content;
+
+      token = state.push("div_open", "div", 1);
+      token.attrs = [["class", "bbcode-email-footer"]];
+
+      token = state.push("div_open", "div", 1);
+      token.attrs = [["class", "bbcode-email-button"]];
+
+      state.push("div_close", "div", -1);
+
+      state.push("div_close", "div", -1);
+
+      state.push("div_close", "div", -1);
+
+      return true;
+    }
+  });
+
+  ruler.push("person", {
+    tag: "person",
+    wrap: function(startToken, endToken, tagInfo, content) {
+      startToken.type = "div_open";
+      startToken.tag = "div";
+      startToken.attrs = [["class", "bbcode-email-person"]];
+      startToken.content = content;
+      startToken.nesting = 1;
+
+      endToken.type = "div_close";
+      endToken.tag = "div";
+      endToken.content = '';
+      endToken.nesting = -1;
+    }
+  });
+
+  ruler.push("subject", {
+    tag: "subject",
+    wrap: function(startToken, endToken, tagInfo, content) {
+      startToken.type = "div_open";
+      startToken.tag = "div";
+      startToken.attrs = [["class", "bbcode-email-subject"]];
+      startToken.content = content;
+      startToken.nesting = 1;
+
+      endToken.type = "div_close";
+      endToken.tag = "div";
+      endToken.content = '';
+      endToken.nesting = -1;
+    }
+  });
+
   md.block.bbcode.ruler.push("accordion", accordionRule);
 }
 
@@ -500,10 +619,25 @@ export function setup(helper) {
     "div.bbcode-textmessage",
     "div.bbcode-textmessage-name",
     "div.bbcode-textmessage-overflow",
+    "div.bbcode-textmessage-content",
     "div.bbcode-progress",
     "div.bbcode-progress-text",
     "div.bbcode-progress-bar",
     "div.bbcode-progress-bar-other",
+    "div.bbcode-note",
+    "div.bbcode-note-tape",
+    "div.bbcode-note-content",
+    "div.bbcode-note-footer",
+    "div.bbcode-email-send",
+    "div.bbcode-email-receive",
+    "div.bbcode-email-top-send",
+    "div.bbcode-email-top-receive",
+    "div.bbcode-email-first-row",
+    "div.bbcode-email-second-row",
+    "div.bbcode-email-main",
+    "div.bbcode-email-footer",
+    "div.bbcode-email-button",
+    "div.bbcode-email-person",
     "span.float-right",
     "span.float-left",
     "span.float-center",

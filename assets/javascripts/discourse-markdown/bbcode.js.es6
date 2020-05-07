@@ -24,21 +24,6 @@ function wrap(tag, attr, callback) {
 function setupMarkdownIt(md) {
   const ruler = md.inline.bbcode.ruler;
 
-  const accordionRule = {
-    tag: "accordion",
-
-    before: function(state, tagInfo) {
-      const attrs = tagInfo.attrs;
-
-      let token = state.push('div_open', 'div', 1);
-      token.attrs = [["class", "bbcode-accordion"]];
-    },
-
-    after: function(state, openToken, raw) {
-      state.push('div_close', 'div', -1);
-    }
-  }
-
   ruler.push("imagefloat", {
     tag: "imagefloat",
     wrap: function(startToken, endToken, tagInfo, content) {
@@ -222,46 +207,6 @@ function setupMarkdownIt(md) {
     }
   });
 
-  /*md.block.bbcode.ruler.push("blockquote", {
-    tag: "blockquote",
-    before: function(state, tagInfo) {
-      let token = state.push("table_open", "table", 1);
-      token.attrs = [["class", "bbcode-blockquote"]];
-
-      state.push("tr_open", "tr", 1);
-
-      token = state.push("td_open", "td", 1);
-      token.attrs = [["class", "bbcode-blockquote-left"]];
-
-      state.push("td_close", "td", -1);
-
-      token = state.push("td_open", "td", 1);
-      token.attrs = [["class", "bbcode-blockquote-content"]];
-
-      token = state.push("text", "", 0);
-      token.bbcode_attrs = tagInfo.attrs;
-      token.bbcode_type = "blockquote_open";
-    },
-    after: function(state, openToken) {
-      let token = state.push("div_open", "div", 1);
-      token.attrs = [["class", "bbcode-blockquote-speaker"]];
-      token.content = openToken.bbcode_attrs['_default'];
-
-      state.push("div_close", "div", -1);
-
-      state.push("td_close", "td", -1);
-
-      token = state.push("td_open", "td", 1);
-      token.attrs = [["class", "bbcode-blockquote-right"]];
-
-      state.push("td_close", "td", -1);
-
-      state.push("tr_close", "tr", -1);
-
-      state.push("table_close", "table", -1);
-    }
-  });*/
-
   md.block.bbcode.ruler.push("blockquote", {
     tag: "blockquote",
     replace: function(state, tagInfo, content) {
@@ -363,18 +308,8 @@ function setupMarkdownIt(md) {
       let token = state.push("div_open", "div", 1);
       token.attrs = [["class", "bbcode-print-" + printOption]];
 
-      token = state.push("div_open", "div", 1);
-      token.attrs = [["class", "bbcode-print-top-tear"]];
-
-      state.push("div_close", "div", -1);
-
       token = state.push("text", "", 0);
       token.content = content;
-
-      token = state.push("div_open", "div", 1);
-      token.attrs = [["class", "bbcode-print-bottom-tear"]];
-
-      state.push("div_close", "div", -1);
 
       state.push("div_close", "div", -1);
 
@@ -568,6 +503,13 @@ function setupMarkdownIt(md) {
     }
   });
 
+  md.block.bbcode.ruler.push("accordion", {
+    tag: "accordion",
+    replace: function(state, tagInfo, content) {
+      return true;
+    }
+  });
+
   ruler.push("person", {
     tag: "person",
     wrap: function(startToken, endToken, tagInfo, content) {
@@ -633,8 +575,6 @@ function setupMarkdownIt(md) {
       endToken.nesting = -1;
     }
   });
-
-  md.block.bbcode.ruler.push("accordion", accordionRule);
 }
 
 export function setup(helper) {

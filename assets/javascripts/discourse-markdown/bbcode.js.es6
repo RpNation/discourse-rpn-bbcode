@@ -600,6 +600,40 @@ function setupMarkdownIt(md) {
     }
   });
 
+  ruler.push("newspaper", {
+    tag: "newspaper",
+    wrap: function(startToken, endToken, tagInfo, content) {
+      startToken.type = "div_open";
+      startToken.tag = "div";
+      startToken.attrs = [["class", "bbcode-newspaper"]];
+      startToken.content = content;
+      startToken.nesting = 1;
+
+      endToken.type = "div_close";
+      endToken.tag = "div";
+      endToken.content = '';
+      endToken.nesting = -1;
+    }
+  });
+
+  ruler.push("check", {
+    tag: "check",
+    wrap: function(startToken, endToken, tagInfo, content) {
+      let checkOption = tagInfo.attrs['_default'];
+
+      startToken.type = "div_open";
+      startToken.tag = "div";
+      startToken.attrs = [["class", "bbcode-check-" + checkOption]];
+      startToken.content = content;
+      startToken.nesting = 1;
+
+      endToken.type = "div_close";
+      endToken.tag = "div";
+      endToken.content = '';
+      endToken.nesting = -1;
+    }
+  });
+
   md.block.bbcode.ruler.push("accordion", accordionRule);
 }
 
@@ -639,6 +673,10 @@ export function setup(helper) {
     "div.bbcode-email-footer",
     "div.bbcode-email-button",
     "div.bbcode-email-person",
+    "div.bbcode-newspaper",
+    "div.bbcode-check-dot",
+    "div.bbcode-check-check",
+    "div.bbcode-check-cross",
     "span.float-right",
     "span.float-left",
     "span.float-center",

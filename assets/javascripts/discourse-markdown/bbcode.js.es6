@@ -592,7 +592,7 @@ function setupMarkdownIt(md) {
 
       startToken.type = "div_open";
       startToken.tag = "div";
-      startToken.attrs = [["class", "slide"], ["style", slideOption]];
+      startToken.attrs = [["class", "panel"], ["style", slideOption]];
       startToken.content = content;
       startToken.nesting = 1;
 

@@ -503,13 +503,6 @@ function setupMarkdownIt(md) {
     }
   });
 
-  md.block.bbcode.ruler.push("accordion", {
-    tag: "accordion",
-    replace: function(state, tagInfo, content) {
-      return true;
-    }
-  });
-
   ruler.push("person", {
     tag: "person",
     wrap: function(startToken, endToken, tagInfo, content) {
@@ -575,12 +568,28 @@ function setupMarkdownIt(md) {
       endToken.nesting = -1;
     }
   });
+
+  ruler.push("accordion", {
+    tag: "accordion",
+    wrap: function(startToken, endToken, tagInfo, content) {
+      startToken.type = "button_open";
+      startToken.tag = "button";
+      startToken.attrs = [["class", "accordion"]];
+      startToken.content = content;
+      startToken.nesting = 1;
+
+      endToken.type = "button_close";
+      endToken.tag = "button";
+      endToken.content = '';
+      endToken.nesting = -1;
+    }
+  });
 }
 
 export function setup(helper) {
 
   helper.whiteList([
-    "div.bbcode-accordion",
+    "button.accordion",
     "div.bbcode-border",
     "div.bbcode-background",
     "div.bbcode-side-left",

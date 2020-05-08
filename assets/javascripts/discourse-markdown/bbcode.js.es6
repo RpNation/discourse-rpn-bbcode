@@ -584,6 +584,24 @@ function setupMarkdownIt(md) {
       endToken.nesting = -1;
     }
   });
+
+  ruler.push("slide", {
+    tag: "slide",
+    wrap: function(startToken, endToken, tagInfo, content) {
+      let slideOption = tagInfo.attrs['_default'];
+
+      startToken.type = "div_open";
+      startToken.tag = "div";
+      startToken.attrs = [["class", "slide"], ["style", slideOption]];
+      startToken.content = content;
+      startToken.nesting = 1;
+
+      endToken.type = "div_close";
+      endToken.tag = "div";
+      endToken.content = '';
+      endToken.nesting = -1;
+    }
+  });
 }
 
 export function setup(helper) {
@@ -626,6 +644,7 @@ export function setup(helper) {
     "div.bbcode-check-dot",
     "div.bbcode-check-check",
     "div.bbcode-check-cross",
+    "div.slide",
     "span.float-right",
     "span.float-left",
     "span.float-center",

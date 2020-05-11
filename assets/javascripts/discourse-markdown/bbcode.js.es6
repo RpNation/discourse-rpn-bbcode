@@ -633,6 +633,8 @@ function setupMarkdownIt(md) {
       state.push("p_close", "p", -1);
 
       state.push("div_close", "div", -1);
+
+      return true;
     }
   });
 }

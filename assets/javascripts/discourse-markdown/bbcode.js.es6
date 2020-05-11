@@ -605,7 +605,7 @@ function setupMarkdownIt(md) {
 
   md.block.bbcode.ruler.push("tabs", {
     tag: "tabs",
-    wrap: div.rpntab
+    wrap: "div.rpntab"
   });
 
   ruler.push("tab", {

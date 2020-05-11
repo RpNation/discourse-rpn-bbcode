@@ -608,7 +608,7 @@ function setupMarkdownIt(md) {
     wrap: "div.rpntab"
   });
 
-  ruler.push("tab", {
+  md.block.bbcode.ruler.push("tab", {
     tag: "tab",
     replace: function(state, tagInfo, content) {
       let tabTitle = tagInfo.attrs['_default'];

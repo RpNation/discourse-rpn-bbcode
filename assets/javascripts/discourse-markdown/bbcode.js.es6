@@ -602,12 +602,46 @@ function setupMarkdownIt(md) {
       endToken.nesting = -1;
     }
   });
+
+  md.block.bbcode.ruler.push("tabs", {
+    tag: "tabs",
+    wrap: div.rpntab
+  });
+
+  ruler.push("tab", {
+    tag: "tab",
+    replace: function(state, tagInfo, content) {
+      let tabTitle = tagInfo.attrs['_default'];
+
+      let token = state.push("button_open", "button", 1);
+      token.attrs = [["class", "rpntablinks"], ["onclick", "openRPNTab(event, '" + tabTitle + "')"]];
+      token.content = tabTitle;
+
+      state.push("button_close", "button", -1);
+
+      token = state.push("div_open", "div", 1);
+      token.attrs = [["id", tabTitle], ["class", "rpntabcontent"]];
+
+      token = state.push("h3_open", "h3", 1);
+      token.content = tabTitle;
+
+      state.push("h3_close", "h3", -1);
+
+      token = state.push("p_open", "p", 1);
+      token.content = content;
+
+      state.push("p_close", "p", -1);
+
+      state.push("div_close", "div", -1);
+    }
+  });
 }
 
 export function setup(helper) {
 
   helper.whiteList([
     "button.accordion",
+    "button.rpntablinks",
     "div.bbcode-border",
     "div.bbcode-background",
     "div.bbcode-side-left",
@@ -644,6 +678,8 @@ export function setup(helper) {
     "div.bbcode-check-dot",
     "div.bbcode-check-check",
     "div.bbcode-check-cross",
+    "div.rpntab",
+    "div.rpntabcontent",
     "div.slide",
     "span.float-right",
     "span.float-left",
@@ -708,6 +744,14 @@ export function setup(helper) {
     custom(tag, name, value) {
       if(tag === "span" && name === "style") {
         return /^(display: inline-block; text-indent:2\.5em)$/.exec(value);
+      }
+    }
+  });
+
+  helper.whiteList({
+    custom(tag, name, value) {
+      if(tag === "button" && name === "onclick") {
+        return /^(openRPNTab\(event, (\w*)\))$/.exec(value);
       }
     }
   });

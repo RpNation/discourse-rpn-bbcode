@@ -615,7 +615,10 @@ function setupMarkdownIt(md) {
 
       let token = state.push("button_open", "button", 1);
       token.attrs = [["class", "rpntablinks"], ["onclick", "openRPNTab(event, '" + tabTitle + "')"]];
+
+      token = state.push("inline", "", 0);
       token.content = tabTitle;
+      token.children = [];
 
       state.push("button_close", "button", -1);
 
@@ -623,12 +626,18 @@ function setupMarkdownIt(md) {
       token.attrs = [["id", tabTitle], ["class", "rpntabcontent"]];
 
       token = state.push("h3_open", "h3", 1);
+
+      token = state.push("inline", "", 0);
       token.content = tabTitle;
+      token.children = [];
 
       state.push("h3_close", "h3", -1);
 
       token = state.push("p_open", "p", 1);
+
+      token = state.push("inline", "", 0);
       token.content = content;
+      token.children = [];
 
       state.push("p_close", "p", -1);
 
@@ -753,7 +762,7 @@ export function setup(helper) {
   helper.whiteList({
     custom(tag, name, value) {
       if(tag === "button" && name === "onclick") {
-        return /^(openRPNTab\(event, (\w*)\))$/.exec(value);
+        return /^(openRPNTab\(event, '(\w*)'\))$/.exec(value);
       }
     }
   });

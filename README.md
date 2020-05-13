@@ -5,7 +5,9 @@ Official RpNation BBCodes for Discourse
 See: [https://www.rpnation.com]
 
 Ⓜ️ = BBCode dropped in favor of Markdown Equvilient. In the case of Media & Embeds use Discourse iframe whitelisting, since that is what Challenge and GDOcs technically did in xF.
+
 🚧 = In progress or needs class
+
 ✔️ = Complete
 
 |     Text Formating      | Layout & Design |    Media & Embeds    |      Aesthetics      |

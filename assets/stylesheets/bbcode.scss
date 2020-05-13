@@ -224,15 +224,15 @@ Tabs......................BBCODE-015
 
 	&-line {
 		@extend .bbcode-print;
-		background-image: url($paper-top3), url($paper-bottom3), url($paperlined);
+		background-image: url("/plugins/discourse-rpn-bbcode/images/paper-top3.png"), url("/plugins/discourse-rpn-bbcode/images/paper-bottom3.png"), url("/plugins/discourse-rpn-bbcode/images/paperlined.jpg");
 	}
 	&-graph {
 		@extend .bbcode-print;
-		background-image: url($paper-top3), url($paper-bottom3), url($papergraph);
+		background-image: url("/plugins/discourse-rpn-bbcode/images/paper-top3.png"), url("/plugins/discourse-rpn-bbcode/images/paper-bottom3.png"), url("/plugins/discourse-rpn-bbcode/images/papergraph.jpg");
 	}
 	&-parchment {
 		@extend .bbcode-print;
-		background-image: url($paper-top3), url($paper-bottom3), url($paperparchment);
+		background-image: url("/plugins/discourse-rpn-bbcode/images/paper-top3.png"), url("/plugins/discourse-rpn-bbcode/images/paper-bottom.png"), url("/plugins/discourse-rpn-bbcode/images/paperparchment");
 	}
 }
 
@@ -251,7 +251,7 @@ Tabs......................BBCODE-015
 	height: 30px;
 	line-height: 30px;
 	background-color: #2980b9;
-	background-image: url($email-top);
+	background-image: url("/plugins/discourse-rpn-bbcode/images/email-top.png");
 	background-repeat: no-repeat;
 	background-position: 100%;
 	color: #2980b9;
@@ -375,7 +375,7 @@ Tabs......................BBCODE-015
 			-moz-column-count: 3; /* Firefox */
 			column-count: 3;
 			padding: 10px;
-			background: url($paper);
+			background: url("/plugins/discourse-rpn-bbcode/images/paper.png");
 			border: 1px solid #2980b9;
 			color: black;
 		}
@@ -410,7 +410,7 @@ Tabs......................BBCODE-015
 			margin: 0 auto;
 			margin-top: 25px !important;
 			font-family: 'Coming Soon', 'Architects Daughter', cursive;
-			background: #FCF0AD url($notecorner) 100% 100% no-repeat;
+			background: #FCF0AD url("/plugins/discourse-rpn-bbcode/images/notecorner.jpg") 100% 100% no-repeat;
 			position: relative;
 			color: black;
 		}

@@ -754,7 +754,7 @@ export function setup(helper) {
         return /^(\w)*$/.exec(value);
       }
     }
-  })
+  });
 
   helper.whiteList({
     custom(tag, name, value) {

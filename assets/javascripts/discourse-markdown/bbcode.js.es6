@@ -625,13 +625,6 @@ function setupMarkdownIt(md) {
       token = state.push("div_open", "div", 1);
       token.attrs = [["id", tabTitle + "_" + randomizer], ["class", "rpntabcontent"]];
 
-      token = state.push("h3_open", "h3", 1);
-
-      token = state.push("text", "", 0);
-      token.content = tabTitle;
-
-      state.push("h3_close", "h3", -1);
-
       token = state.push("p_open", "p", 1);
 
       token = state.push("text", "", 0);

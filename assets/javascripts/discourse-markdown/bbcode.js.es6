@@ -750,6 +750,14 @@ export function setup(helper) {
 
   helper.whiteList({
     custom(tag, name, value) {
+      if(tag === "div" && name === "id") {
+        return /^(\w)*$/.exec(value);
+      }
+    }
+  })
+
+  helper.whiteList({
+    custom(tag, name, value) {
       if(tag === "span" && name === "style") {
         return /^(display: inline-block; text-indent:2\.5em)$/.exec(value);
       }

@@ -735,7 +735,7 @@ export function setup(helper) {
   helper.whiteList({
     custom(tag, name, value) {
       if(tag === "div" && name === "style") {
-        return /^(width: calc\([0-9]{1,2,3}% - 6px\);)$/.exec(value);
+        return /^(width: calc\(([0-9]|[1-9][0-9]|(100))% - 6px\);)$/.exec(value);
       }
     }
   });

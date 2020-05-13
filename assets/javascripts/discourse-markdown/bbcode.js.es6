@@ -617,10 +617,9 @@ function setupMarkdownIt(md) {
     tag: "tab",
     replace: function(state, tagInfo, content) {
       let tabTitle = tagInfo.attrs['_default'];
-      let randomizer = Math.floor(Math.random() * 1000000000000) + 100000000;
 
       let token = state.push("button_open", "button", 1);
-      token.attrs = [["class", "rpntablinks"], ["onclick", "openRPNTab(event, '" + tabTitle + "_" + randomizer + "')"]];
+      token.attrs = [["class", "rpntablinks"], ["onclick", "openRPNTab(event)"]];
 
       token = state.push("text", "", 0);
       token.content = tabTitle;
@@ -628,7 +627,7 @@ function setupMarkdownIt(md) {
       state.push("button_close", "button", -1);
 
       token = state.push("div_open", "div", 1);
-      token.attrs = [["id", tabTitle + "_" + randomizer], ["class", "rpntabcontent"]];
+      token.attrs = [["class", "rpntabcontent"]];
 
       token = state.push("p_open", "p", 1);
 
@@ -767,7 +766,7 @@ export function setup(helper) {
   helper.whiteList({
     custom(tag, name, value) {
       if(tag === "button" && name === "onclick") {
-        return /^(openRPNTab\(event, '(\w*)'\))$/.exec(value);
+        return /^(openRPNTab\(event\))$/.exec(value);
       }
     }
   });

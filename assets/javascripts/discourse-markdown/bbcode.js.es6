@@ -42,6 +42,11 @@ function setupMarkdownIt(md) {
     }
   });
 
+  ruler.push("highlight", {
+    tag: "highlight",
+    wrap: "span.bbcodeHighlight"
+  });
+
   ruler.push("border", {
     tag: "border",
     wrap: function(startToken, endToken, tagInfo, content) {
@@ -691,6 +696,7 @@ export function setup(helper) {
     "span.bbcode-horizontal-rule-dotted-thick",
     "span.inlineSpoiler",
     "span.bbcode-justify",
+    "span.bbcodeHighlight",
     "sub.bbcode-sub",
     "sup.bbcode_sup",
     "fieldset.bbcode-fieldset",

@@ -27,4 +27,5 @@ See: [https://www.rpnation.com]
 |                         |    Anchors ❓    |                      |                      |
 
 <sup>1</sup> Headers & Subheaders can be rebaked into the equvilient number of #
+
 <sup>2</sup>This bbcode is no longer needed. Discourse accepts the proper HTML comment tag in the Markdown engine. Example: `<!--This is a comment. Comments are not displayed in the browser-->`

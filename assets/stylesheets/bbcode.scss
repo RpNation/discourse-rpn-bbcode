@@ -14,6 +14,9 @@ Check.....................BBCODE-012
 Newspaper.................BBCODE-013
 Note......................BBCODE-014
 Tabs......................BBCODE-015
+Blockquotes...............BBCODE-016
+Highlight.................BBCODE-017
+Progress Bar..............BBCODE-018
 */
 
 @import "common/foundation/variables";
@@ -500,3 +503,98 @@ Tabs......................BBCODE-015
   border: 1px solid #ccc;
   border-top: none;
 }
+
+/*************************************************
+*** Blockquote                       BBCODE-016***
+*************************************************/
+
+.bbcode-blockquote {
+	position: relative;
+	overflow: hidden;
+	height: 50px;
+	margin: 0 auto;
+	clear: both;
+}
+
+.bbcode-blockquote td {
+	border-style: none;
+}
+
+.bbcode-blockquote .bbcode-blockquote-content {
+	border-left: 3px dotted #2980b9;
+	border-right: 3px dotted #2980b9;
+}
+
+.bbcode-blockquote .bbcode-blockquote-left,
+.bbcode-blockquote .bbcode-blockquote-right {
+	width: 50px;
+}
+	.bbcode-blockquote .bbcode-blockquote-left {
+		background: url('/plugins/discourse-rpn-bbcode/images/greyleftquote.png') 50% 0 no-repeat;
+	}
+	.bbcode-blockquote .bbcode-blockquote-right {
+		background: url('/plugins/discourse-rpn-bbcode/images/greyrightquote.png') 50% 100% no-repeat;
+	}
+
+.bbcode-blockquote .bbcode-blockquote-speaker {
+	clear: both;
+	width: 100%;
+	text-align: right;
+	color: #2980b9;
+}
+	.bbcode-blockquote .bbcode-blockquote-speaker:before {
+		content: "~";
+		margin: 0 10px;
+	}
+
+	/*************************************************
+	*** Highlight                        BBCODE-017***
+	*************************************************/
+
+	.bbcodeHighlight {
+		background: #2980b9;
+		padding: 0 5px;
+	}
+
+	/*************************************************
+	*** Progress Bar                     BBCODE-018***
+	*************************************************/
+
+	.bbcode-progress {
+		height: 30px;
+		font-size: 12px;
+		color: @xf-paletteNeutral2;
+		border: 1px solid #2980b9;
+		position: relative;
+	}
+
+	.bbcode-progress .bbcode-progress-bar {
+		background: #66d36b;
+		height: 24px;
+		margin: 3px;
+		position: absolute;
+		z-index: 20;
+	}
+
+	.bbcode-progress .bbcode-progress-bar-other {
+		background: @xf-paletteNeutral2;
+		margin: 3px;
+		height: 24px;
+	}
+	.bbcode-progress-color .bbcode-progress-bar-other {
+		background: #28669a;
+	}
+
+	.bbcode-progress .bbcode-progress-text {
+		position: absolute;
+		left: 0;
+		top: 0;
+		margin: 3px;
+		line-height: 24px;
+		padding-left: 5px;
+		z-index: 21;
+	}
+
+	.bbcode-progress-color .bbcode-progress-bar {
+		border-right: 2px solid #2980b9 Still;
+	}

@@ -5,4 +5,3 @@
 # version: 0.1
 # authors: Ghan
 # url: https://github.com/Ghan04/discourse-rpn-bbcode
-register_asset "javascripts/tabs.js"

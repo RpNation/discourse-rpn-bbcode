@@ -42,6 +42,11 @@ function setupMarkdownIt(md) {
     }
   });
 
+  ruler.push("highlight", {
+    tag: "highlight",
+    wrap: "span.bbcodeHighlight"
+  });
+
   ruler.push("border", {
     tag: "border",
     wrap: function(startToken, endToken, tagInfo, content) {
@@ -612,9 +617,10 @@ function setupMarkdownIt(md) {
     tag: "tab",
     replace: function(state, tagInfo, content) {
       let tabTitle = tagInfo.attrs['_default'];
+      let randomizer = Math.floor(Math.random() * 1000000000000) + 100000000;
 
       let token = state.push("button_open", "button", 1);
-      token.attrs = [["class", "rpntablinks"], ["onclick", "openRPNTab(event, '" + tabTitle + "')"]];
+      token.attrs = [["class", "rpntablinks"], ["onclick", "openRPNTab(event, '" + tabTitle + "_" + randomizer + "')"]];
 
       token = state.push("text", "", 0);
       token.content = tabTitle;
@@ -622,14 +628,7 @@ function setupMarkdownIt(md) {
       state.push("button_close", "button", -1);
 
       token = state.push("div_open", "div", 1);
-      token.attrs = [["id", tabTitle], ["class", "rpntabcontent"]];
-
-      token = state.push("h3_open", "h3", 1);
-
-      token = state.push("text", "", 0);
-      token.content = tabTitle;
-
-      state.push("h3_close", "h3", -1);
+      token.attrs = [["id", tabTitle + "_" + randomizer], ["class", "rpntabcontent"]];
 
       token = state.push("p_open", "p", 1);
 
@@ -697,6 +696,7 @@ export function setup(helper) {
     "span.bbcode-horizontal-rule-dotted-thick",
     "span.inlineSpoiler",
     "span.bbcode-justify",
+    "span.bbcodeHighlight",
     "sub.bbcode-sub",
     "sup.bbcode_sup",
     "fieldset.bbcode-fieldset",
@@ -744,6 +744,14 @@ export function setup(helper) {
     custom(tag, name, value) {
       if(tag === "div" && name === "class") {
         return /^(bbcode-column-width-[1-8])$/.exec(value);
+      }
+    }
+  });
+
+  helper.whiteList({
+    custom(tag, name, value) {
+      if(tag === "div" && name === "id") {
+        return /^(\w*)$/.exec(value);
       }
     }
   });

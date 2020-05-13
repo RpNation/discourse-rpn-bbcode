@@ -6,7 +6,7 @@ See: [https://www.rpnation.com]
 
 Ⓜ️ = BBCode dropped in favor of Markdown Equvilient. In the case of Media & Embeds use Discourse iframe whitelisting, since that is what Challenge and GDOcs technically did in xF.
 
-🚧 = In progress or needs class
+🚧 = In progress or needs CSS
 
 ✔️ = Complete
 
@@ -15,7 +15,7 @@ See: [https://www.rpnation.com]
 | Headers & Sub-Headers Ⓜ️ |   Dividers ✔️    | Google Docs(PDF) Ⓜ️ 🚧 |       Print ✔️        |
 |      Highlights 🚧       |  Image Float ✔️  |  Height Restrict 🚧   |    Text Message 🚧    |
 |    Justified Text ✔️     |   Fieldsets ✔️   |    Challonge Ⓜ️ 🚧     |       Blocks ❓       |
-|      Blockquotes 🚧      |     Sides ✔️     |                      |     Progress Bar     |
+|      Blockquotes 🚧      |     Sides ✔️     |                      |     Progress Bar 🚧     |
 |      Sub Script ✔️       |     Tabs 🚧      |                      |    Sticky Note 🚧     |
 |     Super Script ✔️      |    Tables ❓     |                      |        Mail 🚧        |
 |  Google Font Library 🚧  | Center Block ❓  |                      |     Newspaper ✔️      |

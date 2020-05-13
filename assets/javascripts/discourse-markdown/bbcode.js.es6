@@ -615,7 +615,7 @@ function setupMarkdownIt(md) {
       let randomizer = Math.floor(Math.random() * 1000000000000) + 100000000;
 
       let token = state.push("button_open", "button", 1);
-      token.attrs = [["class", "rpntablinks"], ["onclick", "openRPNTab(event, '" + tabTitle + "_" + randomizer"')"]];
+      token.attrs = [["class", "rpntablinks"], ["onclick", "openRPNTab(event, '" + tabTitle + "_" + randomizer + "')"]];
 
       token = state.push("text", "", 0);
       token.content = tabTitle;

@@ -751,7 +751,7 @@ export function setup(helper) {
   helper.whiteList({
     custom(tag, name, value) {
       if(tag === "div" && name === "id") {
-        return /^(\w)*$/.exec(value);
+        return /^(\w*)$/.exec(value);
       }
     }
   });

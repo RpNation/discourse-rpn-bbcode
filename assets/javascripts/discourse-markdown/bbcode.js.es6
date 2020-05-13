@@ -647,7 +647,7 @@ export function setup(helper) {
 
   helper.whiteList([
     "button.accordion",
-    "button.rpntablinks",
+    "button.rpntablinks[onclick=openRPNTab(event)]",
     "div.bbcode-border",
     "div.bbcode-background",
     "div.bbcode-side-left",
@@ -759,14 +759,6 @@ export function setup(helper) {
     custom(tag, name, value) {
       if(tag === "span" && name === "style") {
         return /^(display: inline-block; text-indent:2\.5em)$/.exec(value);
-      }
-    }
-  });
-
-  helper.whiteList({
-    custom(tag, name, value) {
-      if(tag === "button" && name === "onclick") {
-        return /^(openRPNTab\(event\))$/.exec(value);
       }
     }
   });

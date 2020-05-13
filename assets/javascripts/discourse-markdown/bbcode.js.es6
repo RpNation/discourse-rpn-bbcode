@@ -647,7 +647,7 @@ export function setup(helper) {
 
   helper.whiteList([
     "button.accordion",
-    "button.rpntablinks[onclick=openRPNTab(event)]",
+    "button.rpntablinks[onclick='openRPNTab(event)']",
     "div.bbcode-border",
     "div.bbcode-background",
     "div.bbcode-side-left",

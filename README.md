@@ -15,8 +15,8 @@ See: [https://www.rpnation.com]
 | Headers & Sub-Headers<sup>1</sup> Ⓜ️ |   Dividers ✔️    | Google Docs(PDF) Ⓜ️ 🚧 |       Print ✔️        |
 |      Highlights 🚧       |  Image Float ✔️  |  Height Restrict 🚧   |    Text Message 🚧    |
 |    Justified Text ✔️     |   Fieldsets ✔️   |    Challonge Ⓜ️ 🚧     |       Blocks ❓       |
-|      Blockquotes 🚧      |     Sides ✔️     |                      |     Progress Bar 🚧     |
-|      Sub Script ✔️       |     Tabs 🚧      |                      |    Sticky Note 🚧     |
+|      Blockquotes 🚧      |     Sides ✔️     |                      |     Progress Bar ✔️     |
+|      Sub Script ✔️       |     Tabs ✔️      |                      |    Sticky Note 🚧     |
 |     Super Script ✔️      |    Tables ❓     |                      |        Mail 🚧        |
 |  Google Font Library 🚧  | Center Block ❓  |                      |     Newspaper ✔️      |
 |     HTML Comment<sup>2</sup> Ⓜ️      |  Background ✔️   |                      |       Checks ✔️       |

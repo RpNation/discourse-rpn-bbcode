@@ -1,0 +1,502 @@
+/*
+Image Float...............BBCODE-001
+Border....................BBCODE-002
+Background................BBCODE-003
+Fieldset..................BBCODE-004
+Side......................BBCODE-005
+Divider...................BBCODE-006
+Rows & Columns............BBCODE-007
+Inline Spoiler............BBCODE-008
+Justify...................BBCODE-009
+Print.....................BBCODE-010
+Email.....................BBCODE-011
+Check.....................BBCODE-012
+Newspaper.................BBCODE-013
+Note......................BBCODE-014
+Tabs......................BBCODE-015
+*/
+
+@import "common/foundation/variables";
+
+/*************************************************
+*** Image Float                      BBCODE-001***
+*************************************************/
+.float-left,
+.float-right {
+	display: block;
+	margin: 10px;
+	max-width: calc(50% - 10px) !important;
+}
+.float-left  { float: left; margin-left: 0; }
+.float-right { float: right; margin-right: 0; }
+
+
+/*************************************************
+*** Border                           BBCODE-002***
+*************************************************/
+.bbcode-border {
+	padding: 10px;
+	border-style: solid;
+	border-width: 1px;
+	border-color: #2980b9;
+}
+	.bbcode-border .bbcode-background {
+		margin: -10px;
+}
+
+/*************************************************
+*** Background                       BBCODE-003***
+*************************************************/
+.bbcode-background {
+	padding: 10px;
+	color: black;
+}
+
+/*************************************************
+*** Fieldset                         BBCODE-004***
+*************************************************/
+
+.bbcode-fieldset {
+	width: 95%;
+	margin: 0 auto;
+	clear: both;
+	border: 1px solid #2980b9;
+	padding: 10px;
+}
+.bbcode-fieldset legend {
+	margin-left: 3%;
+	font-weight: 700;
+	color: #2980b9;
+	padding: 0 10px;
+}
+
+.bbcode-fieldset span {
+	color: #2980b9;
+}
+@media screen and (max-width: 800px) {
+	.bbcode-fieldset {
+		width: 90%;
+	}
+}
+
+/*************************************************
+*** Side                             BBCODE-005***
+*************************************************/
+
+.bbcode-side {
+	clear: both;
+	width: 21%;
+	border-left: 3px dotted #2980b9;
+	border-right: 3px dotted #2980b9;
+	padding: 2%;
+	font-size: 75%;
+}
+.bbcode-side-left {
+	float: left;
+	margin: 1em 1em 1em 0;
+	clear: left;
+	@extend .bbcode-side;
+}
+.bbcode-side-right {
+	float: right;
+	margin: 1em 0 1em 1em;
+	clear: right;
+	@extend .bbcode-side;
+}
+
+@media screen and (max-width: 800px) {
+	.bbcode-side,
+	.bbcode-side-right,
+	.bbcode-side-left {
+		width: 80%;
+		float: none;
+		clear: both;
+	}
+}
+
+/*************************************************
+*** Divider                          BBCODE-006***
+*************************************************/
+
+.bbcode-horizontal-rule {
+	border-bottom: 1px solid #2980b9;
+	color: #2980b9;
+	font-size: 75%;
+	width: 100%;
+	display: block;
+	text-align: center;
+  &-thick {
+    @extend .bbcode-horizontal-rule;
+    border-bottom: 3px solid #2980b9;
+  }
+}
+
+.bbcode-horizontal-rule-dotted {
+  @extend .bbcode-horizontal-rule;
+	border-bottom: 1px dotted #2980b9;
+}
+
+.bbcode-horizontal-rule-dotted-thick,
+.bbcode-horizontal-rule-thick-dotted {
+  @extend .bbcode-horizontal-rule;
+	border-bottom: 3px dotted #2980b9;
+}
+
+
+/*************************************************
+*** Rows & Columns                   BBCODE-007***
+*************************************************/
+
+.bbcode-row {
+	width: 100%;
+	clear: both;
+	overflow: hidden;
+	margin: 0;
+}
+
+.bbcode-row .bbcode-column {
+	margin: 0 0.5%;
+	padding: 0 0.5%;
+	float: left;
+}
+
+.bbcode-row .column-width-span1 	{	width: 10.5%;	} /*12.5*/
+.bbcode-row .column-width-span2 	{	width: 23%;	} /*25*/
+.bbcode-row .column-width-span3 	{	width: 35.5%;	} /*37.5*/
+.bbcode-row .column-width-span4 	{	width: 48%;	} /*50*/
+.bbcode-row .column-width-span5 	{	width: 60.5%;	} /*62.5*/
+.bbcode-row .column-width-span6 	{	width: 73%;	} /*75*/
+.bbcode-row .column-width-span7 	{	width: 85.5%;	} /*87.5*/
+.bbcode-row .column-width-span8 	{	width: 98%;	} /*100*/
+
+@media screen and (max-width: 900px) {
+.bbcode-row .column-width-span1,
+.bbcode-row .column-width-span2,
+.bbcode-row .column-width-span3,
+.bbcode-row .column-width-span4,
+.bbcode-row .column-width-span5,
+.bbcode-row .column-width-span6,
+.bbcode-row .column-width-span7,
+.bbcode-row .column-width-span8 	{	width: 100%;	} /*12.5*/
+
+.bbcode-row .bbcode-column {
+	margin: 0;
+	padding: 0;
+	float: none;
+}
+
+}
+
+/*************************************************
+*** Inline Spoiler                   BBCODE-008***
+*************************************************/
+.inlineSpoiler {
+	background-color: black;
+	padding: 0 5px;
+}
+.inlineSpoiler:hover {
+	background: #2980b9;
+}
+
+/*************************************************
+*** Justifiy                         BBCODE-009***
+*************************************************/
+.bbcode-justify {
+	display: block;
+	text-align:justify;
+}
+
+/*************************************************
+*** Print                            BBCODE-010***
+*************************************************/
+
+ .bbcode-print {
+	font-family: 'Coming Soon', 'Architects Daughter', cursive;
+	font-size: 16px;
+	width: auto;
+	margin: 0 auto;
+	background-image: url($paper-top3), url($paper-bottom3), url($paper);
+	background-position: 50% 0, 50% 100%, center;
+	background-repeat: no-repeat, no-repeat, repeat;
+	background-size: auto 65px, auto 65px, 400px 400px ;
+	padding: calc(15px + 65px) 25px;
+	line-height: 25px;
+
+	&-line {
+		@extend .bbcode-print;
+		background-image: url($paper-top3), url($paper-bottom3), url($paperlined);
+	}
+	&-graph {
+		@extend .bbcode-print;
+		background-image: url($paper-top3), url($paper-bottom3), url($papergraph);
+	}
+	&-parchment {
+		@extend .bbcode-print;
+		background-image: url($paper-top3), url($paper-bottom3), url($paperparchment);
+	}
+}
+
+/*************************************************
+*** Email                            BBCODE-011***
+*************************************************/
+.bbcode-email {
+	border: 1px solid #2980b9;
+	width: calc(100% - 2px);
+	background: #2980b9;
+	position: relative;
+}
+
+.bbcode-email-top-send,
+.bbcode-email-top-receive {
+	height: 30px;
+	line-height: 30px;
+	background-color: #2980b9;
+	background-image: url($email-top);
+	background-repeat: no-repeat;
+	background-position: 100%;
+	color: #2980b9;
+	padding: 0 10px;
+	display: none;
+}
+
+.bbcode-email-receive .bbcode-email-top-receive,
+.bbcode-email-send .bbcode-email-top-send,
+.bbcode-email .bbcode-email-top-send {
+	display: block;
+	color: white;
+}
+	.bbcode-email-receive .bbcode-email-top-send {
+		display: none;
+	}
+
+.bbcode-email-first-row,
+.bbcode-email-second-row {
+	color: #2980b9;
+	height: 35px;
+	line-height: 35px;
+	padding: 0 10px;
+	border-bottom: 1px solid #2980b9;
+}
+
+.bbcode-email-send .bbcode-email-first-row:before,
+.bbcode-email .bbcode-email-first-row:before {
+	content: "To:";
+}
+.bbcode-email-send .bbcode-email-receive .bbcode-email-receive .bbcode-email-first-row:after, .bbcode-email-first-row:after{
+	content: "Cc    Bcc";
+	position: absolute;
+	right: 10px;
+}
+.bbcode-email-receive .bbcode-email-first-row:before {
+	content: "From:";
+}
+.bbcode-email-second-row:before {
+	content: "Subject:";
+}
+.bbcode-email-person,
+.bbcode-email-subject {
+	height: 35px;
+	line-height: 35px;
+	position: absolute;
+}
+	.bbcode-email-person {
+		left: 40px;
+		top: 30px;
+	}
+	.bbcode-email-receive .bbcode-email-person {
+		left: 58px;
+	}
+	.bbcode-email-subject {
+		left: 70px;
+		top: 66px;
+	}
+
+.bbcode-email-main {
+	padding: 10px;
+}
+
+.bbcode-email-footer {
+	height: 40px;
+	line-height: 40px;
+	background: #2980b9;
+	border-top: 1px solid #2980b9;
+}
+
+.bbcode-email-button {
+	background: #2980b9;
+	color: black;
+	border-radius: 8px;
+	width: 80px;
+	margin: 5px;
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+}
+	.bbcode-email-button:before {
+		content: "Send";
+	}
+
+	.bbcode-email-receive .bbcode-email-button:before {
+		content: "Reply";
+	}
+
+	/*************************************************
+	*** Check                            BBCODE-012***
+	*************************************************/
+
+	.bbcode-check {
+		width: 30px;
+		display: inline-block;
+		text-align: center;
+	}
+		.bbcode-check-dot:before {
+			content: "◉";
+			color: #3498DB;
+			@extend .bbcode-check;
+		}
+		.bbcode-check-check:before {
+			content: "✓";
+			color: #00b300;
+			@extend .bbcode-check;
+		}
+		.bbcode-check-cross:before {
+			content: "✘";
+			color: #b30000;
+			@extend .bbcode-check;
+		}
+
+		/*************************************************
+		*** Newspaper                        BBCODE-013***
+		*************************************************/
+		.bbcode-newspaper {
+			font-family: "Times New Roman", Georgia, Serif;
+			text-align: justify;
+			-webkit-column-count: 3; /* Chrome, Safari, Opera */
+			-moz-column-count: 3; /* Firefox */
+			column-count: 3;
+			padding: 10px;
+			background: url($paper);
+			border: 1px solid #2980b9;
+			color: black;
+		}
+			.bbcode-newspaper .post-heading,
+			.bbcode-newspaper .post-sub-heading  {
+				font-family: "Times New Roman", Georgia, Serif;
+			}
+
+		@media screen and (max-width: 1000px) {
+			.bbcode-newspaper {
+				-webkit-column-count: 2; /* Chrome, Safari, Opera */
+				-moz-column-count: 2; /* Firefox */
+				column-count: 2;
+			}
+		}
+		@media screen and (max-width: 750px) {
+			.bbcode-newspaper {
+				-webkit-column-count: 1; /* Chrome, Safari, Opera */
+				-moz-column-count: 1; /* Firefox */
+				column-count: 1;
+			}
+		}
+
+		/*************************************************
+		*** Note                             BBCODE-014***
+		*************************************************/
+/*
+		.bbcode-note {
+			max-width: 450px;
+			padding: 20px;
+			line-height: 1.75em;
+			margin: 0 auto;
+			margin-top: 25px !important;
+			font-family: 'Coming Soon', 'Architects Daughter', cursive;
+			background: #FCF0AD url($notecorner) 100% 100% no-repeat;
+			position: relative;
+			color: black;
+		}
+
+		.bbcode-note .bbcode-note-content {
+			overflow: hidden;
+		}
+
+		.bbcode-note .bbcode-note-footer {
+			height: 50px;
+			width: 50px;
+			float: right;
+		}
+
+		.bbcode-note .bbcode-note-tape {
+			background-color: hsla(0,0%,100%,.5);
+			box-shadow: inset 0 0 1em .5em hsla(0,0%,100%,.1);
+			height: 3em;
+			position: absolute;
+			transform: rotate(-4deg);
+			width: 9em;
+			-webkit-filter: drop-shadow(0 1px 1px hsla(0,0%,0%,.3));
+			top: -1.5em;
+			left: 50%;
+			margin-left: -4.5em;
+		}
+			.bbcode-note .bbcode-note-tape:after,
+			.bbcode-note .bbcode-note-tape:before {
+				background-size: .4em .4em;
+				bottom: 0;
+				content: '';
+				position: absolute;
+				top: 0;
+				width: .2em;
+			}
+				.bbcode-note .bbcode-note-tape:after {
+					background-image: linear-gradient(45deg, transparent 50%, hsla(0,0%,100%,.3) 50%),
+									  linear-gradient(-45deg, transparent 50%, hsla(0,0%,100%,.3) 50%);
+					background-position: 0 100%;
+					left: -.2em;
+				}
+				.bbcode-note .bbcode-note-tape:before {
+					background-image: linear-gradient(135deg, transparent 50%, hsla(0,0%,100%,.3) 50%),
+									  linear-gradient(-135deg, transparent 50%, hsla(0,0%,100%,.3) 50%);
+					background-position: 100% 100%;
+					right: -.2em;
+				}
+*/
+
+/*************************************************
+*** Tabs                             BBCODE-015***
+*************************************************/
+
+/* Style the tab */
+.rpntab {
+  overflow: hidden;
+  border: 1px solid #ccc;
+  background-color: #f1f1f1;
+}
+
+/* Style the buttons inside the tab */
+.rpntab button {
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+  font-size: 17px;
+}
+
+/* Change background color of buttons on hover */
+.rpntab button:hover {
+  background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.rpntab button.active {
+  background-color: #ccc;
+}
+
+/* Style the tab content */
+.rpntabcontent {
+  display: none;
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-top: none;
+}

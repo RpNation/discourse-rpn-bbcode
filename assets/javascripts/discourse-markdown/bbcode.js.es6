@@ -621,9 +621,8 @@ function setupMarkdownIt(md) {
 
       state.push("div_close", "div", -1);
 
-      token = state.push("inline", "", 0);
+      token = state.push("text", "", 0);
       token.content = content;
-      token.children = [];
 
       state.push("div_close", "div", -1);
 

@@ -475,12 +475,15 @@ Progress Bar..............BBCODE-018
 	display: flex;
 	flex-flow: row wrap;
 	justify-content: start;
+	
+	& > div:first-of-type {
+    display: block;
+  }
 }
 
 /* Style the buttons inside the tab */
 .rpntab button {
 	background-color: white;
-	border: none;
 	outline: none;
 	cursor: pointer;
 	padding: 4px 10px;

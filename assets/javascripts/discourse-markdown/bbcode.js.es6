@@ -257,38 +257,6 @@ function setupMarkdownIt(md) {
     }
   });
 
-  ruler.push("sub", {
-    tag: "sub",
-    wrap: function (startToken, endToken, tagInfo, content) {
-      startToken.type = "sub_open";
-      startToken.tag = "sub";
-      startToken.attrs = [["class", "bbcode-sub"]];
-      startToken.content = content;
-      startToken.nesting = 1;
-
-      endToken.type = "sub_close";
-      endToken.tag = "sub";
-      endToken.content = '';
-      endToken.nesting = -1;
-    }
-  });
-
-  ruler.push("sup", {
-    tag: "sup",
-    wrap: function (startToken, endToken, tagInfo, content) {
-      startToken.type = "sup_open";
-      startToken.tag = "sup";
-      startToken.attrs = [["class", "bbcode-sup"]];
-      startToken.content = content;
-      startToken.nesting = 1;
-
-      endToken.type = "sup_close";
-      endToken.tag = "sup";
-      endToken.content = '';
-      endToken.nesting = -1;
-    }
-  });
-
   ruler.push("pindent", {
     tag: "pindent",
     wrap: function (startToken, endToken, tagInfo, content) {
@@ -727,8 +695,6 @@ export function setup(helper) {
     "span.inlineSpoiler",
     "span.bbcode-justify",
     "span.bbcodeHighlight",
-    "sub.bbcode-sub",
-    "sup.bbcode_sup",
     "fieldset.bbcode-fieldset",
     "legend",
     "table.bbcode-blockquote",

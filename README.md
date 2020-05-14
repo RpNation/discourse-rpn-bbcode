@@ -4,17 +4,17 @@ Official RpNation BBCodes for Discourse
 
 See: [https://www.rpnation.com]
 
-Ⓜ️ = BBCode dropped in favor of Markdown Equvilient. In the case of Media & Embeds use Discourse iframe whitelisting, since that is what Challenge and GDOcs technically did in xF.
+Ⓜ️ = BBCode dropped in favor of Markdown equivalent. In the case of Media & Embeds use Discourse iframe whitelisting, since that is what Challenge and GDOcs technically did in xF.
 
 🚧 = In progress or needs CSS.
 
 ✔️ = Complete.
 
-⌨️ = BBCode dropped in favor of HTML Equvilient.
+⌨️ = BBCode dropped in favor of HTML equivalent.
 
 🎉 = Powered by official Discourse Addon.
 
-☠️ = Do not proceed. Markdown-it and/or Discourse do not like this code. Use Markdown Equvilient. Unable to be rebaked.
+☠️ = Do not proceed. Markdown-it and/or Discourse do not like this code. Use Markdown equivalent. Unable to be rebaked.
 
 |              Text Formating              | Layout & Design |    Media & Embeds    |      Aesthetics      |
 | :--------------------------------------: | :-------------: | :------------------: | :------------------: |
@@ -35,7 +35,7 @@ See: [https://www.rpnation.com]
 
 
 
-<sup>1</sup> Headers & Subheaders can be rebaked into the equvilient number of #
+<sup>1</sup> Headers & Subheaders can be rebaked into the equivalent number of #
 
 <sup>2</sup> This bbcode is no longer needed. Discourse accepts the proper HTML comment tag in the Markdown engine. Example: `<sup>1</sup>`
 

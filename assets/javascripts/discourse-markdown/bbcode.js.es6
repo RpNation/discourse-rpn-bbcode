@@ -773,7 +773,7 @@ export function setup(helper) {
   helper.whiteList({
     custom(tag, name, value) {
       if (tag === "div" && name === "style") {
-        return /^font-family:\s\'[\w\d\s]+\'$/.exec(value);
+        return /^font-family:[\w\s]+$/.exec(value);
       }
     }
   });

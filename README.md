@@ -27,7 +27,7 @@ See: [https://www.rpnation.com]
 |          Google Font Library 🚧           | Center Block ❓  |                      |     Newspaper ✔️      |
 |        HTML Comment<sup>4</sup> ⌨️        |  Background ✔️   |                      |       Checks ✔️       |
 |            Paragraph Indent ✔️            |    Border ✔️     |                      | Font Awesome Icons 🚧 |
-| Bold, Italic, Underline, Strikethrough Ⓜ️ |  Accordions 🚧   |                      |                      |
+| Bold, Italic, Underline, Strikethrough Ⓜ️ |  Accordions 🚧   |                      |         OOC 🚧       |
 |                 Color 🚧                  |  Scroll Box ✔️   |                      |                      |
 |               Font Size 🚧                |    Div Box ❓    |                      |                      |
 |          Left, Center, Right 🚧           |    Anchors ❓    |                      |                      |

@@ -607,6 +607,30 @@ function setupMarkdownIt(md) {
     }
   });
 
+  ruler.push("ooc", {
+    tag: "ooc",
+    replace: function (state, tagInfo, content) {
+
+      let token = state.push("div_open", "div", 1);
+      token.attrs = [["class", "bbcode-ooc"]];
+
+      state.push("div_open", "div", 1);
+
+      token = state.push("text", "", 0);
+      token.content = "OOC";
+
+      state.push("div_close", "div", -1);
+
+      token = state.push("inline", "", 0);
+      token.content = content;
+      token.children = [];
+
+      state.push("div_close", "div", -1);
+
+      return true;
+    }
+  });
+
   md.block.bbcode.ruler.push("tabs", {
     tag: "tabs",
     wrap: "div.rpntab"
@@ -683,6 +707,7 @@ export function setup(helper) {
     "div.bbcode-check-dot",
     "div.bbcode-check-check",
     "div.bbcode-check-cross",
+    "div.bbcode-ooc",
     "div.rpntab",
     "div.rpntabcontent",
     "div.slide",

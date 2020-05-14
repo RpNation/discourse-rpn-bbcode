@@ -383,7 +383,7 @@ function setupMarkdownIt(md) {
       token = state.push("span_open", "span", 1);
       token.attrs = [["style", `font-family: '${fontFamily}';`]];
       token.content = content;
-      state.push("span_close", span, -1);
+      state.push("span_close", "span", -1);
       return true;
     }
   });

@@ -381,7 +381,7 @@ function setupMarkdownIt(md) {
       }
 
       token = state.push("span_open", "span", 1);
-      token.attrs = [["style", `font-family: '${fontFamily}';`]];
+      token.attrs = [["style", `font-family: '${fontFamily}'`]];
       token.content = content;
       state.push("span_close", "span", -1);
       return true;
@@ -773,7 +773,7 @@ export function setup(helper) {
   helper.whiteList({
     custom(tag, name, value) {
       if (tag === "div" && name === "style") {
-        return /^font-family:\s[\w\s]+$/.exec(value);
+        return /^font-family:[\w\s]+$/.exec(value);
       }
     }
   });

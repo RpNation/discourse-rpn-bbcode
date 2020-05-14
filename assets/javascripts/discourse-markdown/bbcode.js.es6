@@ -5,7 +5,7 @@ registerOption(
 );
 
 function wrap(tag, attr, callback) {
-  return function(startToken, finishToken, tagInfo) {
+  return function (startToken, finishToken, tagInfo) {
     startToken.tag = finishToken.tag = tag;
     startToken.content = finishToken.content = "";
 
@@ -26,7 +26,7 @@ function setupMarkdownIt(md) {
 
   ruler.push("imagefloat", {
     tag: "imagefloat",
-    wrap: function(startToken, endToken, tagInfo, content) {
+    wrap: function (startToken, endToken, tagInfo, content) {
       let floatType = tagInfo.attrs['_default'];
 
       startToken.type = "span_open";
@@ -49,7 +49,7 @@ function setupMarkdownIt(md) {
 
   ruler.push("border", {
     tag: "border",
-    wrap: function(startToken, endToken, tagInfo, content) {
+    wrap: function (startToken, endToken, tagInfo, content) {
       let styleOption = tagInfo.attrs['_default'];
 
       startToken.type = "div_open";
@@ -67,7 +67,7 @@ function setupMarkdownIt(md) {
 
   ruler.push("bg", {
     tag: "bg",
-    wrap: function(startToken, endToken, tagInfo, content) {
+    wrap: function (startToken, endToken, tagInfo, content) {
       let bgOption = tagInfo.attrs['_default'];
 
       startToken.type = "div_open";
@@ -85,7 +85,7 @@ function setupMarkdownIt(md) {
 
   md.block.bbcode.ruler.push("fieldset", {
     tag: "fieldset",
-    before: function(state, tagInfo) {
+    before: function (state, tagInfo) {
       let token = state.push("fieldset_open", "fieldset", 1);
       token.attrs = [["class", "bbcode-fieldset"]];
 
@@ -100,7 +100,7 @@ function setupMarkdownIt(md) {
       token = state.push("span_open", "span", 1);
       token.block = false;
     },
-    after: function(state) {
+    after: function (state) {
       state.push("span_close", "span", -1);
       state.push("fieldset_close", "fieldset", -1);
     }
@@ -108,7 +108,7 @@ function setupMarkdownIt(md) {
 
   ruler.push("side", {
     tag: "side",
-    wrap: function(startToken, endToken, tagInfo, content) {
+    wrap: function (startToken, endToken, tagInfo, content) {
       let sideOption = tagInfo.attrs['_default'];
 
       startToken.type = "div_open";
@@ -126,7 +126,7 @@ function setupMarkdownIt(md) {
 
   md.block.bbcode.ruler.push("scroll", {
     tag: "scroll",
-    wrap: function(token, tagInfo) {
+    wrap: function (token, tagInfo) {
       let heightOption = tagInfo.attrs['_default'];
       token.attrs = [["style", "max-width: 100%; padding: 5px; overflow:auto; border: 1px solid; height:" + heightOption + ";"]];
       return true;
@@ -135,10 +135,10 @@ function setupMarkdownIt(md) {
 
   md.block.bbcode.ruler.push("nobr", {
     tag: "nobr",
-    wrap: function(token, tagInfo) {
+    wrap: function (token, tagInfo) {
       let text = token.content;
 
-      text = text.replace(/(\r\n|\n|\r)/gm," ");
+      text = text.replace(/(\r\n|\n|\r)/gm, " ");
       token.content = text;
       return true;
     }
@@ -146,7 +146,7 @@ function setupMarkdownIt(md) {
 
   ruler.push("divide", {
     tag: "divide",
-    wrap: function(startToken, endToken, tagInfo, content) {
+    wrap: function (startToken, endToken, tagInfo, content) {
       let divideOption = tagInfo.attrs['_default'];
 
       startToken.type = "span_open";
@@ -164,7 +164,7 @@ function setupMarkdownIt(md) {
 
   ruler.push("column", {
     tag: "column",
-    wrap: function(startToken, endToken, tagInfo, content) {
+    wrap: function (startToken, endToken, tagInfo, content) {
       let columnOption = tagInfo.attrs['_default'];
 
       startToken.type = "div_open";
@@ -182,7 +182,7 @@ function setupMarkdownIt(md) {
 
   ruler.push("inlinespoiler", {
     tag: "inlinespoiler",
-    wrap: function(startToken, endToken, tagInfo, content) {
+    wrap: function (startToken, endToken, tagInfo, content) {
       startToken.type = "span_open";
       startToken.tag = "span";
       startToken.attrs = [["class", "inlineSpoiler"]];
@@ -198,7 +198,7 @@ function setupMarkdownIt(md) {
 
   ruler.push("justify", {
     tag: "justify",
-    wrap: function(startToken, endToken, tagInfo, content) {
+    wrap: function (startToken, endToken, tagInfo, content) {
       startToken.type = "span_open";
       startToken.tag = "span";
       startToken.attrs = [["class", "bbcode-justify"]];
@@ -214,7 +214,7 @@ function setupMarkdownIt(md) {
 
   md.block.bbcode.ruler.push("blockquote", {
     tag: "blockquote",
-    replace: function(state, tagInfo, content) {
+    replace: function (state, tagInfo, content) {
       let author = tagInfo.attrs['_default'];
 
       let token = state.push("table_open", "table", 1);
@@ -259,7 +259,7 @@ function setupMarkdownIt(md) {
 
   ruler.push("sub", {
     tag: "sub",
-    wrap: function(startToken, endToken, tagInfo, content) {
+    wrap: function (startToken, endToken, tagInfo, content) {
       startToken.type = "sub_open";
       startToken.tag = "sub";
       startToken.attrs = [["class", "bbcode-sub"]];
@@ -275,7 +275,7 @@ function setupMarkdownIt(md) {
 
   ruler.push("sup", {
     tag: "sup",
-    wrap: function(startToken, endToken, tagInfo, content) {
+    wrap: function (startToken, endToken, tagInfo, content) {
       startToken.type = "sup_open";
       startToken.tag = "sup";
       startToken.attrs = [["class", "bbcode-sup"]];
@@ -291,7 +291,7 @@ function setupMarkdownIt(md) {
 
   ruler.push("pindent", {
     tag: "pindent",
-    wrap: function(startToken, endToken, tagInfo, content) {
+    wrap: function (startToken, endToken, tagInfo, content) {
       startToken.type = "span_open";
       startToken.tag = "span";
       startToken.attrs = [["style", "display: inline-block; text-indent:2.5em"]];
@@ -307,7 +307,7 @@ function setupMarkdownIt(md) {
 
   md.block.bbcode.ruler.push("print", {
     tag: "print",
-    replace: function(state, tagInfo, content) {
+    replace: function (state, tagInfo, content) {
       let printOption = tagInfo.attrs['_default'];
 
       let token = state.push("div_open", "div", 1);
@@ -324,7 +324,7 @@ function setupMarkdownIt(md) {
 
   md.block.bbcode.ruler.push("textmessage", {
     tag: "textmessage",
-    replace: function(state, tagInfo, content) {
+    replace: function (state, tagInfo, content) {
       let textOption = tagInfo.attrs['_default'];
 
       let token = state.push("div_open", "div", 1);
@@ -357,9 +357,40 @@ function setupMarkdownIt(md) {
     }
   });
 
+  md.block.bbcode.ruler.push("font", {
+    tag: "font",
+    replace: function (state, tagInfo, content) {
+      const base_fonts = [
+        "arial",
+        "book antiqua",
+        "courier new",
+        "georgia",
+        "tahoma",
+        "times new roman",
+        "trebuchet ms",
+        "verdana",
+      ];
+
+      let fontFamily = tagInfo.attrs['_default'].trim();
+      let token;
+      if (!base_fonts.includes(fontFamily.toLowerCase())) {
+        token = state.push("script_open", "script", 1);
+        token.attrs = [["type", "text/javascript"]]
+        token.content = `importFont(${fontFamily})`;
+        state.push("script_close", "script", -1);
+      }
+
+      token = state.push("span_open", "span", 1);
+      token.attrs = [["style", `font-family: '${fontFamily}';`]];
+      token.content = content;
+      state.push("span_close", span, -1);
+      return true;
+    }
+  });
+
   md.block.bbcode.ruler.push("block", {
     tag: "block",
-    replace: function(state, tagInfo, content) {
+    replace: function (state, tagInfo, content) {
       let blockOption = tagInfo.attrs['_default'];
 
       let token = state.push("table_open", "table", 1);
@@ -390,7 +421,7 @@ function setupMarkdownIt(md) {
 
   md.block.bbcode.ruler.push("progress", {
     tag: "progress",
-    replace: function(state, tagInfo, content) {
+    replace: function (state, tagInfo, content) {
       let progressOption = tagInfo.attrs['_default'];
 
       let token = state.push("div_open", "div", 1);
@@ -422,7 +453,7 @@ function setupMarkdownIt(md) {
 
   md.block.bbcode.ruler.push("note", {
     tag: "note",
-    replace: function(state, tagInfo, content) {
+    replace: function (state, tagInfo, content) {
 
       let token = state.push("div_open", "div", 1);
       token.attrs = [["class", "bbcode-note"]];
@@ -453,7 +484,7 @@ function setupMarkdownIt(md) {
 
   md.block.bbcode.ruler.push("mail", {
     tag: "mail",
-    replace: function(state, tagInfo, content) {
+    replace: function (state, tagInfo, content) {
       let mailOption = tagInfo.attrs['_default'];
 
       let token = state.push("div_open", "div", 1);
@@ -510,7 +541,7 @@ function setupMarkdownIt(md) {
 
   ruler.push("person", {
     tag: "person",
-    wrap: function(startToken, endToken, tagInfo, content) {
+    wrap: function (startToken, endToken, tagInfo, content) {
       startToken.type = "div_open";
       startToken.tag = "div";
       startToken.attrs = [["class", "bbcode-email-person"]];
@@ -526,7 +557,7 @@ function setupMarkdownIt(md) {
 
   ruler.push("subject", {
     tag: "subject",
-    wrap: function(startToken, endToken, tagInfo, content) {
+    wrap: function (startToken, endToken, tagInfo, content) {
       startToken.type = "div_open";
       startToken.tag = "div";
       startToken.attrs = [["class", "bbcode-email-subject"]];
@@ -542,7 +573,7 @@ function setupMarkdownIt(md) {
 
   ruler.push("newspaper", {
     tag: "newspaper",
-    wrap: function(startToken, endToken, tagInfo, content) {
+    wrap: function (startToken, endToken, tagInfo, content) {
       startToken.type = "div_open";
       startToken.tag = "div";
       startToken.attrs = [["class", "bbcode-newspaper"]];
@@ -558,7 +589,7 @@ function setupMarkdownIt(md) {
 
   ruler.push("check", {
     tag: "check",
-    wrap: function(startToken, endToken, tagInfo, content) {
+    wrap: function (startToken, endToken, tagInfo, content) {
       let checkOption = tagInfo.attrs['_default'];
 
       startToken.type = "div_open";
@@ -576,7 +607,7 @@ function setupMarkdownIt(md) {
 
   ruler.push("accordion", {
     tag: "accordion",
-    wrap: function(startToken, endToken, tagInfo, content) {
+    wrap: function (startToken, endToken, tagInfo, content) {
       startToken.type = "button_open";
       startToken.tag = "button";
       startToken.attrs = [["class", "accordion"]];
@@ -592,7 +623,7 @@ function setupMarkdownIt(md) {
 
   ruler.push("slide", {
     tag: "slide",
-    wrap: function(startToken, endToken, tagInfo, content) {
+    wrap: function (startToken, endToken, tagInfo, content) {
       let slideOption = tagInfo.attrs['_default'];
 
       startToken.type = "div_open";
@@ -615,7 +646,7 @@ function setupMarkdownIt(md) {
 
   md.block.bbcode.ruler.push("tab", {
     tag: "tab",
-    replace: function(state, tagInfo, content) {
+    replace: function (state, tagInfo, content) {
       let tabTitle = tagInfo.attrs['_default'];
 
       let token = state.push("button_open", "button", 1);
@@ -709,7 +740,7 @@ export function setup(helper) {
 
   helper.whiteList({
     custom(tag, name, value) {
-      if(tag === "div" && name === "style") {
+      if (tag === "div" && name === "style") {
         return /^(border:(.*))$/.exec(value);
       }
     }
@@ -717,7 +748,7 @@ export function setup(helper) {
 
   helper.whiteList({
     custom(tag, name, value) {
-      if(tag === "div" && name === "style") {
+      if (tag === "div" && name === "style") {
         return /^(background\-color:(.*))$/.exec(value);
       }
     }
@@ -725,7 +756,7 @@ export function setup(helper) {
 
   helper.whiteList({
     custom(tag, name, value) {
-      if(tag === "div" && name === "style") {
+      if (tag === "div" && name === "style") {
         return /^(max-width: 100%; padding: 5px; overflow:auto; border: 1px solid; height:[0-9]*px;)$/.exec(value);
       }
     }
@@ -733,7 +764,7 @@ export function setup(helper) {
 
   helper.whiteList({
     custom(tag, name, value) {
-      if(tag === "div" && name === "style") {
+      if (tag === "div" && name === "style") {
         return /^(width: calc\(([0-9]|[1-9][0-9]|(100))% - 6px\);)$/.exec(value);
       }
     }
@@ -741,15 +772,23 @@ export function setup(helper) {
 
   helper.whiteList({
     custom(tag, name, value) {
-      if(tag === "div" && name === "class") {
+      if (tag === "div" && name === "style") {
+        return /^font-family:\s\'[\w\d\s]+\'$/.exec(value);
+      }
+    }
+  });
+
+  helper.whiteList({
+    custom(tag, name, value) {
+      if (tag === "div" && name === "class") {
         return /^(bbcode-column-width-[1-8])$/.exec(value);
       }
     }
   });
-  
+
   helper.whiteList({
     custom(tag, name, value) {
-      if(tag === "button" && name === "onclick") {
+      if (tag === "button" && name === "onclick") {
         return /^(openRPNTab\(event\))$/.exec(value);
       }
     }
@@ -757,13 +796,13 @@ export function setup(helper) {
 
   helper.whiteList({
     custom(tag, name, value) {
-      if(tag === "span" && name === "style") {
+      if (tag === "span" && name === "style") {
         return /^(display: inline-block; text-indent:2\.5em)$/.exec(value);
       }
     }
   });
 
-  if(helper.markdownIt) {
+  if (helper.markdownIt) {
     helper.registerPlugin(setupMarkdownIt);
     return;
   }

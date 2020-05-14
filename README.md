@@ -6,11 +6,13 @@ See: [https://www.rpnation.com]
 
 Ⓜ️ = BBCode dropped in favor of Markdown Equvilient. In the case of Media & Embeds use Discourse iframe whitelisting, since that is what Challenge and GDOcs technically did in xF.
 
-🚧 = In progress or needs CSS
+🚧 = In progress or needs CSS.
 
-✔️ = Complete
+✔️ = Complete.
 
 ⌨️ = BBCode dropped in favor of HTML Equvilient.
+
+🎉 = Powered by official Discourse Addon.
 
 |              Text Formating              | Layout & Design |    Media & Embeds    |      Aesthetics      |
 | :--------------------------------------: | :-------------: | :------------------: | :------------------: |

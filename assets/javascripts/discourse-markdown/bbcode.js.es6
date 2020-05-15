@@ -350,7 +350,7 @@ function setupMarkdownIt(md) {
         token.content = `@import url('https://fonts.googleapis.com/css2?family=${fontFamily.replace(/\s/g, '+')}');`;
         state.push("style_close", "style", -1);
 
-        loadedFonts.push(fontFamily);
+        loaded_fonts.push(fontFamily);
 
         //importFont(fontFamily);
         // TODO: Is there a way to do this better so it isn't in-line in the middle of the html?

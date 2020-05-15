@@ -1,5 +1,5 @@
 import { registerOption } from "pretty-text/pretty-text";
-import { importFont } from "../fonts"
+import { importFont } from "../fonts.js"
 
 registerOption(
   (siteSettings, opts) => (opts.features["rpn-bbcode"] = true)

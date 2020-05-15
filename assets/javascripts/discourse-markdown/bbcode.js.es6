@@ -351,15 +351,6 @@ function setupMarkdownIt(md) {
         state.push("style_close", "style", -1);
 
         loaded_fonts.push(fontFamily);
-
-        //importFont(fontFamily);
-        // TODO: Is there a way to do this better so it isn't in-line in the middle of the html?
-        // token = state.push("script_open", "script", 1);
-        // token.attrs = [["type", "text/javascript"]]
-        // token = state.push("text", "", 0);
-        // token.content = `importFont(${fontFamily})`;
-        // state.push("script_close", "script", -1);
-
       }
 
       token = state.push("div_open", "div", 1);

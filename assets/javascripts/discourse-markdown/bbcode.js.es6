@@ -1,5 +1,4 @@
 import { registerOption } from "pretty-text/pretty-text";
-import { importFont } from "../fonts.js"
 
 registerOption(
   (siteSettings, opts) => (opts.features["rpn-bbcode"] = true)
@@ -716,8 +715,6 @@ export function setup(helper) {
     "div.rpntab",
     "div.rpntabcontent",
     "div.slide",
-    // TODO: Uncomment to test in-line script running for GFonts. Whitelist ref: https://meta.discourse.org/t/whitelist-all-the-code-inside-of-a-div-tag/51391/4
-    //"script",
     "span.float-right",
     "span.float-left",
     "span.float-center",
@@ -796,14 +793,6 @@ export function setup(helper) {
     custom(tag, name, value) {
       if (tag === "span" && name === "style") {
         return /^(display: inline-block; text-indent:2\.5em)$/.exec(value);
-      }
-    }
-  });
-
-  helper.whiteList({
-    custom(tag, name, value) {
-      if (tag === "script") {
-        return /^.*$/.exec(value);
       }
     }
   });

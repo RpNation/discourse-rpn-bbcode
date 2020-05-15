@@ -342,6 +342,7 @@ function setupMarkdownIt(md) {
       let fontFamily = tagInfo.attrs['_default'].trim();
       let token;
       if (!base_fonts.includes(fontFamily.toLowerCase())) {
+        // TODO: Is there a way to do this better so it isn't in-line in the middle of the html?
         token = state.push("script_open", "script", 1);
         token.attrs = [["type", "text/javascript"]]
         token.content = `importFont(${fontFamily})`;
@@ -710,6 +711,8 @@ export function setup(helper) {
     "div.rpntab",
     "div.rpntabcontent",
     "div.slide",
+    // TODO: Uncomment to test in-line script running for GFonts.
+    // "script[src]", 
     "span.float-right",
     "span.float-left",
     "span.float-center",

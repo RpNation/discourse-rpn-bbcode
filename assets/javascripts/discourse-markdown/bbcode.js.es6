@@ -1,5 +1,6 @@
 import { registerOption } from "pretty-text/pretty-text";
 
+
 registerOption(
   (siteSettings, opts) => (opts.features["rpn-bbcode"] = true)
 );
@@ -21,6 +22,7 @@ function wrap(tag, attr, callback) {
   };
 }
 
+let loadedFonts = [];
 function setupMarkdownIt(md) {
   const ruler = md.inline.bbcode.ruler;
 
@@ -342,7 +344,13 @@ function setupMarkdownIt(md) {
       let fontFamily = tagInfo.attrs['_default'].trim();
       let token;
       if (!base_fonts.includes(fontFamily.toLowerCase())) {
-        importFont(fontFamily);
+        token = state.push("style_open", "style", 1);
+        token.content = `@import url('https://fonts.googleapis.com/css2?family=${fontFamily.replace(/\s/g, '+')}');`;
+        state.push("style_close", "style", -1);
+
+        loadedFonts.push(fontFamily);
+
+        //importFont(fontFamily);
         // TODO: Is there a way to do this better so it isn't in-line in the middle of the html?
         // token = state.push("script_open", "script", 1);
         // token.attrs = [["type", "text/javascript"]]
@@ -724,6 +732,8 @@ export function setup(helper) {
     "span.inlineSpoiler",
     "span.bbcode-justify",
     "span.bbcodeHighlight",
+    //whitelist style tag for font import.
+    "style",
     "fieldset.bbcode-fieldset",
     "legend",
     "table.bbcode-blockquote",

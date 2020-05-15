@@ -711,7 +711,7 @@ export function setup(helper) {
     "div.rpntab",
     "div.rpntabcontent",
     "div.slide",
-    // TODO: Uncomment to test in-line script running for GFonts.
+    // TODO: Uncomment to test in-line script running for GFonts. Whitelist ref: https://meta.discourse.org/t/whitelist-all-the-code-inside-of-a-div-tag/51391/4
     // "script[src]", 
     "span.float-right",
     "span.float-left",

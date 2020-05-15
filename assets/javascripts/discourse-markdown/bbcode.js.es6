@@ -364,7 +364,7 @@ function setupMarkdownIt(md) {
       console.log(`Header loaded fonts for ${fontFamily} pass: `, header_loaded_fonts);
       //if its the server, push the style script. If it's preview, add to header.
       if (!base_fonts.includes(fontFamily.toLowerCase())) {
-        if (!document && !loaded_fonts.includes(fontFamily)) {
+        if ('undefined' !== typeof document && !loaded_fonts.includes(fontFamily)) {
           token = state.push("style_open", "style", 1);
           token = state.push("text", "", 0);
           token.content = `@import url('https://fonts.googleapis.com/css2?family=${fontFamily.replace(/\s/g, '+')}');`;

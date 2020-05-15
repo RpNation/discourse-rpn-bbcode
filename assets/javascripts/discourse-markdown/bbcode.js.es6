@@ -346,6 +346,7 @@ function setupMarkdownIt(md) {
 
       if (!base_fonts.includes(fontFamily.toLowerCase()) && !loadedFonts.includes(fontFamily)) {
         token = state.push("style_open", "style", 1);
+        oken = state.push("text", "", 0);
         token.content = `@import url('https://fonts.googleapis.com/css2?family=${fontFamily.replace(/\s/g, '+')}');`;
         state.push("style_close", "style", -1);
 

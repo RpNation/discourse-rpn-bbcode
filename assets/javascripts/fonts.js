@@ -8,7 +8,7 @@ function importFont(fontID) {
         link.id = fontID;
         link.rel = 'stylesheet';
         link.type = 'text/css';
-        link.href = 'http://fonts.googleapis.com/css2?family=' + fontID;
+        link.href = 'https://fonts.googleapis.com/css2?family=' + fontID;
         link.media = 'all';
         head.appendChild(link);
         loadedFonts.push(fontID);

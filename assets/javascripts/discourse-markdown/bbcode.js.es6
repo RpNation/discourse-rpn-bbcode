@@ -22,7 +22,6 @@ function wrap(tag, attr, callback) {
   };
 }
 
-let loadedFonts = [];
 function setupMarkdownIt(md) {
   const ruler = md.inline.bbcode.ruler;
 
@@ -344,7 +343,7 @@ function setupMarkdownIt(md) {
       let fontFamily = tagInfo.attrs['_default'].trim();
       let token;
 
-      if (!base_fonts.includes(fontFamily.toLowerCase()) && !loadedFonts.includes(fontFamily)) {
+      if (!base_fonts.includes(fontFamily.toLowerCase())) {
         token = state.push("style_open", "style", 1);
         token = state.push("text", "", 0);
         token.content = `@import url('https://fonts.googleapis.com/css2?family=${fontFamily.replace(/\s/g, '+')}');`;

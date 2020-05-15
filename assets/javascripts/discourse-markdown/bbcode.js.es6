@@ -374,7 +374,7 @@ function setupMarkdownIt(md) {
         } else if (!header_loaded_fonts.includes(fontFamily)) {
           console.log('loading font to header: ', fontFamily);
           importFont(fontFamily);
-          header_loaded_fonts(fontFamily);
+          header_loaded_fonts.push(fontFamily);
         }
       }
 

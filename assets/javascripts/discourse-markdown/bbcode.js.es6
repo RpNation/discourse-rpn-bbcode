@@ -26,7 +26,7 @@ var header_loaded_fonts = [];
 
 function importFont(fontID) {
   fontID = fontID.replace(/\s/g, '+');
-  if (!loadedFonts.includes(fontID)) {
+  if (!header_loaded_fonts.includes(fontID)) {
     var head = document.getElementsByTagName('head')[0];
     var link = document.createElement('link');
     link.id = fontID;

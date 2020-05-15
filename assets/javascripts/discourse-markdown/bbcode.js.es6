@@ -348,10 +348,10 @@ function setupMarkdownIt(md) {
         state.push("script_close", "script", -1);
       }
 
-      token = state.push("span_open", "span", 1);
+      token = state.push("div_open", "div", 1);
       token.attrs = [["style", `font-family:${fontFamily}`]];
       token.content = content;
-      state.push("span_close", "span", -1);
+      state.push("div_close", "div", -1);
       return true;
     }
   });
@@ -762,7 +762,7 @@ export function setup(helper) {
 
   helper.whiteList({
     custom(tag, name, value) {
-      if (tag === "span" && name === "style") {
+      if (tag === "div" && name === "style") {
         return /^font-family:[\w\s]+$/.exec(value);
       }
     }

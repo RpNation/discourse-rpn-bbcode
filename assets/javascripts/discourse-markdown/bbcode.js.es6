@@ -342,16 +342,19 @@ function setupMarkdownIt(md) {
       let fontFamily = tagInfo.attrs['_default'].trim();
       let token;
       if (!base_fonts.includes(fontFamily.toLowerCase())) {
+        // TODO: Is there a way to do this better so it isn't in-line in the middle of the html?
         token = state.push("script_open", "script", 1);
         token.attrs = [["type", "text/javascript"]]
+        token = state.push("text", "", 0);
         token.content = `importFont(${fontFamily})`;
         state.push("script_close", "script", -1);
       }
 
-      token = state.push("span_open", "span", 1);
+      token = state.push("div_open", "div", 1);
       token.attrs = [["style", `font-family:${fontFamily}`]];
+      token = state.push("text", "", 0);
       token.content = content;
-      state.push("span_close", "span", -1);
+      state.push("div_close", "div", -1);
       return true;
     }
   });
@@ -710,6 +713,8 @@ export function setup(helper) {
     "div.rpntab",
     "div.rpntabcontent",
     "div.slide",
+    // TODO: Uncomment to test in-line script running for GFonts. Whitelist ref: https://meta.discourse.org/t/whitelist-all-the-code-inside-of-a-div-tag/51391/4
+    // "script[src]", 
     "span.float-right",
     "span.float-left",
     "span.float-center",
@@ -762,7 +767,7 @@ export function setup(helper) {
 
   helper.whiteList({
     custom(tag, name, value) {
-      if (tag === "span" && name === "style") {
+      if (tag === "div" && name === "style") {
         return /^font-family:[\w\s]+$/.exec(value);
       }
     }

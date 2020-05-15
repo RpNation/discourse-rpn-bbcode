@@ -22,23 +22,6 @@ function wrap(tag, attr, callback) {
   };
 }
 
-var header_loaded_fonts = [];
-
-function importFont(fontID) {
-  fontID = fontID.replace(/\s/g, '+');
-  if (!header_loaded_fonts.includes(fontID)) {
-    var head = document.getElementsByTagName('head')[0];
-    var link = document.createElement('link');
-    link.id = fontID;
-    link.rel = 'stylesheet';
-    link.type = 'text/css';
-    link.href = 'https://fonts.googleapis.com/css2?family=' + fontID;
-    link.media = 'all';
-    head.appendChild(link);
-    header_loaded_fonts.push(fontID);
-  }
-}
-
 function setupMarkdownIt(md) {
   const loaded_fonts = [];
   const ruler = md.inline.bbcode.ruler;
@@ -361,21 +344,13 @@ function setupMarkdownIt(md) {
       let fontFamily = tagInfo.attrs['_default'].trim();
       let token;
       console.log(`Loaded fonts for ${fontFamily} pass: `, loaded_fonts);
-      console.log(`Header loaded fonts for ${fontFamily} pass: `, header_loaded_fonts);
-      //if its the server, push the style script. If it's preview, add to header.
-      if (!base_fonts.includes(fontFamily.toLowerCase())) {
-        if ('undefined' !== typeof document && !loaded_fonts.includes(fontFamily)) {
-          token = state.push("style_open", "style", 1);
-          token = state.push("text", "", 0);
-          token.content = `@import url('https://fonts.googleapis.com/css2?family=${fontFamily.replace(/\s/g, '+')}');`;
-          state.push("style_close", "style", -1);
-          console.log('hit loaded font block');
-          loaded_fonts.push(fontFamily);
-        } else if (!header_loaded_fonts.includes(fontFamily)) {
-          console.log('loading font to header: ', fontFamily);
-          importFont(fontFamily);
-          header_loaded_fonts.push(fontFamily);
-        }
+      if (!base_fonts.includes(fontFamily.toLowerCase()) && !loaded_fonts.includes(fontFamily)) {
+        token = state.push("style_open", "style", 1);
+        token = state.push("text", "", 0);
+        token.content = `@import url('https://fonts.googleapis.com/css2?family=${fontFamily.replace(/\s/g, '+')}');`;
+        state.push("style_close", "style", -1);
+
+        loaded_fonts.push(fontFamily);
       }
 
       token = state.push("div_open", "div", 1);
@@ -383,7 +358,6 @@ function setupMarkdownIt(md) {
       token = state.push("text", "", 0);
       token.content = content;
       state.push("div_close", "div", -1);
-      console.log('replace end')
       return true;
     }
   });

@@ -625,12 +625,41 @@ OOC.......................BBCODE-020
 
 .bbcode-accordion {
 	position: relative;
-
+	width: 100%;
+	height: auto;
 }
 
-.bbcode-slide {
-	position: relative;
+.bbcode-slide-title {
+	all: unset;
 	width: 100%;
+	height: auto;
+	position: relative;
+	cursor: pointer;
+	padding: 10px;
+	background-color: lightgray;
+	color: black;
+	box-sizing: border-box;
+
+	&:hover {
+		background-color: gray;
+	}
+
+	&:after {
+		content: '\02795';
+		font-size: 13px;
+		color: #777;
+		float: right;
+		margin-left: 5px;
+	}
+}
+
+.bbcode-slide-title.active:after {
+	content: "\2796";
+}
+
+.bbcode-slide-content {
+	box-sizing: border-box;
+	padding: 0 10px;
 }
 
 /*************************************************
@@ -642,7 +671,6 @@ OOC.......................BBCODE-020
     font-style: italic;
     padding: 0;
     border: 1px solid #7897ba;
-    background: white;
 }
 .bbcode-ooc div {
     font-style: normal;

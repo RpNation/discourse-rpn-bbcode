@@ -585,7 +585,7 @@ function setupMarkdownIt(md) {
 
   md.block.bbcode.ruler.push("accordion", {
     tag: "accordion",
-    warp: "div.bbcode-accordion"
+    wrap: "div.bbcode-accordion"
   });
 
   md.block.bbcode.ruler.push("slide", {

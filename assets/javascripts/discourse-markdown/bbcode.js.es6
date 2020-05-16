@@ -805,6 +805,14 @@ export function setup(helper) {
     }
   });
 
+  helper.whiteList({
+    custom(tag, name, value) {
+      if (tag === "link" && name === "href") {
+        return /^https\:\/\/fonts\.googleapis\.com\/css2\?family=(.*)$/.exec(value);
+      }
+    }
+  });
+
   if (helper.markdownIt) {
     helper.registerPlugin(setupMarkdownIt);
     return;

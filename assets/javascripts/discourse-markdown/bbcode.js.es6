@@ -53,10 +53,20 @@ function wrap(tag, attr, callback) {
 function setupMarkdownIt(md) {
   const loaded_fonts = [];
   const ruler = md.inline.bbcode.ruler;
+  const base_fonts = [
+    "arial",
+    "book antiqua",
+    "courier new",
+    "georgia",
+    "tahoma",
+    "times new roman",
+    "trebuchet ms",
+    "verdana",
+  ];
 
-/*************************************************
-*** Image Float                         TAG-001***
-*************************************************/
+  /*************************************************
+  *** Image Float                         TAG-001***
+  *************************************************/
 
   ruler.push("imagefloat", {
     tag: "imagefloat",
@@ -76,18 +86,18 @@ function setupMarkdownIt(md) {
     }
   });
 
-/*************************************************
-*** Highlight                           TAG-002***
-*************************************************/
+  /*************************************************
+  *** Highlight                           TAG-002***
+  *************************************************/
 
   ruler.push("highlight", {
     tag: "highlight",
     wrap: "span.bbcodeHighlight"
   });
 
-/*************************************************
-*** Border                              TAG-003***
-*************************************************/
+  /*************************************************
+  *** Border                              TAG-003***
+  *************************************************/
 
   ruler.push("border", {
     tag: "border",
@@ -107,9 +117,9 @@ function setupMarkdownIt(md) {
     }
   });
 
-/*************************************************
-*** Background                          TAG-004***
-*************************************************/
+  /*************************************************
+  *** Background                          TAG-004***
+  *************************************************/
 
   ruler.push("bg", {
     tag: "bg",
@@ -129,9 +139,9 @@ function setupMarkdownIt(md) {
     }
   });
 
-/*************************************************
-*** Fieldset                            TAG-005***
-*************************************************/
+  /*************************************************
+  *** Fieldset                            TAG-005***
+  *************************************************/
 
   md.block.bbcode.ruler.push("fieldset", {
     tag: "fieldset",
@@ -156,9 +166,9 @@ function setupMarkdownIt(md) {
     }
   });
 
-/*************************************************
-*** Side                                TAG-006***
-*************************************************/
+  /*************************************************
+  *** Side                                TAG-006***
+  *************************************************/
 
   ruler.push("side", {
     tag: "side",
@@ -178,9 +188,9 @@ function setupMarkdownIt(md) {
     }
   });
 
-/*************************************************
-*** Scroll                              TAG-007***
-*************************************************/
+  /*************************************************
+  *** Scroll                              TAG-007***
+  *************************************************/
 
   md.block.bbcode.ruler.push("scroll", {
     tag: "scroll",
@@ -191,9 +201,9 @@ function setupMarkdownIt(md) {
     }
   });
 
-/*************************************************
-*** NOBR                                TAG-008***
-*************************************************/
+  /*************************************************
+  *** NOBR                                TAG-008***
+  *************************************************/
 
   md.block.bbcode.ruler.push("nobr", {
     tag: "nobr",
@@ -206,9 +216,9 @@ function setupMarkdownIt(md) {
     }
   });
 
-/*************************************************
-*** Divide                              TAG-009***
-*************************************************/
+  /*************************************************
+  *** Divide                              TAG-009***
+  *************************************************/
 
   ruler.push("divide", {
     tag: "divide",
@@ -232,9 +242,9 @@ function setupMarkdownIt(md) {
     }
   });
 
-/*************************************************
-*** Row & Column                        TAG-010***
-*************************************************/
+  /*************************************************
+  *** Row & Column                        TAG-010***
+  *************************************************/
 
   ruler.push("column", {
     tag: "column",
@@ -254,9 +264,9 @@ function setupMarkdownIt(md) {
     }
   });
 
-/*************************************************
-*** Inline Spoiler                      TAG-011***
-*************************************************/
+  /*************************************************
+  *** Inline Spoiler                      TAG-011***
+  *************************************************/
 
   ruler.push("inlinespoiler", {
     tag: "inlinespoiler",
@@ -274,9 +284,9 @@ function setupMarkdownIt(md) {
     }
   });
 
-/*************************************************
-*** Justify                             TAG-012***
-*************************************************/
+  /*************************************************
+  *** Justify                             TAG-012***
+  *************************************************/
 
   ruler.push("justify", {
     tag: "justify",
@@ -294,9 +304,9 @@ function setupMarkdownIt(md) {
     }
   });
 
-/*************************************************
-*** Blockquote                          TAG-013***
-*************************************************/
+  /*************************************************
+  *** Blockquote                          TAG-013***
+  *************************************************/
 
   md.block.bbcode.ruler.push("blockquote", {
     tag: "blockquote",
@@ -343,9 +353,9 @@ function setupMarkdownIt(md) {
     }
   });
 
-/*************************************************
-*** Paragraph Indent                    TAG-014***
-*************************************************/
+  /*************************************************
+  *** Paragraph Indent                    TAG-014***
+  *************************************************/
 
   ruler.push("pindent", {
     tag: "pindent",
@@ -363,9 +373,9 @@ function setupMarkdownIt(md) {
     }
   });
 
-/*************************************************
-*** Print                               TAG-015***
-*************************************************/
+  /*************************************************
+  *** Print                               TAG-015***
+  *************************************************/
 
   md.block.bbcode.ruler.push("print", {
     tag: "print",
@@ -388,9 +398,9 @@ function setupMarkdownIt(md) {
     }
   });
 
-/*************************************************
-*** Text Message                        TAG-016***
-*************************************************/
+  /*************************************************
+  *** Text Message                        TAG-016***
+  *************************************************/
 
   md.block.bbcode.ruler.push("textmessage", {
     tag: "textmessage",
@@ -427,37 +437,18 @@ function setupMarkdownIt(md) {
     }
   });
 
-/*************************************************
-*** Font                                TAG-017***
-*************************************************/
+  /*************************************************
+  *** Font                                TAG-017***
+  *************************************************/
 
   md.block.bbcode.ruler.push("font", {
     tag: "font",
     replace: function (state, tagInfo, content) {
-      const base_fonts = [
-        "arial",
-        "book antiqua",
-        "courier new",
-        "georgia",
-        "tahoma",
-        "times new roman",
-        "trebuchet ms",
-        "verdana",
-      ];
-
       let fontFamily = tagInfo.attrs['_default'].trim();
       let token;
       if (!base_fonts.includes(fontFamily.toLowerCase()) && !loaded_fonts.includes(fontFamily)) {
         token = state.push("link", "link", 0);
-        token.attrs = [["rel", "stylesheet"], ["type", "text/css"], ["href", `https://fonts.googleapis.com/css2?family=${fontFamily.replace(/\s/g, '+')}`]]
-        // link.rel = 'stylesheet';
-        // link.type = 'text/css';
-        // link.href = 'https://fonts.googleapis.com/css2?family=' + fontID;
-        // token = state.push("style_open", "style", 1);
-        // token = state.push("text", "", 0);
-        // token.content = `@import url('https://fonts.googleapis.com/css2?family=${fontFamily.replace(/\s/g, '+')}');`;
-        // state.push("style_close", "style", -1);
-
+        token.attrs = [["rel", "stylesheet"], ["type", "text/css"], ["href", `https://fonts.googleapis.com/css2?family=${fontFamily.replace(/\s/g, '+')}`]];
         loaded_fonts.push(fontFamily);
       }
 
@@ -470,9 +461,29 @@ function setupMarkdownIt(md) {
     }
   });
 
-/*************************************************
-*** Block                               TAG-018***
-*************************************************/
+  ruler.push("font", {
+    tag: "font",
+    replace: function (state, tagInfo, content) {
+      let fontFamily = tagInfo.attrs['_default'].trim();
+      let token;
+      if (!base_fonts.includes(fontFamily.toLowerCase()) && !loaded_fonts.includes(fontFamily)) {
+        token = state.push("link", "link", 0);
+        token.attrs = [["rel", "stylesheet"], ["type", "text/css"], ["href", `https://fonts.googleapis.com/css2?family=${fontFamily.replace(/\s/g, '+')}`]];
+        loaded_fonts.push(fontFamily);
+      }
+
+      token = state.push("span_open", "span", 1);
+      token.attrs = [["style", `font-family:${fontFamily}`]];
+      token = state.push("text", "", 0);
+      token.content = content;
+      state.push("span_close", "span", -1);
+      return true;
+    }
+  });
+
+  /*************************************************
+  *** Block                               TAG-018***
+  *************************************************/
 
   md.block.bbcode.ruler.push("block", {
     tag: "block",
@@ -505,9 +516,9 @@ function setupMarkdownIt(md) {
     }
   });
 
-/*************************************************
-*** Progress                            TAG-019***
-*************************************************/
+  /*************************************************
+  *** Progress                            TAG-019***
+  *************************************************/
 
   md.block.bbcode.ruler.push("progress", {
     tag: "progress",
@@ -541,9 +552,9 @@ function setupMarkdownIt(md) {
     }
   });
 
-/*************************************************
-*** Note                                TAG-020***
-*************************************************/
+  /*************************************************
+  *** Note                                TAG-020***
+  *************************************************/
 
   md.block.bbcode.ruler.push("note", {
     tag: "note",
@@ -576,9 +587,9 @@ function setupMarkdownIt(md) {
     }
   });
 
-/*************************************************
-*** Mail                                TAG-021***
-*************************************************/
+  /*************************************************
+  *** Mail                                TAG-021***
+  *************************************************/
 
   md.block.bbcode.ruler.push("mail", {
     tag: "mail",
@@ -669,9 +680,9 @@ function setupMarkdownIt(md) {
     }
   });
 
-/*************************************************
-*** Newspaper                           TAG-022***
-*************************************************/
+  /*************************************************
+  *** Newspaper                           TAG-022***
+  *************************************************/
 
   ruler.push("newspaper", {
     tag: "newspaper",
@@ -689,9 +700,9 @@ function setupMarkdownIt(md) {
     }
   });
 
-/*************************************************
-*** Check                               TAG-023***
-*************************************************/
+  /*************************************************
+  *** Check                               TAG-023***
+  *************************************************/
 
   ruler.push("check", {
     tag: "check",
@@ -711,9 +722,9 @@ function setupMarkdownIt(md) {
     }
   });
 
-/*************************************************
-*** Accordion                           TAG-024***
-*************************************************/
+  /*************************************************
+  *** Accordion                           TAG-024***
+  *************************************************/
 
   md.block.bbcode.ruler.push("accordion", {
     tag: "accordion",
@@ -749,9 +760,9 @@ function setupMarkdownIt(md) {
     },
   });
 
-/*************************************************
-*** OOC                                 TAG-025***
-*************************************************/
+  /*************************************************
+  *** OOC                                 TAG-025***
+  *************************************************/
 
   ruler.push("ooc", {
     tag: "ooc",
@@ -776,9 +787,9 @@ function setupMarkdownIt(md) {
     }
   });
 
-/*************************************************
-*** Tabs                                TAG-025***
-*************************************************/
+  /*************************************************
+  *** Tabs                                TAG-025***
+  *************************************************/
 
   md.block.bbcode.ruler.push("tabs", {
     tag: "tabs",
@@ -977,7 +988,7 @@ export function setup(helper) {
       }
     }
   });
-  
+
   /* Accordion                        WHITELIST-024R*/
   helper.whiteList({
     custom(tag, name, value) {

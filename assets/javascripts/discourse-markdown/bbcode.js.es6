@@ -1,10 +1,25 @@
 import { registerOption } from "pretty-text/pretty-text";
 
 /*
-Image Float...........TAG-001........WHITElIST-001
-Highlight.............TAG-002........WHITELIST-002
-Border................TAG-003........WHITELIST-003CR
-Background............TAG-004........WHITELIST-004CR
+Image Float.........TAG-001..........WHITElIST-001
+Highlight...........TAG-002..........WHITELIST-002
+Border..............TAG-003..........WHITELIST-003CR
+Background..........TAG-004..........WHITELIST-004CR
+Fieldset............TAG-005..........WHITELIST-005
+Side................TAG-006..........WHITELIST-006
+Scroll..............TAG-007..........WHITELIST-007
+NOBR................TAG-008..........No Whitelist
+Divide..............TAG-009..........WHITELIST-009
+Row & Column........TAG-010..........WHITELIST-010
+Inline Spoiler......TAG-011..........WHITELIST-011
+Justify.............TAG-012..........WHITELIST-012
+Blockquote..........TAG-013..........WHITELIST-013
+Paragraph Indent....TAG-014..........WHITELIST-014
+Print...............TAG-015..........WHITELIST-015
+Text Message........TAG-016..........WHITELIST-016
+Font................TAG-017..........WHITELIST-017CR
+Block...............TAG-018..........WHITELIST-018...Whitelists Missing
+Progress............TAG-019..........WHITELIST-019CR
 */
 
 registerOption(
@@ -85,6 +100,10 @@ function setupMarkdownIt(md) {
     }
   });
 
+/*************************************************
+*** Background                          TAG-004***
+*************************************************/
+
   ruler.push("bg", {
     tag: "bg",
     wrap: function (startToken, endToken, tagInfo, content) {
@@ -102,6 +121,10 @@ function setupMarkdownIt(md) {
       endToken.nesting = -1;
     }
   });
+
+/*************************************************
+*** Fieldset                            TAG-005***
+*************************************************/
 
   md.block.bbcode.ruler.push("fieldset", {
     tag: "fieldset",
@@ -126,6 +149,10 @@ function setupMarkdownIt(md) {
     }
   });
 
+/*************************************************
+*** Side                                TAG-006***
+*************************************************/
+
   ruler.push("side", {
     tag: "side",
     wrap: function (startToken, endToken, tagInfo, content) {
@@ -144,6 +171,10 @@ function setupMarkdownIt(md) {
     }
   });
 
+/*************************************************
+*** Scroll                              TAG-007***
+*************************************************/
+
   md.block.bbcode.ruler.push("scroll", {
     tag: "scroll",
     wrap: function (token, tagInfo) {
@@ -152,6 +183,10 @@ function setupMarkdownIt(md) {
       return true;
     }
   });
+
+/*************************************************
+*** NOBR                                TAG-008***
+*************************************************/
 
   md.block.bbcode.ruler.push("nobr", {
     tag: "nobr",
@@ -163,6 +198,10 @@ function setupMarkdownIt(md) {
       return true;
     }
   });
+
+/*************************************************
+*** Divide                              TAG-009***
+*************************************************/
 
   ruler.push("divide", {
     tag: "divide",
@@ -182,6 +221,10 @@ function setupMarkdownIt(md) {
     }
   });
 
+/*************************************************
+*** Row & Column                        TAG-010***
+*************************************************/
+
   ruler.push("column", {
     tag: "column",
     wrap: function (startToken, endToken, tagInfo, content) {
@@ -200,6 +243,10 @@ function setupMarkdownIt(md) {
     }
   });
 
+/*************************************************
+*** Inline Spoiler                      TAG-011***
+*************************************************/
+
   ruler.push("inlinespoiler", {
     tag: "inlinespoiler",
     wrap: function (startToken, endToken, tagInfo, content) {
@@ -216,6 +263,10 @@ function setupMarkdownIt(md) {
     }
   });
 
+/*************************************************
+*** Justify                             TAG-012***
+*************************************************/
+
   ruler.push("justify", {
     tag: "justify",
     wrap: function (startToken, endToken, tagInfo, content) {
@@ -231,6 +282,10 @@ function setupMarkdownIt(md) {
       endToken.nesting = -1;
     }
   });
+
+/*************************************************
+*** Blockquote                          TAG-013***
+*************************************************/
 
   md.block.bbcode.ruler.push("blockquote", {
     tag: "blockquote",
@@ -277,6 +332,10 @@ function setupMarkdownIt(md) {
     }
   });
 
+/*************************************************
+*** Paragraph Indent                    TAG-014***
+*************************************************/
+
   ruler.push("pindent", {
     tag: "pindent",
     wrap: function (startToken, endToken, tagInfo, content) {
@@ -292,6 +351,10 @@ function setupMarkdownIt(md) {
       endToken.nesting = -1;
     }
   });
+
+/*************************************************
+*** Print                               TAG-015***
+*************************************************/
 
   md.block.bbcode.ruler.push("print", {
     tag: "print",
@@ -309,6 +372,10 @@ function setupMarkdownIt(md) {
       return true;
     }
   });
+
+/*************************************************
+*** Text Message                        TAG-016***
+*************************************************/
 
   md.block.bbcode.ruler.push("textmessage", {
     tag: "textmessage",
@@ -344,6 +411,10 @@ function setupMarkdownIt(md) {
       return true;
     }
   });
+
+/*************************************************
+*** Font                                TAG-017***
+*************************************************/
 
   md.block.bbcode.ruler.push("font", {
     tag: "font",
@@ -384,6 +455,10 @@ function setupMarkdownIt(md) {
     }
   });
 
+/*************************************************
+*** Block                               TAG-018***
+*************************************************/
+
   md.block.bbcode.ruler.push("block", {
     tag: "block",
     replace: function (state, tagInfo, content) {
@@ -414,6 +489,10 @@ function setupMarkdownIt(md) {
       return true;
     }
   });
+
+/*************************************************
+*** Progress                            TAG-019***
+*************************************************/
 
   md.block.bbcode.ruler.push("progress", {
     tag: "progress",
@@ -704,26 +783,53 @@ export function setup(helper) {
     "span.bbcodeHighlight",
     /* Border                          WHITELIST-003C*/
     "div.bbcode-border",
-    "button.bbcode-slide-title",
-    "button.bbcode-tab-links",
-    
+    /* Background                      WHITELIST-004C*/
     "div.bbcode-background",
+    /* Fieldset                        WHITELIST-005*/
+    "fieldset.bbcode-fieldset",
+    "legend",
+    /* Side                            WHITELIST-006*/
     "div.bbcode-side-left",
     "div.bbcode-side-right",
+    /* Divide                          WHITELIST-009*/
+    "span.bbcode-horizontal-rule-thick",
+    "span.bbcode-horizontal-rule-dotted",
+    "span.bbcode-horizontal-rule-dotted-thick",
+    /* Inline Spoiler                  WHITELIST-011*/
+    "span.inlineSpoiler",
+    /* Justify                         WHITELIST-012*/
+    "span.bbcode-justify",
+    /* Blockquote                      WHITELIST-013*/
+    "table.bbcode-blockquote",
+    "td.bbcode-blockquote-left",
+    "td.bbcode-blockquote-content",
     "div.bbcode-blockquote-speaker",
+    "td.bbcode-blockquote-right",
+    /* Print                           WHITELIST-014*/
     "div.bbcode-print-top-tear",
     "div.bbcode-print-bottom-tear",
     "div.bbcode-print-line",
     "div.bbcode-print-graph",
     "div.bbcode-print-parchment",
+    /* Text Message                    WHITELIST-016*/
     "div.bbcode-textmessage",
     "div.bbcode-textmessage-name",
     "div.bbcode-textmessage-overflow",
     "div.bbcode-textmessage-content",
+    /* Font                            WHITELIST-017C*/
+    "link[href=https://fonts.googleapis.com/*]",
+    "link[rel=stylesheet]",
+    "link[type=text/css]",
+    /* Block                           WHITELIST-018*/
+    "table.bbcode-block-dice",
+    /* Progress                        WHITELIST-019C*/
     "div.bbcode-progress",
     "div.bbcode-progress-text",
     "div.bbcode-progress-bar",
     "div.bbcode-progress-bar-other",
+
+    "button.bbcode-slide-title",
+    "button.bbcode-tab-links",
     "div.bbcode-note",
     "div.bbcode-note-tape",
     "div.bbcode-note-content",
@@ -747,22 +853,8 @@ export function setup(helper) {
     "div.bbcode-tab-content",
     "div.bbcode-accordion",
     "div.bbcode-slide-content",
-    "link[href=https://fonts.googleapis.com/*]",
-    "link[rel=stylesheet]",
-    "link[type=text/css]",
-    "span.bbcode-horizontal-rule-thick",
-    "span.bbcode-horizontal-rule-dotted",
-    "span.bbcode-horizontal-rule-dotted-thick",
-    "span.inlineSpoiler",
-    "span.bbcode-justify",
-    "span.bbcodeHighlight",
-    "fieldset.bbcode-fieldset",
-    "legend",
-    "table.bbcode-blockquote",
-    "table.bbcode-block-dice",
-    "td.bbcode-blockquote-left",
-    "td.bbcode-blockquote-right",
-    "td.bbcode-blockquote-content",
+    
+    
   ]);
 
   /* Border                          WHITELIST-003R*/
@@ -774,6 +866,7 @@ export function setup(helper) {
     }
   });
 
+  /* Background                      WHITELIST-004R*/
   helper.whiteList({
     custom(tag, name, value) {
       if (tag === "div" && name === "style") {
@@ -782,6 +875,7 @@ export function setup(helper) {
     }
   });
 
+  /* Scroll                          WHITELIST-007*/
   helper.whiteList({
     custom(tag, name, value) {
       if (tag === "div" && name === "style") {
@@ -790,14 +884,25 @@ export function setup(helper) {
     }
   });
 
+  /* Row & Column                    WHITELIST-010*/
   helper.whiteList({
     custom(tag, name, value) {
-      if (tag === "div" && name === "style") {
-        return /^(width: calc\(([0-9]|[1-9][0-9]|(100))% - 6px\);)$/.exec(value);
+      if (tag === "div" && name === "class") {
+        return /^(bbcode-column-width-[1-8])$/.exec(value);
       }
     }
   });
 
+  /* Paragraph Indent                WHITELIST-014*/
+  helper.whiteList({
+    custom(tag, name, value) {
+      if (tag === "span" && name === "style") {
+        return /^(display: inline-block; text-indent:2\.5em)$/.exec(value);
+      }
+    }
+  });
+
+  /* Font                            WHITELIST-017R*/
   helper.whiteList({
     custom(tag, name, value) {
       if (tag === "div" && name === "style") {
@@ -806,13 +911,16 @@ export function setup(helper) {
     }
   });
 
+  /* Progress                        WHITELIST-019R*/
   helper.whiteList({
     custom(tag, name, value) {
-      if (tag === "div" && name === "class") {
-        return /^(bbcode-column-width-[1-8])$/.exec(value);
+      if (tag === "div" && name === "style") {
+        return /^(width: calc\(([0-9]|[1-9][0-9]|(100))% - 6px\);)$/.exec(value);
       }
     }
   });
+  
+
 
   helper.whiteList({
     custom(tag, name, value) {
@@ -830,13 +938,7 @@ export function setup(helper) {
     }
   });
 
-  helper.whiteList({
-    custom(tag, name, value) {
-      if (tag === "span" && name === "style") {
-        return /^(display: inline-block; text-indent:2\.5em)$/.exec(value);
-      }
-    }
-  });
+
 
   helper.whiteList({
     custom(tag, name, value) {

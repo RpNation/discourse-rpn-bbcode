@@ -805,7 +805,7 @@ export function setup(helper) {
 
   helper.whiteList({
     custom(tag, name, value) {
-      if (tag === "link" && name === " text/css") {
+      if (tag === "link" && name === "href") {
         return /^(.)*$/.exec(value);
       }
     }

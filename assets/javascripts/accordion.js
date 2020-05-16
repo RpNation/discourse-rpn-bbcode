@@ -1,4 +1,4 @@
-function toggleRPNSlide(evt) {
+function toggleBBCodeSlide(evt) {
 
   function slideUp (target, duration=500) {
   	target.style.transitionProperty = 'height, margin, padding';

@@ -345,15 +345,7 @@ function setupMarkdownIt(md) {
       let token;
       if (!base_fonts.includes(fontFamily.toLowerCase()) && !loaded_fonts.includes(fontFamily)) {
         token = state.push("link", "link", 0);
-        token.attrs = [["rel", "stylesheet"], ["type", "text/css"], ["href", `https://fonts.googleapis.com/css2?family=${fontFamily.replace(/\s/g, '+')}`]]
-        // link.rel = 'stylesheet';
-        // link.type = 'text/css';
-        // link.href = 'https://fonts.googleapis.com/css2?family=' + fontID;
-        // token = state.push("style_open", "style", 1);
-        // token = state.push("text", "", 0);
-        // token.content = `@import url('https://fonts.googleapis.com/css2?family=${fontFamily.replace(/\s/g, '+')}');`;
-        // state.push("style_close", "style", -1);
-
+        token.attrs = [["rel", "stylesheet"], ["type", "text/css"], ["href", `https://fonts.googleapis.com/css2?family=${fontFamily.replace(/\s/g, '+')}`]];
         loaded_fonts.push(fontFamily);
       }
 
@@ -720,7 +712,6 @@ export function setup(helper) {
     "div.rpntab",
     "div.rpntabcontent",
     "div.slide",
-    "link[href=https://fonts.googleapis.com/*]",
     "link[rel=stylesheet]",
     "link[type=text/css]",
     "span.float-right",

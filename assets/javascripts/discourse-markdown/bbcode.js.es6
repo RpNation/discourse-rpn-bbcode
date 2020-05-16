@@ -8,7 +8,7 @@ Background..........TAG-004..........WHITELIST-004CR
 Fieldset............TAG-005..........WHITELIST-005
 Side................TAG-006..........WHITELIST-006
 Scroll..............TAG-007..........WHITELIST-007
-NOBR................TAG-008..........No Whitelist
+NOBR................TAG-008..........No Whitelist Applicable
 Divide..............TAG-009..........WHITELIST-009
 Row & Column........TAG-010..........WHITELIST-010
 Inline Spoiler......TAG-011..........WHITELIST-011
@@ -20,6 +20,13 @@ Text Message........TAG-016..........WHITELIST-016
 Font................TAG-017..........WHITELIST-017CR
 Block...............TAG-018..........WHITELIST-018...Whitelists Missing
 Progress............TAG-019..........WHITELIST-019CR
+Note................TAG-020..........WHITELIST-020
+Mail................TAG-021..........WHITELIST-021
+Newspaper...........TAG-022..........WHITELIST-022
+Check...............TAG-023..........WHITELIST-023
+Accordion...........TAG-024..........WHITELIST-024CR
+OOC.................TAG-025..........WHITELIST-025
+Tabs................TAG-026..........WHITELIST-026CR
 */
 
 registerOption(
@@ -526,6 +533,10 @@ function setupMarkdownIt(md) {
     }
   });
 
+/*************************************************
+*** Note                                TAG-020***
+*************************************************/
+
   md.block.bbcode.ruler.push("note", {
     tag: "note",
     replace: function (state, tagInfo, content) {
@@ -556,6 +567,10 @@ function setupMarkdownIt(md) {
       return true;
     }
   });
+
+/*************************************************
+*** Mail                                TAG-021***
+*************************************************/
 
   md.block.bbcode.ruler.push("mail", {
     tag: "mail",
@@ -646,6 +661,10 @@ function setupMarkdownIt(md) {
     }
   });
 
+/*************************************************
+*** Newspaper                           TAG-022***
+*************************************************/
+
   ruler.push("newspaper", {
     tag: "newspaper",
     wrap: function (startToken, endToken, tagInfo, content) {
@@ -661,6 +680,10 @@ function setupMarkdownIt(md) {
       endToken.nesting = -1;
     }
   });
+
+/*************************************************
+*** Check                               TAG-023***
+*************************************************/
 
   ruler.push("check", {
     tag: "check",
@@ -679,6 +702,10 @@ function setupMarkdownIt(md) {
       endToken.nesting = -1;
     }
   });
+
+/*************************************************
+*** Accordion                           TAG-024***
+*************************************************/
 
   md.block.bbcode.ruler.push("accordion", {
     tag: "accordion",
@@ -714,6 +741,10 @@ function setupMarkdownIt(md) {
     },
   });
 
+/*************************************************
+*** OOC                                 TAG-025***
+*************************************************/
+
   ruler.push("ooc", {
     tag: "ooc",
     replace: function (state, tagInfo, content) {
@@ -736,6 +767,10 @@ function setupMarkdownIt(md) {
       return true;
     }
   });
+
+/*************************************************
+*** Tabs                                TAG-025***
+*************************************************/
 
   md.block.bbcode.ruler.push("tabs", {
     tag: "tabs",
@@ -827,13 +862,12 @@ export function setup(helper) {
     "div.bbcode-progress-text",
     "div.bbcode-progress-bar",
     "div.bbcode-progress-bar-other",
-
-    "button.bbcode-slide-title",
-    "button.bbcode-tab-links",
+    /* Progress                        WHITELIST-020*/
     "div.bbcode-note",
     "div.bbcode-note-tape",
     "div.bbcode-note-content",
     "div.bbcode-note-footer",
+    /* Mail                            WHITELIST-021*/
     "div.bbcode-email-send",
     "div.bbcode-email-receive",
     "div.bbcode-email-top-send",
@@ -844,20 +878,26 @@ export function setup(helper) {
     "div.bbcode-email-footer",
     "div.bbcode-email-button",
     "div.bbcode-email-person",
+    "div.bbcode-email-subject",
+    /* Newspaper                       WHITELIST-022*/
     "div.bbcode-newspaper",
+    /* Check                           WHITELIST-023*/
     "div.bbcode-check-dot",
     "div.bbcode-check-check",
     "div.bbcode-check-cross",
-    "div.bbcode-ooc",
-    "div.bbcode-tab",
-    "div.bbcode-tab-content",
+    /* Accordion                       WHITELIST-024C*/
     "div.bbcode-accordion",
+    "button.bbcode-slide-title",
     "div.bbcode-slide-content",
-    
-    
+    /* OOC                             WHITELIST-025*/
+    "div.bbcode-ooc",
+    /* Tabs                            WHITELIST-026C*/
+    "div.bbcode-tab",
+    "button.bbcode-tab-links",
+    "div.bbcode-tab-content",
   ]);
 
-  /* Border                          WHITELIST-003R*/
+  /* Border                            WHITELIST-003R*/
   helper.whiteList({
     custom(tag, name, value) {
       if (tag === "div" && name === "style") {
@@ -866,7 +906,7 @@ export function setup(helper) {
     }
   });
 
-  /* Background                      WHITELIST-004R*/
+  /* Background                        WHITELIST-004R*/
   helper.whiteList({
     custom(tag, name, value) {
       if (tag === "div" && name === "style") {
@@ -875,7 +915,7 @@ export function setup(helper) {
     }
   });
 
-  /* Scroll                          WHITELIST-007*/
+  /* Scroll                            WHITELIST-007*/
   helper.whiteList({
     custom(tag, name, value) {
       if (tag === "div" && name === "style") {
@@ -884,7 +924,7 @@ export function setup(helper) {
     }
   });
 
-  /* Row & Column                    WHITELIST-010*/
+  /* Row & Column                      WHITELIST-010*/
   helper.whiteList({
     custom(tag, name, value) {
       if (tag === "div" && name === "class") {
@@ -893,7 +933,7 @@ export function setup(helper) {
     }
   });
 
-  /* Paragraph Indent                WHITELIST-014*/
+  /* Paragraph Indent                 WHITELIST-014*/
   helper.whiteList({
     custom(tag, name, value) {
       if (tag === "span" && name === "style") {
@@ -902,7 +942,7 @@ export function setup(helper) {
     }
   });
 
-  /* Font                            WHITELIST-017R*/
+  /* Font                             WHITELIST-017R*/
   helper.whiteList({
     custom(tag, name, value) {
       if (tag === "div" && name === "style") {
@@ -911,7 +951,15 @@ export function setup(helper) {
     }
   });
 
-  /* Progress                        WHITELIST-019R*/
+  helper.whiteList({
+    custom(tag, name, value) {
+      if (tag === "link" && name === "href") {
+        return /^https\:\/\/fonts\.googleapis\.com\/css2\?family=(.*)$/.exec(value);
+      }
+    }
+  });
+
+  /* Progress                         WHITELIST-019R*/
   helper.whiteList({
     custom(tag, name, value) {
       if (tag === "div" && name === "style") {
@@ -920,8 +968,7 @@ export function setup(helper) {
     }
   });
   
-
-
+  /* Accordion                        WHITELIST-024R*/
   helper.whiteList({
     custom(tag, name, value) {
       if (tag === "button" && name === "onclick") {
@@ -930,20 +977,11 @@ export function setup(helper) {
     }
   });
 
+  /* Tabs                             WHITELIST-026R*/
   helper.whiteList({
     custom(tag, name, value) {
       if (tag === "button" && name === "onclick") {
         return /^(openBBCodeTab\(event\))$/.exec(value);
-      }
-    }
-  });
-
-
-
-  helper.whiteList({
-    custom(tag, name, value) {
-      if (tag === "link" && name === "href") {
-        return /^https\:\/\/fonts\.googleapis\.com\/css2\?family=(.*)$/.exec(value);
       }
     }
   });

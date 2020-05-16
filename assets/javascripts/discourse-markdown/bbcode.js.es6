@@ -218,9 +218,9 @@ function setupMarkdownIt(md) {
       startToken.type = "span_open";
       startToken.tag = "span";
       if (!divideOption) {
-        startToken.attrs = [["class", "bbcode-horizontal-rule-" + divideOption]];
+        startToken.attrs = [["class", "bbcode-horizontal-rule"]];
       } else {
-        startToken.attrs = [["class", "bbcode-horizontal-rule" + divideOption]];
+        startToken.attrs = [["class", "bbcode-horizontal-rule-" + divideOption]];
       }
       startToken.content = content;
       startToken.nesting = 1;

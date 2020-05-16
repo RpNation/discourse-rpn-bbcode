@@ -17,6 +17,8 @@ Tabs......................BBCODE-015
 Blockquotes...............BBCODE-016
 Highlight.................BBCODE-017
 Progress Bar..............BBCODE-018
+Accordion.................BBCODE-019
+OOC.......................BBCODE-020
 */
 
 @import "common/foundation/variables";
@@ -194,7 +196,7 @@ Progress Bar..............BBCODE-018
 *** Inline Spoiler                   BBCODE-008***
 *************************************************/
 .inlineSpoiler {
-	background-color: black;
+	background-color: currentColor;
 	padding: 0 5px;
 }
 .inlineSpoiler:hover {
@@ -469,7 +471,7 @@ Progress Bar..............BBCODE-018
 *************************************************/
 
 /* Style the tab */
-.rpntab {
+.bbcode-tab {
 	overflow: hidden;
 	background-color: transparent;
 	display: flex;
@@ -482,7 +484,7 @@ Progress Bar..............BBCODE-018
 }
 
 /* Style the buttons inside the tab */
-.rpntab button {
+.bbcode-tab button {
 	background-color: white;
 	outline: none;
 	cursor: pointer;
@@ -496,19 +498,19 @@ Progress Bar..............BBCODE-018
 }
 
 /* Change background color of buttons on hover */
-.rpntab button:hover {
+.bbcode-tab button:hover {
 	background-color: white;
 	color: #2980b9;
 }
 
 /* Create an active/current tablink class */
-.rpntab button.active {
+.bbcode-tab button.active {
 	background-color: #2980b9;
 	color: white;
 }
 
 /* Style the tab content */
-.rpntabcontent {
+.bbcode-tab-content {
 	display: none;
 	padding: 10px;
 	border: 0px solid #ccc;
@@ -616,3 +618,69 @@ Progress Bar..............BBCODE-018
 .bbcode-progress-color .bbcode-progress-bar {
 	border-right: 2px solid #2980b9 Still;
 }
+
+/*************************************************
+*** Accordion                        BBCODE-019***
+*************************************************/
+
+.bbcode-accordion {
+	position: relative;
+	width: 100%;
+	height: auto;
+}
+
+.bbcode-slide-title {
+	all: unset;
+	width: 100%;
+	height: auto;
+	position: relative;
+	cursor: pointer;
+	padding: 10px;
+	background-color: lightgray;
+	color: black;
+	box-sizing: border-box;
+
+	&:hover {
+		background-color: gray;
+	}
+
+	&:after {
+		content: '\02795';
+		font-size: 13px;
+		color: #777;
+		float: right;
+		margin-left: 5px;
+	}
+}
+
+.bbcode-slide-title.active:after {
+	content: "\2796";
+}
+
+.bbcode-slide-content {
+	box-sizing: border-box;
+	padding: 0 10px;
+	display: none;
+}
+
+/*************************************************
+*** OOC                              BBCODE-020***
+*************************************************/
+
+.bbcode-ooc {
+    color: #7897ba;
+    font-style: italic;
+    padding: 0;
+    border: 1px solid #7897ba;
+}
+.bbcode-ooc div {
+    font-style: normal;
+    font-weight: 600;
+    color: white;
+    background: #7897ba;
+    text-align: center;
+    width: 50px;
+    float: left;
+    margin-right: 15px;
+}
+

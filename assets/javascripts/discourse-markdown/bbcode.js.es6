@@ -53,6 +53,16 @@ function wrap(tag, attr, callback) {
 function setupMarkdownIt(md) {
   const loaded_fonts = [];
   const ruler = md.inline.bbcode.ruler;
+  const base_fonts = [
+    "arial",
+    "book antiqua",
+    "courier new",
+    "georgia",
+    "tahoma",
+    "times new roman",
+    "trebuchet ms",
+    "verdana",
+  ];
 
   /*************************************************
   *** Image Float                         TAG-001***
@@ -434,17 +444,6 @@ function setupMarkdownIt(md) {
   md.block.bbcode.ruler.push("font", {
     tag: "font",
     replace: function (state, tagInfo, content) {
-      const base_fonts = [
-        "arial",
-        "book antiqua",
-        "courier new",
-        "georgia",
-        "tahoma",
-        "times new roman",
-        "trebuchet ms",
-        "verdana",
-      ];
-
       let fontFamily = tagInfo.attrs['_default'].trim();
       let token;
       if (!base_fonts.includes(fontFamily.toLowerCase()) && !loaded_fonts.includes(fontFamily)) {
@@ -458,6 +457,26 @@ function setupMarkdownIt(md) {
       token = state.push("text", "", 0);
       token.content = content;
       state.push("div_close", "div", -1);
+      return true;
+    }
+  });
+
+  ruler.push("font", {
+    tag: "font",
+    replace: function (state, tagInfo, content) {
+      let fontFamily = tagInfo.attrs['_default'].trim();
+      let token;
+      if (!base_fonts.includes(fontFamily.toLowerCase()) && !loaded_fonts.includes(fontFamily)) {
+        token = state.push("link", "link", 0);
+        token.attrs = [["rel", "stylesheet"], ["type", "text/css"], ["href", `https://fonts.googleapis.com/css2?family=${fontFamily.replace(/\s/g, '+')}`]];
+        loaded_fonts.push(fontFamily);
+      }
+
+      token = state.push("span_open", "span", 1);
+      token.attrs = [["style", `font-family:${fontFamily}`]];
+      token = state.push("text", "", 0);
+      token.content = content;
+      state.push("span_close", "span", -1);
       return true;
     }
   });

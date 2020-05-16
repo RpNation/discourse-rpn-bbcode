@@ -720,7 +720,7 @@ export function setup(helper) {
     "div.rpntab",
     "div.rpntabcontent",
     "div.slide",
-    "link[href=https://fonts.googleapis.com/*]",
+    //"link[href=https://fonts.googleapis.com/*]",
     "span.float-right",
     "span.float-left",
     "span.float-center",
@@ -799,6 +799,14 @@ export function setup(helper) {
     custom(tag, name, value) {
       if (tag === "span" && name === "style") {
         return /^(display: inline-block; text-indent:2\.5em)$/.exec(value);
+      }
+    }
+  });
+
+  helper.whiteList({
+    custom(tag, name, value) {
+      if (tag === "link" && name === " text/css") {
+        return /^(.)*$/.exec(value);
       }
     }
   });

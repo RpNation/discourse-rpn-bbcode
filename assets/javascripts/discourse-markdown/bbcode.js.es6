@@ -343,12 +343,16 @@ function setupMarkdownIt(md) {
 
       let fontFamily = tagInfo.attrs['_default'].trim();
       let token;
-      console.log(`Loaded fonts for ${fontFamily} pass: `, loaded_fonts);
       if (!base_fonts.includes(fontFamily.toLowerCase()) && !loaded_fonts.includes(fontFamily)) {
-        token = state.push("style_open", "style", 1);
-        token = state.push("text", "", 0);
-        token.content = `@import url('https://fonts.googleapis.com/css2?family=${fontFamily.replace(/\s/g, '+')}');`;
-        state.push("style_close", "style", -1);
+        token = state.push("link", "link", 0);
+        token.attrs = [["rel", "stylesheet"], ["type", "text/css"], ["href", `https://fonts.googleapis.com/css2?family=${fontFamily.replace(/\s/g, '+')}`]]
+        // link.rel = 'stylesheet';
+        // link.type = 'text/css';
+        // link.href = 'https://fonts.googleapis.com/css2?family=' + fontID;
+        // token = state.push("style_open", "style", 1);
+        // token = state.push("text", "", 0);
+        // token.content = `@import url('https://fonts.googleapis.com/css2?family=${fontFamily.replace(/\s/g, '+')}');`;
+        // state.push("style_close", "style", -1);
 
         loaded_fonts.push(fontFamily);
       }
@@ -726,7 +730,7 @@ export function setup(helper) {
     "span.bbcode-justify",
     "span.bbcodeHighlight",
     //whitelist style tag for font import.
-    "style",
+    // "style",
     "fieldset.bbcode-fieldset",
     "legend",
     "table.bbcode-blockquote",
@@ -796,6 +800,14 @@ export function setup(helper) {
     custom(tag, name, value) {
       if (tag === "span" && name === "style") {
         return /^(display: inline-block; text-indent:2\.5em)$/.exec(value);
+      }
+    }
+  });
+
+  helper.whiteList({
+    custom(tag, name, value) {
+      if (tag === "link") {
+        return /^.*$/.exec(value);
       }
     }
   });

@@ -1,5 +1,11 @@
 import { registerOption } from "pretty-text/pretty-text";
 
+/*
+Image Float...........TAG-001........WHITElIST-001
+Highlight.............TAG-002........WHITELIST-002
+Border................TAG-003........WHITELIST-003CR
+Background............TAG-004........WHITELIST-004CR
+*/
 
 registerOption(
   (siteSettings, opts) => (opts.features["rpn-bbcode"] = true)
@@ -26,6 +32,10 @@ function setupMarkdownIt(md) {
   const loaded_fonts = [];
   const ruler = md.inline.bbcode.ruler;
 
+/*************************************************
+*** Image Float                         TAG-001***
+*************************************************/
+
   ruler.push("imagefloat", {
     tag: "imagefloat",
     wrap: function (startToken, endToken, tagInfo, content) {
@@ -44,10 +54,18 @@ function setupMarkdownIt(md) {
     }
   });
 
+/*************************************************
+*** Highlight                           TAG-002***
+*************************************************/
+
   ruler.push("highlight", {
     tag: "highlight",
     wrap: "span.bbcodeHighlight"
   });
+
+/*************************************************
+*** Border                              TAG-003***
+*************************************************/
 
   ruler.push("border", {
     tag: "border",
@@ -678,9 +696,17 @@ function setupMarkdownIt(md) {
 export function setup(helper) {
 
   helper.whiteList([
+    /* Image Float                     WHITELIST-001*/
+    "span.float-right",
+    "span.float-left",
+    "span.float-center",
+    /* Highlight                       WHITELIST-002*/
+    "span.bbcodeHighlight",
+    /* Border                          WHITELIST-003C*/
+    "div.bbcode-border",
     "button.bbcode-slide-title",
     "button.bbcode-tab-links",
-    "div.bbcode-border",
+    
     "div.bbcode-background",
     "div.bbcode-side-left",
     "div.bbcode-side-right",
@@ -724,9 +750,6 @@ export function setup(helper) {
     "link[href=https://fonts.googleapis.com/*]",
     "link[rel=stylesheet]",
     "link[type=text/css]",
-    "span.float-right",
-    "span.float-left",
-    "span.float-center",
     "span.bbcode-horizontal-rule-thick",
     "span.bbcode-horizontal-rule-dotted",
     "span.bbcode-horizontal-rule-dotted-thick",
@@ -739,9 +762,10 @@ export function setup(helper) {
     "table.bbcode-block-dice",
     "td.bbcode-blockquote-left",
     "td.bbcode-blockquote-right",
-    "td.bbcode-blockquote-content"
+    "td.bbcode-blockquote-content",
   ]);
 
+  /* Border                          WHITELIST-003R*/
   helper.whiteList({
     custom(tag, name, value) {
       if (tag === "div" && name === "style") {

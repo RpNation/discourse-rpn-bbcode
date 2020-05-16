@@ -373,7 +373,11 @@ function setupMarkdownIt(md) {
       let printOption = tagInfo.attrs['_default'];
 
       let token = state.push("div_open", "div", 1);
-      token.attrs = [["class", "bbcode-print-" + printOption]];
+      if (!printOption) {
+        token.attrs = [["class", "bbcode-print"]];
+      } else {
+        token.attrs = [["class", "bbcode-print-" + printOption]];
+      }
 
       token = state.push("text", "", 0);
       token.content = content;
@@ -845,9 +849,10 @@ export function setup(helper) {
     "td.bbcode-blockquote-content",
     "div.bbcode-blockquote-speaker",
     "td.bbcode-blockquote-right",
-    /* Print                           WHITELIST-014*/
+    /* Print                           WHITELIST-015*/
     "div.bbcode-print-top-tear",
     "div.bbcode-print-bottom-tear",
+    "div.bbcode-print",
     "div.bbcode-print-line",
     "div.bbcode-print-graph",
     "div.bbcode-print-parchment",

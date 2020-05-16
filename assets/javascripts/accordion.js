@@ -64,7 +64,7 @@ function toggleBBCodeSlide(evt) {
 	  return slideUp(target, duration);
 	}
   }
-
+  evt.currentTarget.classList.toggle('active');
   var slide = evt.currentTarget.nextElementSibling;
   slideToggle(slide);
 }

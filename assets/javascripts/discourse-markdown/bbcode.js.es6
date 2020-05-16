@@ -720,6 +720,7 @@ export function setup(helper) {
     "div.rpntab",
     "div.rpntabcontent",
     "div.slide",
+    "link[href=https://fonts.googleapis.com/*]",
     "span.float-right",
     "span.float-left",
     "span.float-center",
@@ -729,8 +730,6 @@ export function setup(helper) {
     "span.inlineSpoiler",
     "span.bbcode-justify",
     "span.bbcodeHighlight",
-    //whitelist style tag for font import.
-    // "style",
     "fieldset.bbcode-fieldset",
     "legend",
     "table.bbcode-blockquote",
@@ -800,14 +799,6 @@ export function setup(helper) {
     custom(tag, name, value) {
       if (tag === "span" && name === "style") {
         return /^(display: inline-block; text-indent:2\.5em)$/.exec(value);
-      }
-    }
-  });
-
-  helper.whiteList({
-    custom(tag, name, value) {
-      if (tag === "link") {
-        return /^.*$/.exec(value);
       }
     }
   });

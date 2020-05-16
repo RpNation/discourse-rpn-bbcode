@@ -217,7 +217,11 @@ function setupMarkdownIt(md) {
 
       startToken.type = "span_open";
       startToken.tag = "span";
-      startToken.attrs = [["class", "bbcode-horizontal-rule-" + divideOption]];
+      if (!divideOption) {
+        startToken.attrs = [["class", "bbcode-horizontal-rule-" + divideOption]];
+      } else {
+        startToken.attrs = [["class", "bbcode-horizontal-rule" + divideOption]];
+      }
       startToken.content = content;
       startToken.nesting = 1;
 
@@ -827,6 +831,7 @@ export function setup(helper) {
     "div.bbcode-side-left",
     "div.bbcode-side-right",
     /* Divide                          WHITELIST-009*/
+    "span.bbcode-horizontal-rule",
     "span.bbcode-horizontal-rule-thick",
     "span.bbcode-horizontal-rule-dotted",
     "span.bbcode-horizontal-rule-dotted-thick",

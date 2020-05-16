@@ -583,38 +583,38 @@ function setupMarkdownIt(md) {
     }
   });
 
-  ruler.push("accordion", {
+  md.block.bbcode.ruler.push("accordion", {
     tag: "accordion",
-    wrap: function (startToken, endToken, tagInfo, content) {
-      startToken.type = "button_open";
-      startToken.tag = "button";
-      startToken.attrs = [["class", "accordion"]];
-      startToken.content = content;
-      startToken.nesting = 1;
-
-      endToken.type = "button_close";
-      endToken.tag = "button";
-      endToken.content = '';
-      endToken.nesting = -1;
-    }
+    warp: "div.bbcode-accordion"
   });
 
-  ruler.push("slide", {
+  md.block.bbcode.ruler.push("slide", {
     tag: "slide",
-    wrap: function (startToken, endToken, tagInfo, content) {
-      let slideOption = tagInfo.attrs['_default'];
+    replace: function (state, tagInfo, content) {
+      let slideTitle = tagInfo.attrs['_default'];
 
-      startToken.type = "div_open";
-      startToken.tag = "div";
-      startToken.attrs = [["class", "panel"], ["style", slideOption]];
-      startToken.content = content;
-      startToken.nesting = 1;
+      let token = state.push("button_open", "button", 1);
+      token.attrs = [["class", "bbcode-slide-title"], ["onclick", "toggleBBCodeSlide(event)"]];
 
-      endToken.type = "div_close";
-      endToken.tag = "div";
-      endToken.content = '';
-      endToken.nesting = -1;
-    }
+      token = state.push("text", "", 0);
+      token.content = slideTitle;
+
+      state.push("button_close", "button", -1);
+
+      token = state.push("div_open", "div", 1);
+      token.attrs = [["class", "bbcode-slide-content"]];
+
+      token = state.push("p_open", "p", 1);
+
+      token = state.push("text", "", 0);
+      token.content = content;
+
+      state.push("p_close", "p", -1);
+
+      state.push("div_close", "div", -1);
+
+      return true;
+    },
   });
 
   ruler.push("ooc", {
@@ -642,7 +642,7 @@ function setupMarkdownIt(md) {
 
   md.block.bbcode.ruler.push("tabs", {
     tag: "tabs",
-    wrap: "div.rpntab"
+    wrap: "div.bbcode-tab"
   });
 
   md.block.bbcode.ruler.push("tab", {
@@ -651,7 +651,7 @@ function setupMarkdownIt(md) {
       let tabTitle = tagInfo.attrs['_default'];
 
       let token = state.push("button_open", "button", 1);
-      token.attrs = [["class", "rpntablinks"], ["onclick", "openRPNTab(event)"]];
+      token.attrs = [["class", "bbcode-tab-links"], ["onclick", "openBBCodeTab(event)"]];
 
       token = state.push("text", "", 0);
       token.content = tabTitle;
@@ -659,7 +659,7 @@ function setupMarkdownIt(md) {
       state.push("button_close", "button", -1);
 
       token = state.push("div_open", "div", 1);
-      token.attrs = [["class", "rpntabcontent"]];
+      token.attrs = [["class", "bbcode-tab-content"]];
 
       token = state.push("p_open", "p", 1);
 
@@ -678,8 +678,8 @@ function setupMarkdownIt(md) {
 export function setup(helper) {
 
   helper.whiteList([
-    "button.accordion",
-    "button.rpntablinks",
+    "button.bbcode-slide-title",
+    "button.bbcode-tab-links",
     "div.bbcode-border",
     "div.bbcode-background",
     "div.bbcode-side-left",
@@ -717,9 +717,10 @@ export function setup(helper) {
     "div.bbcode-check-check",
     "div.bbcode-check-cross",
     "div.bbcode-ooc",
-    "div.rpntab",
-    "div.rpntabcontent",
-    "div.slide",
+    "div.bbcode-tab",
+    "div.bbcode-tab-content",
+    "div.bbcode-accordion",
+    "div.bbcode-slide-content",
     "link[href=https://fonts.googleapis.com/*]",
     "link[rel=stylesheet]",
     "link[type=text/css]",
@@ -792,7 +793,15 @@ export function setup(helper) {
   helper.whiteList({
     custom(tag, name, value) {
       if (tag === "button" && name === "onclick") {
-        return /^(openRPNTab\(event\))$/.exec(value);
+        return /^(toggleBBCodeSlide\(event\))$/.exec(value);
+      }
+    }
+  });
+
+  helper.whiteList({
+    custom(tag, name, value) {
+      if (tag === "button" && name === "onclick") {
+        return /^(openBBCodeTab\(event\))$/.exec(value);
       }
     }
   });

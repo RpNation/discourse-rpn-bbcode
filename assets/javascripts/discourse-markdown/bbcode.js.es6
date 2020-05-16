@@ -966,7 +966,7 @@ export function setup(helper) {
   /* Font                             WHITELIST-017R*/
   helper.whiteList({
     custom(tag, name, value) {
-      if (tag === "div" && name === "style") {
+      if ((tag === "div" || tag === "span") && name === "style") {
         return /^font-family:[\w\s]+$/.exec(value);
       }
     }

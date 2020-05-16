@@ -57,7 +57,7 @@ function toggleBBCodeSlide(evt) {
     }, duration);
   }
 
-  function slideToggle(target, duration = 750) {
+  function slideToggle(target, duration = 500) {
 	if (window.getComputedStyle(target).display === 'none') {
 	  return slideDown(target, duration);
 	} else {

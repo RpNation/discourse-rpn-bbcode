@@ -19,6 +19,7 @@ Highlight.................BBCODE-017
 Progress Bar..............BBCODE-018
 Accordion.................BBCODE-019
 OOC.......................BBCODE-020
+LEFT, CENTER, RIGHT.......BBCODE-021
 */
 
 @import "common/foundation/variables";
@@ -477,7 +478,7 @@ OOC.......................BBCODE-020
 	display: flex;
 	flex-flow: row wrap;
 	justify-content: start;
-	
+
 	& > div:first-of-type {
     display: block;
   }
@@ -684,3 +685,18 @@ OOC.......................BBCODE-020
     margin-right: 15px;
 }
 
+/*************************************************
+*** LEFT, CENTER, RIGHT              BBCODE-021***
+*************************************************/
+
+.rpnleft {
+	text-align: left;
+}
+
+.rpncenter {
+	text-align: center;
+}
+
+.rpnright {
+	text-align: right;
+}

@@ -30,7 +30,7 @@ See: [https://www.rpnation.com]
 | Bold, Italic, Underline, Strikethrough Ⓜ️ |  Accordions 🚧   |                      |         OOC ✔️       |
 |                 Color 🚧                  |  Scroll Box ✔️   |                      |                      |
 |               Font Size 🚧                |    Div Box ❓    |                      |                      |
-|          Left, Center, Right 🚧           |    Anchors ❓    |                      |                      |
+|          Left, Center, Right ✔️           |    Anchors ❓    |                      |                      |
 |          Spoiler<sup>5</sup> 🎉           | Rows & Columns 🚧 |                      |                      |
 
 

@@ -1,6 +1,6 @@
 function toggleBBCodeSlide(evt) {
 
-  function slideUp (target, duration=500) {
+  function slideUp (target, duration) {
   	target.style.transitionProperty = 'height, margin, padding';
   	target.style.transitionDuration = duration + 'ms';
   	target.style.boxSizing = 'border-box';
@@ -25,7 +25,7 @@ function toggleBBCodeSlide(evt) {
   	}, duration);
   }
 
-  function slideDown (target, duration=500) {
+  function slideDown (target, duration) {
     target.style.removeProperty('display');
     var display = window.getComputedStyle(target).display;
 
@@ -57,7 +57,7 @@ function toggleBBCodeSlide(evt) {
     }, duration);
   }
 
-  function slideToggle(target, duration = 500) {
+  function slideToggle(target, duration) {
 	if (window.getComputedStyle(target).display === 'none') {
 	  return slideDown(target, duration);
 	} else {
@@ -66,5 +66,5 @@ function toggleBBCodeSlide(evt) {
   }
   evt.currentTarget.classList.toggle('active');
   var slide = evt.currentTarget.nextElementSibling;
-  slideToggle(slide);
+  slideToggle(slide,500);
 }

@@ -844,7 +844,7 @@ function setupMarkdownIt(md) {
     replace: function (state, tagInfo, content) {
 
       let token = state.push("div_open", "div", 1);
-      token.attrs = [["class", "rpncenter"]];
+      token.attrs = [["class", "bbcode-content-center"]];
 
       token = state.push("inline", "", 0);
       token.content = content;
@@ -865,7 +865,7 @@ function setupMarkdownIt(md) {
     replace: function (state, tagInfo, content) {
 
       let token = state.push("div_open", "div", 1);
-      token.attrs = [["class", "rpnleft"]];
+      token.attrs = [["class", "bbcode-content-left"]];
 
       token = state.push("inline", "", 0);
       token.content = content;
@@ -886,7 +886,7 @@ function setupMarkdownIt(md) {
     replace: function (state, tagInfo, content) {
 
       let token = state.push("div_open", "div", 1);
-      token.attrs = [["class", "rpnright"]];
+      token.attrs = [["class", "bbcode-content-right"]];
 
       token = state.push("inline", "", 0);
       token.content = content;
@@ -990,11 +990,11 @@ export function setup(helper) {
     "button.bbcode-tab-links",
     "div.bbcode-tab-content",
     /* Center                          WHITELIST-027*/
-    "div.rpncenter",
+    "div.bbcode-content-center",
     /* Left                            WHITELIST-028*/
-    "div.rpnleft",
+    "div.bbcode-content-left",
     /* Right                           WHITELIST-029*/
-    "div.rpnright"
+    "div.bbcode-content-right"
   ]);
 
   /* Border                            WHITELIST-003R*/

@@ -27,6 +27,9 @@ Check...............TAG-023..........WHITELIST-023
 Accordion...........TAG-024..........WHITELIST-024CR
 OOC.................TAG-025..........WHITELIST-025
 Tabs................TAG-026..........WHITELIST-026CR
+Center..............TAG-027..........WHITELIST-027
+Left................TAG-028..........WHITELIST-028
+Right...............TAG-029..........WHITELIST-029
 */
 
 registerOption(
@@ -794,7 +797,7 @@ function setupMarkdownIt(md) {
   });
 
   /*************************************************
-  *** Tabs                                TAG-025***
+  *** Tabs                                TAG-026***
   *************************************************/
 
   md.block.bbcode.ruler.push("tabs", {
@@ -825,6 +828,69 @@ function setupMarkdownIt(md) {
       token.children = [];
 
       state.push("p_close", "p", -1);
+
+      state.push("div_close", "div", -1);
+
+      return true;
+    }
+  });
+
+  /*************************************************
+  *** Center                                TAG-027***
+  *************************************************/
+
+  md.block.bbcode.ruler.push("center", {
+    tag: "center",
+    replace: function (state, tagInfo, content) {
+
+      let token = state.push("div_open", "div", 1);
+      token.attrs = [["class", "rpncenter"]];
+
+      token = state.push("inline", "", 0);
+      token.content = content;
+      token.children = [];
+
+      state.push("div_close", "div", -1);
+
+      return true;
+    }
+  });
+
+  /*************************************************
+  *** Left                                TAG-028***
+  *************************************************/
+
+  md.block.bbcode.ruler.push("left", {
+    tag: "left",
+    replace: function (state, tagInfo, content) {
+
+      let token = state.push("div_open", "div", 1);
+      token.attrs = [["class", "rpnleft"]];
+
+      token = state.push("inline", "", 0);
+      token.content = content;
+      token.children = [];
+
+      state.push("div_close", "div", -1);
+
+      return true;
+    }
+  });
+
+  /*************************************************
+  *** Right                                TAG-029***
+  *************************************************/
+
+  md.block.bbcode.ruler.push("right", {
+    tag: "right",
+    replace: function (state, tagInfo, content) {
+
+      let token = state.push("div_open", "div", 1);
+      token.attrs = [["class", "rpnright"]];
+
+      token = state.push("inline", "", 0);
+      token.content = content;
+      token.children = [];
 
       state.push("div_close", "div", -1);
 
@@ -923,6 +989,12 @@ export function setup(helper) {
     "div.bbcode-tab",
     "button.bbcode-tab-links",
     "div.bbcode-tab-content",
+    /* Center                          WHITELIST-027*/
+    "div.rpncenter",
+    /* Left                            WHITELIST-028*/
+    "div.rpnleft",
+    /* Right                           WHITELIST-029*/
+    "div.rpnright"
   ]);
 
   /* Border                            WHITELIST-003R*/

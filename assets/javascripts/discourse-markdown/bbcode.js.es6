@@ -455,8 +455,9 @@ function setupMarkdownIt(md) {
 
       token = state.push("div_open", "div", 1);
       token.attrs = [["style", `font-family:${fontFamily}`]];
-      token = state.push("text", "", 0);
+      token = state.push("inline", "", 0);
       token.content = content;
+      token.children = [];
       state.push("div_close", "div", -1);
       return true;
     }
@@ -504,8 +505,9 @@ function setupMarkdownIt(md) {
       token = state.push("td_open", "td", 1);
       token.attrs = [["class", "bbcode-block-content"]];
 
-      token = state.push("text", "", 0);
+      token = state.push("inline", "", 0);
       token.content = content;
+      token.children = [];
 
       state.push("td_close", "td", -1);
 
@@ -532,8 +534,9 @@ function setupMarkdownIt(md) {
       token = state.push("div_open", "div", 1);
       token.attrs = [["class", "bbcode-progress-text"]];
 
-      token = state.push("text", "", 0);
+      token = state.push("inline", "", 0);
       token.content = content;
+      token.children = [];
 
       state.push("div_close", "div", -1);
 
@@ -572,8 +575,9 @@ function setupMarkdownIt(md) {
       token = state.push("div_open", "div", 1);
       token.attrs = [["class", "bbcode-note-content"]];
 
-      token = state.push("text", "", 0);
+      token = state.push("inline", "", 0);
       token.content = content;
+      token.children = [];
 
       token = state.push("div_open", "div", 1);
       token.attrs = [["class", "bbcode-note-footer"]];
@@ -750,8 +754,9 @@ function setupMarkdownIt(md) {
 
       token = state.push("p_open", "p", 1);
 
-      token = state.push("text", "", 0);
+      token = state.push("inline", "", 0);
       token.content = content;
+      token.children = [];
 
       state.push("p_close", "p", -1);
 
@@ -815,8 +820,9 @@ function setupMarkdownIt(md) {
 
       token = state.push("p_open", "p", 1);
 
-      token = state.push("text", "", 0);
+      token = state.push("inline", "", 0);
       token.content = content;
+      token.children = [];
 
       state.push("p_close", "p", -1);
 

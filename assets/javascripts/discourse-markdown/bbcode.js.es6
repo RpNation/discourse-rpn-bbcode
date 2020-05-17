@@ -483,6 +483,7 @@ function setupMarkdownIt(md) {
       let lineBreakRegex = /(\r\n|\n|\r)/gm;
       content.split(lineBreakRegex)
         .forEach(splitText => {
+          console.log('split text value: ', splitText);
           token = state.push("text", "", 0);
           token.content = splitText;
           state.push("br", "br", 0);

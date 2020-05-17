@@ -481,10 +481,16 @@ function setupMarkdownIt(md) {
       token.attrs = [["style", `font-family:${fontFamily},Helvetica,Arial,sans-serif`]];
 
       let lineBreakRegex = /\r?\n/gm;
-      for (splitText of content.trim().split(lineBreakRegex).slice(0, -1)) {
+      const splitContent = content.trim().split(lineBreakRegex);
+      const contentLength = splitContent.length - 1;
+
+      for (let i = 0; i <= contentLength; ++i) {
         token = state.push("text", "", 0);
-        token.content = splitText;
-        state.push("br", "br", 0);
+        token.content = splitContent[i];
+
+        if (i != contentLength) {
+          state.push("br", "br", 0);
+        }
       }
 
       state.push("span_close", "span", -1);

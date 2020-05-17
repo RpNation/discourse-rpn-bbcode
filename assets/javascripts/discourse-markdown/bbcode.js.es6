@@ -476,19 +476,16 @@ function setupMarkdownIt(md) {
         token.attrs = [["rel", "stylesheet"], ["type", "text/css"], ["href", `https://fonts.googleapis.com/css2?family=${fontFamily.replace(/\s/g, '+')}`]];
         loaded_fonts.push(fontFamily);
       }
-
+      console.log('Ran for: ', content);
       token = state.push("span_open", "span", 1);
       token.attrs = [["style", `font-family:${fontFamily},Helvetica,Arial,sans-serif`]];
 
       let lineBreakRegex = /\r?\n/gm;
-      console.log(content.trim().split(lineBreakRegex));
-      content.trim().split(lineBreakRegex)
-        .forEach(splitText => {
-          console.log('split text value: ', splitText);
-          token = state.push("text", "", 0);
-          token.content = splitText;
-          state.push("br", "br", 0);
-        });
+      for (splitText of content.trim().split(lineBreakRegex).slice(0, -1)) {
+        token = state.push("text", "", 0);
+        token.content = splitText;
+        state.push("br", "br", 0);
+      }
 
       state.push("span_close", "span", -1);
       return true;

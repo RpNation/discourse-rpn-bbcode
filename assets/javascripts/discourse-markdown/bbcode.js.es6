@@ -476,7 +476,7 @@ function setupMarkdownIt(md) {
         token.attrs = [["rel", "stylesheet"], ["type", "text/css"], ["href", `https://fonts.googleapis.com/css2?family=${fontFamily.replace(/\s/g, '+')}`]];
         loaded_fonts.push(fontFamily);
       }
-      console.log('Ran for: ', content);
+
       token = state.push("span_open", "span", 1);
       token.attrs = [["style", `font-family:${fontFamily},Helvetica,Arial,sans-serif`]];
 

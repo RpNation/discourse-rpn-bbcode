@@ -6,5 +6,4 @@
 # authors: Ghan
 # url: https://github.com/Ghan04/discourse-rpn-bbcode
 register_asset "javascripts/tabs.js"
-register_asset "javascripts/accordion.js"
 register_asset "stylesheets/bbcode.scss"

@@ -30,6 +30,7 @@ Tabs................TAG-026..........WHITELIST-026CR
 Center..............TAG-027..........WHITELIST-027
 Left................TAG-028..........WHITELIST-028
 Right...............TAG-029..........WHITELIST-029
+Color...............TAG-030..........WHITELIST-030R
 */
 
 registerOption(
@@ -911,7 +912,7 @@ function setupMarkdownIt(md) {
   });
 
   /*************************************************
-  *** Right                                TAG-030***
+  *** Color                                TAG-030***
   *************************************************/
 
   md.block.bbcode.ruler.push("color", {

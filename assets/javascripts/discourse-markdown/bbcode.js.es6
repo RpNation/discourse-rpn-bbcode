@@ -1010,11 +1010,11 @@ function setupMarkdownIt(md) {
     fontSize.unit = parsedSize[2];
     if (value = parsedSize[1]) {
       switch (fontSize.unit) {
-        case px:
+        case 'px':
           if (value > sizeRanges.px_max) { value = sizeRanges.px_max; }
           else if (value < sizeRanges.px_min) { value = sizeRanges.px_min; }
           break;
-        case rem:
+        case 'rem':
           if (value > sizeRanges.rem_max) { value = sizeRanges.rem_max; }
           else if (value < sizeRanges.rem_min) { value = sizeRanges.rem_min; }
           break;

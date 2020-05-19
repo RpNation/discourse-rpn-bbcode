@@ -999,12 +999,12 @@ function setupMarkdownIt(md) {
     let fontSize = {};
     const parsedSize = fontValue.exec(/(\d+\.?\d?)(px|rem)?/);
     const sizeRanges = {
-      px_max = 36,
-      px_min = 8,
-      rem_max = 3,
-      rem_min = 0.2,
-      unitless_max = 7,
-      unitless_min = 1
+      px_max: 36,
+      px_min: 8,
+      rem_max: 3,
+      rem_min: 0.2,
+      unitless_max: 7,
+      unitless_min: 1
     };
 
     fontSize.unit = parsedSize[2];

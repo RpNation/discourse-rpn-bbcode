@@ -30,6 +30,7 @@ Tabs................TAG-026..........WHITELIST-026CR
 Center..............TAG-027..........WHITELIST-027
 Left................TAG-028..........WHITELIST-028
 Right...............TAG-029..........WHITELIST-029
+Color...............TAG-030..........WHITELIST-030R
 */
 
 registerOption(
@@ -911,7 +912,7 @@ function setupMarkdownIt(md) {
   });
 
   /*************************************************
-  *** Right                                TAG-030***
+  *** Color                                TAG-030***
   *************************************************/
 
   md.block.bbcode.ruler.push("color", {
@@ -919,7 +920,7 @@ function setupMarkdownIt(md) {
     replace: function (state, tagInfo, content) {
 
       let token = state.push("div_open", "div", 1);
-      token.attrs = [["style", tagInfo.attrs['_default']]];
+      token.attrs = [["style", `color:${tagInfo.attrs['_default']}`]];
 
       token = state.push("inline", "", 0);
       token.content = content;
@@ -936,7 +937,7 @@ function setupMarkdownIt(md) {
     replace: function (state, tagInfo, content) {
 
       let token = state.push("span_open", "span", 1);
-      token.attrs = [["style", tagInfo.attrs['_default']]];
+      token.attrs = [["style", `color:${tagInfo.attrs['_default']}`]];
 
       token = state.push("text", "", 0);
       token.content = content;
@@ -1138,64 +1139,32 @@ export function setup(helper) {
   /* Color                             WHITELIST-030R*/
   helper.whiteList({
     custom(tag, name, value) {
-      if (tag === "div" && name === "style") {
-        return /^(\w+)$/.exec(value);
+      if ((tag === "div" || tag === "span") && name === "style") {
+        return /^color:(\w+)$/.exec(value);
       }
     }
   });
 
   helper.whiteList({
     custom(tag, name, value) {
-      if (tag === "div" && name === "style") {
-        return /^\#[0-9a-fA-F]{6}$/.exec(value);
+      if ((tag === "div" || tag === "span") && name === "style") {
+        return /^color:\#[0-9a-fA-F]{6}$/.exec(value);
       }
     }
   });
 
   helper.whiteList({
     custom(tag, name, value) {
-      if (tag === "div" && name === "style") {
-        return /^rgb\([0-9]{1,3},[0-9]{1,3},[0-9]{1,3}\)$/.exec(value);
+      if ((tag === "div" || tag === "span") && name === "style") {
+        return /^color:rgb\([0-9]{1,3},[0-9]{1,3},[0-9]{1,3}\)$/.exec(value);
       }
     }
   });
 
   helper.whiteList({
     custom(tag, name, value) {
-      if (tag === "div" && name === "style") {
-        return /^rgba\([0-9]{1,3},[0-9]{1,3},[0-9]{1,3},(1|0|0\.[0-9]{0,2})\)$/.exec(value);
-      }
-    }
-  });
-
-  helper.whiteList({
-    custom(tag, name, value) {
-      if (tag === "span" && name === "style") {
-        return /^(\w+)$/.exec(value);
-      }
-    }
-  });
-
-  helper.whiteList({
-    custom(tag, name, value) {
-      if (tag === "span" && name === "style") {
-        return /^\#[0-9a-fA-F]{6}$/.exec(value);
-      }
-    }
-  });
-
-  helper.whiteList({
-    custom(tag, name, value) {
-      if (tag === "span" && name === "style") {
-        return /^rgb\([0-9]{1,3},[0-9]{1,3},[0-9]{1,3}\)$/.exec(value);
-      }
-    }
-  });
-
-  helper.whiteList({
-    custom(tag, name, value) {
-      if (tag === "span" && name === "style") {
-        return /^rgba\([0-9]{1,3},[0-9]{1,3},[0-9]{1,3},(1|0|0\.[0-9]{0,2})\)$/.exec(value);
+      if ((tag === "div" || tag === "span") && name === "style") {
+        return /^color:rgba\([0-9]{1,3},[0-9]{1,3},[0-9]{1,3},(1|0|0\.[0-9]{0,2})\)$/.exec(value);
       }
     }
   });

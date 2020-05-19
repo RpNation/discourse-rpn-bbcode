@@ -959,10 +959,10 @@ function setupMarkdownIt(md) {
       const fontSize = parseFontSize(tagInfo.attrs['_default']);
 
       let token = state.push("div_open", "div", 1);
-      if (fontSize.unit) {
-        token.attrs = [["style", `font-size:${fontSize.value}${fontSize.unit}`]];
-      } else {
-        token.attrs = [["class", `bbcode-size-${fontSize.value}`]];
+      if (fontSize.valid) {
+        token.attrs = fontSize.unit
+          ? [["style", `font-size:${fontSize.value}${fontSize.unit}`]]
+          : [["class", `bbcode-size-${fontSize.value}`]];
       }
 
       token = state.push("inline", "", 0);
@@ -980,10 +980,10 @@ function setupMarkdownIt(md) {
       const fontSize = parseFontSize(tagInfo.attrs['_default']);
 
       let token = state.push("span_open", "span", 1);
-      if (fontSize.unit) {
-        token.attrs = [["style", `font-size:${fontSize.value}${fontSize.unit}`]];
-      } else {
-        token.attrs = [["class", `bbcode-size-${fontSize.value}`]];
+      if (fontSize.valid) {
+        token.attrs = fontSize.unit
+          ? [["style", `font-size:${fontSize.value}${fontSize.unit}`]]
+          : [["class", `bbcode-size-${fontSize.value}`]];
       }
 
       token = state.push("text", "", 0);
@@ -996,7 +996,7 @@ function setupMarkdownIt(md) {
 
   function parseFontSize(fontValue) {
     let value;
-    let fontSize = {};
+    let fontSize = { valid: true };
     const parsedSize = /(\d+\.?\d?)(px|rem)?/.exec(fontValue);
     const sizeRanges = {
       px_max: 36,
@@ -1019,8 +1019,10 @@ function setupMarkdownIt(md) {
           else if (value < sizeRanges.rem_min) { value = sizeRanges.rem_min; }
           break;
         default:
-          if (value > sizeRanges.unitless_max) { value = sizeRanges.unitless_max; }
-          else if (value < sizeRanges.unitless_min) { value = sizeRanges.unitless_min; }
+          if (fontSize.valid = fontValue.length === value.length) {
+            if (value > sizeRanges.unitless_max) { value = sizeRanges.unitless_max; }
+            else if (value < sizeRanges.unitless_min) { value = sizeRanges.unitless_min; }
+          }
           break;
       }
 

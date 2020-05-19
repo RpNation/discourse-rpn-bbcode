@@ -909,6 +909,43 @@ function setupMarkdownIt(md) {
       return true;
     }
   });
+
+  /*************************************************
+  *** Right                                TAG-030***
+  *************************************************/
+
+  md.block.bbcode.ruler.push("color", {
+    tag: "color",
+    replace: function (state, tagInfo, content) {
+
+      let token = state.push("div_open", "div", 1);
+      token.attrs = [["style", tagInfo["_default"]]];
+
+      token = state.push("inline", "", 0);
+      token.content = content;
+      token.children = [];
+
+      state.push("div_close", "div", -1);
+
+      return true;
+    }
+  });
+
+  ruler.push("color", {
+    tag: "color",
+    replace: function (state, tagInfo, content) {
+
+      let token = state.push("span_open", "span", 1);
+      token.attrs = [["class", tagInfo["_default"]]];
+
+      token = state.push("text", "", 0);
+      token.content = content;
+
+      state.push("span_close", "span", -1);
+
+      return true;
+    }
+  });
 }
 
 export function setup(helper) {
@@ -1094,6 +1131,71 @@ export function setup(helper) {
     custom(tag, name, value) {
       if (tag === "button" && name === "onclick") {
         return /^(openBBCodeTab\(event\))$/.exec(value);
+      }
+    }
+  });
+
+  /* Color                             WHITELIST-030R*/
+  helper.whiteList({
+    custom(tag, name, value) {
+      if (tag === "div" && name === "style") {
+        return /^(\w+)$/.exec(value);
+      }
+    }
+  });
+
+  helper.whiteList({
+    custom(tag, name, value) {
+      if (tag === "div" && name === "style") {
+        return /^\#[0-9a-fA-F]{6}$/.exec(value);
+      }
+    }
+  });
+
+  helper.whiteList({
+    custom(tag, name, value) {
+      if (tag === "div" && name === "style") {
+        return /^rgb\([0-9]{1,3},[0-9]{1,3},[0-9]{1,3}\)$/.exec(value);
+      }
+    }
+  });
+
+  helper.whiteList({
+    custom(tag, name, value) {
+      if (tag === "div" && name === "style") {
+        return /^rgba\([0-9]{1,3},[0-9]{1,3},[0-9]{1,3},(1|0|0\.[0-9]{0,2})\)$/.exec(value);
+      }
+    }
+  });
+
+  helper.whiteList({
+    custom(tag, name, value) {
+      if (tag === "span" && name === "style") {
+        return /^(\w+)$/.exec(value);
+      }
+    }
+  });
+
+  helper.whiteList({
+    custom(tag, name, value) {
+      if (tag === "span" && name === "style") {
+        return /^\#[0-9a-fA-F]{6}$/.exec(value);
+      }
+    }
+  });
+
+  helper.whiteList({
+    custom(tag, name, value) {
+      if (tag === "span" && name === "style") {
+        return /^rgb\([0-9]{1,3},[0-9]{1,3},[0-9]{1,3}\)$/.exec(value);
+      }
+    }
+  });
+
+  helper.whiteList({
+    custom(tag, name, value) {
+      if (tag === "span" && name === "style") {
+        return /^rgba\([0-9]{1,3},[0-9]{1,3},[0-9]{1,3},(1|0|0\.[0-9]{0,2})\)$/.exec(value);
       }
     }
   });

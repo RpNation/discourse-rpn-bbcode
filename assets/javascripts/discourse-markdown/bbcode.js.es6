@@ -920,7 +920,7 @@ function setupMarkdownIt(md) {
     replace: function (state, tagInfo, content) {
 
       let token = state.push("div_open", "div", 1);
-      token.attrs = [["style", tagInfo.attrs['_default']]];
+      token.attrs = [["style", `color:${tagInfo.attrs['_default']}`]];
 
       token = state.push("inline", "", 0);
       token.content = content;
@@ -937,7 +937,7 @@ function setupMarkdownIt(md) {
     replace: function (state, tagInfo, content) {
 
       let token = state.push("span_open", "span", 1);
-      token.attrs = [["style", tagInfo.attrs['_default']]];
+      token.attrs = [["style", `color:${tagInfo.attrs['_default']}`]];
 
       token = state.push("text", "", 0);
       token.content = content;

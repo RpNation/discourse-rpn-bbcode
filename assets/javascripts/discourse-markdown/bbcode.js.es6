@@ -1156,7 +1156,7 @@ export function setup(helper) {
   helper.whiteList({
     custom(tag, name, value) {
       if ((tag === "div" || tag === "span") && name === "style") {
-        return /^color:rgb\([0-9]{1,3},[0-9]{1,3},[0-9]{1,3}\)$/.exec(value);
+        return /^color:rgb\([0-9]{1,3},\s?[0-9]{1,3},\s?[0-9]{1,3}\)$/.exec(value);
       }
     }
   });
@@ -1164,7 +1164,7 @@ export function setup(helper) {
   helper.whiteList({
     custom(tag, name, value) {
       if ((tag === "div" || tag === "span") && name === "style") {
-        return /^color:rgba\([0-9]{1,3},[0-9]{1,3},[0-9]{1,3},(1|0|0\.[0-9]{0,2})\)$/.exec(value);
+        return /^color:rgba\([0-9]{1,3},\s?[0-9]{1,3},\s?[0-9]{1,3},\s?(1|0|0\.[0-9]{0,2})\)$/.exec(value);
       }
     }
   });

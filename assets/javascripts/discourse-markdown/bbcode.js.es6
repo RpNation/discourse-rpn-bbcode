@@ -936,7 +936,7 @@ function setupMarkdownIt(md) {
     replace: function (state, tagInfo, content) {
 
       let token = state.push("span_open", "span", 1);
-      token.attrs = [["class", tagInfo["_default"]]];
+      token.attrs = [["style", tagInfo["_default"]]];
 
       token = state.push("text", "", 0);
       token.content = content;

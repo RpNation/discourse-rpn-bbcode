@@ -1139,64 +1139,32 @@ export function setup(helper) {
   /* Color                             WHITELIST-030R*/
   helper.whiteList({
     custom(tag, name, value) {
-      if (tag === "div" && name === "style") {
-        return /^(\w+)$/.exec(value);
+      if ((tag === "div" || tag === "span") && name === "style") {
+        return /^color:(\w+)$/.exec(value);
       }
     }
   });
 
   helper.whiteList({
     custom(tag, name, value) {
-      if (tag === "div" && name === "style") {
-        return /^\#[0-9a-fA-F]{6}$/.exec(value);
+      if ((tag === "div" || tag === "span") && name === "style") {
+        return /^color:\#[0-9a-fA-F]{6}$/.exec(value);
       }
     }
   });
 
   helper.whiteList({
     custom(tag, name, value) {
-      if (tag === "div" && name === "style") {
-        return /^rgb\([0-9]{1,3},[0-9]{1,3},[0-9]{1,3}\)$/.exec(value);
+      if ((tag === "div" || tag === "span") && name === "style") {
+        return /^color:rgb\([0-9]{1,3},[0-9]{1,3},[0-9]{1,3}\)$/.exec(value);
       }
     }
   });
 
   helper.whiteList({
     custom(tag, name, value) {
-      if (tag === "div" && name === "style") {
-        return /^rgba\([0-9]{1,3},[0-9]{1,3},[0-9]{1,3},(1|0|0\.[0-9]{0,2})\)$/.exec(value);
-      }
-    }
-  });
-
-  helper.whiteList({
-    custom(tag, name, value) {
-      if (tag === "span" && name === "style") {
-        return /^(\w+)$/.exec(value);
-      }
-    }
-  });
-
-  helper.whiteList({
-    custom(tag, name, value) {
-      if (tag === "span" && name === "style") {
-        return /^\#[0-9a-fA-F]{6}$/.exec(value);
-      }
-    }
-  });
-
-  helper.whiteList({
-    custom(tag, name, value) {
-      if (tag === "span" && name === "style") {
-        return /^rgb\([0-9]{1,3},[0-9]{1,3},[0-9]{1,3}\)$/.exec(value);
-      }
-    }
-  });
-
-  helper.whiteList({
-    custom(tag, name, value) {
-      if (tag === "span" && name === "style") {
-        return /^rgba\([0-9]{1,3},[0-9]{1,3},[0-9]{1,3},(1|0|0\.[0-9]{0,2})\)$/.exec(value);
+      if ((tag === "div" || tag === "span") && name === "style") {
+        return /^color:rgba\([0-9]{1,3},[0-9]{1,3},[0-9]{1,3},(1|0|0\.[0-9]{0,2})\)$/.exec(value);
       }
     }
   });

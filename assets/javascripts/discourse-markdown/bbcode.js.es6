@@ -997,7 +997,7 @@ function setupMarkdownIt(md) {
   function parseFontSize(fontValue) {
     let value;
     let fontSize = {};
-    const parsedSize = fontValue.exec(/(\d+\.?\d?)(px|rem)?/);
+    const parsedSize = /(\d+\.?\d?)(px|rem)?/.exec(fontValue);
     const sizeRanges = {
       px_max: 36,
       px_min: 8,

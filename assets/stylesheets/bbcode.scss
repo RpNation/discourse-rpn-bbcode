@@ -20,6 +20,7 @@ Progress Bar..............BBCODE-018
 Accordion.................BBCODE-019
 OOC.......................BBCODE-020
 LEFT, CENTER, RIGHT.......BBCODE-021
+SIZE......................BBCODE-022
 */
 
 @import "common/foundation/variables";
@@ -699,4 +700,35 @@ LEFT, CENTER, RIGHT.......BBCODE-021
 
 .bbcode-content-right {
 	text-align: right;
+}
+
+/*************************************************
+*** SIZE              				 BBCODE-022***
+*************************************************/
+.bbcode-size-1{
+	font-size: 9px;
+}
+
+.bbcode-size-2{
+	font-size: 10px;
+}
+
+.bbcode-size-3{
+	font-size: 12px;
+}
+
+.bbcode-size-4{
+	font-size: 15px;
+}
+
+.bbcode-size-5{
+	font-size: 18px;
+}
+
+.bbcode-size-6{
+	font-size: 22px;
+}
+
+.bbcode-size-7{
+	font-size: 26px;
 }

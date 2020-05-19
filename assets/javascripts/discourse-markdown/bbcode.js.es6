@@ -1026,6 +1026,7 @@ function setupMarkdownIt(md) {
 
       fontSize.value = value;
     }
+    return fontSize;
   }
 }
 

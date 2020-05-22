@@ -474,7 +474,7 @@ function setupMarkdownIt(md) {
     replace: function (state, tagInfo, content) {
       const fontFamily = tagInfo.attrs['_default'] || tagInfo.attrs['family'];
       const fontColor = tagInfo.attrs['color'];
-      const fontSize = parseFontSize(tagInfo.attrs['size']);
+      const fontSize = tagInfo.attrs['size'];
 
       let token;
       if (fontFamily && !base_fonts.includes(fontFamily.toLowerCase()) && !loaded_fonts.includes(fontFamily)) {

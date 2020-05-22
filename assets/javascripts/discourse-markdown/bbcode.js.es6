@@ -32,6 +32,7 @@ Left................TAG-028..........WHITELIST-028
 Right...............TAG-029..........WHITELIST-029
 Color...............TAG-030..........WHITELIST-030R
 Size................TAG-031..........WHITELIST-031CR
+Spoiler.............TAG-032..........WHITELIST-032CR
 */
 
 registerOption(
@@ -816,7 +817,7 @@ function setupMarkdownIt(md) {
       state.push("div_close", "div", -1);
 
       return true;
-    },
+    }
   });
 
   /*************************************************
@@ -1066,6 +1067,42 @@ function setupMarkdownIt(md) {
     }
     return fontSize;
   }
+
+  /*************************************************
+  *** Spoiler                             TAG-032***
+  *************************************************/
+
+  md.block.bbcode.ruler.push("spoiler", {
+    tag: "slide",
+    replace: function (state, tagInfo, content) {
+      let title = tagInfo.attrs['_default'];
+
+      let token = state.push("div_open", "div", 1);
+      token.attrs = [["class", "bbcode-spoiler"]];
+
+      token = state.push("button_open", "button", 1);
+      token.attrs = [["class", "bbcode-spoiler-button"], ["onclick", "toggleBBCodeSpoiler(event)"]];
+
+      token = state.push("text", "", 0);
+      if (!title) {
+        token.content = "Spoiler";
+      } else {
+        token.content = "Spoiler: " + trim(title);
+      }
+
+      state.push("button_close", "button", -1);
+
+      token = state.push("div_open", "div", 1);
+      token.attrs = [["class", "bbcode-spoiler-content"]];
+
+      token.content = content;
+
+      state.push("div_close", "div", -1);
+      token = state.push("div_close", "div", -1);
+
+      return true;
+    }
+  });
 }
 
 export function setup(helper) {
@@ -1178,7 +1215,11 @@ export function setup(helper) {
     "span.bbcode-size-4",
     "span.bbcode-size-5",
     "span.bbcode-size-6",
-    "span.bbcode-size-7"
+    "span.bbcode-size-7",
+    /* Spoiler                         WHITELIST-032C*/
+    "div.bbcode-spoiler",
+    "button.bbcode-spoiler-button",
+    "div.bbcode-spoiler-content"
   ]);
 
   /* Border                            WHITELIST-003R*/
@@ -1312,6 +1353,14 @@ export function setup(helper) {
     }
   });
 
+  /* Spoiler                          WHITELIST-032R*/
+  helper.whiteList({
+    custom(tag, name, value) {
+      if (tag === "button" && name === "onclick") {
+        return /^(openBBCodeSpoiler\(event\))$/.exec(value);
+      }
+    }
+  });
 
   if (helper.markdownIt) {
     helper.registerPlugin(setupMarkdownIt);

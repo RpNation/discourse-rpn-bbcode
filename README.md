@@ -24,7 +24,7 @@ See: [https://www.rpnation.com]
 |              Blockquotes 🚧               |     Sides ✔️     |                      |    Progress Bar ✔️    |
 |         Sub Script<sup>2</sup> ⌨️         |     Tabs ✔️      |                      |    Sticky Note 🚧     |
 |        Super Script<sup>3</sup> ⌨️        |    Tables ☠️     |                      |        Mail 🚧        |
-|          Google Font Library 🚧           | Center Block ❓  |                      |     Newspaper ✔️      |
+|          Google Font Library ✔️           | Center Block ❓  |                      |     Newspaper ✔️      |
 |        HTML Comment<sup>4</sup> ⌨️        |  Background ✔️   |                      |       Checks ✔️       |
 |            Paragraph Indent ✔️            |    Border ✔️     |                      | Font Awesome Icons 🚧 |
 | Bold, Italic, Underline, Strikethrough Ⓜ️ |  Accordions ✔️   |                      |         OOC ✔️       |

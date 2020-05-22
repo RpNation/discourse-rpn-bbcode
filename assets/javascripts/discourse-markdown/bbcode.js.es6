@@ -472,9 +472,9 @@ function setupMarkdownIt(md) {
   ruler.push("font", {
     tag: "font",
     replace: function (state, tagInfo, content) {
-      const fontFamily = tagInfo.attrs['_default']?.trim() || tagInfo.attrs['family']?.trim();
-      const fontColor = tagInfo.attrs['color']?.trim();
-      const fontSize = parseFontSize(tagInfo.attrs['size']?.trim());
+      const fontFamily = tagInfo.attrs['_default'] || tagInfo.attrs['family'];
+      const fontColor = tagInfo.attrs['color'];
+      const fontSize = parseFontSize(tagInfo.attrs['size']);
 
       let token;
       if (fontFamily && !base_fonts.includes(fontFamily.toLowerCase()) && !loaded_fonts.includes(fontFamily)) {

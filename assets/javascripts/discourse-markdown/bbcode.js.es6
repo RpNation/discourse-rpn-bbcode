@@ -450,16 +450,17 @@ function setupMarkdownIt(md) {
   md.block.bbcode.ruler.push("font", {
     tag: "font",
     replace: function (state, tagInfo, content) {
-      let fontFamily = tagInfo.attrs['_default'].trim();
+      const fontFamily = tagInfo.attrs['_default'].trim() || tagInfo.attrs['family'].trim();
+      const fontColor = tagInfo.attrs['color'].trim();
+      const fontSize = parseFontSize(tagInfo.attrs['size'].trim());
+
       let token;
-      if (!base_fonts.includes(fontFamily.toLowerCase()) && !loaded_fonts.includes(fontFamily)) {
-        token = state.push("link", "link", 0);
-        token.attrs = [["rel", "stylesheet"], ["type", "text/css"], ["href", `https://fonts.googleapis.com/css2?family=${fontFamily.replace(/\s/g, '+')}`]];
-        loaded_fonts.push(fontFamily);
+      if (fontFamily && !base_fonts.includes(fontFamily.toLowerCase()) && !loaded_fonts.includes(fontFamily)) {
+        addFontLinkTag(token, fontFamily);
       }
 
       token = state.push("div_open", "div", 1);
-      token.attrs = [["style", `font-family:${fontFamily},Helvetica,Arial,sans-serif`]];
+      token.attrs = generateFontTagAttributes(fontFamily, fontSize, fontColor);
       token = state.push("inline", "", 0);
       token.content = content;
       token.children = [];
@@ -471,16 +472,17 @@ function setupMarkdownIt(md) {
   ruler.push("font", {
     tag: "font",
     replace: function (state, tagInfo, content) {
-      let fontFamily = tagInfo.attrs['_default'].trim();
+      const fontFamily = tagInfo.attrs['_default'].trim() || tagInfo.attrs['family'].trim();
+      const fontColor = tagInfo.attrs['color'].trim();
+      const fontSize = parseFontSize(tagInfo.attrs['size'].trim());
+
       let token;
-      if (!base_fonts.includes(fontFamily.toLowerCase()) && !loaded_fonts.includes(fontFamily)) {
-        token = state.push("link", "link", 0);
-        token.attrs = [["rel", "stylesheet"], ["type", "text/css"], ["href", `https://fonts.googleapis.com/css2?family=${fontFamily.replace(/\s/g, '+')}`]];
-        loaded_fonts.push(fontFamily);
+      if (fontFamily && !base_fonts.includes(fontFamily.toLowerCase()) && !loaded_fonts.includes(fontFamily)) {
+        addFontLinkTag(token, fontFamily);
       }
 
       token = state.push("span_open", "span", 1);
-      token.attrs = [["style", `font-family:${fontFamily},Helvetica,Arial,sans-serif`]];
+      token.attrs = generateFontTagAttributes(fontFamily, fontSize, fontColor);
 
       let lineBreakRegex = /\r?\n/gm;
       const splitContent = content.trim().split(lineBreakRegex);
@@ -499,6 +501,35 @@ function setupMarkdownIt(md) {
       return true;
     }
   });
+
+  function addFontLinkTag(token, fontFamily) {
+    token = state.push("link", "link", 0);
+    token.attrs = [["rel", "stylesheet"], ["type", "text/css"], ["href", `https://fonts.googleapis.com/css2?family=${fontFamily.replace(/\s/g, '+')}`]];
+    loaded_fonts.push(fontFamily);
+  }
+
+  function generateFontTagAttributes(fontFamily, fontSize, fontColor) {
+    let fontAttributes = [];
+    let styleValue = '';
+    if (fontFamily) {
+      styleValue += `font-family:${fontFamily},Helvetica,Arial,sans-serif;`;
+    }
+    if (fontSize && fontSize.valid) {
+      if (fontSize.unit) {
+        styleValue += `font-size:${fontSize.value}${fontSize.unit};`;
+      } else {
+        fontAttributes.push(["class", `bbcode-size-${fontSize.value}`]);
+      }
+    }
+    if (fontColor) {
+      styleValue += `color:${fontColor};`
+    }
+
+    if (styleValue.length) {
+      fontAttributes.push(["style", styleValue]);
+    }
+    return fontAttributes;
+  }
 
   /*************************************************
   *** Block                               TAG-018***
@@ -1194,7 +1225,7 @@ export function setup(helper) {
   helper.whiteList({
     custom(tag, name, value) {
       if ((tag === "div" || tag === "span") && name === "style") {
-        return /^font-family:[\w\s]+,Helvetica,Arial,sans-serif$/.exec(value);
+        return /^(font-family:[\w\s]+,Helvetica,Arial,sans-serif;)?(font-size:(\d+\.?\d?)(px|rem);)?(color:(\w+|#[0-9a-fA-F]{6}|rgb\([0-9]{1,3},\s?[0-9]{1,3},\s?[0-9]{1,3}\)|rgba\([0-9]{1,3},\s?[0-9]{1,3},\s?[0-9]{1,3},\s?(1|0|0\.[0-9]{0,2})\));)?$/.exec(value);
       }
     }
   });

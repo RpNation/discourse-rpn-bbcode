@@ -29,7 +29,7 @@ See: [https://www.rpnation.com]
 |            Paragraph Indent ✔️            |    Border ✔️     |                      | Font Awesome Icons 🚧 |
 | Bold, Italic, Underline, Strikethrough Ⓜ️ |  Accordions ✔️   |                      |         OOC ✔️       |
 |                 Color ✔️                  |  Scroll Box ✔️   |                      |                      |
-|               Font Size 🚧                |    Div Box ❓    |                      |                      |
+|               Font Size ✔️                |    Div Box ❓    |                      |                      |
 |          Left, Center, Right ✔️           |    Anchors ❓    |                      |                      |
 |          Spoiler<sup>5</sup> 🎉           | Rows & Columns 🚧 |                      |                      |
 

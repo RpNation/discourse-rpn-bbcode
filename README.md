@@ -31,7 +31,7 @@ See: [https://www.rpnation.com]
 |                 Color ✔️                  |  Scroll Box ✔️   |                      |                      |
 |               Font Size ✔️                |    Div Box ❓    |                      |                      |
 |          Left, Center, Right ✔️           |    Anchors ❓    |                      |                      |
-|          Spoiler<sup>5</sup> 🎉           | Rows & Columns 🚧 |                      |                      |
+|          Spoiler 🚧                       | Rows & Columns 🚧 |                      |                      |
 
 
 
@@ -42,5 +42,3 @@ See: [https://www.rpnation.com]
 <sup>3</sup> This bbcode is no longer needed. Discourse accepts the proper HTML comment tag in the Markdown engine. Example: `<sub>2</sub>`
 
 <sup>4</sup> This bbcode is no longer needed. Discourse accepts the proper HTML comment tag in the Markdown engine. Example: `<!--This is a comment. Comments are not displayed in the browser-->`
-
-<sup>5</sup> This bbcode is no longer needed. Discourse as an official plugin located [link](https://meta.discourse.org/t/discourse-spoiler-alert/12650). Install this.

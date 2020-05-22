@@ -456,7 +456,7 @@ function setupMarkdownIt(md) {
 
       let token;
       if (fontFamily && !base_fonts.includes(fontFamily.toLowerCase()) && !loaded_fonts.includes(fontFamily)) {
-        addFontLinkTag(token, fontFamily);
+        addFontLinkTag(token, state, fontFamily);
       }
 
       token = state.push("div_open", "div", 1);
@@ -478,7 +478,7 @@ function setupMarkdownIt(md) {
 
       let token;
       if (fontFamily && !base_fonts.includes(fontFamily.toLowerCase()) && !loaded_fonts.includes(fontFamily)) {
-        addFontLinkTag(token, fontFamily);
+        addFontLinkTag(token, state, fontFamily);
       }
 
       token = state.push("span_open", "span", 1);
@@ -502,7 +502,7 @@ function setupMarkdownIt(md) {
     }
   });
 
-  function addFontLinkTag(token, fontFamily) {
+  function addFontLinkTag(token, state, fontFamily) {
     token = state.push("link", "link", 0);
     token.attrs = [["rel", "stylesheet"], ["type", "text/css"], ["href", `https://fonts.googleapis.com/css2?family=${fontFamily.replace(/\s/g, '+')}`]];
     loaded_fonts.push(fontFamily);

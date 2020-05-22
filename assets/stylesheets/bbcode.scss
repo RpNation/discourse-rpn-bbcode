@@ -21,6 +21,7 @@ Accordion.................BBCODE-019
 OOC.......................BBCODE-020
 LEFT, CENTER, RIGHT.......BBCODE-021
 SIZE......................BBCODE-022
+Spoiler...................BBCODE-023
 */
 
 @import "common/foundation/variables";
@@ -731,4 +732,41 @@ SIZE......................BBCODE-022
 
 .bbcode-size-7{
 	font-size: 26px;
+}
+
+/*************************************************
+*** Spoiler           				 BBCODE-023***
+*************************************************/
+.bbcode-spoiler {
+	margin: .75em 0;
+}
+
+.bbcode-spoiler-button {
+	text-decoration: none;
+	cursor: pointer;
+	border: 1px solid transparent;
+	    border-top-color: transparent;
+	    border-right-color: transparent;
+	    border-bottom-color: transparent;
+	    border-left-color: transparent;
+	font-size: 12px;
+	border-radius: 4px;
+	padding-top: 7px;
+	padding-right: 10px;
+	padding-bottom: 7px;
+	padding-left: 10px;
+	text-align: center;
+	color: #f2f5f8;
+	background: #2980b9;
+	overflow: hidden;
+	white-space: nowrap;
+	word-wrap: normal;
+	text-overflow: ellipsis;
+	max-width: 100%;
+	display: inline-block;
+	border-color: #216693;
+}
+
+.bbcode-spoiler-content {
+	display: none;
 }

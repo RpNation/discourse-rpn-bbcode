@@ -450,7 +450,7 @@ function setupMarkdownIt(md) {
   md.block.bbcode.ruler.push("font", {
     tag: "font",
     replace: function (state, tagInfo, content) {
-      const fontFamily = tagInfo.attrs['_default'] || tagInfo.attrs['name'];
+      const fontFamily = tagInfo.attrs['_default'] || tagInfo.attrs['family'] || tagInfo.attrs['name'];
       const fontColor = tagInfo.attrs['color'];
       const fontSize = tagInfo.attrs['size'];
 
@@ -472,7 +472,7 @@ function setupMarkdownIt(md) {
   ruler.push("font", {
     tag: "font",
     replace: function (state, tagInfo, content) {
-      const fontFamily = tagInfo.attrs['_default'] || tagInfo.attrs['name'];
+      const fontFamily = tagInfo.attrs['_default'] || tagInfo.attrs['family'] || tagInfo.attrs['name'];
       const fontColor = tagInfo.attrs['color'];
       const fontSize = tagInfo.attrs['size'];
 

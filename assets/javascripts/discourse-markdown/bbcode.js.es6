@@ -516,7 +516,7 @@ function setupMarkdownIt(md) {
     }
 
     if (fontSize) {
-      parseFontSize(fontSize);
+      fontSize = parseFontSize(fontSize);
       if (fontSize.valid) {
         if (fontSize.unit) {
           styleValue += `font-size:${fontSize.value}${fontSize.unit};`;

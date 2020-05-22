@@ -472,7 +472,7 @@ function setupMarkdownIt(md) {
   ruler.push("font", {
     tag: "font",
     replace: function (state, tagInfo, content) {
-      const fontFamily = tagInfo.attrs['_default'].trim() || tagInfo.attrs['family']?.trim();
+      const fontFamily = tagInfo.attrs['_default']?.trim() || tagInfo.attrs['family']?.trim();
       const fontColor = tagInfo.attrs['color']?.trim();
       const fontSize = parseFontSize(tagInfo.attrs['size']?.trim());
 

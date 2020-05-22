@@ -452,7 +452,7 @@ function setupMarkdownIt(md) {
     replace: function (state, tagInfo, content) {
       const fontFamily = tagInfo.attrs['_default'] || tagInfo.attrs['family'];
       const fontColor = tagInfo.attrs['color'];
-      const fontSize = parseFontSize(tagInfo.attrs['size']);
+      const fontSize = tagInfo.attrs['size'];
 
       let token;
       if (fontFamily && !base_fonts.includes(fontFamily.toLowerCase()) && !loaded_fonts.includes(fontFamily)) {
@@ -514,13 +514,18 @@ function setupMarkdownIt(md) {
     if (fontFamily) {
       styleValue += `font-family:${fontFamily},Helvetica,Arial,sans-serif;`;
     }
-    if (fontSize && fontSize.valid) {
-      if (fontSize.unit) {
-        styleValue += `font-size:${fontSize.value}${fontSize.unit};`;
-      } else {
-        fontAttributes.push(["class", `bbcode-size-${fontSize.value}`]);
+
+    if (fontSize) {
+      parseFontSize(fontSize);
+      if (fontSize.valid) {
+        if (fontSize.unit) {
+          styleValue += `font-size:${fontSize.value}${fontSize.unit};`;
+        } else {
+          fontAttributes.push(["class", `bbcode-size-${fontSize.value}`]);
+        }
       }
     }
+
     if (fontColor) {
       styleValue += `color:${fontColor};`
     }

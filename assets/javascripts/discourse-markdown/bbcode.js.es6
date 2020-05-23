@@ -1114,7 +1114,7 @@ function setupMarkdownIt(md) {
       const tagAttributes = content.split(/\s/);
       let token = state.push("svg_open", "svg", 1);
       token = state.push("use_open", "use", 1);
-      token.attrs = [["href", `#${tagAttributes[0]}`]];
+      token.attrs = [["href", `#${tagAttributes[1]}`]];
       token = state.push("use_close", "use", -1);
       token = state.push("svg_close", "svg", -1);
       //       <svg class="appliedclasseshere">
@@ -1240,7 +1240,7 @@ export function setup(helper) {
     "button.bbcode-spoiler-button",
     "div.bbcode-spoiler-content",
     "svg",
-    "use"
+    "use[href=*]"
   ]);
 
   /* Border                            WHITELIST-003R*/

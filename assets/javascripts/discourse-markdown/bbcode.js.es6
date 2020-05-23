@@ -1103,6 +1103,25 @@ function setupMarkdownIt(md) {
       return true;
     }
   });
+
+  /*************************************************
+ *** Font Awesome Icons                   TAG-033***
+ *************************************************/
+
+  ruler.push("fa", {
+    tag: "fa",
+    replace: function (state, tagInfo, content) {
+      const tagAttributes = content.split(/\s/);
+      let token = state.push("svg_open", "svg", 1);
+      token = state.push("use_open", "use", 1);
+      token.attrs = [["href", `#${tagAttributes[0]}`]];
+      token = state.push("use_close", "use", -1);
+      token = state.push("svg_close", "svg", -1);
+      //       <svg class="appliedclasseshere">
+      //    <use xlink:href="#fad-cookie"></use>
+      //  </svg>
+    }
+  });
 }
 
 export function setup(helper) {
@@ -1219,7 +1238,8 @@ export function setup(helper) {
     /* Spoiler                         WHITELIST-032C*/
     "div.bbcode-spoiler",
     "button.bbcode-spoiler-button",
-    "div.bbcode-spoiler-content"
+    "div.bbcode-spoiler-content",
+    "svg"
   ]);
 
   /* Border                            WHITELIST-003R*/

@@ -1239,7 +1239,8 @@ export function setup(helper) {
     "div.bbcode-spoiler",
     "button.bbcode-spoiler-button",
     "div.bbcode-spoiler-content",
-    "svg"
+    "svg",
+    "use"
   ]);
 
   /* Border                            WHITELIST-003R*/

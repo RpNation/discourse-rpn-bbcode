@@ -798,7 +798,7 @@ Rows & Columns............BBCODE-024
 .bbcode-row .column-width-span7 	{	width: 85.5%;	} /*87.5*/
 .bbcode-row .column-width-span8 	{	width: 98%;	} /*100*/
 
-@media screen and (max-width: 900px) {
+/* @media screen and (max-width: 900px) {
 .bbcode-row .column-width-span1,
 .bbcode-row .column-width-span2,
 .bbcode-row .column-width-span3,
@@ -807,6 +807,8 @@ Rows & Columns............BBCODE-024
 .bbcode-row .column-width-span6,
 .bbcode-row .column-width-span7,
 .bbcode-row .column-width-span8 	{	width: 100%;	} /*12.5*/
+
+
 
 .bbcode-row .bbcode-column {
 	margin: 0;

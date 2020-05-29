@@ -259,7 +259,24 @@ function setupMarkdownIt(md) {
 
       startToken.type = "div_open";
       startToken.tag = "div";
-      startToken.attrs = [["class", "column-width-" + columnOption]];
+      startToken.attrs = [["class", "bbcode-column column-width-" + columnOption]];
+      startToken.content = content;
+      startToken.nesting = 1;
+
+      endToken.type = "div_close";
+      endToken.tag = "div";
+      endToken.content = '';
+      endToken.nesting = -1;
+    }
+  });
+
+  ruler.push("row", {
+    tag: "row",
+    wrap: function (startToken, endToken, tagInfo, content) {
+
+      startToken.type = "div_open";
+      startToken.tag = "div";
+      startToken.attrs = [["class", "bbcode-row"]];
       startToken.content = content;
       startToken.nesting = 1;
 
@@ -1148,6 +1165,8 @@ export function setup(helper) {
     "span.bbcode-horizontal-rule-thick",
     "span.bbcode-horizontal-rule-dotted",
     "span.bbcode-horizontal-rule-dotted-thick",
+    /* Row & Column                      WHITELIST-010*/
+    "bbcode-row",
     /* Inline Spoiler                  WHITELIST-011*/
     "span.inlineSpoiler",
     /* Justify                         WHITELIST-012*/
@@ -1274,7 +1293,7 @@ export function setup(helper) {
   helper.whiteList({
     custom(tag, name, value) {
       if (tag === "div" && name === "class") {
-        return /^(bbcode-column-width-[1-8])$/.exec(value);
+        return /^(bbcode-column column-width-span[1-8])$/.exec(value);
       }
     }
   });

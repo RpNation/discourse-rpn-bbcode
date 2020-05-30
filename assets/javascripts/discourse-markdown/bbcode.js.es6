@@ -1117,9 +1117,7 @@ function setupMarkdownIt(md) {
       token.attrs = [["href", `#${tagAttributes[1]}`]];
       token = state.push("use_close", "use", -1);
       token = state.push("svg_close", "svg", -1);
-      //       <svg class="appliedclasseshere">
-      //    <use xlink:href="#fad-cookie"></use>
-      //  </svg>
+      return true;
     }
   });
 }

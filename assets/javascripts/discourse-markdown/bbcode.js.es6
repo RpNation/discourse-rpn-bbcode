@@ -1129,14 +1129,16 @@ function setupMarkdownIt(md) {
     tag: "fa",
     replace: function (state, tagInfo, content) {
       const tagAttributes = content.split(/\s/);
-      let token = state.push("svg_open", "svg", 1);
-      token = state.push("use_open", "use", 1);
-      token.attrs = [["href", `#${tagAttributes[1]}`]];
-      token = state.push("use_close", "use", -1);
-      token = state.push("svg_close", "svg", -1);
-      //       <svg class="appliedclasseshere">
-      //    <use xlink:href="#fad-cookie"></use>
-      //  </svg>
+      if (tagAttributes.length > 1) {
+        let iconStyle = tagAttributes[0].length == 2 ? "far" : tagAttributes[0];
+        let iconReference = tagAttributes[1].replace(/fa\w*/, iconStyle);
+        let token = state.push("svg_open", "svg", 1);
+        token = state.push("use_open", "use", 1);
+        token.attrs = [["href", `#${iconReference}`]];
+        token = state.push("use_close", "use", -1);
+        token = state.push("svg_close", "svg", -1);
+        return true;
+      }
     }
   });
 }

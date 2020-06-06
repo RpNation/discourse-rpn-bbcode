@@ -1158,7 +1158,7 @@ function setupMarkdownIt(md) {
       if (currentMatch = tagAttributes[i].match(duotoneMatch)) {
         iconStyles.styles = `${iconStyles.styles} --${currentMatch[1]}:${currentMatch[2]};`
       } else {
-        iconStyles.classes = `${iconStyles.classes} ${tagAttributes[i]}`
+        iconStyles.classes = `${iconStyles.classes} ${tagAttributes[i].trim()}`
       }
     }
 
@@ -1291,7 +1291,8 @@ export function setup(helper) {
     "div.bbcode-spoiler",
     "button.bbcode-spoiler-button",
     "div.bbcode-spoiler-content",
-    "svg",
+    "svg[class=*]",
+    "svg[style=*]",
     "use[href=*]"
   ]);
 

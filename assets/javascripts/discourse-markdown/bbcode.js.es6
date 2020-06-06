@@ -1130,9 +1130,13 @@ function setupMarkdownIt(md) {
     replace: function (state, tagInfo, content) {
       const tagAttributes = content.split(/\s/);
       if (tagAttributes.length > 1) {
-        let iconStyle = tagAttributes[0].length == 2 ? "far" : tagAttributes[0];
-        let iconReference = tagAttributes[1].replace(/fa\w*/, iconStyle);
+        let iconType = tagAttributes[0].length == 2 ? "far" : tagAttributes[0];
+        let iconReference = tagAttributes[1].replace(/fa\w*/, iconType);
+        let iconAttributes = handleIconStyles(tagAttributes);
         let token = state.push("svg_open", "svg", 1);
+        if (iconAttributes.length) {
+          token.attrs = iconAttributes;
+        }
         token = state.push("use_open", "use", 1);
         token.attrs = [["href", `#${iconReference}`]];
         token = state.push("use_close", "use", -1);
@@ -1141,6 +1145,33 @@ function setupMarkdownIt(md) {
       }
     }
   });
+
+  function handleIconStyles(tagAttributes) {
+    let currentMatch;
+    const duotoneMatch = /(.*)\{(.*)\}/;
+    let iconStyles = {
+      classes: '',
+      styles: ''
+    };
+
+    for (let i = 2; i < tagAttributes.length; i++) {
+      if (currentMatch = tagAttributes[i].match(duotoneMatch)) {
+        iconStyles.styles = `${iconStyles.styles} --${currentMatch[1]}:${currentMatch[2]};`
+      } else {
+        iconStyles.classes = `${iconStyles.classes} ${tagAttributes[i]}`
+      }
+    }
+
+    let tagAttributes = [];
+    if (iconStyles.styles.length) {
+      tagAttributes.push(["style", iconStyles.styles])
+    }
+    if (iconStyles.classes.length) {
+      tagAttributes.push(["class", iconStyles.classes])
+    }
+
+    return attributes;
+  }
 }
 
 export function setup(helper) {

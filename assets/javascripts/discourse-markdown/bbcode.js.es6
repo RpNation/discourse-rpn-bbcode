@@ -1162,12 +1162,12 @@ function setupMarkdownIt(md) {
       }
     }
 
-    let tagAttributes = [];
+    let attributes = [];
     if (iconStyles.styles.length) {
-      tagAttributes.push(["style", iconStyles.styles])
+      attributes.push(["style", iconStyles.styles])
     }
     if (iconStyles.classes.length) {
-      tagAttributes.push(["class", iconStyles.classes])
+      attributes.push(["class", iconStyles.classes])
     }
 
     return attributes;

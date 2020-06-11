@@ -1199,7 +1199,7 @@ export function setup(helper) {
     "span.bbcode-horizontal-rule-dotted",
     "span.bbcode-horizontal-rule-dotted-thick",
     /* Row & Column                      WHITELIST-010*/
-    "bbcode-row",
+    "div.bbcode-row",
     /* Inline Spoiler                  WHITELIST-011*/
     "span.inlineSpoiler",
     /* Justify                         WHITELIST-012*/

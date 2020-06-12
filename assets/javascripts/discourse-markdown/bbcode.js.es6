@@ -33,6 +33,8 @@ Right...............TAG-029..........WHITELIST-029
 Color...............TAG-030..........WHITELIST-030R
 Size................TAG-031..........WHITELIST-031CR
 Spoiler.............TAG-032..........WHITELIST-032CR
+Font Awesome........TAG-033..........WHITELIST-033C
+Anchor..............TAG-034..........WHITELIST-034
 */
 
 registerOption(
@@ -1172,6 +1174,24 @@ function setupMarkdownIt(md) {
 
     return attributes;
   }
+
+  /*****************************************************
+  *** Anchor                                 TAG-034***
+  *****************************************************/
+
+  ruler.push("a", {
+    tag: "a",
+    replace: function (state, tagInfo, content) {
+      let tagID = tagInfo.attrs['_default'];
+      let token = state.push("a_open", "a", 1);
+      token.attrs = [["id", `user-anchor-${tagID}`]];
+      token = state.push("inline", "", 0);
+      token.content = content;
+      token.children = [];
+      state.push("a_close", "a", -1);
+      return true;
+    }
+  });
 }
 
 export function setup(helper) {
@@ -1291,6 +1311,7 @@ export function setup(helper) {
     "div.bbcode-spoiler",
     "button.bbcode-spoiler-button",
     "div.bbcode-spoiler-content",
+    /* Font Awesome                   WHITELIST-033C*/
     "svg[class=*]",
     "svg[style=*]",
     "use[href=*]"

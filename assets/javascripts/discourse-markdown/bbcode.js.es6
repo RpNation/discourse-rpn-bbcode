@@ -1330,7 +1330,6 @@ export function setup(helper) {
     "svg[style=*]",
     "use[href=*]",
     /* Anchor                        WHITELIST-034C*/
-    "a[id=user-anchor-*]",
     "a[href=javascript:;]"
   ]);
 
@@ -1479,6 +1478,14 @@ export function setup(helper) {
     custom(tag, name, value) {
       if (tag === "a" && name === "onclick") {
         return /^document\.location\.hash=''; document\.location\.hash='user-anchor-\w+';$/.exec(value);
+      }
+    }
+  });
+
+  helper.whiteList({
+    custom(tag, name, value) {
+      if (tag === "a" && name === "id") {
+        return /^user-anchor-\w+$/.exec(value);
       }
     }
   });

@@ -34,7 +34,7 @@ Color...............TAG-030..........WHITELIST-030R
 Size................TAG-031..........WHITELIST-031CR
 Spoiler.............TAG-032..........WHITELIST-032CR
 Font Awesome........TAG-033..........WHITELIST-033C
-Anchor..............TAG-034..........WHITELIST-034
+Anchor..............TAG-034..........WHITELIST-034CR
 */
 
 registerOption(
@@ -1192,6 +1192,20 @@ function setupMarkdownIt(md) {
       return true;
     }
   });
+
+  ruler.push("goto", {
+    tag: "goto",
+    replace: function (state, tagInfo, content) {
+      let tagID = tagInfo.attrs['_default'];
+      let token = state.push("a_open", "a", 1);
+      token.attrs = [["href", `javascript:;`], ["onclick", `document.location.hash=''; document.location.hash='user-anchor-${tagID}';`]];
+      token = state.push("inline", "", 0);
+      token.content = content;
+      token.children = [];
+      state.push("a_close", "a", -1);
+      return true;
+    }
+  });
 }
 
 export function setup(helper) {
@@ -1314,7 +1328,9 @@ export function setup(helper) {
     /* Font Awesome                   WHITELIST-033C*/
     "svg[class=*]",
     "svg[style=*]",
-    "use[href=*]"
+    "use[href=*]",
+    /* Anchor                        WHITELIST-034C*/
+    "a.[href=javascript:;]"
   ]);
 
   /* Border                            WHITELIST-003R*/
@@ -1453,6 +1469,15 @@ export function setup(helper) {
     custom(tag, name, value) {
       if (tag === "button" && name === "onclick") {
         return /^(openBBCodeSpoiler\(event\))$/.exec(value);
+      }
+    }
+  });
+
+  /*Anchor                            WHITELIST-034R*/
+  helper.whiteList({
+    custom(tag, name, value) {
+      if (tag === "a" && name === "onclick") {
+        return /^document\.location\.hash=''; document\.location\.hash='user-anchor-\w+';$/.exec(value);
       }
     }
   });

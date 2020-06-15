@@ -1330,7 +1330,7 @@ export function setup(helper) {
     "svg[style=*]",
     "use[href=*]",
     /* Anchor                        WHITELIST-034C*/
-    "a.[id=*]",
+    "a.[id=user-anchor-*]",
     "a.[href=javascript:;]"
   ]);
 

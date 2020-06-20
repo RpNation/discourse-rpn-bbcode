@@ -261,7 +261,7 @@ function setupMarkdownIt(md) {
 
       startToken.type = "div_open";
       startToken.tag = "div";
-      startToken.attrs = [["class", "bbcode-column column-width-" + columnOption]];
+      startToken.attrs = [["class", "bbcode-column column-width-span" + columnOption]];
       startToken.content = content;
       startToken.nesting = 1;
 

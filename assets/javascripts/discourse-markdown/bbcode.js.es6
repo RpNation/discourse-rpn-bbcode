@@ -1092,7 +1092,7 @@ function setupMarkdownIt(md) {
   *************************************************/
 
   md.block.bbcode.ruler.push("spoiler", {
-    tag: "slide",
+    tag: "spoiler",
     replace: function (state, tagInfo, content) {
       let title = tagInfo.attrs['_default'];
 

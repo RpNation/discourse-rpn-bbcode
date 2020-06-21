@@ -1119,6 +1119,7 @@ function setupMarkdownIt(md) {
       token = state.push("div_open", "div", 1);
       token.attrs = [["class", "bbcode-spoiler-content"]];
 
+      token = state.push("text", "", 0);
       token.content = content;
       token.children = [];
 

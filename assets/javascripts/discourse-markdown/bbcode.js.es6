@@ -300,18 +300,7 @@ function setupMarkdownIt(md) {
 
   ruler.push("inlinespoiler", {
     tag: "inlinespoiler",
-    wrap: function (startToken, endToken, tagInfo, content) {
-      startToken.type = "span_open";
-      startToken.tag = "span";
-      startToken.attrs = [["class", "inlineSpoiler"]];
-      startToken.content = content;
-      startToken.nesting = 1;
-
-      endToken.type = "span_close";
-      endToken.tag = "span";
-      endToken.content = '';
-      endToken.nesting = -1;
-    }
+    wrap: 'span.inlineSpoiler'
   });
 
   /*************************************************

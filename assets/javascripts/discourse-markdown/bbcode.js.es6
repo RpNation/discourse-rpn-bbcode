@@ -1098,9 +1098,8 @@ function setupMarkdownIt(md) {
 
   md.block.bbcode.ruler.push("spoiler", {
     tag: "spoiler",
-    replace: function (state, tagInfo, content) {
+    before: function (state, tagInfo) {
       let title = tagInfo.attrs['_default'];
-
       let token = state.push("div_open", "div", 1);
       token.attrs = [["class", "bbcode-spoiler"]];
 
@@ -1115,18 +1114,9 @@ function setupMarkdownIt(md) {
       }
 
       state.push("button_close", "button", -1);
-
-      token = state.push("div_open", "div", 1);
-      token.attrs = [["class", "bbcode-spoiler-content"]];
-
-      token = state.push("block_close", "", 0);
-      token.content = content;
-      token.children = [];
-
-      state.push("div_close", "div", -1);
-      token = state.push("div_close", "div", -1);
-
-      return true;
+    },
+    after: function (state) {
+      state.push("div_close","div", -1);
     }
   });
 

@@ -1106,7 +1106,7 @@ function setupMarkdownIt(md) {
       if (!title) {
         token.content = "Spoiler";
       } else {
-        token.content = "Spoiler: " + trim(title);
+        token.content = "Spoiler: " + title.trim();
       }
 
       state.push("button_close", "button", -1);

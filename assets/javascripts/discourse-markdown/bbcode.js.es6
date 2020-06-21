@@ -861,7 +861,7 @@ function setupMarkdownIt(md) {
 
   md.block.bbcode.ruler.push("tab", {
     tag: "tab",
-    replace: function (state, tagInfo, content) {
+    before: function (state, tagInfo) {
       let tabTitle = tagInfo.attrs['_default'];
 
       let token = state.push("button_open", "button", 1);
@@ -874,18 +874,9 @@ function setupMarkdownIt(md) {
 
       token = state.push("div_open", "div", 1);
       token.attrs = [["class", "bbcode-tab-content"]];
-
-      token = state.push("p_open", "p", 1);
-
-      token = state.push("inline", "", 0);
-      token.content = content;
-      token.children = [];
-
-      state.push("p_close", "p", -1);
-
+    },
+    after: function (state) {
       state.push("div_close", "div", -1);
-
-      return true;
     }
   });
 

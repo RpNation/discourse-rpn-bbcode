@@ -805,9 +805,8 @@ function setupMarkdownIt(md) {
 
   md.block.bbcode.ruler.push("slide", {
     tag: "slide",
-    replace: function (state, tagInfo, content) {
+    before: function (state, tagInfo) {
       let slideTitle = tagInfo.attrs['_default'];
-
       let token = state.push("button_open", "button", 1);
       token.attrs = [["class", "bbcode-slide-title"], ["onclick", "toggleBBCodeSlide(event)"]];
 
@@ -818,18 +817,9 @@ function setupMarkdownIt(md) {
 
       token = state.push("div_open", "div", 1);
       token.attrs = [["class", "bbcode-slide-content"]];
-
-      token = state.push("p_open", "p", 1);
-
-      token = state.push("inline", "", 0);
-      token.content = content;
-      token.children = [];
-
-      state.push("p_close", "p", -1);
-
+    },
+    after: function (state) {
       state.push("div_close", "div", -1);
-
-      return true;
     }
   });
 
@@ -1108,6 +1098,7 @@ function setupMarkdownIt(md) {
     after: function (state) {
       state.push("div_close", "div", -1);
       state.push("div_close","div", -1);
+      return true;
     }
   });
 

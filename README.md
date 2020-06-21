@@ -31,7 +31,7 @@ See: [https://www.rpnation.com]
 |                 Color ✔️                  |  Scroll Box ✔️   |                      |                      |
 |               Font Size ✔️                |    Div Box ❓    |                      |                      |
 |          Left, Center, Right ✔️           |    Anchors ❓    |                      |                      |
-|          Spoiler 🚧                       | Rows & Columns 🚧 |                      |                      |
+|          Spoiler 🚧                       | Rows & Columns ✔️ |                      |                      |
 
 
 

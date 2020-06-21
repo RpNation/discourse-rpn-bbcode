@@ -262,8 +262,8 @@ function setupMarkdownIt(md) {
       startToken.type = "div_open";
       startToken.tag = "div";
       columnOption = columnOption.toLowerCase();
-      if (columnOption.startsWith("span")) {
-        startToken.attrs = [["class", "bbcode-column column-width" + columnOption]];
+      if (columnOption.startsWith('span')) {
+        startToken.attrs = [["class", "bbcode-column column-width-" + columnOption]];
       } else {
         startToken.attrs = [["class", "bbcode-column column-width-span" + columnOption]];
       }

@@ -1105,17 +1105,19 @@ function setupMarkdownIt(md) {
 
       token = state.push("button_open", "button", 1);
       token.attrs = [["class", "bbcode-spoiler-button"], ["onclick", "toggleBBCodeSpoiler(event)"]];
-
       token = state.push("text", "", 0);
       if (!title) {
         token.content = "Spoiler";
       } else {
         token.content = "Spoiler: " + title.trim();
       }
-
       state.push("button_close", "button", -1);
+
+      token = state.push("div_open", "div", 1);
+      token.attrs = [["class", "bbcode-spoiler-content"]];
     },
     after: function (state) {
+      state.push("div_close", "div", -1);
       state.push("div_close","div", -1);
     }
   });

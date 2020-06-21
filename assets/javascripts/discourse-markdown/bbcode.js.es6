@@ -1192,7 +1192,7 @@ function setupMarkdownIt(md) {
       let tagID = tagInfo.attrs['_default'];
       let token = state.push("a_open", "a", 1);
       token.attrs = [["id", `user-anchor-${tagID}`]];
-      token = state.push("inline", "", 0);
+      token = state.push("text", "", 0);
       token.content = content;
       token.children = [];
       state.push("a_close", "a", -1);
@@ -1206,7 +1206,7 @@ function setupMarkdownIt(md) {
       let tagID = tagInfo.attrs['_default'];
       let token = state.push("a_open", "a", 1);
       token.attrs = [["href", `javascript:;`], ["onclick", `document.location.hash=''; document.location.hash='user-anchor-${tagID}';`]];
-      token = state.push("inline", "", 0);
+      token = state.push("text", "", 0);
       token.content = content;
       token.children = [];
       state.push("a_close", "a", -1);

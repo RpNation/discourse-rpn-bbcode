@@ -1468,7 +1468,7 @@ export function setup(helper) {
   helper.whiteList({
     custom(tag, name, value) {
       if (tag === "button" && name === "onclick") {
-        return /^(openBBCodeSpoiler\(event\))$/.exec(value);
+        return /^(toggleBBCodeSpoiler\(event\))$/.exec(value);
       }
     }
   });

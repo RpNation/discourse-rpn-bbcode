@@ -98,7 +98,7 @@ function setupMarkdownIt(md) {
   *** Border                              TAG-003***
   *************************************************/
 
-  ruler.push("border", {
+  md.block.bbcode.ruler.push("border", {
     tag: "border",
     wrap: function (startToken, endToken, tagInfo, content) {
       let styleOption = tagInfo.attrs['_default'];

@@ -19,7 +19,7 @@ See: [https://www.rpnation.com]
 |              Text Formating              | Layout & Design |    Media & Embeds    |      Aesthetics      |
 | :--------------------------------------: | :-------------: | :------------------: | :------------------: |
 |   Headers & Sub-Headers<sup>1</sup> Ⓜ️    |   Dividers ✔️    | Google Docs(PDF) Ⓜ️ 🚧 |       Print ✔️        |
-|               Highlights ✔️               |  Image Float ✔️  |  Height Restrict 🚧   |    Text Message 🚧    |
+|               Highlights ✔️               |  Image Float 🚧  |  Height Restrict 🚧   |    Text Message 🚧    |
 |             Justified Text ✔️             |   Fieldsets ✔️   |    Challonge Ⓜ️ 🚧     |       Blocks ❓       |
 |              Blockquotes 🚧               |     Sides ✔️     |                      |    Progress Bar ✔️    |
 |         Sub Script<sup>2</sup> ⌨️         |     Tabs ✔️      |                      |    Sticky Note 🚧     |

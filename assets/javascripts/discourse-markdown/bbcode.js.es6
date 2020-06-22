@@ -100,19 +100,13 @@ function setupMarkdownIt(md) {
 
   md.block.bbcode.ruler.push("border", {
     tag: "border",
-    wrap: function (startToken, endToken, tagInfo, content) {
+    before: function (state, tagInfo) {
       let styleOption = tagInfo.attrs['_default'];
-
-      startToken.type = "div_open";
-      startToken.tag = "div";
-      startToken.attrs = [["class", "bbcode-border"], ["style", "border: " + styleOption]];
-      startToken.content = content;
-      startToken.nesting = 1;
-
-      endToken.type = "div_close";
-      endToken.tag = "div";
-      endToken.content = '';
-      endToken.nesting = -1;
+      let token = state.push('div_open', 'div', 1);
+      token.attrs = [["class", "bbcode-border"], ["style", "border: " + styleOption]];
+    },
+    after: function (state) {
+      state.push('div_close', 'div', -1);
     }
   });
 

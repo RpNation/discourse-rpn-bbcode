@@ -78,11 +78,20 @@ function setupMarkdownIt(md) {
 
   ruler.push("imagefloat", {
     tag: "imagefloat",
-    wrap: wrap(
-      "span",
-      "class",
-      tagInfo => "float-" + tagInfo.attrs._default.trim()
-    )
+    wrap: function (startToken, endToken, tagInfo, content) {
+      let floatType = tagInfo.attrs['_default'];
+
+      startToken.type = "span_open";
+      startToken.tag = "span";
+      startToken.attrs = [["class", "float-" + floatType]];
+      startToken.content = content;
+      startToken.nesting = 1;
+
+      endToken.type = "span_close";
+      endToken.tag = "span";
+      endToken.content = '';
+      endToken.nesting = -1;
+    }
   });
 
   /*************************************************

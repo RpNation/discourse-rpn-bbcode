@@ -119,7 +119,7 @@ function setupMarkdownIt(md) {
     before: function (state, tagInfo) {
       let bgOption = tagInfo.attrs['_default'];
       let token = state.push('div_open', 'div', 1);
-      startToken.attrs = [["class", "bbcode-background"], ["style", "background-color: " + bgOption]];
+      token.attrs = [["class", "bbcode-background"], ["style", "background-color: " + bgOption]];
     },
     after: function (state) {
       state.push('div_close', 'div', -1);

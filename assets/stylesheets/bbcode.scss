@@ -26,6 +26,22 @@ Spoiler...................BBCODE-023
 
 @import "common/foundation/variables";
 
+// Edits the <p> tags that markdown-it auto generates
+// This will allow for easier CSS implementation
+
+p {
+	margin: 0;
+	margin-bottom: 15px;
+
+	&:last-child {
+		margin-bottom: 0;
+	}
+
+	&:only-child {
+		margin-bottom: 0;
+	}
+}
+
 /*************************************************
 *** Image Float                      BBCODE-001***
 *************************************************/

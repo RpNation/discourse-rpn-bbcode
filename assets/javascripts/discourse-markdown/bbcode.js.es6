@@ -965,42 +965,33 @@ function setupMarkdownIt(md) {
 
   md.block.bbcode.ruler.push("size", {
     tag: "size",
-    replace: function (state, tagInfo, content) {
+    before: function (state, tagInfo) {
       const fontSize = parseFontSize(tagInfo.attrs['_default']);
-
       let token = state.push("div_open", "div", 1);
       if (fontSize.valid) {
         token.attrs = fontSize.unit
           ? [["style", `font-size:${fontSize.value}${fontSize.unit}`]]
           : [["class", `bbcode-size-${fontSize.value}`]];
       }
-
-      token = state.push("inline", "", 0);
-      token.content = content;
-      token.children = [];
-
+    },
+    after: function (state) {
       state.push("div_close", "div", -1);
-      return true;
     }
   });
 
   ruler.push("size", {
     tag: "size",
-    replace: function (state, tagInfo, content) {
+    before: function (state, tagInfo) {
       const fontSize = parseFontSize(tagInfo.attrs['_default']);
-
-      let token = state.push("span_open", "span", 1);
+      let token = state.push("div_open", "div", 1);
       if (fontSize.valid) {
         token.attrs = fontSize.unit
           ? [["style", `font-size:${fontSize.value}${fontSize.unit}`]]
           : [["class", `bbcode-size-${fontSize.value}`]];
       }
-
-      token = state.push("text", "", 0);
-      token.content = content;
-
-      state.push("span_close", "span", -1);
-      return true;
+    },
+    after: function (state) {
+      state.push("div_close", "div", -1);
     }
   });
 
@@ -1067,7 +1058,7 @@ function setupMarkdownIt(md) {
     },
     after: function (state) {
       state.push("div_close", "div", -1);
-      state.push("div_close","div", -1);
+      state.push("div_close", "div", -1);
       return true;
     }
   });

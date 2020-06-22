@@ -962,26 +962,6 @@ function setupMarkdownIt(md) {
   /*************************************************
    *** Size                                TAG-031***
    *************************************************/
-  md.block.bbcode.ruler.push("tab", {
-    tag: "tab",
-    before: function (state, tagInfo) {
-      let tabTitle = tagInfo.attrs['_default'];
-
-      let token = state.push("button_open", "button", 1);
-      token.attrs = [["class", "bbcode-tab-links"], ["onclick", "openBBCodeTab(event)"]];
-
-      token = state.push("text", "", 0);
-      token.content = tabTitle;
-
-      state.push("button_close", "button", -1);
-
-      token = state.push("div_open", "div", 1);
-      token.attrs = [["class", "bbcode-tab-content"]];
-    },
-    after: function (state) {
-      state.push("div_close", "div", -1);
-    }
-  });
 
   md.block.bbcode.ruler.push("size", {
     tag: "size",

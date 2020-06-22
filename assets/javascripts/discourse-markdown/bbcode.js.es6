@@ -159,10 +159,13 @@ function setupMarkdownIt(md) {
 
   md.block.bbcode.ruler.push("side", {
     tag: "side",
-    wrap: function (token, tagInfo) {
+    before: function (state, tagInfo) {
       let sideOption = tagInfo.attrs['_default'];
+      let token = state.push('div_open', 'div', 1);
       token.attrs = [["class", "bbcode-side-" + sideOption]];
-      return true;
+    },
+    after: function (state) {
+      state.push('div_close', 'div', -1);
     }
   });
 
@@ -200,18 +203,11 @@ function setupMarkdownIt(md) {
 
   ruler.push("divide", {
     tag: "divide",
-    before: function (state, tagInfo) {
-      let divideOption = tagInfo.attrs['_default'];
-      let token = state.push('span_open', 'span', 1);
-      if (!divideOption) {
-        token.attrs = [["class", "bbcode-horizontal-rule"]];
-      } else {
-        token.attrs = [["class", "bbcode-horizontal-rule-" + divideOption]];
-      }
-    },
-    after: function (state) {
-      state.push('span_close', 'span', -1);
-    }
+    wrap: wrap("span", "class", (tagInfo) =>
+      !tagInfo.attrs["_default"]
+        ? "bbcode-horizontal-rule"
+        : "bbcode-horizontal-rule-" + divideOption
+    ),
   });
 
   /*************************************************

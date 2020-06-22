@@ -76,7 +76,7 @@ function setupMarkdownIt(md) {
   *** Image Float                         TAG-001***
   *************************************************/
 
-  ruler.push("imagefloat", {
+  md.block.bbcode.ruler.push("imagefloat", {
     tag: "imagefloat",
     wrap: wrap(
       "span",

@@ -114,21 +114,15 @@ function setupMarkdownIt(md) {
   *** Background                          TAG-004***
   *************************************************/
 
-  ruler.push("bg", {
+  md.block.bbcode.ruler.push("bg", {
     tag: "bg",
-    wrap: function (startToken, endToken, tagInfo, content) {
+    before: function (state, tagInfo) {
       let bgOption = tagInfo.attrs['_default'];
-
-      startToken.type = "div_open";
-      startToken.tag = "div";
+      let token = state.push('div_open', 'div', 1);
       startToken.attrs = [["class", "bbcode-background"], ["style", "background-color: " + bgOption]];
-      startToken.content = content;
-      startToken.nesting = 1;
-
-      endToken.type = "div_close";
-      endToken.tag = "div";
-      endToken.content = '';
-      endToken.nesting = -1;
+    },
+    after: function (state) {
+      state.push('div_close', 'div', -1);
     }
   });
 

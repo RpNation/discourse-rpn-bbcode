@@ -157,21 +157,12 @@ function setupMarkdownIt(md) {
   *** Side                                TAG-006***
   *************************************************/
 
-  ruler.push("side", {
+  md.block.bbcode.ruler.push("side", {
     tag: "side",
-    wrap: function (startToken, endToken, tagInfo, content) {
+    wrap: function (token, tagInfo) {
       let sideOption = tagInfo.attrs['_default'];
-
-      startToken.type = "div_open";
-      startToken.tag = "div";
-      startToken.attrs = [["class", "bbcode-side-" + sideOption]];
-      startToken.content = content;
-      startToken.nesting = 1;
-
-      endToken.type = "div_close";
-      endToken.tag = "div";
-      endToken.content = '';
-      endToken.nesting = -1;
+      token.attrs = [["class", "bbcode-side-" + sideOption]];
+      return true;
     }
   });
 

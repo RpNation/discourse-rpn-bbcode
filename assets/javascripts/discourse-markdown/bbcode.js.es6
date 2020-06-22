@@ -200,23 +200,17 @@ function setupMarkdownIt(md) {
 
   ruler.push("divide", {
     tag: "divide",
-    wrap: function (startToken, endToken, tagInfo, content) {
+    before: function (state, tagInfo) {
       let divideOption = tagInfo.attrs['_default'];
-
-      startToken.type = "span_open";
-      startToken.tag = "span";
+      let token = state.push('span_open', 'span', 1);
       if (!divideOption) {
-        startToken.attrs = [["class", "bbcode-horizontal-rule"]];
+        token.attrs = [["class", "bbcode-horizontal-rule"]];
       } else {
-        startToken.attrs = [["class", "bbcode-horizontal-rule-" + divideOption]];
+        token.attrs = [["class", "bbcode-horizontal-rule-" + divideOption]];
       }
-      startToken.content = content;
-      startToken.nesting = 1;
-
-      endToken.type = "span_close";
-      endToken.tag = "span";
-      endToken.content = '';
-      endToken.nesting = -1;
+    },
+    after: function (state) {
+      state.push('span_close', 'span', -1);
     }
   });
 

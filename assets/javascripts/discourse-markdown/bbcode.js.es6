@@ -915,17 +915,22 @@ function setupMarkdownIt(md) {
 
   ruler.push("size", {
     tag: "size",
-    before: function (state, tagInfo) {
+    wrap: function (startToken, endToken, tagInfo, content) {
       const fontSize = parseFontSize(tagInfo.attrs['_default']);
-      let token = state.push("span_open", "div", 1);
+      startToken.type = "span_open";
+      startToken.tag = "span";
       if (fontSize.valid) {
-        token.attrs = fontSize.unit
+        startToken.attrs = fontSize.unit
           ? [["style", `font-size:${fontSize.value}${fontSize.unit}`]]
           : [["class", `bbcode-size-${fontSize.value}`]];
       }
-    },
-    after: function (state) {
-      state.push("span_close", "div", -1);
+      startToken.content = "";
+      startToken.nesting = 1;
+
+      endToken.type = "span_close";
+      endToken.tag = "span";
+      endToken.content = "";
+      endToken.nesting = -1;
     }
   });
 

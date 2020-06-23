@@ -1100,13 +1100,18 @@ function setupMarkdownIt(md) {
 
   ruler.push("goto", {
     tag: "goto",
-    before: function (state, tagInfo) {
+    wrap: function (startToken, endToken, tagInfo, content) {
       let tagID = tagInfo.attrs['_default'];
-      let token = state.push("a_open", "a", 1);
+      startToken.type = "a_open";
+      startToken.tag = 'a';
       token.attrs = [["href", `javascript:;`], ["onclick", `document.location.hash=''; document.location.hash='user-anchor-${tagID}';`]];
-    },
-    after: function (state) {
-      state.push("a_close", "a", -1);
+      startToken.content = '';
+      startToken.nesting = 1;
+
+      endToken.type = 'a_close';
+      endToken.tag = 'a';
+      endToken.content = '';
+      endToken.nesting = -1;
     }
   });
 }

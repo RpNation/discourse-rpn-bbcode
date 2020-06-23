@@ -1072,14 +1072,14 @@ function setupMarkdownIt(md) {
     wrap: function (startToken, endToken, tagInfo, content) {
       let tagID = tagInfo.attrs['_default'];
       startToken.type = "a_open";
-      startToken.tag = 'a';
+      startToken.tag = "a";
       startToken.attrs = [["href", `javascript:;`], ["onclick", `document.location.hash=''; document.location.hash='user-anchor-${tagID}';`]];
-      startToken.content = '';
+      startToken.content = "";
       startToken.nesting = 1;
 
-      endToken.type = 'a_close';
-      endToken.tag = 'a';
-      endToken.content = '';
+      endToken.type = "a_close";
+      endToken.tag = "a";
+      endToken.content = "";
       endToken.nesting = -1;
     }
   });

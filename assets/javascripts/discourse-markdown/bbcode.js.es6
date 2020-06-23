@@ -846,19 +846,7 @@ function setupMarkdownIt(md) {
 
   md.block.bbcode.ruler.push("center", {
     tag: "center",
-    replace: function (state, tagInfo, content) {
-
-      let token = state.push("div_open", "div", 1);
-      token.attrs = [["class", "bbcode-content-center"]];
-
-      token = state.push("inline", "", 0);
-      token.content = content;
-      token.children = [];
-
-      state.push("div_close", "div", -1);
-
-      return true;
-    }
+    wrap: "div.bbcode-content-center"
   });
 
   /*************************************************
@@ -867,19 +855,7 @@ function setupMarkdownIt(md) {
 
   md.block.bbcode.ruler.push("left", {
     tag: "left",
-    replace: function (state, tagInfo, content) {
-
-      let token = state.push("div_open", "div", 1);
-      token.attrs = [["class", "bbcode-content-left"]];
-
-      token = state.push("inline", "", 0);
-      token.content = content;
-      token.children = [];
-
-      state.push("div_close", "div", -1);
-
-      return true;
-    }
+    wrap: "div.bbcode-content-left"
   });
 
   /*************************************************
@@ -888,19 +864,7 @@ function setupMarkdownIt(md) {
 
   md.block.bbcode.ruler.push("right", {
     tag: "right",
-    replace: function (state, tagInfo, content) {
-
-      let token = state.push("div_open", "div", 1);
-      token.attrs = [["class", "bbcode-content-right"]];
-
-      token = state.push("inline", "", 0);
-      token.content = content;
-      token.children = [];
-
-      state.push("div_close", "div", -1);
-
-      return true;
-    }
+    wrap: "div.bbcode-content-right"
   });
 
   /*************************************************

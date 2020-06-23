@@ -909,34 +909,23 @@ function setupMarkdownIt(md) {
 
   md.block.bbcode.ruler.push("color", {
     tag: "color",
-    replace: function (state, tagInfo, content) {
-
+    before: function (state, tagInfo) {
       let token = state.push("div_open", "div", 1);
       token.attrs = [["style", `color:${tagInfo.attrs['_default']}`]];
-
-      token = state.push("inline", "", 0);
-      token.content = content;
-      token.children = [];
-
+    },
+    after: function (state) {
       state.push("div_close", "div", -1);
-
-      return true;
     }
   });
 
   ruler.push("color", {
     tag: "color",
-    replace: function (state, tagInfo, content) {
-
+    before: function (state, tagInfo) {
       let token = state.push("span_open", "span", 1);
       token.attrs = [["style", `color:${tagInfo.attrs['_default']}`]];
-
-      token = state.push("text", "", 0);
-      token.content = content;
-
+    },
+    after: function (state) {
       state.push("span_close", "span", -1);
-
-      return true;
     }
   });
 
@@ -964,7 +953,7 @@ function setupMarkdownIt(md) {
     tag: "size",
     before: function (state, tagInfo) {
       const fontSize = parseFontSize(tagInfo.attrs['_default']);
-      let token = state.push("div_open", "div", 1);
+      let token = state.push("span_open", "div", 1);
       if (fontSize.valid) {
         token.attrs = fontSize.unit
           ? [["style", `font-size:${fontSize.value}${fontSize.unit}`]]
@@ -972,7 +961,7 @@ function setupMarkdownIt(md) {
       }
     },
     after: function (state) {
-      state.push("div_close", "div", -1);
+      state.push("span_close", "div", -1);
     }
   });
 

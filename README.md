@@ -4,6 +4,8 @@ Official RpNation BBCodes for Discourse
 
 See: [https://www.rpnation.com]
 
+For documentation, see [wiki](https://github.com/Ghan04/discourse-rpn-bbcode/wiki)
+
 Ⓜ️ = BBCode dropped in favor of Markdown equivalent. In the case of Media & Embeds use Discourse iframe whitelisting, since that is what Challenge and GDOcs technically did in xF.
 
 🚧 = In progress or needs CSS.

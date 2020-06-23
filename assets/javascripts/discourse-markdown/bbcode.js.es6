@@ -157,21 +157,15 @@ function setupMarkdownIt(md) {
   *** Side                                TAG-006***
   *************************************************/
 
-  ruler.push("side", {
+  md.block.bbcode.ruler.push("side", {
     tag: "side",
-    wrap: function (startToken, endToken, tagInfo, content) {
+    before: function (state, tagInfo) {
       let sideOption = tagInfo.attrs['_default'];
-
-      startToken.type = "div_open";
-      startToken.tag = "div";
-      startToken.attrs = [["class", "bbcode-side-" + sideOption]];
-      startToken.content = content;
-      startToken.nesting = 1;
-
-      endToken.type = "div_close";
-      endToken.tag = "div";
-      endToken.content = '';
-      endToken.nesting = -1;
+      let token = state.push('div_open', 'div', 1);
+      token.attrs = [["class", "bbcode-side-" + sideOption]];
+    },
+    after: function (state) {
+      state.push('div_close', 'div', -1);
     }
   });
 
@@ -209,24 +203,11 @@ function setupMarkdownIt(md) {
 
   ruler.push("divide", {
     tag: "divide",
-    wrap: function (startToken, endToken, tagInfo, content) {
-      let divideOption = tagInfo.attrs['_default'];
-
-      startToken.type = "span_open";
-      startToken.tag = "span";
-      if (!divideOption) {
-        startToken.attrs = [["class", "bbcode-horizontal-rule"]];
-      } else {
-        startToken.attrs = [["class", "bbcode-horizontal-rule-" + divideOption]];
-      }
-      startToken.content = content;
-      startToken.nesting = 1;
-
-      endToken.type = "span_close";
-      endToken.tag = "span";
-      endToken.content = '';
-      endToken.nesting = -1;
-    }
+    wrap: wrap("span", "class", (tagInfo) =>
+      !tagInfo.attrs["_default"]
+        ? "bbcode-horizontal-rule"
+        : "bbcode-horizontal-rule-" + divideOption
+    ),
   });
 
   /*************************************************

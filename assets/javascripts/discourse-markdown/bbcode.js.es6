@@ -972,7 +972,7 @@ function setupMarkdownIt(md) {
     tag: "size",
     before: function (state, tagInfo) {
       const fontSize = parseFontSize(tagInfo.attrs['_default']);
-      let token = state.push("div_open", "div", 1);
+      let token = state.push("span_open", "div", 1);
       if (fontSize.valid) {
         token.attrs = fontSize.unit
           ? [["style", `font-size:${fontSize.value}${fontSize.unit}`]]
@@ -980,7 +980,7 @@ function setupMarkdownIt(md) {
       }
     },
     after: function (state) {
-      state.push("div_close", "div", -1);
+      state.push("span_close", "div", -1);
     }
   });
 

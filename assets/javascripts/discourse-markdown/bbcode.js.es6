@@ -884,13 +884,11 @@ function setupMarkdownIt(md) {
 
   ruler.push("color", {
     tag: "color",
-    before: function (state, tagInfo) {
-      let token = state.push("span_open", "span", 1);
-      token.attrs = [["style", `color:${tagInfo.attrs['_default']}`]];
-    },
-    after: function (state) {
-      state.push("span_close", "span", -1);
-    }
+    wrap: wrap(
+      "span",
+      "style",
+      tagInfo => `color:${tagInfo.attrs['_default']}`
+    )
   });
 
   /*************************************************

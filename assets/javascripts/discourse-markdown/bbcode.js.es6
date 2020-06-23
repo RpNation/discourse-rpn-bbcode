@@ -1104,7 +1104,7 @@ function setupMarkdownIt(md) {
       let tagID = tagInfo.attrs['_default'];
       startToken.type = "a_open";
       startToken.tag = 'a';
-      token.attrs = [["href", `javascript:;`], ["onclick", `document.location.hash=''; document.location.hash='user-anchor-${tagID}';`]];
+      startToken.attrs = [["href", `javascript:;`], ["onclick", `document.location.hash=''; document.location.hash='user-anchor-${tagID}';`]];
       startToken.content = '';
       startToken.nesting = 1;
 

@@ -309,3 +309,186 @@ Valid fonts also include [Google Fonts](https://fonts.google.com/).
   <div class="bbcode-progress-bar-other"></div>
 </div>
 ```
+
+## TAG-020: Note
+
+```
+[note]lorem ipsum[/note]
+```
+
+```html
+<div class="bbcode-note">
+  <div class="bbcode-note-tape"></div>
+  <div class="bbcode-note-content">
+    lorem ipsum
+    <div class="bbcode-note-footer"></div>
+  </div>
+</div>
+```
+
+## TAG-021: Mail
+
+```
+[mail=send]
+[person]Name[/person]
+[subject]subject title[/subject]
+inline text
+[/mail]
+
+[mail=receive]
+[person]Name[/person]
+[subject]subject title[/subject]
+inline text
+[/mail]
+```
+
+```html
+<div class="bbcode-email-send">
+  <div class="bbcode-email-top-send">Send New Email</div>
+  <div class="bbcode-email-first-row"></div>
+  <div class="bbcode-email-second-row"></div>
+  <div class="bbcode-email-main">
+    <div class="bbcode-email-person">Name</div>
+    <div class="bbcode-email-subject">subject title</div>
+    inline text
+  </div>
+  <div class="bbcode-email-footer"></div>
+  <div class="bbcode-email-button"></div>
+</div>
+
+<div class="bbcode-email-send">
+  <div class="bbcode-email-top-receive">New Email Received</div>
+  <div class="bbcode-email-first-row"></div>
+  <div class="bbcode-email-second-row"></div>
+  <div class="bbcode-email-main">
+    <div class="bbcode-email-person">Name</div>
+    <div class="bbcode-email-subject">subject title</div>
+    inline text
+  </div>
+  <div class="bbcode-email-footer"></div>
+  <div class="bbcode-email-button"></div>
+</div>
+```
+
+## TAG-022: Newspaper
+
+```
+[newspaper]lorem ipsum[/newspaper]
+```
+
+```html
+<div class="bbcode-newspaper">lorem ipsum</div>
+```
+
+## TAG-023: Check
+
+```
+[check=dot]dotted[/check]
+[check=check]checked[/check]
+[check=cross]crossed[/check]
+```
+
+```html
+<div class="bbcode-check-dot">dotted</div>
+<div class="bbcode-check-check">checked</div>
+<div class="bbcode-check-cross">crossed</div>
+```
+
+## TAG-024: Accordion
+
+```
+[accordion]
+  [slide=name]
+    lorem ipsum
+  [/slide]
+[/accordion]
+```
+
+```html
+<div class="bbcode-accordion">
+  <button class="bbcode-slide-title" onclick="toggleBBCodeSlide(event)">name</button>
+  <div class="bbcode-slide-content">lorem ipsum</div>
+</div>
+```
+
+## TAG-025: OOC
+
+```
+[ooc]text only[/ooc]
+```
+
+```html
+<div class="bbcode-ooc">
+  <div>OOC</div>
+  text only
+</div>
+```
+
+## TAG-026: Tabs
+
+```
+[tabs]
+  [tab=title]
+    lorem ipsum
+  [/tab]
+[/tabs]
+```
+
+```html
+<div class="bbcode-tab">
+  <button class="bbcode-tab-links" onclick="openBBCodeTab(event)">title</button>
+  <div class="bbcode-tab-content">lorem ipsum</div>
+</div>
+```
+
+## TAG-027: Center
+
+```
+[center]
+lorem ipsum
+[/center]
+```
+
+```html
+<div class="bbcode-content-center">lorem ipsum</div>
+```
+
+## TAG-028: Left
+
+```
+[left]
+lorem ipsum
+[/left]
+```
+
+```html
+<div class="bbcode-content-left">lorem ipsum</div>
+```
+
+## TAG-029: Right
+
+```
+[right]
+lorem ipsum
+[/right]
+```
+
+```html
+<div class="bbcode-content-right">lorem ipsum</div>
+```
+
+## TAG-030: Color
+
+:exclamation: Supports both inline and block level
+
+```
+[color=valid css value]inline text[/color]
+[color=valid css value]
+lorem ipsum
+[/color]
+```
+
+```html
+<span style="color: valid css value">inline text</span>
+<div style="color: valid css value">lorem ipsum</div>
+```

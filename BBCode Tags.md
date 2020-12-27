@@ -83,7 +83,6 @@
   style="max-width: 100%; padding: 5px; overflow:auto; border: 1px solid; height:height value in px;"
 >
   lorem ipsum
-  <div></div>
 </div>
 ```
 

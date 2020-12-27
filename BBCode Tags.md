@@ -264,3 +264,49 @@ Valid fonts also include [Google Fonts](https://fonts.google.com/).
   optional
 </div>
 ```
+
+## TAG-018: Block
+
+`Option`
+
+> dice  
+> dice10  
+> setting  
+> warning  
+> storyteller  
+> announcement  
+> important  
+> question  
+> encounter  
+> information  
+> character  
+> treasure
+
+```
+[block=Option]lorem ipsum[/block]
+```
+
+```html
+<table class="bbcode-block-Option">
+  <tr>
+    <td class="bbcode-block-icon"></td>
+    <td class="bbcode-block-content">lorem ipsum</td>
+  </tr>
+</table>
+```
+
+## TAG-019: Progress
+
+`value`: percentage
+
+```
+[progress=value]inline text[/progress]
+```
+
+```html
+<div class="bbcode-progress">
+  <div class="bbcode-progress-text">inline text</div>
+  <div class="bbcode-progress-bar" style="width: calc(value% - 6px);"></div>
+  <div class="bbcode-progress-bar-other"></div>
+</div>
+```

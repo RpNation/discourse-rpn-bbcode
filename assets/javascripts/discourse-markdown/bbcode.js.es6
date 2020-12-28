@@ -37,9 +37,7 @@ Font Awesome........TAG-033..........WHITELIST-033C
 Anchor..............TAG-034..........WHITELIST-034CR
 */
 
-registerOption(
-  (siteSettings, opts) => (opts.features["rpn-bbcode"] = true)
-);
+registerOption((siteSettings, opts) => (opts.features["rpn-bbcode"] = true));
 
 function wrap(tag, attr, callback) {
   return function (startToken, finishToken, tagInfo) {
@@ -52,16 +50,14 @@ function wrap(tag, attr, callback) {
     startToken.nesting = 1;
     finishToken.nesting = -1;
 
-    startToken.attrs = [
-      [attr, callback ? callback(tagInfo) : tagInfo.attrs._default]
-    ];
+    startToken.attrs = [[attr, callback ? callback(tagInfo) : tagInfo.attrs._default]];
   };
 }
 
 function setupMarkdownIt(md) {
-  const loaded_fonts = [];
-  const ruler = md.inline.bbcode.ruler;
-  const base_fonts = [
+  const INLINE_RULER = md.inline.bbcode.ruler;
+  const BLOCK_RULER = md.block.bbcode.ruler;
+  const BASE_FONTS = [
     "arial",
     "book antiqua",
     "courier new",
@@ -73,64 +69,66 @@ function setupMarkdownIt(md) {
   ];
 
   /*************************************************
-  *** Image Float                         TAG-001***
-  *************************************************/
+   *** Image Float                         TAG-001***
+   *************************************************/
 
-  ruler.push("imagefloat", {
+  INLINE_RULER.push("imagefloat", {
     tag: "imagefloat",
-    wrap: wrap(
-      "span",
-      "class",
-      tagInfo => "float-" + tagInfo.attrs._default.trim()
-    )
+    wrap: wrap("span", "class", (tagInfo) => "float-" + tagInfo.attrs._default.trim()),
   });
 
   /*************************************************
-  *** Highlight                           TAG-002***
-  *************************************************/
+   *** Highlight                           TAG-002***
+   *************************************************/
 
-  ruler.push("highlight", {
+  INLINE_RULER.push("highlight", {
     tag: "highlight",
-    wrap: "span.bbcodeHighlight"
+    wrap: "span.bbcodeHighlight",
   });
 
   /*************************************************
-  *** Border                              TAG-003***
-  *************************************************/
+   *** Border                              TAG-003***
+   *************************************************/
 
-  md.block.bbcode.ruler.push("border", {
+  BLOCK_RULER.push("border", {
     tag: "border",
     before: function (state, tagInfo) {
-      let styleOption = tagInfo.attrs['_default'];
-      let token = state.push('div_open', 'div', 1);
-      token.attrs = [["class", "bbcode-border"], ["style", "border: " + styleOption]];
+      let styleOption = tagInfo.attrs["_default"];
+      let token = state.push("div_open", "div", 1);
+      token.attrs = [
+        ["class", "bbcode-border"],
+        ["style", "border: " + styleOption],
+      ];
     },
     after: function (state) {
-      state.push('div_close', 'div', -1);
-    }
+      state.push("div_close", "div", -1);
+    },
   });
 
   /*************************************************
-  *** Background                          TAG-004***
-  *************************************************/
+   *** Background                          TAG-004***
+   *************************************************/
 
-  md.block.bbcode.ruler.push("bg", {
+  BLOCK_RULER.push("bg", {
     tag: "bg",
     before: function (state, tagInfo) {
-      let bgOption = tagInfo.attrs['_default'];
-      let token = state.push('div_open', 'div', 1);
-      token.attrs = [["class", "bbcode-background"], ["style", "background-color: " + bgOption]];
+      let bgOption = tagInfo.attrs["_default"];
+      let token = state.push("div_open", "div", 1);
+      token.attrs = [
+        ["class", "bbcode-background"],
+        ["style", "background-color: " + bgOption],
+      ];
     },
     after: function (state) {
-      state.push('div_close', 'div', -1);
-    }
+      state.push("div_close", "div", -1);
+    },
   });
 
   /*************************************************
-  *** Fieldset                            TAG-005***
-  *************************************************/
+   *** Fieldset                            TAG-005***
+   *************************************************/
 
-  md.block.bbcode.ruler.push("fieldset", {
+  BLOCK_RULER.push("fieldset", {
     tag: "fieldset",
     before: function (state, tagInfo) {
       let token = state.push("fieldset_open", "fieldset", 1);
@@ -140,7 +138,7 @@ function setupMarkdownIt(md) {
       token.block = false;
 
       token = state.push("text", "", 0);
-      token.content = tagInfo.attrs['_default']
+      token.content = tagInfo.attrs["_default"];
 
       token = state.push("legend_close", "legend", -1);
 
@@ -150,43 +148,50 @@ function setupMarkdownIt(md) {
     after: function (state) {
       state.push("span_close", "span", -1);
       state.push("fieldset_close", "fieldset", -1);
-    }
+    },
   });
 
   /*************************************************
-  *** Side                                TAG-006***
-  *************************************************/
+   *** Side                                TAG-006***
+   *************************************************/
 
-  md.block.bbcode.ruler.push("side", {
+  BLOCK_RULER.push("side", {
     tag: "side",
     before: function (state, tagInfo) {
-      let sideOption = tagInfo.attrs['_default'];
-      let token = state.push('div_open', 'div', 1);
+      let sideOption = tagInfo.attrs["_default"];
+      let token = state.push("div_open", "div", 1);
       token.attrs = [["class", "bbcode-side-" + sideOption]];
     },
     after: function (state) {
-      state.push('div_close', 'div', -1);
-    }
+      state.push("div_close", "div", -1);
+    },
   });
 
   /*************************************************
-  *** Scroll                              TAG-007***
-  *************************************************/
+   *** Scroll                              TAG-007***
+   *************************************************/
 
-  md.block.bbcode.ruler.push("scroll", {
+  BLOCK_RULER.push("scroll", {
     tag: "scroll",
     wrap: function (token, tagInfo) {
-      let heightOption = tagInfo.attrs['_default'];
-      token.attrs = [["style", "max-width: 100%; padding: 5px; overflow:auto; border: 1px solid; height:" + heightOption + ";"]];
+      let heightOption = tagInfo.attrs["_default"];
+      token.attrs = [
+        [
+          "style",
+          "max-width: 100%; padding: 5px; overflow:auto; border: 1px solid; height:" +
+            heightOption +
+            ";",
+        ],
+      ];
       return true;
-    }
+    },
   });
 
   /*************************************************
-  *** NOBR                                TAG-008***
-  *************************************************/
+   *** NOBR                                TAG-008***
+   *************************************************/
 
-  md.block.bbcode.ruler.push("nobr", {
+  BLOCK_RULER.push("nobr", {
     tag: "nobr",
     wrap: function (token, tagInfo) {
       let text = token.content;
@@ -194,14 +199,14 @@ function setupMarkdownIt(md) {
       text = text.replace(/(\r\n|\n|\r)/gm, " ");
       token.content = text;
       return true;
-    }
+    },
   });
 
   /*************************************************
-  *** Divide                              TAG-009***
-  *************************************************/
+   *** Divide                              TAG-009***
+   *************************************************/
 
-  ruler.push("divide", {
+  INLINE_RULER.push("divide", {
     tag: "divide",
     wrap: wrap("span", "class", (tagInfo) =>
       !tagInfo.attrs["_default"]
@@ -211,18 +216,18 @@ function setupMarkdownIt(md) {
   });
 
   /*************************************************
-  *** Row & Column                        TAG-010***
-  *************************************************/
+   *** Row & Column                        TAG-010***
+   *************************************************/
 
-  ruler.push("column", {
+  INLINE_RULER.push("column", {
     tag: "column",
     wrap: function (startToken, endToken, tagInfo, content) {
-      let columnOption = tagInfo.attrs['_default'];
+      let columnOption = tagInfo.attrs["_default"];
 
       startToken.type = "div_open";
       startToken.tag = "div";
       columnOption = columnOption.toLowerCase();
-      if (columnOption.startsWith('span')) {
+      if (columnOption.startsWith("span")) {
         startToken.attrs = [["class", "bbcode-column column-width-" + columnOption]];
       } else {
         startToken.attrs = [["class", "bbcode-column column-width-span" + columnOption]];
@@ -232,15 +237,14 @@ function setupMarkdownIt(md) {
 
       endToken.type = "div_close";
       endToken.tag = "div";
-      endToken.content = '';
+      endToken.content = "";
       endToken.nesting = -1;
-    }
+    },
   });
 
-  ruler.push("row", {
+  INLINE_RULER.push("row", {
     tag: "row",
     wrap: function (startToken, endToken, tagInfo, content) {
-
       startToken.type = "div_open";
       startToken.tag = "div";
       startToken.attrs = [["class", "bbcode-row"]];
@@ -249,25 +253,25 @@ function setupMarkdownIt(md) {
 
       endToken.type = "div_close";
       endToken.tag = "div";
-      endToken.content = '';
+      endToken.content = "";
       endToken.nesting = -1;
-    }
+    },
   });
 
   /*************************************************
-  *** Inline Spoiler                      TAG-011***
-  *************************************************/
+   *** Inline Spoiler                      TAG-011***
+   *************************************************/
 
-  ruler.push("inlinespoiler", {
+  INLINE_RULER.push("inlinespoiler", {
     tag: "inlinespoiler",
-    wrap: 'span.inlineSpoiler'
+    wrap: "span.inlineSpoiler",
   });
 
   /*************************************************
-  *** Justify                             TAG-012***
-  *************************************************/
+   *** Justify                             TAG-012***
+   *************************************************/
 
-  ruler.push("justify", {
+  INLINE_RULER.push("justify", {
     tag: "justify",
     wrap: function (startToken, endToken, tagInfo, content) {
       startToken.type = "span_open";
@@ -278,19 +282,19 @@ function setupMarkdownIt(md) {
 
       endToken.type = "span_close";
       endToken.tag = "span";
-      endToken.content = '';
+      endToken.content = "";
       endToken.nesting = -1;
-    }
+    },
   });
 
   /*************************************************
-  *** Blockquote                          TAG-013***
-  *************************************************/
+   *** Blockquote                          TAG-013***
+   *************************************************/
 
-  md.block.bbcode.ruler.push("blockquote", {
+  BLOCK_RULER.push("blockquote", {
     tag: "blockquote",
     replace: function (state, tagInfo, content) {
-      let author = tagInfo.attrs['_default'];
+      let author = tagInfo.attrs["_default"];
 
       let token = state.push("table_open", "table", 1);
       token.attrs = [["class", "bbcode-blockquote"]];
@@ -329,14 +333,14 @@ function setupMarkdownIt(md) {
       state.push("table_close", "table", -1);
 
       return true;
-    }
+    },
   });
 
   /*************************************************
-  *** Paragraph Indent                    TAG-014***
-  *************************************************/
+   *** Paragraph Indent                    TAG-014***
+   *************************************************/
 
-  ruler.push("pindent", {
+  INLINE_RULER.push("pindent", {
     tag: "pindent",
     wrap: function (startToken, endToken, tagInfo, content) {
       startToken.type = "span_open";
@@ -347,19 +351,19 @@ function setupMarkdownIt(md) {
 
       endToken.type = "span_close";
       endToken.tag = "span";
-      endToken.content = '';
+      endToken.content = "";
       endToken.nesting = -1;
-    }
+    },
   });
 
   /*************************************************
-  *** Print                               TAG-015***
-  *************************************************/
+   *** Print                               TAG-015***
+   *************************************************/
 
-  md.block.bbcode.ruler.push("print", {
+  BLOCK_RULER.push("print", {
     tag: "print",
     replace: function (state, tagInfo, content) {
-      let printOption = tagInfo.attrs['_default'];
+      let printOption = tagInfo.attrs["_default"];
 
       let token = state.push("div_open", "div", 1);
       if (!printOption) {
@@ -375,17 +379,17 @@ function setupMarkdownIt(md) {
       state.push("div_close", "div", -1);
 
       return true;
-    }
+    },
   });
 
   /*************************************************
-  *** Text Message                        TAG-016***
-  *************************************************/
+   *** Text Message                        TAG-016***
+   *************************************************/
 
-  md.block.bbcode.ruler.push("textmessage", {
+  BLOCK_RULER.push("textmessage", {
     tag: "textmessage",
     replace: function (state, tagInfo, content) {
-      let textOption = tagInfo.attrs['_default'];
+      let textOption = tagInfo.attrs["_default"];
 
       let token = state.push("div_open", "div", 1);
       token.attrs = [["class", "bbcode-textmessage"]];
@@ -414,22 +418,27 @@ function setupMarkdownIt(md) {
       state.push("div_close", "div", -1);
 
       return true;
-    }
+    },
   });
 
   /*************************************************
-  *** Font                                TAG-017***
-  *************************************************/
+   *** Font                                TAG-017***
+   *************************************************/
 
-  md.block.bbcode.ruler.push("font", {
+  BLOCK_RULER.push("font", {
     tag: "font",
     replace: function (state, tagInfo, content) {
-      const fontFamily = tagInfo.attrs['_default'] || tagInfo.attrs['family'] || tagInfo.attrs['name'];
-      const fontColor = tagInfo.attrs['color'];
-      const fontSize = tagInfo.attrs['size'];
+      const fontFamily =
+        tagInfo.attrs["_default"] || tagInfo.attrs["family"] || tagInfo.attrs["name"];
+      const fontColor = tagInfo.attrs["color"];
+      const fontSize = tagInfo.attrs["size"];
 
       let token;
-      if (fontFamily && !base_fonts.includes(fontFamily.toLowerCase()) && !loaded_fonts.includes(fontFamily)) {
+      if (
+        fontFamily &&
+        !BASE_FONTS.includes(fontFamily.toLowerCase()) &&
+        !loaded_fonts.includes(fontFamily)
+      ) {
         addFontLinkTag(token, state, fontFamily);
       }
 
@@ -440,18 +449,23 @@ function setupMarkdownIt(md) {
       token.children = [];
       state.push("div_close", "div", -1);
       return true;
-    }
+    },
   });
 
-  ruler.push("font", {
+  INLINE_RULER.push("font", {
     tag: "font",
     replace: function (state, tagInfo, content) {
-      const fontFamily = tagInfo.attrs['_default'] || tagInfo.attrs['family'] || tagInfo.attrs['name'];
-      const fontColor = tagInfo.attrs['color'];
-      const fontSize = tagInfo.attrs['size'];
+      const fontFamily =
+        tagInfo.attrs["_default"] || tagInfo.attrs["family"] || tagInfo.attrs["name"];
+      const fontColor = tagInfo.attrs["color"];
+      const fontSize = tagInfo.attrs["size"];
 
       let token;
-      if (fontFamily && !base_fonts.includes(fontFamily.toLowerCase()) && !loaded_fonts.includes(fontFamily)) {
+      if (
+        fontFamily &&
+        !BASE_FONTS.includes(fontFamily.toLowerCase()) &&
+        !loaded_fonts.includes(fontFamily)
+      ) {
         addFontLinkTag(token, state, fontFamily);
       }
 
@@ -473,18 +487,22 @@ function setupMarkdownIt(md) {
 
       state.push("span_close", "span", -1);
       return true;
-    }
+    },
   });
 
   function addFontLinkTag(token, state, fontFamily) {
     token = state.push("link", "link", 0);
-    token.attrs = [["rel", "stylesheet"], ["type", "text/css"], ["href", `https://fonts.googleapis.com/css2?family=${fontFamily.replace(/\s/g, '+')}`]];
+    token.attrs = [
+      ["rel", "stylesheet"],
+      ["type", "text/css"],
+      ["href", `https://fonts.googleapis.com/css2?family=${fontFamily.replace(/\s/g, "+")}`],
+    ];
     loaded_fonts.push(fontFamily);
   }
 
   function generateFontTagAttributes(fontFamily, fontSize, fontColor) {
     let fontAttributes = [];
-    let styleValue = '';
+    let styleValue = "";
     if (fontFamily) {
       styleValue += `font-family:${fontFamily},Helvetica,Arial,sans-serif;`;
     }
@@ -501,7 +519,7 @@ function setupMarkdownIt(md) {
     }
 
     if (fontColor) {
-      styleValue += `color:${fontColor};`
+      styleValue += `color:${fontColor};`;
     }
 
     if (styleValue.length) {
@@ -511,13 +529,13 @@ function setupMarkdownIt(md) {
   }
 
   /*************************************************
-  *** Block                               TAG-018***
-  *************************************************/
+   *** Block                               TAG-018***
+   *************************************************/
 
-  md.block.bbcode.ruler.push("block", {
+  BLOCK_RULER.push("block", {
     tag: "block",
     replace: function (state, tagInfo, content) {
-      let blockOption = tagInfo.attrs['_default'];
+      let blockOption = tagInfo.attrs["_default"];
 
       let token = state.push("table_open", "table", 1);
       token.attrs = [["class", "bbcode-block-" + blockOption]];
@@ -543,17 +561,17 @@ function setupMarkdownIt(md) {
       state.push("table_close", "table", -1);
 
       return true;
-    }
+    },
   });
 
   /*************************************************
-  *** Progress                            TAG-019***
-  *************************************************/
+   *** Progress                            TAG-019***
+   *************************************************/
 
-  md.block.bbcode.ruler.push("progress", {
+  BLOCK_RULER.push("progress", {
     tag: "progress",
     replace: function (state, tagInfo, content) {
-      let progressOption = tagInfo.attrs['_default'];
+      let progressOption = tagInfo.attrs["_default"];
 
       let token = state.push("div_open", "div", 1);
       token.attrs = [["class", "bbcode-progress"]];
@@ -568,7 +586,10 @@ function setupMarkdownIt(md) {
       state.push("div_close", "div", -1);
 
       token = state.push("div_open", "div", 1);
-      token.attrs = [["class", "bbcode-progress-bar"], ["style", "width: calc(" + progressOption + "% - 6px);"]];
+      token.attrs = [
+        ["class", "bbcode-progress-bar"],
+        ["style", "width: calc(" + progressOption + "% - 6px);"],
+      ];
 
       state.push("div_close", "div", -1);
 
@@ -580,17 +601,16 @@ function setupMarkdownIt(md) {
       state.push("div_close", "div", -1);
 
       return true;
-    }
+    },
   });
 
   /*************************************************
-  *** Note                                TAG-020***
-  *************************************************/
+   *** Note                                TAG-020***
+   *************************************************/
 
-  md.block.bbcode.ruler.push("note", {
+  BLOCK_RULER.push("note", {
     tag: "note",
     replace: function (state, tagInfo, content) {
-
       let token = state.push("div_open", "div", 1);
       token.attrs = [["class", "bbcode-note"]];
 
@@ -616,17 +636,17 @@ function setupMarkdownIt(md) {
       state.push("div_close", "div", -1);
 
       return true;
-    }
+    },
   });
 
   /*************************************************
-  *** Mail                                TAG-021***
-  *************************************************/
+   *** Mail                                TAG-021***
+   *************************************************/
 
-  md.block.bbcode.ruler.push("mail", {
+  BLOCK_RULER.push("mail", {
     tag: "mail",
     replace: function (state, tagInfo, content) {
-      let mailOption = tagInfo.attrs['_default'];
+      let mailOption = tagInfo.attrs["_default"];
 
       let token = state.push("div_open", "div", 1);
       token.attrs = [["class", "bbcode-email-" + mailOption]];
@@ -677,10 +697,10 @@ function setupMarkdownIt(md) {
       state.push("div_close", "div", -1);
 
       return true;
-    }
+    },
   });
 
-  ruler.push("person", {
+  INLINE_RULER.push("person", {
     tag: "person",
     wrap: function (startToken, endToken, tagInfo, content) {
       startToken.type = "div_open";
@@ -691,12 +711,12 @@ function setupMarkdownIt(md) {
 
       endToken.type = "div_close";
       endToken.tag = "div";
-      endToken.content = '';
+      endToken.content = "";
       endToken.nesting = -1;
-    }
+    },
   });
 
-  ruler.push("subject", {
+  INLINE_RULER.push("subject", {
     tag: "subject",
     wrap: function (startToken, endToken, tagInfo, content) {
       startToken.type = "div_open";
@@ -707,16 +727,16 @@ function setupMarkdownIt(md) {
 
       endToken.type = "div_close";
       endToken.tag = "div";
-      endToken.content = '';
+      endToken.content = "";
       endToken.nesting = -1;
-    }
+    },
   });
 
   /*************************************************
-  *** Newspaper                           TAG-022***
-  *************************************************/
+   *** Newspaper                           TAG-022***
+   *************************************************/
 
-  ruler.push("newspaper", {
+  INLINE_RULER.push("newspaper", {
     tag: "newspaper",
     wrap: function (startToken, endToken, tagInfo, content) {
       startToken.type = "div_open";
@@ -727,19 +747,19 @@ function setupMarkdownIt(md) {
 
       endToken.type = "div_close";
       endToken.tag = "div";
-      endToken.content = '';
+      endToken.content = "";
       endToken.nesting = -1;
-    }
+    },
   });
 
   /*************************************************
-  *** Check                               TAG-023***
-  *************************************************/
+   *** Check                               TAG-023***
+   *************************************************/
 
-  ruler.push("check", {
+  INLINE_RULER.push("check", {
     tag: "check",
     wrap: function (startToken, endToken, tagInfo, content) {
-      let checkOption = tagInfo.attrs['_default'];
+      let checkOption = tagInfo.attrs["_default"];
 
       startToken.type = "div_open";
       startToken.tag = "div";
@@ -749,26 +769,29 @@ function setupMarkdownIt(md) {
 
       endToken.type = "div_close";
       endToken.tag = "div";
-      endToken.content = '';
+      endToken.content = "";
       endToken.nesting = -1;
-    }
+    },
   });
 
   /*************************************************
-  *** Accordion                           TAG-024***
-  *************************************************/
+   *** Accordion                           TAG-024***
+   *************************************************/
 
-  md.block.bbcode.ruler.push("accordion", {
+  BLOCK_RULER.push("accordion", {
     tag: "accordion",
-    wrap: "div.bbcode-accordion"
+    wrap: "div.bbcode-accordion",
   });
 
-  md.block.bbcode.ruler.push("slide", {
+  BLOCK_RULER.push("slide", {
     tag: "slide",
     before: function (state, tagInfo) {
-      let slideTitle = tagInfo.attrs['_default'];
+      let slideTitle = tagInfo.attrs["_default"];
       let token = state.push("button_open", "button", 1);
-      token.attrs = [["class", "bbcode-slide-title"], ["onclick", "toggleBBCodeSlide(event)"]];
+      token.attrs = [
+        ["class", "bbcode-slide-title"],
+        ["onclick", "toggleBBCodeSlide(event)"],
+      ];
 
       token = state.push("text", "", 0);
       token.content = slideTitle;
@@ -780,17 +803,16 @@ function setupMarkdownIt(md) {
     },
     after: function (state) {
       state.push("div_close", "div", -1);
-    }
+    },
   });
 
   /*************************************************
-  *** OOC                                 TAG-025***
-  *************************************************/
+   *** OOC                                 TAG-025***
+   *************************************************/
 
-  ruler.push("ooc", {
+  INLINE_RULER.push("ooc", {
     tag: "ooc",
     replace: function (state, tagInfo, content) {
-
       let token = state.push("div_open", "div", 1);
       token.attrs = [["class", "bbcode-ooc"]];
 
@@ -807,25 +829,28 @@ function setupMarkdownIt(md) {
       state.push("div_close", "div", -1);
 
       return true;
-    }
+    },
   });
 
   /*************************************************
-  *** Tabs                                TAG-026***
-  *************************************************/
+   *** Tabs                                TAG-026***
+   *************************************************/
 
-  md.block.bbcode.ruler.push("tabs", {
+  BLOCK_RULER.push("tabs", {
     tag: "tabs",
-    wrap: "div.bbcode-tab"
+    wrap: "div.bbcode-tab",
   });
 
-  md.block.bbcode.ruler.push("tab", {
+  BLOCK_RULER.push("tab", {
     tag: "tab",
     before: function (state, tagInfo) {
-      let tabTitle = tagInfo.attrs['_default'];
+      let tabTitle = tagInfo.attrs["_default"];
 
       let token = state.push("button_open", "button", 1);
-      token.attrs = [["class", "bbcode-tab-links"], ["onclick", "openBBCodeTab(event)"]];
+      token.attrs = [
+        ["class", "bbcode-tab-links"],
+        ["onclick", "openBBCodeTab(event)"],
+      ];
 
       token = state.push("text", "", 0);
       token.content = tabTitle;
@@ -837,68 +862,64 @@ function setupMarkdownIt(md) {
     },
     after: function (state) {
       state.push("div_close", "div", -1);
-    }
+    },
   });
 
   /*************************************************
-  *** Center                                TAG-027***
-  *************************************************/
+   *** Center                                TAG-027***
+   *************************************************/
 
-  md.block.bbcode.ruler.push("center", {
+  BLOCK_RULER.push("center", {
     tag: "center",
-    wrap: "div.bbcode-content-center"
+    wrap: "div.bbcode-content-center",
   });
 
   /*************************************************
-  *** Left                                TAG-028***
-  *************************************************/
+   *** Left                                TAG-028***
+   *************************************************/
 
-  md.block.bbcode.ruler.push("left", {
+  BLOCK_RULER.push("left", {
     tag: "left",
-    wrap: "div.bbcode-content-left"
+    wrap: "div.bbcode-content-left",
   });
 
   /*************************************************
-  *** Right                                TAG-029***
-  *************************************************/
+   *** Right                                TAG-029***
+   *************************************************/
 
-  md.block.bbcode.ruler.push("right", {
+  BLOCK_RULER.push("right", {
     tag: "right",
-    wrap: "div.bbcode-content-right"
+    wrap: "div.bbcode-content-right",
   });
 
   /*************************************************
-  *** Color                                TAG-030***
-  *************************************************/
+   *** Color                                TAG-030***
+   *************************************************/
 
-  md.block.bbcode.ruler.push("color", {
+  BLOCK_RULER.push("color", {
     tag: "color",
     before: function (state, tagInfo) {
       let token = state.push("div_open", "div", 1);
-      token.attrs = [["style", `color:${tagInfo.attrs['_default']}`]];
+      token.attrs = [["style", `color:${tagInfo.attrs["_default"]}`]];
     },
     after: function (state) {
       state.push("div_close", "div", -1);
-    }
+    },
   });
 
-  ruler.push("color", {
+  INLINE_RULER.push("color", {
     tag: "color",
-    wrap: wrap(
-      "span",
-      "style",
-      tagInfo => `color:${tagInfo.attrs['_default']}`
-    )
+    wrap: wrap("span", "style", (tagInfo) => `color:${tagInfo.attrs["_default"]}`),
   });
 
   /*************************************************
    *** Size                                TAG-031***
    *************************************************/
 
-  md.block.bbcode.ruler.push("size", {
+  BLOCK_RULER.push("size", {
     tag: "size",
     before: function (state, tagInfo) {
-      const fontSize = parseFontSize(tagInfo.attrs['_default']);
+      const fontSize = parseFontSize(tagInfo.attrs["_default"]);
       let token = state.push("div_open", "div", 1);
       if (fontSize.valid) {
         token.attrs = fontSize.unit
@@ -908,13 +929,13 @@ function setupMarkdownIt(md) {
     },
     after: function (state) {
       state.push("div_close", "div", -1);
-    }
+    },
   });
 
-  ruler.push("size", {
+  INLINE_RULER.push("size", {
     tag: "size",
     wrap: function (startToken, endToken, tagInfo, content) {
-      const fontSize = parseFontSize(tagInfo.attrs['_default']);
+      const fontSize = parseFontSize(tagInfo.attrs["_default"]);
       startToken.type = "span_open";
       startToken.tag = "span";
       if (fontSize.valid) {
@@ -929,7 +950,7 @@ function setupMarkdownIt(md) {
       endToken.tag = "span";
       endToken.content = "";
       endToken.nesting = -1;
-    }
+    },
   });
 
   function parseFontSize(fontValue) {
@@ -942,24 +963,33 @@ function setupMarkdownIt(md) {
       rem_max: 3,
       rem_min: 0.2,
       unitless_max: 7,
-      unitless_min: 1
+      unitless_min: 1,
     };
 
     fontSize.unit = parsedSize[2];
-    if (value = parsedSize[1]) {
+    if ((value = parsedSize[1])) {
       switch (fontSize.unit) {
-        case 'px':
-          if (value > sizeRanges.px_max) { value = sizeRanges.px_max; }
-          else if (value < sizeRanges.px_min) { value = sizeRanges.px_min; }
+        case "px":
+          if (value > sizeRanges.px_max) {
+            value = sizeRanges.px_max;
+          } else if (value < sizeRanges.px_min) {
+            value = sizeRanges.px_min;
+          }
           break;
-        case 'rem':
-          if (value > sizeRanges.rem_max) { value = sizeRanges.rem_max; }
-          else if (value < sizeRanges.rem_min) { value = sizeRanges.rem_min; }
+        case "rem":
+          if (value > sizeRanges.rem_max) {
+            value = sizeRanges.rem_max;
+          } else if (value < sizeRanges.rem_min) {
+            value = sizeRanges.rem_min;
+          }
           break;
         default:
-          if (fontSize.valid = fontValue.length === value.length) {
-            if (value > sizeRanges.unitless_max) { value = sizeRanges.unitless_max; }
-            else if (value < sizeRanges.unitless_min) { value = sizeRanges.unitless_min; }
+          if ((fontSize.valid = fontValue.length === value.length)) {
+            if (value > sizeRanges.unitless_max) {
+              value = sizeRanges.unitless_max;
+            } else if (value < sizeRanges.unitless_min) {
+              value = sizeRanges.unitless_min;
+            }
           }
           break;
       }
@@ -970,18 +1000,21 @@ function setupMarkdownIt(md) {
   }
 
   /*************************************************
-  *** Spoiler                             TAG-032***
-  *************************************************/
+   *** Spoiler                             TAG-032***
+   *************************************************/
 
-  md.block.bbcode.ruler.push("spoiler", {
+  BLOCK_RULER.push("spoiler", {
     tag: "spoiler",
     before: function (state, tagInfo) {
-      let title = tagInfo.attrs['_default'];
+      let title = tagInfo.attrs["_default"];
       let token = state.push("div_open", "div", 1);
       token.attrs = [["class", "bbcode-spoiler"]];
 
       token = state.push("button_open", "button", 1);
-      token.attrs = [["class", "bbcode-spoiler-button"], ["onclick", "toggleBBCodeSpoiler(event)"]];
+      token.attrs = [
+        ["class", "bbcode-spoiler-button"],
+        ["onclick", "toggleBBCodeSpoiler(event)"],
+      ];
       token = state.push("text", "", 0);
       if (!title) {
         token.content = "Spoiler";
@@ -997,14 +1030,14 @@ function setupMarkdownIt(md) {
       state.push("div_close", "div", -1);
       state.push("div_close", "div", -1);
       return true;
-    }
+    },
   });
 
   /*************************************************
- *** Font Awesome Icons                   TAG-033***
- *************************************************/
+   *** Font Awesome Icons                   TAG-033***
+   *************************************************/
 
-  ruler.push("fa", {
+  INLINE_RULER.push("fa", {
     tag: "fa",
     replace: function (state, tagInfo, content) {
       const tagAttributes = content.split(/\s/);
@@ -1022,56 +1055,55 @@ function setupMarkdownIt(md) {
         token = state.push("svg_close", "svg", -1);
         return true;
       }
-    }
+    },
   });
 
   function handleIconStyles(tagAttributes) {
     let currentMatch;
     const duotoneMatch = /(.*)\{(.*)\}/;
     let iconStyles = {
-      classes: '',
-      styles: ''
+      classes: "",
+      styles: "",
     };
 
     for (let i = 2; i < tagAttributes.length; i++) {
-      if (currentMatch = tagAttributes[i].match(duotoneMatch)) {
-        iconStyles.styles = `${iconStyles.styles} --${currentMatch[1]}:${currentMatch[2]};`
+      if ((currentMatch = tagAttributes[i].match(duotoneMatch))) {
+        iconStyles.styles = `${iconStyles.styles} --${currentMatch[1]}:${currentMatch[2]};`;
       } else {
-        iconStyles.classes = `${iconStyles.classes} ${tagAttributes[i].trim()}`
+        iconStyles.classes = `${iconStyles.classes} ${tagAttributes[i].trim()}`;
       }
     }
 
     let attributes = [];
     if (iconStyles.styles.length) {
-      attributes.push(["style", iconStyles.styles])
+      attributes.push(["style", iconStyles.styles]);
     }
     if (iconStyles.classes.length) {
-      attributes.push(["class", iconStyles.classes])
+      attributes.push(["class", iconStyles.classes]);
     }
 
     return attributes;
   }
 
   /*****************************************************
-  *** Anchor                                 TAG-034***
-  *****************************************************/
+   *** Anchor                                 TAG-034***
+   *****************************************************/
 
-  ruler.push("a", {
+  INLINE_RULER.push("a", {
     tag: "a",
-    wrap: wrap(
-      "a",
-      "id",
-      tagInfo => `user-anchor-${tagInfo.attrs._default}`
-    )
+    wrap: wrap("a", "id", (tagInfo) => `user-anchor-${tagInfo.attrs._default}`),
   });
 
-  ruler.push("goto", {
+  INLINE_RULER.push("goto", {
     tag: "goto",
     wrap: function (startToken, endToken, tagInfo, content) {
-      let tagID = tagInfo.attrs['_default'];
+      let tagID = tagInfo.attrs["_default"];
       startToken.type = "a_open";
       startToken.tag = "a";
-      startToken.attrs = [["href", `javascript:;`], ["onclick", `document.location.hash=''; document.location.hash='user-anchor-${tagID}';`]];
+      startToken.attrs = [
+        ["href", `javascript:;`],
+        ["onclick", `document.location.hash=''; document.location.hash='user-anchor-${tagID}';`],
+      ];
       startToken.content = "";
       startToken.nesting = 1;
 
@@ -1079,12 +1111,11 @@ function setupMarkdownIt(md) {
       endToken.tag = "a";
       endToken.content = "";
       endToken.nesting = -1;
-    }
+    },
   });
 }
 
 export function setup(helper) {
-
   helper.whiteList([
     /* Image Float                     WHITELIST-001*/
     "span.float-right",
@@ -1205,7 +1236,7 @@ export function setup(helper) {
     "svg[style=*]",
     "use[href=*]",
     /* Anchor                        WHITELIST-034C*/
-    "a[href=javascript:;]"
+    "a[href=javascript:;]",
   ]);
 
   /* Border                            WHITELIST-003R*/
@@ -1214,7 +1245,7 @@ export function setup(helper) {
       if (tag === "div" && name === "style") {
         return /^(border:(.*))$/.exec(value);
       }
-    }
+    },
   });
 
   /* Background                        WHITELIST-004R*/
@@ -1223,16 +1254,18 @@ export function setup(helper) {
       if (tag === "div" && name === "style") {
         return /^(background\-color:(.*))$/.exec(value);
       }
-    }
+    },
   });
 
   /* Scroll                            WHITELIST-007*/
   helper.whiteList({
     custom(tag, name, value) {
       if (tag === "div" && name === "style") {
-        return /^(max-width: 100%; padding: 5px; overflow:auto; border: 1px solid; height:[0-9]*px;)$/.exec(value);
+        return /^(max-width: 100%; padding: 5px; overflow:auto; border: 1px solid; height:[0-9]*px;)$/.exec(
+          value
+        );
       }
-    }
+    },
   });
 
   /* Row & Column                      WHITELIST-010*/
@@ -1241,7 +1274,7 @@ export function setup(helper) {
       if (tag === "div" && name === "class") {
         return /^(bbcode-column column-width-span[1-8])$/.exec(value);
       }
-    }
+    },
   });
 
   /* Paragraph Indent                 WHITELIST-014*/
@@ -1250,16 +1283,18 @@ export function setup(helper) {
       if (tag === "span" && name === "style") {
         return /^(display: inline-block; text-indent:2\.5em)$/.exec(value);
       }
-    }
+    },
   });
 
   /* Font                             WHITELIST-017R*/
   helper.whiteList({
     custom(tag, name, value) {
       if ((tag === "div" || tag === "span") && name === "style") {
-        return /^(font-family:[\w\s]+,Helvetica,Arial,sans-serif;)?(font-size:(\d+\.?\d?)(px|rem);)?(color:(\w+|#[0-9a-fA-F]{6}|rgb\([0-9]{1,3},\s?[0-9]{1,3},\s?[0-9]{1,3}\)|rgba\([0-9]{1,3},\s?[0-9]{1,3},\s?[0-9]{1,3},\s?(1|0|0\.[0-9]{0,2})\));)?$/.exec(value);
+        return /^(font-family:[\w\s]+,Helvetica,Arial,sans-serif;)?(font-size:(\d+\.?\d?)(px|rem);)?(color:(\w+|#[0-9a-fA-F]{6}|rgb\([0-9]{1,3},\s?[0-9]{1,3},\s?[0-9]{1,3}\)|rgba\([0-9]{1,3},\s?[0-9]{1,3},\s?[0-9]{1,3},\s?(1|0|0\.[0-9]{0,2})\));)?$/.exec(
+          value
+        );
       }
-    }
+    },
   });
 
   helper.whiteList({
@@ -1267,7 +1302,7 @@ export function setup(helper) {
       if (tag === "link" && name === "href") {
         return /^https\:\/\/fonts\.googleapis\.com\/css2\?family=(.*)$/.exec(value);
       }
-    }
+    },
   });
 
   /* Progress                         WHITELIST-019R*/
@@ -1276,7 +1311,7 @@ export function setup(helper) {
       if (tag === "div" && name === "style") {
         return /^(width: calc\(([0-9]|[1-9][0-9]|(100))% - 6px\);)$/.exec(value);
       }
-    }
+    },
   });
 
   /* Accordion                        WHITELIST-024R*/
@@ -1285,7 +1320,7 @@ export function setup(helper) {
       if (tag === "button" && name === "onclick") {
         return /^(toggleBBCodeSlide\(event\))$/.exec(value);
       }
-    }
+    },
   });
 
   /* Tabs                             WHITELIST-026R*/
@@ -1294,7 +1329,7 @@ export function setup(helper) {
       if (tag === "button" && name === "onclick") {
         return /^(openBBCodeTab\(event\))$/.exec(value);
       }
-    }
+    },
   });
 
   /* Color                             WHITELIST-030R*/
@@ -1303,7 +1338,7 @@ export function setup(helper) {
       if ((tag === "div" || tag === "span") && name === "style") {
         return /^color:(\w+)$/.exec(value);
       }
-    }
+    },
   });
 
   helper.whiteList({
@@ -1311,7 +1346,7 @@ export function setup(helper) {
       if ((tag === "div" || tag === "span") && name === "style") {
         return /^color:\#[0-9a-fA-F]{6}$/.exec(value);
       }
-    }
+    },
   });
 
   helper.whiteList({
@@ -1319,15 +1354,17 @@ export function setup(helper) {
       if ((tag === "div" || tag === "span") && name === "style") {
         return /^color:rgb\([0-9]{1,3},\s?[0-9]{1,3},\s?[0-9]{1,3}\)$/.exec(value);
       }
-    }
+    },
   });
 
   helper.whiteList({
     custom(tag, name, value) {
       if ((tag === "div" || tag === "span") && name === "style") {
-        return /^color:rgba\([0-9]{1,3},\s?[0-9]{1,3},\s?[0-9]{1,3},\s?(1|0|0\.[0-9]{0,2})\)$/.exec(value);
+        return /^color:rgba\([0-9]{1,3},\s?[0-9]{1,3},\s?[0-9]{1,3},\s?(1|0|0\.[0-9]{0,2})\)$/.exec(
+          value
+        );
       }
-    }
+    },
   });
 
   /* Size                             WHITELIST-031R*/
@@ -1336,7 +1373,7 @@ export function setup(helper) {
       if ((tag === "div" || tag === "span") && name === "style") {
         return /^font-size:(\d+\.?\d?)(px|rem)$/.exec(value);
       }
-    }
+    },
   });
 
   /* Spoiler                          WHITELIST-032R*/
@@ -1345,16 +1382,18 @@ export function setup(helper) {
       if (tag === "button" && name === "onclick") {
         return /^(toggleBBCodeSpoiler\(event\))$/.exec(value);
       }
-    }
+    },
   });
 
   /*Anchor                            WHITELIST-034R*/
   helper.whiteList({
     custom(tag, name, value) {
       if (tag === "a" && name === "onclick") {
-        return /^document\.location\.hash=''; document\.location\.hash='user-anchor-\w+';$/.exec(value);
+        return /^document\.location\.hash=''; document\.location\.hash='user-anchor-\w+';$/.exec(
+          value
+        );
       }
-    }
+    },
   });
 
   helper.whiteList({
@@ -1362,7 +1401,7 @@ export function setup(helper) {
       if (tag === "a" && name === "id") {
         return /^user-anchor-\w+$/.exec(value);
       }
-    }
+    },
   });
 
   if (helper.markdownIt) {

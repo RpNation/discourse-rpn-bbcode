@@ -771,20 +771,7 @@ function setupMarkdownIt(md) {
 
   INLINE_RULER.push("check", {
     tag: "check",
-    wrap: function (startToken, endToken, tagInfo, content) {
-      let checkOption = tagInfo.attrs["_default"];
-
-      startToken.type = "div_open";
-      startToken.tag = "div";
-      startToken.attrs = [["class", "bbcode-check-" + checkOption]];
-      startToken.content = content;
-      startToken.nesting = 1;
-
-      endToken.type = "div_close";
-      endToken.tag = "div";
-      endToken.content = "";
-      endToken.nesting = -1;
-    },
+    wrap: wrap("check", "class", (tagInfo) => "bbcode-check-" + tagInfo.attrs._default.trim()),
   });
 
   /*************************************************

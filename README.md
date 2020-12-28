@@ -20,22 +20,22 @@ For documentation, see [wiki](https://github.com/Ghan04/discourse-rpn-bbcode/wik
 
 |              Text Formating              | Layout & Design |    Media & Embeds    |      Aesthetics      |
 | :--------------------------------------: | :-------------: | :------------------: | :------------------: |
-|   Headers & Sub-Headers<sup>1</sup> Ⓜ️    |   Dividers ✔️    | Google Docs(PDF) Ⓜ️ 🚧 |       Print ✔️        |
+|   Headers & Sub-Headers<sup>1</sup> Ⓜ️    |   Dividers 🚧    | Google Docs(PDF) Ⓜ️ 🚧 |       Print ✔️        |
 |               Highlights ✔️               |  Image Float 🚧  |  Height Restrict 🚧   |    Text Message 🚧    |
-|             Justified Text ✔️             |   Fieldsets ✔️   |    Challonge Ⓜ️ 🚧     |       Blocks ❓       |
+|             Justified Text 🚧             |   Fieldsets ✔️   |    Challonge Ⓜ️ 🚧     |       Blocks ❓       |
 |              Blockquotes 🚧               |     Sides ✔️     |                      |    Progress Bar ✔️    |
 |         Sub Script<sup>2</sup> ⌨️         |     Tabs ✔️      |                      |    Sticky Note 🚧     |
 |        Super Script<sup>3</sup> ⌨️        |    Tables ☠️     |                      |        Mail 🚧        |
-|          Google Font Library ✔️           | Center Block ❓  |                      |     Newspaper ✔️      |
+|          Google Font Library ✔️           | Center Block ❓  |                      |     Newspaper 🚧      |
 |        HTML Comment<sup>4</sup> ⌨️        |  Background ✔️   |                      |       Checks ✔️       |
 |            Paragraph Indent ✔️            |    Border ✔️     |                      | Font Awesome Icons 🚧 |
 | Bold, Italic, Underline, Strikethrough Ⓜ️ |  Accordions ✔️   |                      |         OOC ✔️       |
 |                 Color ✔️                  |  Scroll Box ✔️   |                      |                      |
 |               Font Size ✔️                |    Div Box ❓    |                      |                      |
-|          Left, Center, Right ✔️           |    Anchors ❓    |                      |                      |
+|          Left, Center, Right 🚧           |    Anchors ❓    |                      |                      |
 |          Spoiler ✔️                       | Rows & Columns 🚧 |                      |                      |
 |          NOBR 🚧                       |                    |                      |                      |
-
+|          Inline Spoiler 🚧              |                   |                       |                     |
 
 
 <sup>1</sup> Headers & Subheaders can be rebaked into the equivalent number of #

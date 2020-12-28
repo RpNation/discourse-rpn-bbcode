@@ -492,3 +492,80 @@ lorem ipsum
 <span style="color: valid css value">inline text</span>
 <div style="color: valid css value">lorem ipsum</div>
 ```
+
+## TAG-031: Size
+
+:exclamation: Supports both inline and block level for all options
+
+```
+[size=#]unitless size range from 1 to 7[/size]
+[size=#px]size in px, range from 8px to 36px[/size]
+[size=#rem]size in rem, range from 0.2rem to 3rem[/size]
+```
+
+```html
+<div class="bbcode-size-#">unitless size range from 1 to 7</div>
+<span class="bbcode-size-#">unitless size range from 1 to 7</span>
+
+<span style="font-size: #px">size in px, range from 8px to 36px</span>
+<span style="font-size: #rem">size in rem, range from 0.2rem to 3rem</span>
+```
+
+## TAG-032: Spoiler
+
+```
+[spoiler]
+lorem ipsum
+[/spoiler]
+
+[spoiler=title]
+lorem ipsum
+[/spoiler]
+```
+
+```html
+<div class="bbcode-spoiler">
+  <button class="bbcode-spoiler-button" onclick="toggleBBCodeSpoiler(event)">Spoiler</button>
+  <div class="bbcode-spoiler-content">lorem ipsum</div>
+</div>
+
+<div class="bbcode-spoiler">
+  <button class="bbcode-spoiler-button" onclick="toggleBBCodeSpoiler(event)">Spoiler: title</button>
+  <div class="bbcode-spoiler-content">lorem ipsum</div>
+</div>
+```
+
+## TAG-033: Font Awesome Icons
+
+:warning: works with FA5
+
+If icon style is not given, defaults to `far`
+
+```
+[fa]fa-icon fa-class fa-primary-color{color code} fa-primary-opacity{range from 0 to 1} fa-secondary-color{color code} fa-secondary-opacity{range from 0 to 1}[/fa]
+```
+
+```html
+<svg
+  class="fa-class"
+  style="--fa-primary-color: color code; --fa-primary-opacity: range from 0 to 1; --fa-secondary-color: color code; --fa-secondary-opacity: range from 0 to 1"
+>
+  <use href="#icon reference"></use>
+</svg>
+```
+
+## TAG-034: Anchor
+
+```
+[a=TAG]inline text[/a]
+[goto=TAG]inline text[/goto]
+```
+
+```html
+<a id="user-anchor-TAG">inline text</a>
+<a
+  href="javascript:;"
+  onclick="document.location.hash=''; document.location.hash='user-anchor-TAG';"
+  >inline text</a
+>
+```

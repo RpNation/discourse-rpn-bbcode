@@ -39,6 +39,12 @@ Anchor..............TAG-034..........WHITELIST-034CR
 
 registerOption((siteSettings, opts) => (opts.features["rpn-bbcode"] = true));
 
+/**
+ * A generalized wrap function for simple Wrap method rulers that don't need a full blown function, but could use an arrow function
+ * @param tag name of the tag
+ * @param attr the html attribute that the callback function will be applied to
+ * @param callback (Optional) Any necessary callback function. Will use tagINfo.attrs._default if not provided
+ */
 function wrap(tag, attr, callback) {
   return function (startToken, finishToken, tagInfo) {
     startToken.tag = finishToken.tag = tag;

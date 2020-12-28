@@ -3,8 +3,8 @@
 # name: discourse-rpn-bbcode
 # about: Custom BBCode for RpNation
 # version: 0.1
-# authors: Ghan
-# url: https://github.com/Ghan04/discourse-rpn-bbcode
+# authors: Ghan, Alteras, TheDarkWizard, FaithWynters
+# url: https://github.com/RpNation/discourse-rpn-bbcode
 register_asset "javascripts/tabs.js"
 register_asset "javascripts/accordion.js"
 register_asset "javascripts/spoiler.js"

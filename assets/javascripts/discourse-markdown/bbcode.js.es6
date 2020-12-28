@@ -275,8 +275,8 @@ function setupMarkdownIt(md) {
    *** Inline Spoiler                      TAG-011***
    *************************************************/
 
-  INLINE_RULER.push("inlinespoiler", {
-    tag: "inlinespoiler",
+  INLINE_RULER.push("inlineSpoiler", {
+    tag: "inlineSpoiler",
     wrap: "span.inlineSpoiler",
   });
 

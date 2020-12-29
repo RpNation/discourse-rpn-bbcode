@@ -10,4 +10,11 @@ describe PrettyText do
 
     expect(cooked).to eq(html)
   end
+
+  it 'can apply newspaper bbcode' do
+    cooked = PrettyText.cook "hello [newspaper]newspaper content[/newspaper] text"
+    html = '<p>hello <div class="bbcode-newspaper">newspaper content</div> text </p>'
+
+    expect(cooked).to eq(html)
+  end
 end

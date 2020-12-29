@@ -40,10 +40,17 @@ Anchor..............TAG-034..........WHITELIST-034CR
 registerOption((siteSettings, opts) => (opts.features["rpn-bbcode"] = true));
 
 /**
+ * This callback function is for altering the attribute value given the tagInfo
+ *
+ * @callback wrapCallback
+ * @param {object} tagInfo callback function will feed in the tagInfo object of the tag
+ * @returns {string} attrs value
+ */
+/**
  * A generalized wrap function for simple Wrap method rulers that don't need a full blown function, but could use an arrow function
- * @param tag name of the tag
- * @param attr the html attribute that the callback function will be applied to
- * @param callback (Optional) Any necessary callback function. Will use tagINfo.attrs._default if not provided
+ * @param {string} tag name of the tag
+ * @param {string} attr  the html attribute that the callback function will be applied to
+ * @param {wrapCallback} callback Any necessary callback function. Will use tagInfo.attrs._default if not provided
  */
 function wrap(tag, attr, callback) {
   return function (startToken, finishToken, tagInfo) {
@@ -268,8 +275,8 @@ function setupMarkdownIt(md) {
    *** Inline Spoiler                      TAG-011***
    *************************************************/
 
-  INLINE_RULER.push("inlinespoiler", {
-    tag: "inlinespoiler",
+  INLINE_RULER.push("inlineSpoiler", {
+    tag: "inlineSpoiler",
     wrap: "span.inlineSpoiler",
   });
 
@@ -744,18 +751,7 @@ function setupMarkdownIt(md) {
 
   INLINE_RULER.push("newspaper", {
     tag: "newspaper",
-    wrap: function (startToken, endToken, tagInfo, content) {
-      startToken.type = "div_open";
-      startToken.tag = "div";
-      startToken.attrs = [["class", "bbcode-newspaper"]];
-      startToken.content = content;
-      startToken.nesting = 1;
-
-      endToken.type = "div_close";
-      endToken.tag = "div";
-      endToken.content = "";
-      endToken.nesting = -1;
-    },
+    wrap: "div.bbcode-newspaper",
   });
 
   /*************************************************
@@ -764,20 +760,7 @@ function setupMarkdownIt(md) {
 
   INLINE_RULER.push("check", {
     tag: "check",
-    wrap: function (startToken, endToken, tagInfo, content) {
-      let checkOption = tagInfo.attrs["_default"];
-
-      startToken.type = "div_open";
-      startToken.tag = "div";
-      startToken.attrs = [["class", "bbcode-check-" + checkOption]];
-      startToken.content = content;
-      startToken.nesting = 1;
-
-      endToken.type = "div_close";
-      endToken.tag = "div";
-      endToken.content = "";
-      endToken.nesting = -1;
-    },
+    wrap: wrap("div", "class", (tagInfo) => "bbcode-check-" + tagInfo.attrs._default.trim()),
   });
 
   /*************************************************

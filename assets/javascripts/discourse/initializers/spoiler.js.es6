@@ -11,6 +11,7 @@ import { withPluginApi } from "discourse/lib/plugin-api";
 function addSpoilerCode(post) {
   /** all of the elements that contain the class `.bbcode-spoiler-button` */
   const spoilers = post.querySelectorAll(".bbcode-spoiler-button");
+  // if no spoilers found, end function
   if (!spoilers.length) return;
 
   spoilers.forEach((spoiler) => {
@@ -24,7 +25,7 @@ function addSpoilerCode(post) {
  * @param api
  */
 function initializeSpoiler(api) {
-  api.decorateCookedElement(addSpoilerCode, { id: "add spoilers", onlyStream: true });
+  api.decorateCookedElement(addSpoilerCode, { id: "add spoilers" });
 }
 
 export default {

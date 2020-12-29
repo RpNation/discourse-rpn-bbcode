@@ -24,7 +24,7 @@ Note................TAG-020..........WHITELIST-020
 Mail................TAG-021..........WHITELIST-021
 Newspaper...........TAG-022..........WHITELIST-022
 Check...............TAG-023..........WHITELIST-023
-Accordion...........TAG-024..........WHITELIST-024CR
+Accordion...........TAG-024..........WHITELIST-024
 OOC.................TAG-025..........WHITELIST-025
 Tabs................TAG-026..........WHITELIST-026CR
 Center..............TAG-027..........WHITELIST-027
@@ -32,7 +32,7 @@ Left................TAG-028..........WHITELIST-028
 Right...............TAG-029..........WHITELIST-029
 Color...............TAG-030..........WHITELIST-030R
 Size................TAG-031..........WHITELIST-031CR
-Spoiler.............TAG-032..........WHITELIST-032CR
+Spoiler.............TAG-032..........WHITELIST-032
 Font Awesome........TAG-033..........WHITELIST-033C
 Anchor..............TAG-034..........WHITELIST-034CR
 */
@@ -777,10 +777,7 @@ function setupMarkdownIt(md) {
     before: function (state, tagInfo) {
       let slideTitle = tagInfo.attrs["_default"];
       let token = state.push("button_open", "button", 1);
-      token.attrs = [
-        ["class", "bbcode-slide-title"],
-        ["onclick", "toggleBBCodeSlide(event)"],
-      ];
+      token.attrs = [["class", "bbcode-slide-title"]];
 
       token = state.push("text", "", 0);
       token.content = slideTitle;
@@ -1182,7 +1179,7 @@ export function setup(helper) {
     "div.bbcode-check-dot",
     "div.bbcode-check-check",
     "div.bbcode-check-cross",
-    /* Accordion                       WHITELIST-024C*/
+    /* Accordion                       WHITELIST-024*/
     "div.bbcode-accordion",
     "button.bbcode-slide-title",
     "div.bbcode-slide-content",
@@ -1213,7 +1210,7 @@ export function setup(helper) {
     "span.bbcode-size-5",
     "span.bbcode-size-6",
     "span.bbcode-size-7",
-    /* Spoiler                         WHITELIST-032C*/
+    /* Spoiler                         WHITELIST-032*/
     "div.bbcode-spoiler",
     "button.bbcode-spoiler-button",
     "div.bbcode-spoiler-content",
@@ -1296,15 +1293,6 @@ export function setup(helper) {
     custom(tag, name, value) {
       if (tag === "div" && name === "style") {
         return /^(width: calc\(([0-9]|[1-9][0-9]|(100))% - 6px\);)$/.exec(value);
-      }
-    },
-  });
-
-  /* Accordion                        WHITELIST-024R*/
-  helper.allowList({
-    custom(tag, name, value) {
-      if (tag === "button" && name === "onclick") {
-        return /^(toggleBBCodeSlide\(event\))$/.exec(value);
       }
     },
   });

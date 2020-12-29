@@ -1,3 +1,16 @@
+/**
+ * Called from ./discourse/initializers/spoiler.js.es6
+ * Apply the onclick event listener to each spoiler.
+ * @param {HTMLElement} spoiler
+ */
+function applySpoiler(spoiler) {
+  spoiler.addEventListener("click", toggleBBCodeSpoiler);
+}
+
+/**
+ * Given an event on the button of the spoiler, it'll either slide up or slide down the content of the sibling
+ * @param {Event} evt
+ */
 function toggleBBCodeSpoiler(evt) {
   function slideUp(target, duration) {
     target.style.transitionProperty = "height, margin, padding";

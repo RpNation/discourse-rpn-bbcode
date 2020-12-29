@@ -1000,10 +1000,7 @@ function setupMarkdownIt(md) {
       token.attrs = [["class", "bbcode-spoiler"]];
 
       token = state.push("button_open", "button", 1);
-      token.attrs = [
-        ["class", "bbcode-spoiler-button"],
-        ["onclick", "toggleBBCodeSpoiler(event)"],
-      ];
+      token.attrs = [["class", "bbcode-spoiler-button"]];
       token = state.push("text", "", 0);
       if (!title) {
         token.content = "Spoiler";

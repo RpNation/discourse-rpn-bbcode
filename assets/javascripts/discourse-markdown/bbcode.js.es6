@@ -1362,15 +1362,6 @@ export function setup(helper) {
     },
   });
 
-  /* Spoiler                          WHITELIST-032R*/
-  helper.allowList({
-    custom(tag, name, value) {
-      if (tag === "button" && name === "onclick") {
-        return /^(toggleBBCodeSpoiler\(event\))$/.exec(value);
-      }
-    },
-  });
-
   /*Anchor                            WHITELIST-034R*/
   helper.allowList({
     custom(tag, name, value) {

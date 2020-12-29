@@ -751,18 +751,7 @@ function setupMarkdownIt(md) {
 
   INLINE_RULER.push("newspaper", {
     tag: "newspaper",
-    wrap: function (startToken, endToken, tagInfo, content) {
-      startToken.type = "div_open";
-      startToken.tag = "div";
-      startToken.attrs = [["class", "bbcode-newspaper"]];
-      startToken.content = content;
-      startToken.nesting = 1;
-
-      endToken.type = "div_close";
-      endToken.tag = "div";
-      endToken.content = "";
-      endToken.nesting = -1;
-    },
+    wrap: "div.bbcode-newspaper",
   });
 
   /*************************************************
@@ -771,7 +760,7 @@ function setupMarkdownIt(md) {
 
   INLINE_RULER.push("check", {
     tag: "check",
-    wrap: wrap("check", "class", (tagInfo) => "bbcode-check-" + tagInfo.attrs._default.trim()),
+    wrap: wrap("div", "class", (tagInfo) => "bbcode-check-" + tagInfo.attrs._default.trim()),
   });
 
   /*************************************************

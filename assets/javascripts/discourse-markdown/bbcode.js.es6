@@ -1105,7 +1105,7 @@ function setupMarkdownIt(md) {
 }
 
 export function setup(helper) {
-  helper.whiteList([
+  helper.allowList([
     /* Image Float                     WHITELIST-001*/
     "span.float-right",
     "span.float-left",
@@ -1229,7 +1229,7 @@ export function setup(helper) {
   ]);
 
   /* Border                            WHITELIST-003R*/
-  helper.whiteList({
+  helper.allowList({
     custom(tag, name, value) {
       if (tag === "div" && name === "style") {
         return /^(border:(.*))$/.exec(value);
@@ -1238,7 +1238,7 @@ export function setup(helper) {
   });
 
   /* Background                        WHITELIST-004R*/
-  helper.whiteList({
+  helper.allowList({
     custom(tag, name, value) {
       if (tag === "div" && name === "style") {
         return /^(background\-color:(.*))$/.exec(value);
@@ -1247,7 +1247,7 @@ export function setup(helper) {
   });
 
   /* Scroll                            WHITELIST-007*/
-  helper.whiteList({
+  helper.allowList({
     custom(tag, name, value) {
       if (tag === "div" && name === "style") {
         return /^(max-width: 100%; padding: 5px; overflow:auto; border: 1px solid; height:[0-9]*px;)$/.exec(
@@ -1258,7 +1258,7 @@ export function setup(helper) {
   });
 
   /* Row & Column                      WHITELIST-010*/
-  helper.whiteList({
+  helper.allowList({
     custom(tag, name, value) {
       if (tag === "div" && name === "class") {
         return /^(bbcode-column column-width-span[1-8])$/.exec(value);
@@ -1267,7 +1267,7 @@ export function setup(helper) {
   });
 
   /* Paragraph Indent                 WHITELIST-014*/
-  helper.whiteList({
+  helper.allowList({
     custom(tag, name, value) {
       if (tag === "span" && name === "style") {
         return /^(display: inline-block; text-indent:2\.5em)$/.exec(value);
@@ -1276,7 +1276,7 @@ export function setup(helper) {
   });
 
   /* Font                             WHITELIST-017R*/
-  helper.whiteList({
+  helper.allowList({
     custom(tag, name, value) {
       if ((tag === "div" || tag === "span") && name === "style") {
         return /^(font-family:[\w\s]+,Helvetica,Arial,sans-serif;)?(font-size:(\d+\.?\d?)(px|rem);)?(color:(\w+|#[0-9a-fA-F]{6}|rgb\([0-9]{1,3},\s?[0-9]{1,3},\s?[0-9]{1,3}\)|rgba\([0-9]{1,3},\s?[0-9]{1,3},\s?[0-9]{1,3},\s?(1|0|0\.[0-9]{0,2})\));)?$/.exec(
@@ -1286,7 +1286,7 @@ export function setup(helper) {
     },
   });
 
-  helper.whiteList({
+  helper.allowList({
     custom(tag, name, value) {
       if (tag === "link" && name === "href") {
         return /^https\:\/\/fonts\.googleapis\.com\/css2\?family=(.*)$/.exec(value);
@@ -1295,7 +1295,7 @@ export function setup(helper) {
   });
 
   /* Progress                         WHITELIST-019R*/
-  helper.whiteList({
+  helper.allowList({
     custom(tag, name, value) {
       if (tag === "div" && name === "style") {
         return /^(width: calc\(([0-9]|[1-9][0-9]|(100))% - 6px\);)$/.exec(value);
@@ -1304,7 +1304,7 @@ export function setup(helper) {
   });
 
   /* Accordion                        WHITELIST-024R*/
-  helper.whiteList({
+  helper.allowList({
     custom(tag, name, value) {
       if (tag === "button" && name === "onclick") {
         return /^(toggleBBCodeSlide\(event\))$/.exec(value);
@@ -1313,7 +1313,7 @@ export function setup(helper) {
   });
 
   /* Tabs                             WHITELIST-026R*/
-  helper.whiteList({
+  helper.allowList({
     custom(tag, name, value) {
       if (tag === "button" && name === "onclick") {
         return /^(openBBCodeTab\(event\))$/.exec(value);
@@ -1322,7 +1322,7 @@ export function setup(helper) {
   });
 
   /* Color                             WHITELIST-030R*/
-  helper.whiteList({
+  helper.allowList({
     custom(tag, name, value) {
       if ((tag === "div" || tag === "span") && name === "style") {
         return /^color:(\w+)$/.exec(value);
@@ -1330,7 +1330,7 @@ export function setup(helper) {
     },
   });
 
-  helper.whiteList({
+  helper.allowList({
     custom(tag, name, value) {
       if ((tag === "div" || tag === "span") && name === "style") {
         return /^color:\#[0-9a-fA-F]{6}$/.exec(value);
@@ -1338,7 +1338,7 @@ export function setup(helper) {
     },
   });
 
-  helper.whiteList({
+  helper.allowList({
     custom(tag, name, value) {
       if ((tag === "div" || tag === "span") && name === "style") {
         return /^color:rgb\([0-9]{1,3},\s?[0-9]{1,3},\s?[0-9]{1,3}\)$/.exec(value);
@@ -1346,7 +1346,7 @@ export function setup(helper) {
     },
   });
 
-  helper.whiteList({
+  helper.allowList({
     custom(tag, name, value) {
       if ((tag === "div" || tag === "span") && name === "style") {
         return /^color:rgba\([0-9]{1,3},\s?[0-9]{1,3},\s?[0-9]{1,3},\s?(1|0|0\.[0-9]{0,2})\)$/.exec(
@@ -1357,7 +1357,7 @@ export function setup(helper) {
   });
 
   /* Size                             WHITELIST-031R*/
-  helper.whiteList({
+  helper.allowList({
     custom(tag, name, value) {
       if ((tag === "div" || tag === "span") && name === "style") {
         return /^font-size:(\d+\.?\d?)(px|rem)$/.exec(value);
@@ -1366,7 +1366,7 @@ export function setup(helper) {
   });
 
   /* Spoiler                          WHITELIST-032R*/
-  helper.whiteList({
+  helper.allowList({
     custom(tag, name, value) {
       if (tag === "button" && name === "onclick") {
         return /^(toggleBBCodeSpoiler\(event\))$/.exec(value);
@@ -1375,7 +1375,7 @@ export function setup(helper) {
   });
 
   /*Anchor                            WHITELIST-034R*/
-  helper.whiteList({
+  helper.allowList({
     custom(tag, name, value) {
       if (tag === "a" && name === "onclick") {
         return /^document\.location\.hash=''; document\.location\.hash='user-anchor-\w+';$/.exec(
@@ -1385,7 +1385,7 @@ export function setup(helper) {
     },
   });
 
-  helper.whiteList({
+  helper.allowList({
     custom(tag, name, value) {
       if (tag === "a" && name === "id") {
         return /^user-anchor-\w+$/.exec(value);

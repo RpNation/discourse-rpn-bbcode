@@ -833,10 +833,7 @@ function setupMarkdownIt(md) {
       let tabTitle = tagInfo.attrs["_default"];
 
       let token = state.push("button_open", "button", 1);
-      token.attrs = [
-        ["class", "bbcode-tab-links"],
-        ["onclick", "openBBCodeTab(event)"],
-      ];
+      token.attrs = [["class", "bbcode-tab-links"]];
 
       token = state.push("text", "", 0);
       token.content = tabTitle;
@@ -1185,7 +1182,7 @@ export function setup(helper) {
     "div.bbcode-slide-content",
     /* OOC                             WHITELIST-025*/
     "div.bbcode-ooc",
-    /* Tabs                            WHITELIST-026C*/
+    /* Tabs                            WHITELIST-026*/
     "div.bbcode-tab",
     "button.bbcode-tab-links",
     "div.bbcode-tab-content",
@@ -1293,15 +1290,6 @@ export function setup(helper) {
     custom(tag, name, value) {
       if (tag === "div" && name === "style") {
         return /^(width: calc\(([0-9]|[1-9][0-9]|(100))% - 6px\);)$/.exec(value);
-      }
-    },
-  });
-
-  /* Tabs                             WHITELIST-026R*/
-  helper.allowList({
-    custom(tag, name, value) {
-      if (tag === "button" && name === "onclick") {
-        return /^(openBBCodeTab\(event\))$/.exec(value);
       }
     },
   });

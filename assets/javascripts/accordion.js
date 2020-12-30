@@ -81,9 +81,9 @@ function toggleBBCodeSlide(evt) {
   evt.currentTarget.classList.toggle("active");
 
   /** @type {HTMLElement[]} */
-  let slide = evt.currentTarget.nextElementSibling;
-  let siblingSlides = getSiblings(evt.currentTarget, ".bbcode-slide-title");
-  let siblingContent = getSiblings(slide, ".bbcode-slide-content");
+  var slide = evt.currentTarget.nextElementSibling;
+  var siblingSlides = getSiblings(evt.currentTarget, ".bbcode-slide-title");
+  var siblingContent = getSiblings(slide, ".bbcode-slide-content");
 
   // console.log(siblings);
   siblingSlides.forEach((sibling) => sibling.classList.remove("active"));

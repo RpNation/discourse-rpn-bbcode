@@ -75,8 +75,22 @@ function toggleBBCodeSlide(evt) {
       return slideUp(target, duration);
     }
   }
-  var getSiblings = (n, selector) =>
-    [...n.parentElement.children].filter((c) => c.nodeType == 1 && c != n && c.matches(selector));
+
+  function getChildren(n, skipMe, selector) {
+    var r = [];
+    for (; n; n = n.nextSibling)
+      if (n.nodeType == 1 && n != skipMe && n.matches(selector)) r.push(n);
+    return r;
+  }
+
+  /**
+   *
+   * @param {HTMLElement} n
+   * @param {string} selector
+   */
+  function getSiblings(n, selector) {
+    return getChildren(n.parentNode.firstChild, n, selector);
+  }
 
   evt.currentTarget.classList.toggle("active");
 
@@ -85,8 +99,11 @@ function toggleBBCodeSlide(evt) {
   var siblingSlides = getSiblings(evt.currentTarget, ".bbcode-slide-title");
   var siblingContent = getSiblings(slide, ".bbcode-slide-content");
 
-  // console.log(siblings);
-  siblingSlides.forEach((sibling) => sibling.classList.remove("active"));
-  siblingContent.forEach((sibling) => slideUp(sibling, 500));
+  siblingSlides.forEach(function (sibling) {
+    sibling.classList.remove("active");
+  });
+  siblingContent.forEach(function (sibling) {
+    slideUp(sibling, 500);
+  });
   slideToggle(slide, 500);
 }

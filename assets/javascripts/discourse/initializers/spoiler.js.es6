@@ -14,8 +14,13 @@ async function addSpoilerCode(post) {
   // if no spoilers found, end function
   if (!spoilers.length) return;
 
+  console.log("Loading spoiler code");
+  const startAt = performance.now();
   // lazy load in the spoiler.js
   await loadScript("/plugins/discourse-rpn-bbcode/javascripts/spoiler.js");
+  const endAt = performance.now();
+  console.log("Loaded or has already been loaded");
+  console.log(`${endAt - startAt} ms`);
   spoilers.forEach((spoiler) => {
     applySpoiler(spoiler);
   });

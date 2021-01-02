@@ -31,6 +31,6 @@ function initializeSpoiler(api) {
 export default {
   name: "spoiler",
   initialize() {
-    withPluginApi("0.1", initializeSpoiler);
+    withPluginApi("0.11.1", initializeSpoiler);
   },
 };

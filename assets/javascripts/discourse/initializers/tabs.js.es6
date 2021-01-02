@@ -28,6 +28,6 @@ function initializeTabs(api) {
 export default {
   name: "tabs",
   initialize() {
-    withPluginApi("0.1", initializeTabs);
+    withPluginApi("0.11.1", initializeTabs);
   },
 };

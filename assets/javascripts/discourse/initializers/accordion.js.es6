@@ -32,6 +32,6 @@ function initializeAccordion(api) {
 export default {
   name: "accordion",
   initialize() {
-    withPluginApi("0.1", initializeAccordion);
+    withPluginApi("0.11.1", initializeAccordion);
   },
 };

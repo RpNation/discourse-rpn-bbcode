@@ -85,9 +85,14 @@ function setupMarkdownIt(md) {
    *** Image Float                         TAG-001***
    *************************************************/
 
+  BLOCK_RULER.push("imagefloat", {
+    tag: "imagefloat",
+    wrap: wrap("div", "class", (tagInfo) => "float-" + tagInfo.attrs._default.trim()),
+  });
+
   INLINE_RULER.push("imagefloat", {
     tag: "imagefloat",
-    wrap: wrap("span", "class", (tagInfo) => "float-" + tagInfo.attrs._default.trim()),
+    wrap: wrap("div", "class", (tagInfo) => "float-" + tagInfo.attrs._default.trim()),
   });
 
   /*************************************************
@@ -1098,9 +1103,9 @@ function setupMarkdownIt(md) {
 export function setup(helper) {
   helper.allowList([
     /* Image Float                     WHITELIST-001*/
-    "span.float-right",
-    "span.float-left",
-    "span.float-center",
+    "div.float-right",
+    "div.float-left",
+    "div.float-center",
     /* Highlight                       WHITELIST-002*/
     "span.bbcodeHighlight",
     /* Border                          WHITELIST-003C*/

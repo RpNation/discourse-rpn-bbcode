@@ -87,7 +87,10 @@ function setupMarkdownIt(md) {
 
   BLOCK_RULER.push("imagefloat", {
     tag: "imagefloat",
-    wrap: wrap("div", "class", (tagInfo) => "float-" + tagInfo.attrs._default.trim()),
+    wrap: function (token, tagInfo) {
+      token.attrs = [["class", "float-" + tagInfo.attrs["_default"]]];
+      return true;
+    },
   });
 
   INLINE_RULER.push("imagefloat", {

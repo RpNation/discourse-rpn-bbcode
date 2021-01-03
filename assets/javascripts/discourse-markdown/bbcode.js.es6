@@ -232,7 +232,7 @@ function setupMarkdownIt(md) {
     wrap: wrap("span", "class", (tagInfo) =>
       !tagInfo.attrs["_default"]
         ? "bbcode-horizontal-rule"
-        : "bbcode-horizontal-rule-" + divideOption
+        : "bbcode-horizontal-rule-" + tagInfo.attrs["_default"]
     ),
   });
 

@@ -288,12 +288,10 @@ Valid fonts also include [Google Fonts](https://fonts.google.com/).
 ```
 
 ```html
-<table class="bbcode-block-Option">
-  <tr>
-    <td class="bbcode-block-icon"></td>
-    <td class="bbcode-block-content">lorem ipsum</td>
-  </tr>
-</table>
+<div class="bbcode-block" data-bbcode-block="Option">
+  <div class="bbcode-block-icon"></div>
+  <div class="bbcode-block-content">lorem ipsum</div>
+</div>
 ```
 
 ## TAG-019: Progress

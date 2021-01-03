@@ -32,7 +32,7 @@ For documentation, see [wiki](https://github.com/Ghan04/discourse-rpn-bbcode/wik
 | Bold, Italic, Underline, Strikethrough Ⓜ️ |   Accordions ✔️   |                        |        OOC ✔️         |
 |                 Color ✔️                  |   Scroll Box ✔️   |                        |                       |
 |               Font Size ✔️                |    Div Box ❓     |                        |                       |
-|          Left, Center, Right 🚧           |    Anchors ❓     |                        |                       |
+|          Left, Center, Right 🚧           |    Anchors ✔️     |                        |                       |
 |                Spoiler ✔️                 | Rows & Columns 🚧 |                        |                       |
 |                  NOBR 🚧                  |                   |                        |                       |
 |             Inline Spoiler 🚧             |                   |                        |                       |

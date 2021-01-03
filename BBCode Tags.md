@@ -4,7 +4,9 @@
 `lorem ipsum`: any content (block-level tag)
 
 ## TAG-001: Image Float
+
 :exclamation: Supports both inline and block level. It will use span or div depending on the context. Everything else is the same.
+
 ```
 [imageFloat=left]insert image tag here[/imageFloat]
 [imageFloat=right]insert image tag here[/imageFloat]
@@ -563,9 +565,6 @@ If icon style is not given, defaults to `far`
 
 ```html
 <a id="user-anchor-TAG">inline text</a>
-<a
-  href="javascript:;"
-  onclick="document.location.hash=''; document.location.hash='user-anchor-TAG';"
-  >inline text</a
->
+
+<a href="#user-anchor-TAG">inline text</a>
 ```

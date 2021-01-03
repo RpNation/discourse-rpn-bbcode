@@ -34,7 +34,7 @@ Color...............TAG-030..........WHITELIST-030R
 Size................TAG-031..........WHITELIST-031CR
 Spoiler.............TAG-032..........WHITELIST-032
 Font Awesome........TAG-033..........WHITELIST-033C
-Anchor..............TAG-034..........WHITELIST-034CR
+Anchor..............TAG-034..........WHITELIST-034
 */
 
 registerOption((siteSettings, opts) => (opts.features["rpn-bbcode"] = true));
@@ -1084,22 +1084,7 @@ function setupMarkdownIt(md) {
 
   INLINE_RULER.push("goto", {
     tag: "goto",
-    wrap: function (startToken, endToken, tagInfo, content) {
-      let tagID = tagInfo.attrs["_default"];
-      startToken.type = "a_open";
-      startToken.tag = "a";
-      startToken.attrs = [
-        ["href", `javascript:;`],
-        ["onclick", `document.location.hash=''; document.location.hash='user-anchor-${tagID}';`],
-      ];
-      startToken.content = "";
-      startToken.nesting = 1;
-
-      endToken.type = "a_close";
-      endToken.tag = "a";
-      endToken.content = "";
-      endToken.nesting = -1;
-    },
+    wrap: wrap("a", "href", (tagInfo) => `#user-anchor-${tagInfo.attrs["_default"]}`),
   });
 }
 
@@ -1223,8 +1208,6 @@ export function setup(helper) {
     "svg[class=*]",
     "svg[style=*]",
     "use[href=*]",
-    /* Anchor                        WHITELIST-034C*/
-    "a[href=javascript:;]",
   ]);
 
   /* Border                            WHITELIST-003R*/
@@ -1346,13 +1329,11 @@ export function setup(helper) {
     },
   });
 
-  /*Anchor                            WHITELIST-034R*/
+  /*Anchor                            WHITELIST-034*/
   helper.allowList({
     custom(tag, name, value) {
-      if (tag === "a" && name === "onclick") {
-        return /^document\.location\.hash=''; document\.location\.hash='user-anchor-\w+';$/.exec(
-          value
-        );
+      if (tag === "a" && name === "href") {
+        return /^#user-anchor-\w+$/.exec(value);
       }
     },
   });

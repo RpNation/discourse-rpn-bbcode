@@ -457,63 +457,62 @@ p {
 /*************************************************
 *** Note                             BBCODE-014***
 *************************************************/
-/*
+
 .bbcode-note {
-	max-width: 450px;
-	padding: 20px;
-	line-height: 1.75em;
-	margin: 0 auto;
-	margin-top: 25px !important;
-	font-family: 'Coming Soon', 'Architects Daughter', cursive;
-	background: #FCF0AD url("/plugins/discourse-rpn-bbcode/images/notecorner.jpg") 100% 100% no-repeat;
-	position: relative;
-	color: black;
+  max-width: 450px;
+  padding: 20px;
+  line-height: 1.75em;
+  margin: 0 auto;
+  margin-top: 25px !important;
+  font-family: "Coming Soon", "Architects Daughter", cursive;
+  background: #fcf0ad url("/plugins/discourse-rpn-bbcode/images/notecorner.jpg") 100% 100% no-repeat;
+  position: relative;
+  color: black;
 }
 
 .bbcode-note .bbcode-note-content {
-	overflow: hidden;
+  overflow: hidden;
 }
 
 .bbcode-note .bbcode-note-footer {
-	height: 50px;
-	width: 50px;
-	float: right;
+  height: 50px;
+  width: 50px;
+  float: right;
 }
 
 .bbcode-note .bbcode-note-tape {
-	background-color: hsla(0,0%,100%,.5);
-	box-shadow: inset 0 0 1em .5em hsla(0,0%,100%,.1);
-	height: 3em;
-	position: absolute;
-	transform: rotate(-4deg);
-	width: 9em;
-	-webkit-filter: drop-shadow(0 1px 1px hsla(0,0%,0%,.3));
-	top: -1.5em;
-	left: 50%;
-	margin-left: -4.5em;
+  background-color: hsla(0, 0%, 100%, 0.5);
+  box-shadow: inset 0 0 1em 0.5em hsla(0, 0%, 100%, 0.1);
+  height: 3em;
+  position: absolute;
+  transform: rotate(-4deg);
+  width: 9em;
+  -webkit-filter: drop-shadow(0 1px 1px hsla(0, 0%, 0%, 0.3));
+  top: -1.5em;
+  left: 50%;
+  margin-left: -4.5em;
 }
 .bbcode-note .bbcode-note-tape:after,
 .bbcode-note .bbcode-note-tape:before {
-	background-size: .4em .4em;
-	bottom: 0;
-	content: '';
-	position: absolute;
-	top: 0;
-	width: .2em;
+  background-size: 0.4em 0.4em;
+  bottom: 0;
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 0.2em;
 }
 .bbcode-note .bbcode-note-tape:after {
-	background-image: linear-gradient(45deg, transparent 50%, hsla(0,0%,100%,.3) 50%),
-					  linear-gradient(-45deg, transparent 50%, hsla(0,0%,100%,.3) 50%);
-	background-position: 0 100%;
-	left: -.2em;
+  background-image: linear-gradient(45deg, transparent 50%, hsla(0, 0%, 100%, 0.3) 50%),
+    linear-gradient(-45deg, transparent 50%, hsla(0, 0%, 100%, 0.3) 50%);
+  background-position: 0 100%;
+  left: -0.2em;
 }
 .bbcode-note .bbcode-note-tape:before {
-	background-image: linear-gradient(135deg, transparent 50%, hsla(0,0%,100%,.3) 50%),
-					  linear-gradient(-135deg, transparent 50%, hsla(0,0%,100%,.3) 50%);
-	background-position: 100% 100%;
-	right: -.2em;
+  background-image: linear-gradient(135deg, transparent 50%, hsla(0, 0%, 100%, 0.3) 50%),
+    linear-gradient(-135deg, transparent 50%, hsla(0, 0%, 100%, 0.3) 50%);
+  background-position: 100% 100%;
+  right: -0.2em;
 }
-*/
 
 /*************************************************
 *** Tabs                             BBCODE-015***

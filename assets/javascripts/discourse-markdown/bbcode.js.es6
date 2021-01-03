@@ -292,20 +292,9 @@ function setupMarkdownIt(md) {
    *** Justify                             TAG-012***
    *************************************************/
 
-  INLINE_RULER.push("justify", {
+  BLOCK_RULER.push("justify", {
     tag: "justify",
-    wrap: function (startToken, endToken, tagInfo, content) {
-      startToken.type = "span_open";
-      startToken.tag = "span";
-      startToken.attrs = [["class", "bbcode-justify"]];
-      startToken.content = content;
-      startToken.nesting = 1;
-
-      endToken.type = "span_close";
-      endToken.tag = "span";
-      endToken.content = "";
-      endToken.nesting = -1;
-    },
+    wrap: "div.bbcode-justify",
   });
 
   /*************************************************
@@ -1131,7 +1120,7 @@ export function setup(helper) {
     /* Inline Spoiler                  WHITELIST-011*/
     "span.inlineSpoiler",
     /* Justify                         WHITELIST-012*/
-    "span.bbcode-justify",
+    "div.bbcode-justify",
     /* Blockquote                      WHITELIST-013*/
     "table.bbcode-blockquote",
     "td.bbcode-blockquote-left",

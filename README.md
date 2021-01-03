@@ -20,7 +20,7 @@ For documentation, see [wiki](https://github.com/Ghan04/discourse-rpn-bbcode/wik
 
 |              Text Formatting              |  Layout & Design  |     Media & Embeds     |      Aesthetics       |
 | :---------------------------------------: | :---------------: | :--------------------: | :-------------------: |
-|   Headers & Sub-Headers<sup>1</sup> Ⓜ️    |    Dividers 🚧    | Google Docs(PDF) Ⓜ️ 🚧 |       Print ✔️        |
+|   Headers & Sub-Headers<sup>1</sup> Ⓜ️    |    Dividers ✔️    | Google Docs(PDF) Ⓜ️ 🚧 |       Print ✔️        |
 |               Highlights ✔️               |  Image Float ✔️   |   Height Restrict 🚧   |    Text Message 🚧    |
 |             Justified Text ✔️             |   Fieldsets ✔️    |    Challonge Ⓜ️ 🚧     |       Blocks ❓       |
 |              Blockquotes 🚧               |     Sides ✔️      |                        |    Progress Bar ✔️    |
@@ -32,7 +32,7 @@ For documentation, see [wiki](https://github.com/Ghan04/discourse-rpn-bbcode/wik
 | Bold, Italic, Underline, Strikethrough Ⓜ️ |   Accordions ✔️   |                        |        OOC ✔️         |
 |                 Color ✔️                  |   Scroll Box ✔️   |                        |                       |
 |               Font Size ✔️                |    Div Box ❓     |                        |                       |
-|          Left, Center, Right 🚧           |    Anchors ❓     |                        |                       |
+|          Left, Center, Right 🚧           |    Anchors ✔️     |                        |                       |
 |                Spoiler ✔️                 | Rows & Columns 🚧 |                        |                       |
 |                  NOBR 🚧                  |                   |                        |                       |
 |             Inline Spoiler 🚧             |                   |                        |                       |

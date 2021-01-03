@@ -22,7 +22,7 @@ For documentation, see [wiki](https://github.com/Ghan04/discourse-rpn-bbcode/wik
 | :---------------------------------------: | :---------------: | :--------------------: | :-------------------: |
 |   Headers & Sub-Headers<sup>1</sup> Ⓜ️    |    Dividers ✔️    | Google Docs(PDF) Ⓜ️ 🚧 |       Print ✔️        |
 |               Highlights ✔️               |  Image Float ✔️   |   Height Restrict 🚧   |    Text Message 🚧    |
-|             Justified Text ✔️             |   Fieldsets ✔️    |    Challonge Ⓜ️ 🚧     |       Blocks ❓       |
+|             Justified Text ✔️             |   Fieldsets ✔️    |    Challonge Ⓜ️ 🚧     |       Blocks ✔️       |
 |              Blockquotes 🚧               |     Sides ✔️      |                        |    Progress Bar ✔️    |
 |         Sub Script<sup>2</sup> ⌨️         |      Tabs ✔️      |                        |    Sticky Note 🚧     |
 |        Super Script<sup>3</sup> ⌨️        |     Tables ☠️     |                        |        Mail 🚧        |

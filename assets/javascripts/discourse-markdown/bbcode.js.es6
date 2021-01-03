@@ -544,33 +544,40 @@ function setupMarkdownIt(md) {
 
   BLOCK_RULER.push("block", {
     tag: "block",
-    replace: function (state, tagInfo, content) {
+    before: function (state, tagInfo) {
+      const OPTIONS = [
+        "block",
+        "dice",
+        "dice10",
+        "setting",
+        "warning",
+        "storyteller",
+        "announcement",
+        "important",
+        "question",
+        "encounter",
+        "information",
+        "character",
+        "treasure",
+      ];
       let blockOption = tagInfo.attrs["_default"];
-
-      let token = state.push("table_open", "table", 1);
-      token.attrs = [["class", "bbcode-block-" + blockOption]];
-
-      state.push("tr_open", "tr", 1);
-
-      token = state.push("td_open", "td", 1);
+      if (!OPTIONS.includes(blockOption)) blockOption = "block";
+      blockOption = blockOption.toLowerCase();
+      let token = state.push("div_open", "div", 1);
+      token.attrs = [
+        ["class", "bbcode-block"],
+        ["data-bbcode-block", blockOption],
+      ];
+      token = state.push("div_open", "div", 1);
       token.attrs = [["class", "bbcode-block-icon"]];
+      state.push("div_close", "div", -1);
 
-      state.push("td_close", "td", -1);
-
-      token = state.push("td_open", "td", 1);
+      token = state.push("div_open", "div", 1);
       token.attrs = [["class", "bbcode-block-content"]];
-
-      token = state.push("inline", "", 0);
-      token.content = content;
-      token.children = [];
-
-      state.push("td_close", "td", -1);
-
-      state.push("tr_close", "tr", -1);
-
-      state.push("table_close", "table", -1);
-
-      return true;
+    },
+    after: function (state) {
+      state.push("div_close", "div", -1);
+      state.push("div_close", "div", -1);
     },
   });
 
@@ -1129,7 +1136,10 @@ export function setup(helper) {
     "link[rel=stylesheet]",
     "link[type=text/css]",
     /* Block                           WHITELIST-018*/
-    "table.bbcode-block-dice",
+    "div.bbcode-block",
+    "div[data-bbcode-block=*]",
+    "div.bbcode-block-icon",
+    "div.bbcode-block-content",
     /* Progress                        WHITELIST-019C*/
     "div.bbcode-progress",
     "div.bbcode-progress-text",

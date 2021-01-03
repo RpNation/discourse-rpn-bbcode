@@ -22,6 +22,7 @@ OOC.......................BBCODE-020
 LEFT, CENTER, RIGHT.......BBCODE-021
 SIZE......................BBCODE-022
 Spoiler...................BBCODE-023
+Block.....................BBCODE-024
 */
 
 @import "common/foundation/variables";
@@ -820,4 +821,278 @@ p {
   padding: 12px;
   border-left: 5px solid #2980b9;
   background-color: #f9f9f9;
+}
+
+/*************************************************
+*** Block                   				 BBCODE-024***
+*************************************************/
+
+.bbcode-block {
+  width: 100%;
+  height: 125px;
+  position: relative;
+  display: flex;
+  flex-flow: row wrap;
+
+  .bbcode-block-content {
+    border-left-width: 3px;
+    border-right-width: 3px;
+    border-top-width: 0;
+    border-bottom-width: 0;
+    border-style: dotted;
+    padding: 0 21px;
+    width: auto;
+    flex: 1;
+    // margin-top: 20px;
+  }
+
+  .bbcode-block-icon {
+    height: 100%;
+    width: 100px;
+    background-position: 0 25px;
+    background-repeat: no-repeat;
+    background-image: url("/plugins/discourse-rpn-bbcode/images/block.png");
+    margin-right: 7px;
+    &::before {
+      padding: 0 10px;
+      display: block;
+      height: 20px;
+      width: 110px;
+      line-height: 20px;
+      font-size: 16px;
+      text-align: center;
+      color: white;
+      position: absolute;
+      top: 0;
+      left: 0;
+      content: "Block";
+      background-color: #2c2c2c;
+    }
+
+    &::after {
+      position: absolute;
+      top: 20px;
+      left: 114px;
+      content: "";
+      width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: 15px 15px 0 0;
+      border-color: #2c2c2c transparent transparent transparent;
+    }
+  }
+
+  /***Green Blocks***/
+  $green: #0a941d;
+  &[data-bbcode-block="dice"] {
+    .bbcode-block-content {
+      border-color: $green;
+    }
+    .bbcode-block-icon {
+      background-image: url("/plugins/discourse-rpn-bbcode/images/colordice.png");
+      &::before {
+        content: "Dice";
+        background: $green;
+      }
+      &::after {
+        border-color: $green transparent transparent transparent;
+      }
+    }
+  }
+
+  &[data-bbcode-block="dice10"] {
+    .bbcode-block-content {
+      border-color: $green;
+    }
+    .bbcode-block-icon {
+      background-image: url("/plugins/discourse-rpn-bbcode/images/colordice10.png");
+      &::before {
+        content: "Dice";
+        background: $green;
+      }
+      &::after {
+        border-color: $green transparent transparent transparent;
+      }
+    }
+  }
+
+  &[data-bbcode-block="setting"] {
+    .bbcode-block-content {
+      border-color: $green;
+    }
+    .bbcode-block-icon {
+      background-image: url("/plugins/discourse-rpn-bbcode/images/colorsetting.png");
+      &::before {
+        content: "Setting";
+        background: $green;
+      }
+      &::after {
+        border-color: $green transparent transparent transparent;
+      }
+    }
+  }
+
+  /***Gold Blocks***/
+  $gold: #94920a;
+  &[data-bbcode-block="important"] {
+    .bbcode-block-content {
+      border-color: $gold;
+    }
+    .bbcode-block-icon {
+      background-image: url("/plugins/discourse-rpn-bbcode/images/colorexclaim.png");
+      &::before {
+        content: "Important";
+        background: $gold;
+      }
+      &::after {
+        border-color: $gold transparent transparent transparent;
+      }
+    }
+  }
+
+  /***Yellow Blocks***/
+  $yellow: #cbc939;
+  &[data-bbcode-block="treasure"] {
+    .bbcode-block-content {
+      border-color: $yellow;
+    }
+    .bbcode-block-icon {
+      background-image: url("/plugins/discourse-rpn-bbcode/images/colortreasure.png");
+      &::before {
+        content: "Treasure";
+        background: $yellow;
+      }
+      &::after {
+        border-color: $yellow transparent transparent transparent;
+      }
+    }
+  }
+
+  /***Red Blocks***/
+  $red: #940a0a;
+  &[data-bbcode-block="announcement"] {
+    .bbcode-block-content {
+      border-color: $red;
+    }
+    .bbcode-block-icon {
+      background-image: url("/plugins/discourse-rpn-bbcode/images/colorannounce.png");
+      &::before {
+        content: "Announcement";
+        background: $red;
+      }
+      &::after {
+        border-color: $red transparent transparent transparent;
+      }
+    }
+  }
+  &[data-bbcode-block="warning"] {
+    .bbcode-block-content {
+      border-color: $red;
+    }
+    .bbcode-block-icon {
+      background-image: url("/plugins/discourse-rpn-bbcode/images/colorwarning.png");
+      &::before {
+        content: "Warning";
+        background: $red;
+      }
+      &::after {
+        border-color: $red transparent transparent transparent;
+      }
+    }
+  }
+  &[data-bbcode-block="encounter"] {
+    .bbcode-block-content {
+      border-color: $red;
+    }
+    .bbcode-block-icon {
+      background-image: url("/plugins/discourse-rpn-bbcode/images/colorencounter.png");
+      &::before {
+        content: "Encounter";
+        background: $red;
+      }
+      &::after {
+        border-color: $red transparent transparent transparent;
+      }
+    }
+  }
+
+  /***Orange Blocks***/
+  $orange: #bf7e00;
+  &[data-bbcode-block="storyteller"] {
+    .bbcode-block-content {
+      border-color: $orange;
+    }
+    .bbcode-block-icon {
+      background-image: url("/plugins/discourse-rpn-bbcode/images/colorpencil.png");
+      &::before {
+        content: "Storyteller";
+        background: $orange;
+      }
+      &::after {
+        border-color: $orange transparent transparent transparent;
+      }
+    }
+  }
+
+  /***Purple Blocks***/
+  $purple: #5e0a94;
+  &[data-bbcode-block="question"] {
+    .bbcode-block-content {
+      border-color: $purple;
+    }
+    .bbcode-block-icon {
+      background-image: url("/plugins/discourse-rpn-bbcode/images/colorquestion.png");
+      &::before {
+        content: "Question";
+        background: $purple;
+      }
+      &::after {
+        border-color: $purple transparent transparent transparent;
+      }
+    }
+  }
+
+  /***Blue Blocks***/
+  $blue: #0a1694;
+  &[data-bbcode-block="information"] {
+    .bbcode-block-content {
+      border-color: $blue;
+    }
+    .bbcode-block-icon {
+      background-image: url("/plugins/discourse-rpn-bbcode/images/colorinfo.png");
+      &::before {
+        content: "Question";
+        background: $blue;
+      }
+      &::after {
+        border-color: $blue transparent transparent transparent;
+      }
+    }
+  }
+
+  /***Pink Blocks***/
+  $pink: #e05353;
+  &[data-bbcode-block="character"] {
+    .bbcode-block-content {
+      border-color: $pink;
+    }
+    .bbcode-block-icon {
+      background-image: url("/plugins/discourse-rpn-bbcode/images/colorcharacter.png");
+      &::before {
+        content: "Character";
+        background: $pink;
+      }
+      &::after {
+        border-color: $pink transparent transparent transparent;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .bbcode-block .bbcode-block-icon {
+    height: 75px;
+    background-size: 50px;
+    background-position: 25px center;
+  }
 }

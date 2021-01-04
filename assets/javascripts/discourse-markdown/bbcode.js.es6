@@ -758,6 +758,11 @@ function setupMarkdownIt(md) {
     wrap: "div.bbcode-newspaper",
   });
 
+  BLOCK_RULER.push("newspaper", {
+    tag: "newspaper",
+    wrap: "div.bbcode-newspaper",
+  });
+
   /*************************************************
    *** Check                               TAG-023***
    *************************************************/

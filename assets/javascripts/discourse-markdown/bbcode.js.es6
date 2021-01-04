@@ -240,43 +240,25 @@ function setupMarkdownIt(md) {
    *** Row & Column                        TAG-010***
    *************************************************/
 
-  INLINE_RULER.push("column", {
+  BLOCK_RULER.push("column", {
     tag: "column",
-    wrap: function (startToken, endToken, tagInfo, content) {
-      let columnOption = tagInfo.attrs["_default"];
-
-      startToken.type = "div_open";
-      startToken.tag = "div";
-      columnOption = columnOption.toLowerCase();
+    before: function (state, tagInfo) {
+      let columnOption = tagInfo.attrs["_default"].toLowerCase();
+      let token = state.push("div_open", "div", 1);
       if (columnOption.startsWith("span")) {
-        startToken.attrs = [["class", "bbcode-column column-width-" + columnOption]];
+        token.attrs = [["class", "bbcode-column column-width-" + columnOption]];
       } else {
-        startToken.attrs = [["class", "bbcode-column column-width-span" + columnOption]];
+        token.attrs = [["class", "bbcode-column column-width-span" + columnOption]];
       }
-      startToken.content = content;
-      startToken.nesting = 1;
-
-      endToken.type = "div_close";
-      endToken.tag = "div";
-      endToken.content = "";
-      endToken.nesting = -1;
+    },
+    after: function (state) {
+      state.push("div_close", "div", -1);
     },
   });
 
-  INLINE_RULER.push("row", {
+  BLOCK_RULER.push("row", {
     tag: "row",
-    wrap: function (startToken, endToken, tagInfo, content) {
-      startToken.type = "div_open";
-      startToken.tag = "div";
-      startToken.attrs = [["class", "bbcode-row"]];
-      startToken.content = content;
-      startToken.nesting = 1;
-
-      endToken.type = "div_close";
-      endToken.tag = "div";
-      endToken.content = "";
-      endToken.nesting = -1;
-    },
+    wrap: "div.bbcode-row",
   });
 
   /*************************************************

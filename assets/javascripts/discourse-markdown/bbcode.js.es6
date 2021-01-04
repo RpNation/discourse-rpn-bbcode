@@ -240,43 +240,25 @@ function setupMarkdownIt(md) {
    *** Row & Column                        TAG-010***
    *************************************************/
 
-  INLINE_RULER.push("column", {
+  BLOCK_RULER.push("column", {
     tag: "column",
-    wrap: function (startToken, endToken, tagInfo, content) {
-      let columnOption = tagInfo.attrs["_default"];
-
-      startToken.type = "div_open";
-      startToken.tag = "div";
-      columnOption = columnOption.toLowerCase();
+    before: function (state, tagInfo) {
+      let columnOption = tagInfo.attrs["_default"].toLowerCase();
+      let token = state.push("div_open", "div", 1);
       if (columnOption.startsWith("span")) {
-        startToken.attrs = [["class", "bbcode-column column-width-" + columnOption]];
+        token.attrs = [["class", "bbcode-column column-width-" + columnOption]];
       } else {
-        startToken.attrs = [["class", "bbcode-column column-width-span" + columnOption]];
+        token.attrs = [["class", "bbcode-column column-width-span" + columnOption]];
       }
-      startToken.content = content;
-      startToken.nesting = 1;
-
-      endToken.type = "div_close";
-      endToken.tag = "div";
-      endToken.content = "";
-      endToken.nesting = -1;
+    },
+    after: function (state) {
+      state.push("div_close", "div", -1);
     },
   });
 
-  INLINE_RULER.push("row", {
+  BLOCK_RULER.push("row", {
     tag: "row",
-    wrap: function (startToken, endToken, tagInfo, content) {
-      startToken.type = "div_open";
-      startToken.tag = "div";
-      startToken.attrs = [["class", "bbcode-row"]];
-      startToken.content = content;
-      startToken.nesting = 1;
-
-      endToken.type = "div_close";
-      endToken.tag = "div";
-      endToken.content = "";
-      endToken.nesting = -1;
-    },
+    wrap: "div.bbcode-row",
   });
 
   /*************************************************
@@ -544,33 +526,40 @@ function setupMarkdownIt(md) {
 
   BLOCK_RULER.push("block", {
     tag: "block",
-    replace: function (state, tagInfo, content) {
+    before: function (state, tagInfo) {
+      const OPTIONS = [
+        "block",
+        "dice",
+        "dice10",
+        "setting",
+        "warning",
+        "storyteller",
+        "announcement",
+        "important",
+        "question",
+        "encounter",
+        "information",
+        "character",
+        "treasure",
+      ];
       let blockOption = tagInfo.attrs["_default"];
-
-      let token = state.push("table_open", "table", 1);
-      token.attrs = [["class", "bbcode-block-" + blockOption]];
-
-      state.push("tr_open", "tr", 1);
-
-      token = state.push("td_open", "td", 1);
+      if (!OPTIONS.includes(blockOption)) blockOption = "block";
+      blockOption = blockOption.toLowerCase();
+      let token = state.push("div_open", "div", 1);
+      token.attrs = [
+        ["class", "bbcode-block"],
+        ["data-bbcode-block", blockOption],
+      ];
+      token = state.push("div_open", "div", 1);
       token.attrs = [["class", "bbcode-block-icon"]];
+      state.push("div_close", "div", -1);
 
-      state.push("td_close", "td", -1);
-
-      token = state.push("td_open", "td", 1);
+      token = state.push("div_open", "div", 1);
       token.attrs = [["class", "bbcode-block-content"]];
-
-      token = state.push("inline", "", 0);
-      token.content = content;
-      token.children = [];
-
-      state.push("td_close", "td", -1);
-
-      state.push("tr_close", "tr", -1);
-
-      state.push("table_close", "table", -1);
-
-      return true;
+    },
+    after: function (state) {
+      state.push("div_close", "div", -1);
+      state.push("div_close", "div", -1);
     },
   });
 
@@ -751,6 +740,11 @@ function setupMarkdownIt(md) {
     wrap: "div.bbcode-newspaper",
   });
 
+  BLOCK_RULER.push("newspaper", {
+    tag: "newspaper",
+    wrap: "div.bbcode-newspaper",
+  });
+
   /*************************************************
    *** Check                               TAG-023***
    *************************************************/
@@ -854,6 +848,11 @@ function setupMarkdownIt(md) {
     wrap: "div.bbcode-content-center",
   });
 
+  INLINE_RULER.push("center", {
+    tag: "center",
+    wrap: "div.bbcode-content-center",
+  });
+
   /*************************************************
    *** Left                                TAG-028***
    *************************************************/
@@ -863,11 +862,21 @@ function setupMarkdownIt(md) {
     wrap: "div.bbcode-content-left",
   });
 
+  INLINE_RULER.push("left", {
+    tag: "left",
+    wrap: "div.bbcode-content-left",
+  });
+
   /*************************************************
    *** Right                                TAG-029***
    *************************************************/
 
   BLOCK_RULER.push("right", {
+    tag: "right",
+    wrap: "div.bbcode-content-right",
+  });
+
+  INLINE_RULER.push("right", {
     tag: "right",
     wrap: "div.bbcode-content-right",
   });
@@ -1129,7 +1138,10 @@ export function setup(helper) {
     "link[rel=stylesheet]",
     "link[type=text/css]",
     /* Block                           WHITELIST-018*/
-    "table.bbcode-block-dice",
+    "div.bbcode-block",
+    "div[data-bbcode-block=*]",
+    "div.bbcode-block-icon",
+    "div.bbcode-block-content",
     /* Progress                        WHITELIST-019C*/
     "div.bbcode-progress",
     "div.bbcode-progress-text",

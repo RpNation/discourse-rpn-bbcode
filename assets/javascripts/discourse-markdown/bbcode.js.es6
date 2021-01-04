@@ -861,6 +861,11 @@ function setupMarkdownIt(md) {
     wrap: "div.bbcode-content-center",
   });
 
+  INLINE_RULER.push("center", {
+    tag: "center",
+    wrap: "div.bbcode-content-center",
+  });
+
   /*************************************************
    *** Left                                TAG-028***
    *************************************************/
@@ -870,11 +875,21 @@ function setupMarkdownIt(md) {
     wrap: "div.bbcode-content-left",
   });
 
+  INLINE_RULER.push("left", {
+    tag: "left",
+    wrap: "div.bbcode-content-left",
+  });
+
   /*************************************************
    *** Right                                TAG-029***
    *************************************************/
 
   BLOCK_RULER.push("right", {
+    tag: "right",
+    wrap: "div.bbcode-content-right",
+  });
+
+  INLINE_RULER.push("right", {
     tag: "right",
     wrap: "div.bbcode-content-right",
   });

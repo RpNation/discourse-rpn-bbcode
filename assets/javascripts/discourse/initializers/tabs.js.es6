@@ -1,15 +1,21 @@
 /**
  * @file Initializes any tab bbcode with the proper js/event handling
  */
+import loadScript from "discourse/lib/load-script";
 import { withPluginApi } from "discourse/lib/plugin-api";
 
 /**
  * Adds the inline js for each [tab] inside [tabs]
  * @param {HTMLElement} post the post itself
  */
-function addTabsCode(post) {
+async function addTabsCode(post) {
   // get all [tabs] in post;
   const tabs = post.querySelectorAll(".bbcode-tab");
+  if (!tabs.length) return;
+
+  //lazy load in the tabs.js
+  await loadScript("/plugins/discourse-rpn-bbcode/javascripts/tabs.js");
+
   tabs.forEach((element) => {
     const tab = element.querySelectorAll(".bbcode-tab-links");
     tab.forEach((t) => applyTab(t));

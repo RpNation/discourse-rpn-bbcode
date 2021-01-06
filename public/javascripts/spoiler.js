@@ -1,3 +1,6 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-var */
+
 /**
  * Called from ./discourse/initializers/spoiler.js.es6
  * Apply the onclick event listener to each spoiler.
@@ -41,7 +44,9 @@ function toggleBBCodeSpoiler(evt) {
     target.style.removeProperty("display");
     var display = window.getComputedStyle(target).display;
 
-    if (display === "none") display = "block";
+    if (display === "none") {
+      display = "block";
+    }
 
     target.style.display = display;
     var height = target.offsetHeight;

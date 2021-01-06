@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-var */
 /**
  * Called from ./discourse/initializers/accordion.js.es6
  * Apply the onclick event listener to each slide tag.
@@ -41,7 +43,9 @@ function toggleBBCodeSlide(evt) {
     target.style.removeProperty("display");
     var display = window.getComputedStyle(target).display;
 
-    if (display === "none") display = "block";
+    if (display === "none") {
+      display = "block";
+    }
 
     target.style.display = display;
     var height = target.offsetHeight;
@@ -78,8 +82,11 @@ function toggleBBCodeSlide(evt) {
 
   function getChildren(n, skipMe, selector) {
     var r = [];
-    for (; n; n = n.nextSibling)
-      if (n.nodeType == 1 && n != skipMe && n.matches(selector)) r.push(n);
+    for (; n; n = n.nextSibling) {
+      if (n.nodeType === 1 && n !== skipMe && n.matches(selector)) {
+        r.push(n);
+      }
+    }
     return r;
   }
 

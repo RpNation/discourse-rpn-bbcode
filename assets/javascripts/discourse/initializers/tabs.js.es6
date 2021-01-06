@@ -11,13 +11,16 @@ import { withPluginApi } from "discourse/lib/plugin-api";
 async function addTabsCode(post) {
   // get all [tabs] in post;
   const tabs = post.querySelectorAll(".bbcode-tab");
-  if (!tabs.length) return;
+  if (!tabs.length) {
+    return;
+  }
 
   //lazy load in the tabs.js
   await loadScript("/plugins/discourse-rpn-bbcode/javascripts/tabs.js");
 
   tabs.forEach((element) => {
     const tab = element.querySelectorAll(".bbcode-tab-links");
+    // eslint-disable-next-line no-undef
     tab.forEach((t) => applyTab(t));
   });
 }

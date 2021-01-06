@@ -1,3 +1,7 @@
+/* eslint-disable block-scoped-var */
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-var */
+
 /**
  * Called from ./discourse/initializers/tabs.js.es6
  * Apply the onclick event listener to each tab.

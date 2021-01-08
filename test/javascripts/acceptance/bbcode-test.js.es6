@@ -1,5 +1,4 @@
 import { acceptance } from "discourse/tests/helpers/qunit-helpers";
-// import { cookAsync } from "discourse/lib/text";
 
 acceptance("RpN BBCode", function (needs) {
   needs.user();
@@ -9,7 +8,7 @@ acceptance("RpN BBCode", function (needs) {
       andThen(() => {
         const actual = document
           .querySelector(".d-editor-preview")
-          .innerHTML.replaceAll(/\r?\n|\r/g, "");
+          .innerHTML.replaceAll(/\r?\n|\r/g, ""); //line breaks are rendered into paragraph tags in markdown. no need to test
         this.pushResult({
           result: actual === expected.replace(/\/>/g, ">"),
           actual: actual,
@@ -18,13 +17,17 @@ acceptance("RpN BBCode", function (needs) {
         });
       });
     };
+    QUnit.assert.cookedBlock = function (input, expected, message) {
+      return QUnit.assert.cooked(
+        "block\n" + input + "\nlevel",
+        "<p>block</p>" + expected + "<p>level</p>",
+        message
+      );
+    };
     await visit("/");
     await click("#create-topic");
   });
-  test("cooking via site", function (assert) {
-    assert.cooked("hello world", "<p>hello world</p>", "this test works");
-  });
-  test("imageFloat tag", async function (assert) {
+  test("imageFloat tag [imagefloat]", async function (assert) {
     assert.cooked(
       "[imageFloat=left]empty[/imagefloat]",
       '<div class="float-left"><p>empty</p></div>',
@@ -35,9 +38,9 @@ acceptance("RpN BBCode", function (needs) {
       '<div class="float-right"><p>empty</p></div>',
       "right option works with empty text"
     );
-    assert.cooked(
-      "hello\n[imageFloat=right]\nempty\n[/imagefloat]\nworld",
-      '<p>hello</p><div class="float-right"><p>empty</p></div><p>world</p>',
+    assert.cookedBlock(
+      "[imageFloat=right]\nempty\n[/imagefloat]",
+      '<div class="float-right"><p>empty</p></div>',
       "Block level rendering works"
     );
     assert.cooked(
@@ -46,19 +49,42 @@ acceptance("RpN BBCode", function (needs) {
       "it renders images"
     );
   });
-  test("highlight tag", function (assert) {
+  test("highlight tag [highlight]", function (assert) {
     assert.cooked(
       "hello [highlight]this is highlighted[/highlight] world",
       '<p>hello <span class="bbcodeHighlight">this is highlighted</span> world</p>',
       "it works inline"
     );
   });
+  test("border tag [border]", function (assert) {
+    assert.cooked(
+      "[border=1px solid red]renders border[/border]",
+      '<div class="bbcode-border" style="border: 1px solid red"><p>renders border</p></div>',
+      "it works single line"
+    );
+    assert.cookedBlock(
+      "[border=1px solid red]\nrenders border\n[/border]",
+      '<div class="bbcode-border" style="border: 1px solid red"><p>renders border</p></div>',
+      "Block level rendering works"
+    );
+  });
+  test("background tag [bg]", function (assert) {
+    assert.cooked(
+      "[bg=red]renders background[/bg]",
+      '<div class="bbcode-background" style="background-color: red"><p>renders background</p></div>',
+      "it works single line"
+    );
+    assert.cookedBlock(
+      "[bg=red]\nrenders background\n[/bg]",
+      '<div class="bbcode-background" style="background-color: red"><p>renders background</p></div>',
+      "Block level rendering works"
+    );
+  });
+  test("fieldset tag [fieldset]", function (assert) {
+    assert.cookedBlock(
+      "[fieldset=title]\nlorem ipsum\n[/fieldset]",
+      '<fieldset class="bbcode-fieldset"><legend>title</legend><span><p>lorem ipsum</p></span></fieldset>',
+      "it works block level"
+    );
+  });
 });
-
-// acceptance("Method 2", function (needs) {
-//   needs.user();
-//   test("cooking using cookAsync", async function (assert) {
-//     const cooked = await cookAsync("hello world", {});
-//     assert.equal(cooked, "<p>hello world</p>", "this test also works");
-//   });
-// });

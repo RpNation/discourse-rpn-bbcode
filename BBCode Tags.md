@@ -5,7 +5,7 @@
 
 ## TAG-001: Image Float
 
-:exclamation: Supports both inline and block level. It will use span or div depending on the context. Everything else is the same.
+:exclamation: Supports both inline and block level. However it will only use div. Everything else is the same.
 
 ```
 [imageFloat=left]insert image tag here[/imageFloat]
@@ -13,8 +13,8 @@
 ```
 
 ```html
-<div class="float-left">insert image tag here</span>
-<div class="float-right">insert image tag here</span>
+<div class="float-left">insert image tag here</div>
+<div class="float-right">insert image tag here</div>
 ```
 
 ## TAG-002: Highlight
@@ -238,9 +238,14 @@ Valid fonts also include [Google Fonts](https://fonts.google.com/).
 ```
 
 ```html
-<div style="font-family: built in, Helvetica, Arial, sans-serif;">this is a built in font</div>
-<div style="font-family: Google Font, Helvetica, Arial, sans-serif;">this is a google font</div>
-<link rel=stylesheet type=text/css href="https://fonts.googleapis.com/css2?family=Google+Font">
+<div style="font-family: built in, Helvetica, Arial, sans-serif;">
+  this is a built in font
+</div>
+<div style="font-family: Google Font, Helvetica, Arial, sans-serif;">
+  this is a google font
+</div>
+<link rel=stylesheet type=text/css
+href="https://fonts.googleapis.com/css2?family=Google+Font">
 ```
 
 **Multi Options**  
@@ -406,7 +411,9 @@ inline text
 
 ```html
 <div class="bbcode-accordion">
-  <button class="bbcode-slide-title" onclick="toggleBBCodeSlide(event)">name</button>
+  <button class="bbcode-slide-title" onclick="toggleBBCodeSlide(event)">
+    name
+  </button>
   <div class="bbcode-slide-content">lorem ipsum</div>
 </div>
 ```
@@ -525,12 +532,16 @@ lorem ipsum
 
 ```html
 <div class="bbcode-spoiler">
-  <button class="bbcode-spoiler-button" onclick="toggleBBCodeSpoiler(event)">Spoiler</button>
+  <button class="bbcode-spoiler-button" onclick="toggleBBCodeSpoiler(event)">
+    Spoiler
+  </button>
   <div class="bbcode-spoiler-content">lorem ipsum</div>
 </div>
 
 <div class="bbcode-spoiler">
-  <button class="bbcode-spoiler-button" onclick="toggleBBCodeSpoiler(event)">Spoiler: title</button>
+  <button class="bbcode-spoiler-button" onclick="toggleBBCodeSpoiler(event)">
+    Spoiler: title
+  </button>
   <div class="bbcode-spoiler-content">lorem ipsum</div>
 </div>
 ```

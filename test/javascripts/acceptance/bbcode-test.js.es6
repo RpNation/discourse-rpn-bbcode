@@ -160,7 +160,7 @@ acceptance("RpN BBCode", function (needs) {
   test("justify tag [justify]", async function (assert) {
     assert.cookedBlock(
       "[justify]\nlorem ipsum\n[/justify]",
-      '<div class="bbcode-justify">\nlorem ipsum\n</div>',
+      '<div class="bbcode-justify"><p>lorem ipsum</p></div>',
       "justify works"
     );
   });

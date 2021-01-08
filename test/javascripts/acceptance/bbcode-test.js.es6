@@ -150,18 +150,94 @@ acceptance("RpN BBCode", function (needs) {
       );
     }
   });
-  test("inline spoiler tag [inlineSpoiler]", async function (assert) {
+  test("inline spoiler tag [inlineSpoiler]", function (assert) {
     assert.cookedInline(
       "[inlineSpoiler]inline text[/inlineSpoiler]",
       '<span class="inlineSpoiler">inline text</span>',
       "inline spoiler works"
     );
   });
-  test("justify tag [justify]", async function (assert) {
+  test("justify tag [justify]", function (assert) {
     assert.cookedBlock(
       "[justify]\nlorem ipsum\n[/justify]",
       '<div class="bbcode-justify"><p>lorem ipsum</p></div>',
       "justify works"
     );
+  });
+  test("blockquote tag [blockquote]", function (assert) {
+    // TODO this needs to be updated when blockquote is fixed
+    assert.cookedBlock(
+      "[blockquote=author]lorem ipsum[/blockquote]",
+      '<table class="bbcode-blockquote"><tr><td class="bbcode-blockquote-left"></td>' +
+        '<td class="bbcode-blockquote-content"><p>lorem ipsum</p></td>' +
+        '<td class="bbcode-blockquote-right"></td></tr></table>',
+      "blockquote works"
+    );
+  });
+  test("paragraph indent tag [pindent]", function (assert) {
+    assert.cookedInline(
+      "[pindent]inline text[/pindent]",
+      '<span style="display: inline-block; text-indent:2.5em">inline text</span>',
+      "pindent work"
+    );
+  });
+  test("print tag [print]", function (assert) {
+    assert.cookedBlock(
+      "[print]lorem ipsum[/print]",
+      '<div class="bbcode-print">lorem ipsum</div>',
+      "no option works"
+    );
+    assert.cookedBlock(
+      "[print=line]lorem ipsum[/print]",
+      '<div class="bbcode-print-line">lorem ipsum</div>',
+      "line option works"
+    );
+    assert.cookedBlock(
+      "[print=graph]lorem ipsum[/print]",
+      '<div class="bbcode-print-graph">lorem ipsum</div>',
+      "graph option works"
+    );
+    assert.cookedBlock(
+      "[print=parchment]lorem ipsum[/print]",
+      '<div class="bbcode-print-parchment">lorem ipsum</div>',
+      "parchment option works"
+    );
+  });
+  test("text message tag [textmessage][message]", function (assert) {
+    assert.cookedBlock(
+      "[textmessage=Recipient][message=them]message from Recipient[/message][message=me]message from sender[/message][/textmessage]",
+      '<div class="bbcode-textmessage"><div class="name">Recipient</div>' +
+        '<div class="bbcode-textmessage-overflow"><div class="bbcode-textmessage-content">' +
+        '<div class="bbcode-message-them them"><p>message from Recipient</p></div>' +
+        '<div class="bbcode-message-me me"><p>message from sender</p></div></div></div></div>',
+      "text message works"
+    );
+  });
+  test("font tag [font]", function (assert) {
+    const BUILT_IN_FONTS = [
+      "arial",
+      "book antiqua",
+      "courier new",
+      "georgia",
+      "tahoma",
+      "times new roman",
+      "trebuchet ms",
+      "verdana",
+    ];
+    BUILT_IN_FONTS.forEach((font) => {
+      assert.cookedInline(
+        `[font=${font}]font[/font]`,
+        `<span style="font-family:${font},Helvetica,Arial,sans-serif;">font</span>`,
+        "inline built in fonts work"
+      );
+    });
+    BUILT_IN_FONTS.forEach((font) => {
+      assert.cookedBlock(
+        `[font=${font}]\nfont\n[/font]`,
+        `<div style="font-family:${font},Helvetica,Arial,sans-serif;"><p>font</p></div>`,
+        "block built in fonts work"
+      );
+    });
+    // TODO Add google font tests
   });
 });

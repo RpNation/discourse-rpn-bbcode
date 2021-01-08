@@ -24,10 +24,17 @@ acceptance("RpN BBCode", function (needs) {
         message
       );
     };
+    QUnit.assert.cookedInline = function (input, expected, message) {
+      return QUnit.assert.cooked(
+        "inline " + input + " level",
+        "<p>inline " + expected + " level</p>",
+        message
+      );
+    };
     await visit("/");
     await click("#create-topic");
   });
-  test("imageFloat tag [imagefloat]", async function (assert) {
+  test("image float tag [imagefloat]", async function (assert) {
     assert.cooked(
       "[imageFloat=left]empty[/imagefloat]",
       '<div class="float-left"><p>empty</p></div>',
@@ -50,9 +57,9 @@ acceptance("RpN BBCode", function (needs) {
     );
   });
   test("highlight tag [highlight]", function (assert) {
-    assert.cooked(
-      "hello [highlight]this is highlighted[/highlight] world",
-      '<p>hello <span class="bbcodeHighlight">this is highlighted</span> world</p>',
+    assert.cookedInline(
+      "[highlight]this is highlighted[/highlight]",
+      '<span class="bbcodeHighlight">this is highlighted</span>',
       "it works inline"
     );
   });
@@ -85,6 +92,76 @@ acceptance("RpN BBCode", function (needs) {
       "[fieldset=title]\nlorem ipsum\n[/fieldset]",
       '<fieldset class="bbcode-fieldset"><legend>title</legend><span><p>lorem ipsum</p></span></fieldset>',
       "it works block level"
+    );
+  });
+  test("side tag [side]", function (assert) {
+    assert.cookedBlock(
+      "[side=left]\nlorem ipsum\n[/side]",
+      '<div class="bbcode-side-left"><p>lorem ipsum</p></div>',
+      "left option works"
+    );
+    assert.cookedBlock(
+      "[side=right]\nlorem ipsum\n[/side]",
+      '<div class="bbcode-side-right"><p>lorem ipsum</p></div>',
+      "right option works"
+    );
+  });
+  test("scroll tag [scroll]", function (assert) {
+    assert.cookedBlock(
+      "[scroll=100px]\nlorem ipsum\n[/scroll]",
+      '<div style="max-width: 100%; padding: 5px; overflow:auto; border: 1px solid; height:100px;"><p>lorem ipsum</p></div>',
+      "scroll works"
+    );
+  });
+  //skip nobr
+  test("divide tag [divide]", function (assert) {
+    assert.cookedInline(
+      "[divide]inline text[/divide]",
+      '<span class="bbcode-horizontal-rule">inline text</span>',
+      "no option works"
+    );
+    assert.cookedInline(
+      "[divide=dotted]inline text[/divide]",
+      '<span class="bbcode-horizontal-rule-dotted">inline text</span>',
+      "dotted option works"
+    );
+    assert.cookedInline(
+      "[divide=thick]inline text[/divide]",
+      '<span class="bbcode-horizontal-rule-thick">inline text</span>',
+      "thick option works"
+    );
+    assert.cookedInline(
+      "[divide=dotted-thick]inline text[/divide]",
+      '<span class="bbcode-horizontal-rule-dotted-thick">inline text</span>',
+      "dotted-thick option works"
+    );
+  });
+  test("row & column tag [row][column]", function (assert) {
+    for (let i = 1; i <= 8; i++) {
+      assert.cookedBlock(
+        `[row]\n[column=${i}]\nlorem ipsum\n[/column]\n[/row]`,
+        `<div class="bbcode-row"><div class="bbcode-column column-width-span${i}"><p>lorem ipsum</p></div></div>`,
+        `value ${i} works`
+      );
+      assert.cookedBlock(
+        `[row]\n[column=span${i}]\nlorem ipsum\n[/column]\n[/row]`,
+        `<div class="bbcode-row"><div class="bbcode-column column-width-span${i}"><p>lorem ipsum</p></div></div>`,
+        `value span${i} works`
+      );
+    }
+  });
+  test("inline spoiler tag [inlineSpoiler]", async function (assert) {
+    assert.cookedInline(
+      "[inlineSpoiler]inline text[/inlineSpoiler]",
+      '<span class="inlineSpoiler">inline text</span>',
+      "inline spoiler works"
+    );
+  });
+  test("justify tag [justify]", async function (assert) {
+    assert.cookedBlock(
+      "[justify]\nlorem ipsum\n[/justify]",
+      '<div class="bbcode-justify">\nlorem ipsum\n</div>',
+      "justify works"
     );
   });
 });

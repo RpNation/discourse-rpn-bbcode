@@ -331,4 +331,48 @@ acceptance("RpN BBCode", function (needs) {
       );
     });
   });
+  test("accordion tag [accordion][slide]", async function (assert) {
+    await fillIn(
+      ".d-editor-input",
+      "[accordion]\n[slide=slide1]\ntext\n[/slide]\n[slide=slide2]\ntext\n[/slide]\n[/accordion]"
+    );
+    const actual = document
+      .querySelector(".d-editor-preview")
+      .innerHTML.replaceAll(/\r?\n|\r/g, "");
+    assert.equal(
+      actual,
+      '<div class="bbcode-accordion">' +
+        '<button class="bbcode-slide-title">slide1</button>' +
+        '<div class="bbcode-slide-content"><p>text</p></div>' +
+        '<button class="bbcode-slide-title">slide2</button>' +
+        '<div class="bbcode-slide-content"><p>text</p></div>' +
+        "</div>",
+      "accordion html is generated"
+    );
+    document
+      .querySelectorAll(".d-editor-preview button.bbcode-slide-title")[0]
+      .click();
+    assert.ok(
+      document
+        .querySelectorAll("button.bbcode-slide-title")[0]
+        .classList.contains("active"),
+      "slide button active"
+    );
+    // Don't bother trying to do this test. This is reliant on CSS, and QUnit won't apply CSS classes
+    // let content = document.querySelectorAll("button.bbcode-slide-title")[0]
+    //   .nextElementSibling;
+    // assert.ok(
+    //   content.getAttribute("style").includes("block"),
+    //   "slide content is visible"
+    // );
+    document
+      .querySelectorAll(".d-editor-preview button.bbcode-slide-title")[1]
+      .click();
+    assert.notOk(
+      document
+        .querySelectorAll("button.bbcode-slide-title")[0]
+        .classList.contains("active"),
+      "slide button deactivated"
+    );
+  });
 });

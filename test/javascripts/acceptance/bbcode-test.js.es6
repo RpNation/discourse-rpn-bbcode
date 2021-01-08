@@ -1,24 +1,9 @@
-import { acceptance } from "discourse/tests/helpers/qunit-helpers";
-import PrettyText, { buildOptions } from "pretty-text/pretty-text";
+import { acceptance, queryAll } from "discourse/tests/helpers/qunit-helpers";
+// import { cookAsync } from "discourse/lib/text";
 
-const rawOpts = {
-  siteSettings: {
-    enable_emoji: true,
-    enable_emoji_shortcuts: true,
-    enable_mentions: true,
-    emoji_set: "emoji_one",
-    highlighted_languages: "json|ruby|javascript",
-    default_code_lang: "auto",
-    enable_markdown_linkify: true,
-    markdown_linkify_tlds: "com",
-  },
-  getURL: (url) => url,
-};
-
-const defaultOpts = buildOptions(rawOpts);
-
-QUnit.assert.cooked = function (input, expected, message) {
-  const actual = new PrettyText(defaultOpts).cook(input);
+QUnit.assert.cooked = async function (input, expected, message) {
+  await fillIn(".d-editor-input", input);
+  const actual = queryAll(".d-editor-preview")[0].innerHTML;
   this.pushResult({
     result: actual === expected.replace(/\/>/g, ">"),
     actual,
@@ -27,21 +12,50 @@ QUnit.assert.cooked = function (input, expected, message) {
   });
 };
 
-QUnit.assert.cookedPara = function (input, expected, message) {
-  QUnit.assert.cooked(input, `<p>${expected}</p>`, message);
-};
-
-acceptance("RpN BBCode", function () {
-  test("basic cooking", function (assert) {
-    assert.cookedPara(
-      "it can [highlight]highlight[/highlight]",
-      'it can <span class="bbcodeHighlight">highlight</span>',
-      "it highlights"
+acceptance("RpN BBCode", function (needs) {
+  needs.user();
+  needs.hooks.beforeEach(async () => {
+    await visit("/");
+    await click("#create-topic");
+  });
+  test("cooking via site", function (assert) {
+    assert.cooked("hello world", "<p>hello world</p>", "this test works");
+  });
+  test("[imageFloat] tag", function (assert) {
+    assert.cooked(
+      "[imageFloat=left]empty[/imagefloat]",
+      '<div class="float-left"><p>empty</p>\n</div>',
+      "left option works with empty text"
     );
-    assert.cookedPara(
-      "it can [divide]divide[/divide]",
-      'it can <span class="bbcode-horizontal-rule">divide</span>',
-      "it divides"
+    assert.cooked(
+      "[imageFloat=right]empty[/imagefloat]",
+      '<div class="float-right"><p>empty</p>\n</div>',
+      "right option works with empty text"
+    );
+    assert.cooked(
+      "hello\n[imageFloat=right]\nempty\n[/imagefloat]\nworld",
+      '<p>hello</p>\n<div class="float-right"><p>empty</p>\n</div>\n<p>world</p>',
+      "Block level rendering works"
+    );
+    assert.cooked(
+      "[imageFloat=right][img]https://geekandsundry.com/wp-content/uploads/2016/07/bananya2.jpg[/img][/imagefloat]",
+      '<div class="float-right"><p><img src="https://geekandsundry.com/wp-content/uploads/2016/07/bananya2.jpg" alt></p>\n</div>',
+      "it renders images"
+    );
+  });
+  test("[highlight] tag", function (assert) {
+    assert.cooked(
+      "hello [highlight]this is highlighted[/highlight] world",
+      '<p>hello <span class="bbcodeHighlight">this is highlighted</span> world</p>',
+      "it works inline"
     );
   });
 });
+
+// acceptance("Method 2", function (needs) {
+//   needs.user();
+//   test("cooking using cookAsync", async function (assert) {
+//     const cooked = await cookAsync("hello world", {});
+//     assert.equal(cooked, "<p>hello world</p>", "this test also works");
+//   });
+// });

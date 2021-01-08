@@ -228,7 +228,7 @@ acceptance("RpN BBCode", function (needs) {
       assert.cookedInline(
         `[font=${font}]font[/font]`,
         `<span style="font-family:${font},Helvetica,Arial,sans-serif;">font</span>`,
-        "inline built in fonts work"
+        `inline built in ${font} fonts work`
       );
     });
     BUILT_IN_FONTS.forEach((font) => {
@@ -238,6 +238,26 @@ acceptance("RpN BBCode", function (needs) {
         "block built in fonts work"
       );
     });
-    // TODO Add google font tests
+    assert.cookedBlock(
+      "[font=Playfair Display]google font[/font]",
+      '<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css2?family=Playfair+Display">' +
+        '<div style="font-family:Playfair Display,Helvetica,Arial,sans-serif;"><p>google font</p></div>',
+      "google font works"
+    );
+    assert.cookedInline(
+      '[font name="arial"]font[/font]',
+      '<span style="font-family:arial,Helvetica,Arial,sans-serif;">font</span>',
+      "name option works"
+    );
+    assert.cookedInline(
+      '[font family="arial"]font[/font]',
+      '<span style="font-family:arial,Helvetica,Arial,sans-serif;">font</span>',
+      "family option works"
+    );
+    assert.cookedInline(
+      '[font family="arial" size="12px" color="red"]font[/font]',
+      '<span style="font-family:arial,Helvetica,Arial,sans-serif;font-size:12px;color:red;">font</span>',
+      "multi option (name, size, color) works"
+    );
   });
 });

@@ -260,4 +260,75 @@ acceptance("RpN BBCode", function (needs) {
       "multi option (name, size, color) works"
     );
   });
+  test("block tag [block]", function (assert) {
+    const BLOCKS = [
+      "dice",
+      "dice10",
+      "setting",
+      "warning",
+      "storyteller",
+      "announcement",
+      "important",
+      "question",
+      "encounter",
+      "information",
+      "character",
+      "treasure",
+    ];
+    assert.cookedBlock(
+      "[block]lorem ipsum[/block]",
+      `<div class="bbcode-block" data-bbcode-block="block"><div class="bbcode-block-icon"></div><div class="bbcode-block-content"><p>lorem ipsum</p></div></div>`,
+      "no option works"
+    );
+    BLOCKS.forEach((block) => {
+      assert.cookedBlock(
+        `[block=${block}]lorem ipsum[/block]`,
+        `<div class="bbcode-block" data-bbcode-block="${block}"><div class="bbcode-block-icon"></div><div class="bbcode-block-content"><p>lorem ipsum</p></div></div>`,
+        `${block} option works`
+      );
+    });
+  });
+  test("progress tag [progress]", function (assert) {
+    assert.cookedBlock(
+      "[progress=50]progress bar[/progress]",
+      '<div class="bbcode-progress"><div class="bbcode-progress-text">progress bar</div><div class="bbcode-progress-bar" style="width: calc(50% - 6px);"></div><div class="bbcode-progress-bar-other"></div></div>',
+      "progress bar works"
+    );
+  });
+  test("note tag [note]", function (assert) {
+    assert.cookedBlock(
+      "[note]inline text[/note]",
+      '<div class="bbcode-note"><div class="bbcode-note-tape"></div><div class="bbcode-note-content">inline text<div class="bbcode-note-footer"></div></div></div>',
+      "note works"
+    );
+  });
+  test("mail tag [mail][person][subject]", function (assert) {
+    assert.cookedBlock(
+      "[mail=send]\n[person]Name[/person]\n[subject]subject title[/subject]\ninline text[/mail]",
+      '<div class="bbcode-email-send"><div class="bbcode-email-top-send">Send New Email</div><div class="bbcode-email-first-row"></div><div class="bbcode-email-second-row"></div><div class="bbcode-email-main"><div class="bbcode-email-person">Name</div><div class="bbcode-email-subject">subject title</div><p>inline text</p></div><div class="bbcode-email-footer"></div><div class="bbcode-email-button"></div></div>',
+      "send option works"
+    );
+  });
+  test("newspaper tag [newspaper]", function (assert) {
+    assert.cooked(
+      "hello [newspaper]inline[/newspaper] world",
+      '<p>hello </p><div class="bbcode-newspaper">inline</div> world<p></p>', //this seems to be a quirk of the markdown plugin. where divs can't be inline
+      "inline newspaper works"
+    );
+    assert.cookedBlock(
+      "[newspaper]\nblock\n[/newspaper]",
+      '<div class="bbcode-newspaper"><p>block</p></div>',
+      "block newpaper works"
+    );
+  });
+  test("check tag [check]", function (assert) {
+    const CHECKS = ["dot", "check", "cross"];
+    CHECKS.forEach((check) => {
+      assert.cooked(
+        `hello [check=${check}]text[/check] world`,
+        `<p>hello </p><div class="bbcode-check-${check}">text</div> world<p></p>`, //this seems to be a quirk of the markdown plugin, where divs can't be inline
+        `${check} option works`
+      );
+    });
+  });
 });

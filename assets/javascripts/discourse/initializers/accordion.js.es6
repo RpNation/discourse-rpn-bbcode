@@ -11,14 +11,19 @@ import { withPluginApi } from "discourse/lib/plugin-api";
 async function addSlideCode(post) {
   const accordions = post.querySelectorAll(".bbcode-accordion");
   // If no accordions found, end function
-  if (!accordions.length) return;
+  if (!accordions.length) {
+    return;
+  }
 
   // Lazy load in the accordion.js
   await loadScript("/plugins/discourse-rpn-bbcode/javascripts/accordion.js");
   accordions.forEach((accordion) => {
     const slides = accordion.querySelectorAll(".bbcode-slide-title");
     // If the accordion has no slides, skip to the next one
-    if (!slides.length) return;
+    if (!slides.length) {
+      return;
+    }
+    // eslint-disable-next-line no-undef
     slides.forEach((slide) => applySlide(slide));
   });
 }

@@ -188,7 +188,7 @@ function setupMarkdownIt(md) {
 
   BLOCK_RULER.push("nobr", {
     tag: "nobr",
-    wrap: function (token, tagInfo) {
+    wrap: function (token) {
       let text = token.content;
 
       text = text.replace(/(\r\n|\n|\r)/gm, " ");
@@ -400,11 +400,7 @@ function setupMarkdownIt(md) {
       const fontSize = tagInfo.attrs["size"];
 
       let token;
-      if (
-        fontFamily &&
-        !BASE_FONTS.includes(fontFamily.toLowerCase()) &&
-        !loaded_fonts.includes(fontFamily)
-      ) {
+      if (fontFamily && !BASE_FONTS.includes(fontFamily.toLowerCase())) {
         addFontLinkTag(token, state, fontFamily);
       }
 
@@ -427,11 +423,7 @@ function setupMarkdownIt(md) {
       const fontSize = tagInfo.attrs["size"];
 
       let token;
-      if (
-        fontFamily &&
-        !BASE_FONTS.includes(fontFamily.toLowerCase()) &&
-        !loaded_fonts.includes(fontFamily)
-      ) {
+      if (fontFamily && !BASE_FONTS.includes(fontFamily.toLowerCase())) {
         addFontLinkTag(token, state, fontFamily);
       }
 
@@ -446,7 +438,7 @@ function setupMarkdownIt(md) {
         token = state.push("text", "", 0);
         token.content = splitContent[i];
 
-        if (i != contentLength) {
+        if (i !== contentLength) {
           state.push("br", "br", 0);
         }
       }
@@ -463,7 +455,6 @@ function setupMarkdownIt(md) {
       ["type", "text/css"],
       ["href", `https://fonts.googleapis.com/css2?family=${fontFamily.replace(/\s/g, "+")}`],
     ];
-    loaded_fonts.push(fontFamily);
   }
 
   function generateFontTagAttributes(fontFamily, fontSize, fontColor) {
@@ -517,7 +508,9 @@ function setupMarkdownIt(md) {
         "treasure",
       ];
       let blockOption = tagInfo.attrs["_default"];
-      if (!OPTIONS.includes(blockOption)) blockOption = "block";
+      if (!OPTIONS.includes(blockOption)) {
+        blockOption = "block";
+      }
       blockOption = blockOption.toLowerCase();
       let token = state.push("div_open", "div", 1);
       token.attrs = [
@@ -897,7 +890,7 @@ function setupMarkdownIt(md) {
 
   INLINE_RULER.push("size", {
     tag: "size",
-    wrap: function (startToken, endToken, tagInfo, content) {
+    wrap: function (startToken, endToken, tagInfo) {
       const fontSize = parseFontSize(tagInfo.attrs["_default"]);
       startToken.type = "span_open";
       startToken.tag = "span";
@@ -1002,7 +995,7 @@ function setupMarkdownIt(md) {
     replace: function (state, tagInfo, content) {
       const tagAttributes = content.split(/\s/);
       if (tagAttributes.length > 1) {
-        let iconType = tagAttributes[0].length == 2 ? "far" : tagAttributes[0];
+        let iconType = tagAttributes[0].length === 2 ? "far" : tagAttributes[0];
         let iconReference = tagAttributes[1].replace(/fa\w*/, iconType);
         let iconAttributes = handleIconStyles(tagAttributes);
         let token = state.push("svg_open", "svg", 1);

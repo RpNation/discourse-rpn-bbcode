@@ -458,63 +458,62 @@ p {
 /*************************************************
 *** Note                             BBCODE-014***
 *************************************************/
-/*
+
 .bbcode-note {
-	max-width: 450px;
-	padding: 20px;
-	line-height: 1.75em;
-	margin: 0 auto;
-	margin-top: 25px !important;
-	font-family: 'Coming Soon', 'Architects Daughter', cursive;
-	background: #FCF0AD url("/plugins/discourse-rpn-bbcode/images/notecorner.jpg") 100% 100% no-repeat;
-	position: relative;
-	color: black;
+  max-width: 450px;
+  padding: 20px;
+  line-height: 1.75em;
+  margin: 0 auto;
+  margin-top: 25px !important;
+  font-family: "Coming Soon", "Architects Daughter", cursive;
+  background: #fcf0ad url("/plugins/discourse-rpn-bbcode/images/notecorner.jpg") 100% 100% no-repeat;
+  position: relative;
+  color: black;
 }
 
 .bbcode-note .bbcode-note-content {
-	overflow: hidden;
+  overflow: hidden;
 }
 
 .bbcode-note .bbcode-note-footer {
-	height: 50px;
-	width: 50px;
-	float: right;
+  height: 50px;
+  width: 50px;
+  float: right;
 }
 
 .bbcode-note .bbcode-note-tape {
-	background-color: hsla(0,0%,100%,.5);
-	box-shadow: inset 0 0 1em .5em hsla(0,0%,100%,.1);
-	height: 3em;
-	position: absolute;
-	transform: rotate(-4deg);
-	width: 9em;
-	-webkit-filter: drop-shadow(0 1px 1px hsla(0,0%,0%,.3));
-	top: -1.5em;
-	left: 50%;
-	margin-left: -4.5em;
+  background-color: hsla(0, 0%, 100%, 0.5);
+  box-shadow: inset 0 0 1em 0.5em hsla(0, 0%, 100%, 0.1);
+  height: 3em;
+  position: absolute;
+  transform: rotate(-4deg);
+  width: 9em;
+  -webkit-filter: drop-shadow(0 1px 1px hsla(0, 0%, 0%, 0.3));
+  top: -1.5em;
+  left: 50%;
+  margin-left: -4.5em;
 }
 .bbcode-note .bbcode-note-tape:after,
 .bbcode-note .bbcode-note-tape:before {
-	background-size: .4em .4em;
-	bottom: 0;
-	content: '';
-	position: absolute;
-	top: 0;
-	width: .2em;
+  background-size: 0.4em 0.4em;
+  bottom: 0;
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 0.2em;
 }
 .bbcode-note .bbcode-note-tape:after {
-	background-image: linear-gradient(45deg, transparent 50%, hsla(0,0%,100%,.3) 50%),
-					  linear-gradient(-45deg, transparent 50%, hsla(0,0%,100%,.3) 50%);
-	background-position: 0 100%;
-	left: -.2em;
+  background-image: linear-gradient(45deg, transparent 50%, hsla(0, 0%, 100%, 0.3) 50%),
+    linear-gradient(-45deg, transparent 50%, hsla(0, 0%, 100%, 0.3) 50%);
+  background-position: 0 100%;
+  left: -0.2em;
 }
 .bbcode-note .bbcode-note-tape:before {
-	background-image: linear-gradient(135deg, transparent 50%, hsla(0,0%,100%,.3) 50%),
-					  linear-gradient(-135deg, transparent 50%, hsla(0,0%,100%,.3) 50%);
-	background-position: 100% 100%;
-	right: -.2em;
+  background-image: linear-gradient(135deg, transparent 50%, hsla(0, 0%, 100%, 0.3) 50%),
+    linear-gradient(-135deg, transparent 50%, hsla(0, 0%, 100%, 0.3) 50%);
+  background-position: 100% 100%;
+  right: -0.2em;
 }
-*/
 
 /*************************************************
 *** Tabs                             BBCODE-015***
@@ -882,211 +881,120 @@ p {
     }
   }
 
-  /***Green Blocks***/
-  $green: #0a941d;
-  &[data-bbcode-block="dice"] {
-    .bbcode-block-content {
-      border-color: $green;
-    }
-    .bbcode-block-icon {
-      background-image: url("/plugins/discourse-rpn-bbcode/images/colordice.png");
-      &::before {
-        content: "Dice";
-        background: $green;
+  /// Creates the content needed for a block
+  ///
+  /// @param {String} $name
+  ///   The name of the block that will be called from the bbcode
+  /// @param {String} $title
+  ///   The displayed title of the block that will appear alongside the image
+  /// @param {color} $color
+  ///   The color to use for the block
+  /// @param {URL} $image
+  ///   The image URL
+  @mixin block-builder(
+    $name: "block",
+    $title: "Block",
+    $color: #2c2c2c,
+    $image: "/plugins/discourse-rpn-bbcode/images/block.png"
+  ) {
+    &[data-bbcode-block="#{$name}"] {
+      .bbcode-block-content {
+        border-color: $color;
       }
-      &::after {
-        border-color: $green transparent transparent transparent;
-      }
-    }
-  }
-
-  &[data-bbcode-block="dice10"] {
-    .bbcode-block-content {
-      border-color: $green;
-    }
-    .bbcode-block-icon {
-      background-image: url("/plugins/discourse-rpn-bbcode/images/colordice10.png");
-      &::before {
-        content: "Dice";
-        background: $green;
-      }
-      &::after {
-        border-color: $green transparent transparent transparent;
-      }
-    }
-  }
-
-  &[data-bbcode-block="setting"] {
-    .bbcode-block-content {
-      border-color: $green;
-    }
-    .bbcode-block-icon {
-      background-image: url("/plugins/discourse-rpn-bbcode/images/colorsetting.png");
-      &::before {
-        content: "Setting";
-        background: $green;
-      }
-      &::after {
-        border-color: $green transparent transparent transparent;
+      .bbcode-block-icon {
+        background-image: url($image);
+        &::before {
+          content: $title;
+          background: $color;
+        }
+        &::after {
+          border-color: $color transparent transparent transparent;
+        }
       }
     }
   }
 
-  /***Gold Blocks***/
-  $gold: #94920a;
-  &[data-bbcode-block="important"] {
-    .bbcode-block-content {
-      border-color: $gold;
-    }
-    .bbcode-block-icon {
-      background-image: url("/plugins/discourse-rpn-bbcode/images/colorexclaim.png");
-      &::before {
-        content: "Important";
-        background: $gold;
-      }
-      &::after {
-        border-color: $gold transparent transparent transparent;
-      }
-    }
-  }
+  @include block-builder(
+    "dice",
+    "Dice",
+    #0a941d,
+    "/plugins/discourse-rpn-bbcode/images/colordice.png"
+  );
 
-  /***Yellow Blocks***/
-  $yellow: #cbc939;
-  &[data-bbcode-block="treasure"] {
-    .bbcode-block-content {
-      border-color: $yellow;
-    }
-    .bbcode-block-icon {
-      background-image: url("/plugins/discourse-rpn-bbcode/images/colortreasure.png");
-      &::before {
-        content: "Treasure";
-        background: $yellow;
-      }
-      &::after {
-        border-color: $yellow transparent transparent transparent;
-      }
-    }
-  }
+  @include block-builder(
+    "dice10",
+    "Dice",
+    #0a941d,
+    "/plugins/discourse-rpn-bbcode/images/colordice10.png"
+  );
 
-  /***Red Blocks***/
-  $red: #940a0a;
-  &[data-bbcode-block="announcement"] {
-    .bbcode-block-content {
-      border-color: $red;
-    }
-    .bbcode-block-icon {
-      background-image: url("/plugins/discourse-rpn-bbcode/images/colorannounce.png");
-      &::before {
-        content: "Announcement";
-        background: $red;
-      }
-      &::after {
-        border-color: $red transparent transparent transparent;
-      }
-    }
-  }
-  &[data-bbcode-block="warning"] {
-    .bbcode-block-content {
-      border-color: $red;
-    }
-    .bbcode-block-icon {
-      background-image: url("/plugins/discourse-rpn-bbcode/images/colorwarning.png");
-      &::before {
-        content: "Warning";
-        background: $red;
-      }
-      &::after {
-        border-color: $red transparent transparent transparent;
-      }
-    }
-  }
-  &[data-bbcode-block="encounter"] {
-    .bbcode-block-content {
-      border-color: $red;
-    }
-    .bbcode-block-icon {
-      background-image: url("/plugins/discourse-rpn-bbcode/images/colorencounter.png");
-      &::before {
-        content: "Encounter";
-        background: $red;
-      }
-      &::after {
-        border-color: $red transparent transparent transparent;
-      }
-    }
-  }
+  @include block-builder(
+    "setting",
+    "Setting",
+    #0a941d,
+    "/plugins/discourse-rpn-bbcode/images/colorsetting.png"
+  );
 
-  /***Orange Blocks***/
-  $orange: #bf7e00;
-  &[data-bbcode-block="storyteller"] {
-    .bbcode-block-content {
-      border-color: $orange;
-    }
-    .bbcode-block-icon {
-      background-image: url("/plugins/discourse-rpn-bbcode/images/colorpencil.png");
-      &::before {
-        content: "Storyteller";
-        background: $orange;
-      }
-      &::after {
-        border-color: $orange transparent transparent transparent;
-      }
-    }
-  }
+  @include block-builder(
+    "important",
+    "Important",
+    #94920a,
+    "/plugins/discourse-rpn-bbcode/images/colorexclaim.png"
+  );
 
-  /***Purple Blocks***/
-  $purple: #5e0a94;
-  &[data-bbcode-block="question"] {
-    .bbcode-block-content {
-      border-color: $purple;
-    }
-    .bbcode-block-icon {
-      background-image: url("/plugins/discourse-rpn-bbcode/images/colorquestion.png");
-      &::before {
-        content: "Question";
-        background: $purple;
-      }
-      &::after {
-        border-color: $purple transparent transparent transparent;
-      }
-    }
-  }
+  @include block-builder(
+    "treasure",
+    "Treasure",
+    #cbc939,
+    "/plugins/discourse-rpn-bbcode/images/colortreasure.png"
+  );
 
-  /***Blue Blocks***/
-  $blue: #0a1694;
-  &[data-bbcode-block="information"] {
-    .bbcode-block-content {
-      border-color: $blue;
-    }
-    .bbcode-block-icon {
-      background-image: url("/plugins/discourse-rpn-bbcode/images/colorinfo.png");
-      &::before {
-        content: "Question";
-        background: $blue;
-      }
-      &::after {
-        border-color: $blue transparent transparent transparent;
-      }
-    }
-  }
+  @include block-builder(
+    "announcement",
+    "Announcement",
+    #940a0a,
+    "/plugins/discourse-rpn-bbcode/images/colorannounce.png"
+  );
 
-  /***Pink Blocks***/
-  $pink: #e05353;
-  &[data-bbcode-block="character"] {
-    .bbcode-block-content {
-      border-color: $pink;
-    }
-    .bbcode-block-icon {
-      background-image: url("/plugins/discourse-rpn-bbcode/images/colorcharacter.png");
-      &::before {
-        content: "Character";
-        background: $pink;
-      }
-      &::after {
-        border-color: $pink transparent transparent transparent;
-      }
-    }
-  }
+  @include block-builder(
+    "warning",
+    "Warning",
+    #940a0a,
+    "/plugins/discourse-rpn-bbcode/images/colorwarning.png"
+  );
+
+  @include block-builder(
+    "encounter",
+    "Encounter",
+    #940a0a,
+    "/plugins/discourse-rpn-bbcode/images/colorencounter.png"
+  );
+
+  @include block-builder(
+    "storyteller",
+    "Storyteller",
+    #bf7e00,
+    "/plugins/discourse-rpn-bbcode/images/colorpencil.png"
+  );
+
+  @include block-builder(
+    "question",
+    "Question",
+    #5e0a94,
+    "/plugins/discourse-rpn-bbcode/images/colorquestion.png"
+  );
+  @include block-builder(
+    "information",
+    "Information",
+    #0a1694,
+    "/plugins/discourse-rpn-bbcode/images/colorinfo.png"
+  );
+  @include block-builder(
+    "character",
+    "Character",
+    #e05353,
+    "/plugins/discourse-rpn-bbcode/images/colorcharacter.png"
+  );
 }
 
 @media screen and (max-width: 600px) {

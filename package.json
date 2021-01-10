@@ -1,0 +1,19 @@
+{
+  "name": "discourse-rpn-bbcode",
+  "version": "0.1.0",
+  "description": "Official RpNation BBCodes for Discourse",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RpNation/discourse-rpn-bbcode.git"
+  },
+  "bugs": {
+    "url": "https://github.com/RpNation/discourse-rpn-bbcode/issues"
+  },
+  "homepage": "https://github.com/RpNation/discourse-rpn-bbcode#readme",
+  "devDependencies": {
+    "eslint-config-discourse": "^1.1.6"
+  }
+}

@@ -12,11 +12,14 @@ async function addSpoilerCode(post) {
   /** all of the elements that contain the class `.bbcode-spoiler-button` */
   const spoilers = post.querySelectorAll(".bbcode-spoiler-button");
   // if no spoilers found, end function
-  if (!spoilers.length) return;
+  if (!spoilers.length) {
+    return;
+  }
 
   // lazy load in the spoiler.js
   await loadScript("/plugins/discourse-rpn-bbcode/javascripts/spoiler.js");
   spoilers.forEach((spoiler) => {
+    // eslint-disable-next-line no-undef
     applySpoiler(spoiler);
   });
 }

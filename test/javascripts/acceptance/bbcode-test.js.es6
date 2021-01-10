@@ -34,7 +34,7 @@ acceptance("RpN BBCode", function (needs) {
     await visit("/");
     await click("#create-topic");
   });
-  test("image float tag [imagefloat]", async function (assert) {
+  test("image float tag [imagefloat]", function (assert) {
     assert.cooked(
       "[imageFloat=left]empty[/imagefloat]",
       '<div class="float-left"><p>empty</p></div>',
@@ -349,7 +349,7 @@ acceptance("RpN BBCode", function (needs) {
         "</div>",
       "accordion html is generated"
     );
-    document
+    await document
       .querySelectorAll(".d-editor-preview button.bbcode-slide-title")[0]
       .click();
     assert.ok(
@@ -365,7 +365,7 @@ acceptance("RpN BBCode", function (needs) {
     //   content.getAttribute("style").includes("block"),
     //   "slide content is visible"
     // );
-    document
+    await document
       .querySelectorAll(".d-editor-preview button.bbcode-slide-title")[1]
       .click();
     assert.notOk(
@@ -374,5 +374,76 @@ acceptance("RpN BBCode", function (needs) {
         .classList.contains("active"),
       "slide button deactivated"
     );
+  });
+  test("ooc tag [ooc]", function (assert) {
+    assert.cooked(
+      "inline [ooc]text only[/ooc] text",
+      '<p>inline </p><div class="bbcode-ooc"><div>OOC</div>text only</div> text<p></p>', //this seems to be a quirk of the markdown plugin. where divs can't be inline
+      "ooc tag works"
+    );
+  });
+  test("tabs tag [tabs][tab]", async function (assert) {
+    await fillIn(
+      ".d-editor-input",
+      "[tabs]\n[tab=tab1]\nlorem ipsum\n[/tab]\n[tab=tab2]\nlorem ipsum\n[/tab]\n[/tabs]"
+    );
+    const actual = document
+      .querySelector(".d-editor-preview")
+      .innerHTML.replaceAll(/\r?\n|\r/g, "");
+    assert.equal(
+      actual,
+      '<div class="bbcode-tab">' +
+        '<button class="bbcode-tab-links">tab1</button>' +
+        '<div class="bbcode-tab-content"><p>lorem ipsum</p></div>' +
+        '<button class="bbcode-tab-links">tab2</button>' +
+        '<div class="bbcode-tab-content"><p>lorem ipsum</p></div>' +
+        "</div>",
+      "tabs html is generated"
+    );
+    await document
+      .querySelectorAll(".d-editor-preview button.bbcode-tab-links")[0]
+      .click();
+    assert.ok(
+      document
+        .querySelectorAll("button.bbcode-tab-links")[0]
+        .classList.contains("active"),
+      "tab button is active"
+    );
+    assert.equal(
+      document.querySelectorAll("div.bbcode-tab-content")[0].style.display,
+      "block",
+      "corresponding tab content is visible"
+    );
+    await document
+      .querySelectorAll(".d-editor-preview button.bbcode-tab-links")[1]
+      .click();
+    assert.notOk(
+      document
+        .querySelectorAll("button.bbcode-tab-links")[0]
+        .classList.contains("active"),
+      "when clicking on another tab, 1st tab button is not active"
+    );
+    assert.notEqual(
+      document.querySelectorAll("div.bbcode-tab-content")[0].style.display,
+      "block",
+      "when click on another tab, 1st tab content is not visible"
+    );
+  });
+  test("center left right tags [center][left][right]", function (assert) {
+    const ALIGN= ["center", "left", "right"];
+    ALIGN.forEach((alignment) => {
+      assert.cookedBlock(
+        `[${alignment}]\nlorem ipsum\n[/${alignment}]`,
+        `<div class="bbcode-content-${alignment}"><p>lorem ipsum</p></div>`,
+        `${alignment} tag block works`
+      )
+      assert.cooked(
+        `inline [${alignment}]lorem ipsum[/${alignment}] text`,
+        `<p>inline </p><div class="bbcode-content-${alignment}">lorem ipsum</div> text<p></p>`,
+        `${alignment} tag inline works`
+      )
+    })
+  }
+
   });
 });

@@ -443,7 +443,7 @@ inline text
 
 ```html
 <div class="bbcode-tab">
-  <button class="bbcode-tab-links" onclick="openBBCodeTab(event)">title</button>
+  <button class="bbcode-tab-links">title</button>
   <div class="bbcode-tab-content">lorem ipsum</div>
 </div>
 ```

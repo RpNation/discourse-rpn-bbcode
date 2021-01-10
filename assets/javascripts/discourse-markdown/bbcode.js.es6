@@ -82,44 +82,6 @@ function setupMarkdownIt(md) {
   ];
 
   /*************************************************
-   *** Border                              TAG-003***
-   *************************************************/
-
-  BLOCK_RULER.push("border", {
-    tag: "border",
-    before: function (state, tagInfo) {
-      let styleOption = tagInfo.attrs["_default"];
-      let token = state.push("div_open", "div", 1);
-      token.attrs = [
-        ["class", "bbcode-border"],
-        ["style", "border: " + styleOption],
-      ];
-    },
-    after: function (state) {
-      state.push("div_close", "div", -1);
-    },
-  });
-
-  /*************************************************
-   *** Background                          TAG-004***
-   *************************************************/
-
-  BLOCK_RULER.push("bg", {
-    tag: "bg",
-    before: function (state, tagInfo) {
-      let bgOption = tagInfo.attrs["_default"];
-      let token = state.push("div_open", "div", 1);
-      token.attrs = [
-        ["class", "bbcode-background"],
-        ["style", "background-color: " + bgOption],
-      ];
-    },
-    after: function (state) {
-      state.push("div_close", "div", -1);
-    },
-  });
-
-  /*************************************************
    *** Fieldset                            TAG-005***
    *************************************************/
 
@@ -1055,10 +1017,6 @@ function setupMarkdownIt(md) {
 
 export function setup(helper) {
   helper.allowList([
-    /* Border                          WHITELIST-003C*/
-    "div.bbcode-border",
-    /* Background                      WHITELIST-004C*/
-    "div.bbcode-background",
     /* Fieldset                        WHITELIST-005*/
     "fieldset.bbcode-fieldset",
     "legend",
@@ -1171,24 +1129,6 @@ export function setup(helper) {
     "svg[style=*]",
     "use[href=*]",
   ]);
-
-  /* Border                            WHITELIST-003R*/
-  helper.allowList({
-    custom(tag, name, value) {
-      if (tag === "div" && name === "style") {
-        return /^(border:(.*))$/.exec(value);
-      }
-    },
-  });
-
-  /* Background                        WHITELIST-004R*/
-  helper.allowList({
-    custom(tag, name, value) {
-      if (tag === "div" && name === "style") {
-        return /^(background\-color:(.*))$/.exec(value);
-      }
-    },
-  });
 
   /* Scroll                            WHITELIST-007*/
   helper.allowList({

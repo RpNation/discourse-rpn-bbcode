@@ -430,20 +430,119 @@ acceptance("RpN BBCode", function (needs) {
     );
   });
   test("center left right tags [center][left][right]", function (assert) {
-    const ALIGN= ["center", "left", "right"];
+    const ALIGN = ["center", "left", "right"];
     ALIGN.forEach((alignment) => {
       assert.cookedBlock(
         `[${alignment}]\nlorem ipsum\n[/${alignment}]`,
         `<div class="bbcode-content-${alignment}"><p>lorem ipsum</p></div>`,
         `${alignment} tag block works`
-      )
+      );
       assert.cooked(
         `inline [${alignment}]lorem ipsum[/${alignment}] text`,
         `<p>inline </p><div class="bbcode-content-${alignment}">lorem ipsum</div> text<p></p>`,
         `${alignment} tag inline works`
-      )
-    })
-  }
-
+      );
+    });
+  });
+  test("color tag [color]", function (assert) {
+    assert.cookedBlock(
+      "[color=red]\ntext\n[/color]",
+      '<div style="color:red"><p>text</p></div>',
+      "block level works"
+    );
+    assert.cookedInline(
+      "[color=red]text[/color]",
+      '<span style="color:red">text</span>',
+      "inline level works"
+    );
+  });
+  test("size tag [size]", function (assert) {
+    assert.cookedBlock(
+      "[size=1]\ntext\n[/size]",
+      '<div class="bbcode-size-1"><p>text</p></div>',
+      "block level works"
+    );
+    assert.cookedInline(
+      "[size=1]text[/size]",
+      '<span class="bbcode-size-1">text</span>',
+      "inline level works"
+    );
+    for (let i = 1; i <= 7; i++) {
+      assert.cookedInline(
+        `[size=${i}]lorem ipsum[/size]`,
+        `<span class="bbcode-size-${i}">lorem ipsum</span>`,
+        `[size=${i}] works`
+      );
+    }
+    assert.cookedInline(
+      "[size=15px]lorem ipsum[/size]",
+      '<span style="font-size:15px">lorem ipsum</span>',
+      "px option works ([size=15px])"
+    );
+    assert.cookedInline(
+      "[size=1rem]lorem ipsum[/size]",
+      '<span style="font-size:1rem">lorem ipsum</span>',
+      "rem option works ([size=1rem])"
+    );
+  });
+  test("spoiler tag [spoiler]", async function (assert) {
+    assert.cookedBlock(
+      "[spoiler]\nlorem ipsum\n[/spoiler]",
+      '<div class="bbcode-spoiler">' +
+        '<button class="bbcode-spoiler-button">Spoiler</button>' +
+        '<div class="bbcode-spoiler-content"><p>lorem ipsum</p></div>' +
+        "</div>",
+      "spoiler with no title html is generated"
+    );
+    assert.cookedBlock(
+      "[spoiler=title]\nlorem ipsum\n[/spoiler]",
+      '<div class="bbcode-spoiler">' +
+        '<button class="bbcode-spoiler-button">Spoiler: title</button>' +
+        '<div class="bbcode-spoiler-content"><p>lorem ipsum</p></div>' +
+        "</div>",
+      "spoiler with title html is generated"
+    );
+    // TODO this is a pain to test for because of CSS not rendering in QUnit.
+    // await fillIn(".d-editor-input", "[spoiler]\nlorem ipsum\n[/spoiler]");
+    // await document.querySelector("button.bbcode-spoiler-button").click();
+    // assert.equal(
+    //   document.querySelectorAll("div.bbcode-spoiler-content")[0].style.display,
+    //   "block",
+    //   "spoiler content is visible when clicked"
+    // );
+  });
+  test("font awesome tag [fa]", function (assert) {
+    assert.cooked(
+      "[fa]fas fa-vial[/fa]",
+      '<p><svg><use href="#fas-vial"></use></svg></p>',
+      "basic fa tag works [fa]fas fa-vial[/fa]"
+    );
+    assert.cooked(
+      "[fa]fa fa-vial[/fa]",
+      '<p><svg><use href="#far-vial"></use></svg></p>',
+      "backwards compatibility works [fa]fa fa-vial[/fa]"
+    );
+    assert.cooked(
+      "[fa]fas fa-vial fa-fw[/fa]",
+      '<p><svg class="fa-fw"><use href="#fas-vial"></use></svg></p>',
+      "fa classes works [fa]fas fa-vial fa-fw[/fa]"
+    );
+    assert.cooked(
+      "[fa]fad fa-vial fa-primary-color{green} fa-primary-opacity{0.5} fa-secondary-color{blue} fa-secondary-opacity{0.7}[/fa]",
+      '<p><svg style="--fa-primary-color:green; --fa-primary-opacity:0.5; --fa-secondary-color:blue; --fa-secondary-opacity:0.7;"><use href="#fad-vial"></use></svg></p>',
+      "fa duotones works [fa]fad fa-vial fa-primary-color{green} fa-primary-opacity{0.5} fa-secondary-color{blue} fa-secondary-opacity{0.7}[/fa]"
+    );
+  });
+  test("anchor tag [a][goto]", function (assert) {
+    assert.cookedInline(
+      "[a=tag]inline text[/a]",
+      '<a id="user-anchor-tag">inline text</a>',
+      "anchor tag works"
+    );
+    assert.cookedInline(
+      "[goto=tag]inline text[/goto]",
+      '<a href="#user-anchor-tag">inline text</a>',
+      "goto tag works"
+    );
   });
 });

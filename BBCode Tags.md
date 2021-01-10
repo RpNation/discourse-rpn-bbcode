@@ -532,16 +532,12 @@ lorem ipsum
 
 ```html
 <div class="bbcode-spoiler">
-  <button class="bbcode-spoiler-button" onclick="toggleBBCodeSpoiler(event)">
-    Spoiler
-  </button>
+  <button class="bbcode-spoiler-button">Spoiler</button>
   <div class="bbcode-spoiler-content">lorem ipsum</div>
 </div>
 
 <div class="bbcode-spoiler">
-  <button class="bbcode-spoiler-button" onclick="toggleBBCodeSpoiler(event)">
-    Spoiler: title
-  </button>
+  <button class="bbcode-spoiler-button">Spoiler: title</button>
   <div class="bbcode-spoiler-content">lorem ipsum</div>
 </div>
 ```

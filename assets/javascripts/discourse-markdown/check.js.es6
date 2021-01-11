@@ -3,25 +3,11 @@
  * @example [check=dot]text[/check]
  */
 import { registerOption } from "pretty-text/pretty-text";
+import { wrap } from "./bbcode-helpers";
 
 registerOption(
   (siteSettings, opts) => (opts.features["check"] = !!siteSettings.rpn_bbcode_enabled)
 );
-
-function wrap(tag, attr, callback) {
-  return function (startToken, finishToken, tagInfo) {
-    startToken.tag = finishToken.tag = tag;
-    startToken.content = finishToken.content = "";
-
-    startToken.type = "bbcode_open";
-    finishToken.type = "bbcode_close";
-
-    startToken.nesting = 1;
-    finishToken.nesting = -1;
-
-    startToken.attrs = [[attr, callback ? callback(tagInfo) : tagInfo.attrs._default]];
-  };
-}
 
 function setupMarkdownIt(md) {
   const INLINE_RULER = md.inline.bbcode.ruler;

@@ -3,54 +3,9 @@
  * @example [size=2]content[/size]
  */
 import { registerOption } from "pretty-text/pretty-text";
+import { parseFontSize } from "./bbcode-helpers";
 
 registerOption((siteSettings, opts) => (opts.features["size"] = !!siteSettings.rpn_bbcode_enabled));
-
-function parseFontSize(fontValue) {
-  let value;
-  let fontSize = { valid: true };
-  const parsedSize = /(\d+\.?\d?)(px|rem)?/.exec(fontValue);
-  const sizeRanges = {
-    px_max: 36,
-    px_min: 8,
-    rem_max: 3,
-    rem_min: 0.2,
-    unitless_max: 7,
-    unitless_min: 1,
-  };
-
-  fontSize.unit = parsedSize[2];
-  if ((value = parsedSize[1])) {
-    switch (fontSize.unit) {
-      case "px":
-        if (value > sizeRanges.px_max) {
-          value = sizeRanges.px_max;
-        } else if (value < sizeRanges.px_min) {
-          value = sizeRanges.px_min;
-        }
-        break;
-      case "rem":
-        if (value > sizeRanges.rem_max) {
-          value = sizeRanges.rem_max;
-        } else if (value < sizeRanges.rem_min) {
-          value = sizeRanges.rem_min;
-        }
-        break;
-      default:
-        if ((fontSize.valid = fontValue.length === value.length)) {
-          if (value > sizeRanges.unitless_max) {
-            value = sizeRanges.unitless_max;
-          } else if (value < sizeRanges.unitless_min) {
-            value = sizeRanges.unitless_min;
-          }
-        }
-        break;
-    }
-
-    fontSize.value = value;
-  }
-  return fontSize;
-}
 
 function setupMarkdownIt(md) {
   const INLINE_RULER = md.inline.bbcode.ruler;

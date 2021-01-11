@@ -2,6 +2,7 @@ import { acceptance } from "discourse/tests/helpers/qunit-helpers";
 
 acceptance("RpN BBCode", function (needs) {
   needs.user();
+  needs.settings({ rpn_bbcode_enabled: true });
   needs.hooks.beforeEach(async () => {
     QUnit.assert.cooked = function (input, expected, message) {
       fillIn(".d-editor-input", input);
@@ -349,13 +350,9 @@ acceptance("RpN BBCode", function (needs) {
         "</div>",
       "accordion html is generated"
     );
-    await document
-      .querySelectorAll(".d-editor-preview button.bbcode-slide-title")[0]
-      .click();
+    await document.querySelectorAll(".d-editor-preview button.bbcode-slide-title")[0].click();
     assert.ok(
-      document
-        .querySelectorAll("button.bbcode-slide-title")[0]
-        .classList.contains("active"),
+      document.querySelectorAll("button.bbcode-slide-title")[0].classList.contains("active"),
       "slide button active"
     );
     // Don't bother trying to do this test. This is reliant on CSS, and QUnit won't apply CSS classes
@@ -365,13 +362,9 @@ acceptance("RpN BBCode", function (needs) {
     //   content.getAttribute("style").includes("block"),
     //   "slide content is visible"
     // );
-    await document
-      .querySelectorAll(".d-editor-preview button.bbcode-slide-title")[1]
-      .click();
+    await document.querySelectorAll(".d-editor-preview button.bbcode-slide-title")[1].click();
     assert.notOk(
-      document
-        .querySelectorAll("button.bbcode-slide-title")[0]
-        .classList.contains("active"),
+      document.querySelectorAll("button.bbcode-slide-title")[0].classList.contains("active"),
       "slide button deactivated"
     );
   });
@@ -400,13 +393,9 @@ acceptance("RpN BBCode", function (needs) {
         "</div>",
       "tabs html is generated"
     );
-    await document
-      .querySelectorAll(".d-editor-preview button.bbcode-tab-links")[0]
-      .click();
+    await document.querySelectorAll(".d-editor-preview button.bbcode-tab-links")[0].click();
     assert.ok(
-      document
-        .querySelectorAll("button.bbcode-tab-links")[0]
-        .classList.contains("active"),
+      document.querySelectorAll("button.bbcode-tab-links")[0].classList.contains("active"),
       "tab button is active"
     );
     assert.equal(
@@ -414,13 +403,9 @@ acceptance("RpN BBCode", function (needs) {
       "block",
       "corresponding tab content is visible"
     );
-    await document
-      .querySelectorAll(".d-editor-preview button.bbcode-tab-links")[1]
-      .click();
+    await document.querySelectorAll(".d-editor-preview button.bbcode-tab-links")[1].click();
     assert.notOk(
-      document
-        .querySelectorAll("button.bbcode-tab-links")[0]
-        .classList.contains("active"),
+      document.querySelectorAll("button.bbcode-tab-links")[0].classList.contains("active"),
       "when clicking on another tab, 1st tab button is not active"
     );
     assert.notEqual(

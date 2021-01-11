@@ -1,0 +1,4 @@
+plugins:
+  rpn_bbcode_enabled:
+    default: true
+    client: true

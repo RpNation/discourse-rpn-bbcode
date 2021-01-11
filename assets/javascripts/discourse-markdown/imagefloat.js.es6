@@ -5,7 +5,9 @@
  */
 import { registerOption } from "pretty-text/pretty-text";
 
-registerOption((siteSettings, opts) => (opts.features["rpn-bbcode"] = true));
+registerOption(
+  (siteSettings, opts) => (opts.features["imagefloat"] = !!siteSettings.rpn_bbcode_enabled)
+);
 
 function wrap(tag, attr, callback) {
   return function (startToken, finishToken, tagInfo) {

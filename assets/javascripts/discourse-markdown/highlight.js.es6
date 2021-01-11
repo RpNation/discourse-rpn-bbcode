@@ -5,7 +5,9 @@
 
 import { registerOption } from "pretty-text/pretty-text";
 
-registerOption((siteSettings, opts) => (opts.features["rpn-bbcode"] = true));
+registerOption(
+  (siteSettings, opts) => (opts.features["highlight"] = !!siteSettings.rpn_bbcode_enabled)
+);
 
 function setupMarkdownIt(md) {
   const INLINE_RULER = md.inline.bbcode.ruler;

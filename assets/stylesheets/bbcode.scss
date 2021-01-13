@@ -50,16 +50,14 @@ p {
 .float-left,
 .float-right {
   display: block;
-  margin: 10px;
-  max-width: calc(50% - 10px) !important;
+  margin: 0 10px;
+  max-width: calc(50% + 40px);
 }
 .float-left {
   float: left;
-  margin-left: 0;
 }
 .float-right {
   float: right;
-  margin-right: 0;
 }
 
 /*************************************************
@@ -70,9 +68,9 @@ p {
   border-style: solid;
   border-width: 1px;
   border-color: #2980b9;
-}
-.bbcode-border .bbcode-background {
-  margin: -10px;
+  > .bbcode-background {
+    margin: -10px;
+  }
 }
 
 /*************************************************
@@ -93,19 +91,16 @@ p {
   clear: both;
   border: 1px solid #2980b9;
   padding: 10px;
-}
-.bbcode-fieldset legend {
-  margin-left: 3%;
-  font-weight: 700;
-  color: #2980b9;
-  padding: 0 10px;
-}
-
-.bbcode-fieldset span {
-  color: #2980b9;
-}
-@media screen and (max-width: 800px) {
-  .bbcode-fieldset {
+  > legend {
+    margin-left: 3%;
+    font-weight: 700;
+    color: #2980b9;
+    padding: 0 10px;
+  }
+  > span {
+    color: #2980b9;
+  }
+  @media screen and (max-width: 800px) {
     width: 90%;
   }
 }
@@ -114,31 +109,30 @@ p {
 *** Side                             BBCODE-005***
 *************************************************/
 
-.bbcode-side {
+.bbcode-side,
+%bbcode-side {
   clear: both;
   width: 21%;
   border-left: 3px dotted #2980b9;
   border-right: 3px dotted #2980b9;
   padding: 2%;
   font-size: 75%;
-}
-.bbcode-side-left {
-  float: left;
-  margin: 1em 1em 1em 0;
-  clear: left;
-  @extend .bbcode-side;
-}
-.bbcode-side-right {
-  float: right;
-  margin: 1em 0 1em 1em;
-  clear: right;
-  @extend .bbcode-side;
-}
 
-@media screen and (max-width: 800px) {
-  .bbcode-side,
-  .bbcode-side-right,
-  .bbcode-side-left {
+  &-left {
+    @extend %bbcode-side;
+    float: left;
+    margin: 1em 1em 1em 0;
+    clear: left;
+  }
+
+  &-right {
+    @extend %bbcode-side;
+    float: right;
+    margin: 1em 0 1em 1em;
+    clear: right;
+  }
+
+  @media screen and (max-width: 800px) {
     width: 80%;
     float: none;
     clear: both;
@@ -160,17 +154,17 @@ p {
     @extend .bbcode-horizontal-rule;
     border-bottom: 3px solid #2980b9;
   }
-}
 
-.bbcode-horizontal-rule-dotted {
-  @extend .bbcode-horizontal-rule;
-  border-bottom: 1px dotted #2980b9;
-}
+  &-rule-dotted {
+    @extend .bbcode-horizontal-rule;
+    border-bottom: 1px dotted #2980b9;
+  }
 
-.bbcode-horizontal-rule-dotted-thick,
-.bbcode-horizontal-rule-thick-dotted {
-  @extend .bbcode-horizontal-rule;
-  border-bottom: 3px dotted #2980b9;
+  &-dotted-thick,
+  &-thick-dotted {
+    @extend .bbcode-horizontal-rule;
+    border-bottom: 3px dotted #2980b9;
+  }
 }
 
 /*************************************************
@@ -240,9 +234,9 @@ p {
 .inlineSpoiler {
   background-color: currentColor;
   padding: 0 5px;
-}
-.inlineSpoiler:hover {
-  background: #2980b9;
+  &:hover {
+    background: #2980b9;
+  }
 }
 
 /*************************************************

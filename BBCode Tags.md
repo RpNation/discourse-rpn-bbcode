@@ -205,11 +205,11 @@
 
 ```html
 <div class="bbcode-textmessage">
-  <div class="name">Recipient</div>
+  <div class="bbcode-textmessage-name">Recipient</div>
   <div class="bbcode-textmessage-overflow">
     <div class="bbcode-textmessage-content">
-      <div class="bbcode-message-them them">message from Recipient</div>
-      <div class="bbcode-message-me me">message from sender</div>
+      <div class="bbcode-message-them">message from Recipient</div>
+      <div class="bbcode-message-me">message from sender</div>
     </div>
   </div>
 </div>
@@ -238,14 +238,9 @@ Valid fonts also include [Google Fonts](https://fonts.google.com/).
 ```
 
 ```html
-<div style="font-family: built in, Helvetica, Arial, sans-serif;">
-  this is a built in font
-</div>
-<div style="font-family: Google Font, Helvetica, Arial, sans-serif;">
-  this is a google font
-</div>
-<link rel=stylesheet type=text/css
-href="https://fonts.googleapis.com/css2?family=Google+Font">
+<div style="font-family: built in, Helvetica, Arial, sans-serif;">this is a built in font</div>
+<div style="font-family: Google Font, Helvetica, Arial, sans-serif;">this is a google font</div>
+<link rel=stylesheet type=text/css href="https://fonts.googleapis.com/css2?family=Google+Font">
 ```
 
 **Multi Options**  
@@ -411,9 +406,7 @@ inline text
 
 ```html
 <div class="bbcode-accordion">
-  <button class="bbcode-slide-title" onclick="toggleBBCodeSlide(event)">
-    name
-  </button>
+  <button class="bbcode-slide-title" onclick="toggleBBCodeSlide(event)">name</button>
   <div class="bbcode-slide-content">lorem ipsum</div>
 </div>
 ```

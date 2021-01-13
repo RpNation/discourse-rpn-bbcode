@@ -207,11 +207,19 @@ acceptance("RpN BBCode", function (needs) {
   test("text message tag [textmessage][message]", function (assert) {
     assert.cookedBlock(
       "[textmessage=Recipient][message=them]message from Recipient[/message][message=me]message from sender[/message][/textmessage]",
-      '<div class="bbcode-textmessage"><div class="name">Recipient</div>' +
+      '<div class="bbcode-textmessage"><div class="bbcode-textmessage-name">Recipient</div>' +
         '<div class="bbcode-textmessage-overflow"><div class="bbcode-textmessage-content">' +
-        '<div class="bbcode-message-them them"><p>message from Recipient</p></div>' +
-        '<div class="bbcode-message-me me"><p>message from sender</p></div></div></div></div>',
+        '<div class="bbcode-message-them">message from Recipient</div>' +
+        '<div class="bbcode-message-me">message from sender</div></div></div></div>',
       "text message works"
+    );
+    assert.cookedBlock(
+      "[textmessage=Recipient][message=left]message from Recipient[/message][message=right]message from sender[/message][/textmessage]",
+      '<div class="bbcode-textmessage"><div class="bbcode-textmessage-name">Recipient</div>' +
+        '<div class="bbcode-textmessage-overflow"><div class="bbcode-textmessage-content">' +
+        '<div class="bbcode-message-them">message from Recipient</div>' +
+        '<div class="bbcode-message-me">message from sender</div></div></div></div>',
+      "left right options work"
     );
   });
   test("font tag [font]", function (assert) {

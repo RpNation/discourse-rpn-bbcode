@@ -159,13 +159,14 @@
 ```
 
 ```html
-<table class="bbcode-blockquote">
-  <tr>
-    <td class="bbcode-blockquote-left"></td>
-    <td class="bbcode-blockquote-content">lorem ipsum</td>
-    <td class="bbcode-blockquote-right"></td>
-  </tr>
-</table>
+<div class="bbcode-blockquote">
+  <div class="bbcode-blockquote-left"></div>
+  <div class="bbcode-blockquote-content">
+    lorem ipsum
+    <div class="bbcode-blockquote-speaker">author</div>
+  </div>
+  <div class="bbcode-blockquote-right"></div>
+</div>
 ```
 
 ## TAG-014: Paragraph Indent

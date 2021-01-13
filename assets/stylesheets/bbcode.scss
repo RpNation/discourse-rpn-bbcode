@@ -578,40 +578,42 @@ p {
 .bbcode-blockquote {
   position: relative;
   overflow: hidden;
-  height: 50px;
+  min-height: 50px;
   margin: 0 auto;
   clear: both;
-}
+  display: flex;
+  flex-flow: row wrap;
 
-.bbcode-blockquote td {
-  border-style: none;
-}
+  .bbcode-blockquote-content {
+    border-left: 3px dotted #2980b9;
+    border-right: 3px dotted #2980b9;
+    flex: 1;
+    padding: 0 5px;
+    margin: 0 5px;
 
-.bbcode-blockquote .bbcode-blockquote-content {
-  border-left: 3px dotted #2980b9;
-  border-right: 3px dotted #2980b9;
-}
+    .bbcode-blockquote-speaker {
+      clear: both;
+      width: 100%;
+      text-align: right;
+      color: #2980b9;
+      &::before {
+        content: "~";
+        margin: 0 10px;
+      }
+    }
+  }
 
-.bbcode-blockquote .bbcode-blockquote-left,
-.bbcode-blockquote .bbcode-blockquote-right {
-  width: 50px;
-}
-.bbcode-blockquote .bbcode-blockquote-left {
-  background: url("/plugins/discourse-rpn-bbcode/images/greyleftquote.png") 50% 0 no-repeat;
-}
-.bbcode-blockquote .bbcode-blockquote-right {
-  background: url("/plugins/discourse-rpn-bbcode/images/greyrightquote.png") 50% 100% no-repeat;
-}
+  .bbcode-blockquote-left {
+    width: 50px;
+    height: 50px;
+    background: url("/plugins/discourse-rpn-bbcode/images/greyleftquote.png") 50% 0 no-repeat;
+  }
 
-.bbcode-blockquote .bbcode-blockquote-speaker {
-  clear: both;
-  width: 100%;
-  text-align: right;
-  color: #2980b9;
-}
-.bbcode-blockquote .bbcode-blockquote-speaker:before {
-  content: "~";
-  margin: 0 10px;
+  .bbcode-blockquote-right {
+    width: 50px;
+    height: 50px;
+    background: url("/plugins/discourse-rpn-bbcode/images/greyrightquote.png") 50% 100% no-repeat;
+  }
 }
 
 /*************************************************

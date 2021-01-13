@@ -52,7 +52,13 @@ function setupMarkdownIt(md) {
     tag: "message",
     replace: function (state, tagInfo, content) {
       let option = tagInfo.attrs["_default"] ?? "me";
-      if (!(option === "me" || option === "them")) {
+      if (option === "left") {
+        option = "them";
+      }
+      if (option === "right") {
+        option = "me";
+      }
+      if (!(option === "me" || option === "them" || option === "left" || option === "right")) {
         option = "me";
       }
       let token = state.push("div_open", "div", 1);

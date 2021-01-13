@@ -23,6 +23,7 @@ LEFT, CENTER, RIGHT.......BBCODE-021
 SIZE......................BBCODE-022
 Spoiler...................BBCODE-023
 Block.....................BBCODE-024
+Text Message..............BBCODE-025
 */
 
 @import "common/foundation/variables";
@@ -1002,5 +1003,81 @@ p {
     height: 75px;
     background-size: 50px;
     background-position: 25px center;
+  }
+}
+
+/*************************************************
+*** Text Message                     BBCODE-025***
+*************************************************/
+
+.bbcode-textmessage {
+  background: url("/plugins/discourse-rpn-bbcode/images/textmessagebox.png");
+  width: 227px;
+  height: 450px;
+  line-height: 14px;
+  position: relative;
+  margin: 0 auto;
+  overflow: hidden;
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, sans-serif;
+
+  > .bbcode-textmessage-name {
+    width: 227px;
+    text-align: center;
+    font-size: 10px;
+    position: absolute;
+    top: 95px;
+  }
+  > .bbcode-textmessage-overflow {
+    position: absolute;
+    top: 114px;
+    left: 18px;
+    width: 194px;
+    height: 235px;
+    overflow-x: hidden;
+  }
+
+  .bbcode-textmessage-content {
+    margin-top: 10px;
+
+    .bbcode-message-them,
+    .bbcode-message-me {
+      font-size: 12px;
+      position: relative;
+      width: 150px;
+      clear: both;
+      padding: 5px;
+      margin: 0 5px 10px;
+      border-radius: 8px;
+
+      &::before {
+        content: "";
+        height: 10px;
+        width: 9px;
+        position: absolute;
+        bottom: 0;
+      }
+    }
+
+    .bbcode-message-me {
+      background: #30c61f;
+      color: white;
+      float: right;
+
+      &::before {
+        background: url("/plugins/discourse-rpn-bbcode/images/textmessagecolorarrow.png");
+        right: -4px;
+      }
+    }
+
+    .bbcode-message-them {
+      background: blue;
+      color: white;
+      float: left;
+
+      &::before {
+        background: url("/plugins/discourse-rpn-bbcode/images/textmessagegreyarrow.png");
+        left: -4px;
+      }
+    }
   }
 }

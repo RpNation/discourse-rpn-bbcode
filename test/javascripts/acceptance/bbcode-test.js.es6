@@ -213,6 +213,14 @@ acceptance("RpN BBCode", function (needs) {
         '<div class="bbcode-message-me">message from sender</div></div></div></div>',
       "text message works"
     );
+    assert.cookedBlock(
+      "[textmessage=Recipient][message=left]message from Recipient[/message][message=right]message from sender[/message][/textmessage]",
+      '<div class="bbcode-textmessage"><div class="bbcode-textmessage-name">Recipient</div>' +
+        '<div class="bbcode-textmessage-overflow"><div class="bbcode-textmessage-content">' +
+        '<div class="bbcode-message-them">message from Recipient</div>' +
+        '<div class="bbcode-message-me">message from sender</div></div></div></div>',
+      "left right options work"
+    );
   });
   test("font tag [font]", function (assert) {
     const BUILT_IN_FONTS = [

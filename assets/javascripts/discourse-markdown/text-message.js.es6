@@ -51,7 +51,7 @@ function setupMarkdownIt(md) {
   INLINE_RULER.push("message", {
     tag: "message",
     replace: function (state, tagInfo, content) {
-      let option = tagInfo.attrs["_default"] ?? "me";
+      let option = (tagInfo.attrs["_default"] !== undefined && tagInfo.attrs["_default"] !== null) ? tagInfo.attrs["_default"] : "me";
       if (option === "left") {
         option = "them";
       }

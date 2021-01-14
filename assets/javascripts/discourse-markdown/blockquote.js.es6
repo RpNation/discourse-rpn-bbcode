@@ -14,7 +14,7 @@ function setupMarkdownIt(md) {
   BLOCK_RULER.push("blockquote", {
     tag: "blockquote",
     replace: function (state, tagInfo, content) {
-      let author = tagInfo.attrs["_default"] ?? "";
+      let author = (tagInfo.attrs["_default"] !== undefined && tagInfo.attrs["_default"] !== null) ? tagInfo.attrs["_default"] : "";
       let token = state.push("div_open", "div", 1);
       token.attrs = [["class", "bbcode-blockquote"]];
 

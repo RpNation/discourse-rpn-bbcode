@@ -304,6 +304,13 @@ acceptance("RpN BBCode", function (needs) {
       "progress bar works"
     );
   });
+  test("thin progress tag [thinprogress]", function (assert) {
+    assert.cookedBlock(
+      "[thinprogress=50]progress bar[/thinprogress]",
+      '<div class="bbcode-progress-thin"><div class="bbcode-progress-text">progress bar</div><div class="bbcode-progress-bar" style="width: 50%;"></div><div class="bbcode-progress-bar-other"></div></div>',
+      "progress bar works"
+    );
+  });
   test("note tag [note]", function (assert) {
     assert.cookedBlock(
       "[note]inline text[/note]",

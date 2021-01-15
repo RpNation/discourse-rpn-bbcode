@@ -291,85 +291,104 @@ p {
 .bbcode-email {
   border: 1px solid #2980b9;
   width: calc(100% - 2px);
+  background: #2980b9;
   position: relative;
+}
 
-  .bbcode-email-top {
-    height: 30px;
-    line-height: 30px;
-    background-color: #2980b9;
-    background-image: url("/plugins/discourse-rpn-bbcode/images/email-top.png");
-    background-repeat: no-repeat;
-    background-position: 100%;
-    color: white;
-    padding: 0 10px;
-    display: block;
-  }
+.bbcode-email-top-send,
+.bbcode-email-top-receive {
+  height: 30px;
+  line-height: 30px;
+  background-color: #2980b9;
+  background-image: url("/plugins/discourse-rpn-bbcode/images/email-top.png");
+  background-repeat: no-repeat;
+  background-position: 100%;
+  color: #2980b9;
+  padding: 0 10px;
+  display: none;
+}
 
-  .bbcode-email-address,
-  .bbcode-email-subject {
-    color: currentColor;
-    height: 35px;
-    line-height: 35px;
-    padding: 0 10px;
-    border-bottom: 1px solid #2980b9;
-    &::before {
-      color: #2980b9;
-    }
-  }
-  .bbcode-email-address::after {
-    content: "Cc    Bcc";
-    position: absolute;
-    right: 10px;
-    color: #2980b9;
-  }
-  .bbcode-email-subject::before {
-    content: "Subject: ";
-  }
+.bbcode-email-receive .bbcode-email-top-receive,
+.bbcode-email-send .bbcode-email-top-send,
+.bbcode-email .bbcode-email-top-send {
+  display: block;
+  color: white;
+}
+.bbcode-email-receive .bbcode-email-top-send {
+  display: none;
+}
 
-  .bbcode-email-content {
-    padding: 10px;
-  }
+.bbcode-email-first-row,
+.bbcode-email-second-row {
+  color: #2980b9;
+  height: 35px;
+  line-height: 35px;
+  padding: 0 10px;
+  border-bottom: 1px solid #2980b9;
+}
 
-  &[data-bbcode-email="send"] {
-    .bbcode-email-top::before {
-      content: "Send New Email";
-    }
-    .bbcode-email-address::before {
-      content: "To: ";
-    }
-    .bbcode-email-button::before {
-      content: "Send";
-    }
-  }
-  &[data-bbcode-email="receive"] {
-    .bbcode-email-top::before {
-      content: "New Email Received";
-    }
-    .bbcode-email-address::before {
-      content: "From: ";
-    }
-    .bbcode-email-button::before {
-      content: "Reply";
-    }
-  }
+.bbcode-email-send .bbcode-email-first-row:before,
+.bbcode-email .bbcode-email-first-row:before {
+  content: "To:";
+}
+.bbcode-email-send .bbcode-email-receive .bbcode-email-receive .bbcode-email-first-row:after,
+.bbcode-email-first-row:after {
+  content: "Cc    Bcc";
+  position: absolute;
+  right: 10px;
+}
+.bbcode-email-receive .bbcode-email-first-row:before {
+  content: "From:";
+}
+.bbcode-email-second-row:before {
+  content: "Subject:";
+}
+.bbcode-email-person,
+.bbcode-email-subject {
+  height: 35px;
+  line-height: 35px;
+  position: absolute;
+}
+.bbcode-email-person {
+  left: 40px;
+  top: 30px;
+}
+.bbcode-email-receive .bbcode-email-person {
+  left: 58px;
+}
+.bbcode-email-subject {
+  left: 70px;
+  top: 66px;
+}
 
-  .bbcode-email-footer {
-    height: 40px;
-    line-height: 40px;
-    background: #2980b9;
-    border-top: 1px solid #2980b9;
-  }
+.bbcode-email-main {
+  padding: 10px;
+}
 
-  .bbcode-email-button {
-    background: white;
-    color: #2980b9;
-    border-radius: 8px;
-    width: 80px;
-    margin: 5px;
-    height: 30px;
-    line-height: 30px;
-    text-align: center;
-  }
+.bbcode-email-footer {
+  height: 40px;
+  line-height: 40px;
+  background: #2980b9;
+  border-top: 1px solid #2980b9;
+}
+
+.bbcode-email-button {
+  background: #2980b9;
+  color: black;
+  border-radius: 8px;
+  width: 80px;
+  margin: 5px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+}
+
+.bbcode-email-button:before {
+  content: "Send";
+}
+
+.bbcode-email-receive .bbcode-email-button:before {
+  content: "Reply";
 }
 
 /*************************************************

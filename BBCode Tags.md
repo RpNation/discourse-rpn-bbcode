@@ -295,18 +295,24 @@ Valid fonts also include [Google Fonts](https://fonts.google.com/).
 </div>
 ```
 
-## TAG-019: Progress
+## TAG-019: Progress & Thin Progress
 
 `value`: percentage
 
 ```
 [progress=value]inline text[/progress]
+[thinprogress=value]inline text[/thinprogress]
 ```
 
 ```html
 <div class="bbcode-progress">
   <div class="bbcode-progress-text">inline text</div>
   <div class="bbcode-progress-bar" style="width: calc(value% - 6px);"></div>
+  <div class="bbcode-progress-bar-other"></div>
+</div>
+<div class="bbcode-progress-thin">
+  <div class="bbcode-progress-text">inline text</div>
+  <div class="bbcode-progress-bar" style="width: value%;"></div>
   <div class="bbcode-progress-bar-other"></div>
 </div>
 ```

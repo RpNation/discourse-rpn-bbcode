@@ -336,44 +336,34 @@ Valid fonts also include [Google Fonts](https://fonts.google.com/).
 ## TAG-021: Mail
 
 ```
-[mail=send]
-[person]Name[/person]
-[subject]subject title[/subject]
-inline text
+[mail type=send person=Name subject="Subject Title"]
+lorem ipsum
 [/mail]
 
-[mail=receive]
-[person]Name[/person]
-[subject]subject title[/subject]
-inline text
+[mail type=receive person=Name subject="Subject Title"]
+lorem ipsum
 [/mail]
 ```
 
 ```html
-<div class="bbcode-email-send">
-  <div class="bbcode-email-top-send">Send New Email</div>
-  <div class="bbcode-email-first-row"></div>
-  <div class="bbcode-email-second-row"></div>
-  <div class="bbcode-email-main">
-    <div class="bbcode-email-person">Name</div>
-    <div class="bbcode-email-subject">subject title</div>
-    inline text
+<div class="bbcode-email" data-bbcode-email="send">
+  <div class="bbcode-email-top"></div>
+  <div class="bbcode-email-address">Name</div>
+  <div class="bbcode-email-subject">Subject Title</div>
+  <div class="bbcode-email-content">lorem ipsum</div>
+  <div class="bbcode-email-footer">
+    <div class="bbcode-email-button"></div>
   </div>
-  <div class="bbcode-email-footer"></div>
-  <div class="bbcode-email-button"></div>
 </div>
 
-<div class="bbcode-email-send">
-  <div class="bbcode-email-top-receive">New Email Received</div>
-  <div class="bbcode-email-first-row"></div>
-  <div class="bbcode-email-second-row"></div>
-  <div class="bbcode-email-main">
-    <div class="bbcode-email-person">Name</div>
-    <div class="bbcode-email-subject">subject title</div>
-    inline text
+<div class="bbcode-email" data-bbcode-email="receive">
+  <div class="bbcode-email-top"></div>
+  <div class="bbcode-email-address">Name</div>
+  <div class="bbcode-email-subject">Subject Title</div>
+  <div class="bbcode-email-content">lorem ipsum</div>
+  <div class="bbcode-email-footer">
+    <div class="bbcode-email-button"></div>
   </div>
-  <div class="bbcode-email-footer"></div>
-  <div class="bbcode-email-button"></div>
 </div>
 ```
 

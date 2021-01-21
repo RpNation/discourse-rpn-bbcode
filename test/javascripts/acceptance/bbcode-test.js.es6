@@ -318,11 +318,16 @@ acceptance("RpN BBCode", function (needs) {
       "note works"
     );
   });
-  test("mail tag [mail][person][subject]", function (assert) {
+  test("mail tag [mail]", function (assert) {
     assert.cookedBlock(
-      "[mail=send]\n[person]Name[/person]\n[subject]subject title[/subject]\ninline text[/mail]",
-      '<div class="bbcode-email-send"><div class="bbcode-email-top-send">Send New Email</div><div class="bbcode-email-first-row"></div><div class="bbcode-email-second-row"></div><div class="bbcode-email-main"><div class="bbcode-email-person">Name</div><div class="bbcode-email-subject">subject title</div><p>inline text</p></div><div class="bbcode-email-footer"></div><div class="bbcode-email-button"></div></div>',
+      "[mail type=send person=Name subject='Subject Title']\nlorem ipsum\n[/mail]",
+      '<div class="bbcode-email" data-bbcode-email="send"><div class="bbcode-email-top"></div><div class="bbcode-email-address">Name</div><div class="bbcode-email-subject">Subject Title</div><div class="bbcode-email-content"><p>lorem ipsum</p></div><div class="bbcode-email-footer"><div class="bbcode-email-button"></div></div></div>',
       "send option works"
+    );
+    assert.cookedBlock(
+      "[mail type=receive person=Name subject='Subject Title']\nlorem ipsum\n[/mail]",
+      '<div class="bbcode-email" data-bbcode-email="receive"><div class="bbcode-email-top"></div><div class="bbcode-email-address">Name</div><div class="bbcode-email-subject">Subject Title</div><div class="bbcode-email-content"><p>lorem ipsum</p></div><div class="bbcode-email-footer"><div class="bbcode-email-button"></div></div></div>',
+      "receive option works"
     );
   });
   test("newspaper tag [newspaper]", function (assert) {

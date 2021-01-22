@@ -23,7 +23,7 @@ function setupMarkdownIt(md) {
 
   BLOCK_RULER.push("font", {
     tag: "font",
-    replace: function (state, tagInfo, content) {
+    before: function (state, tagInfo) {
       const fontFamily =
         tagInfo.attrs["_default"] || tagInfo.attrs["family"] || tagInfo.attrs["name"];
       const fontColor = tagInfo.attrs["color"];
@@ -36,11 +36,9 @@ function setupMarkdownIt(md) {
 
       token = state.push("div_open", "div", 1);
       token.attrs = generateFontTagAttributes(fontFamily, fontSize, fontColor);
-      token = state.push("inline", "", 0);
-      token.content = content;
-      token.children = [];
+    },
+    after: function (state) {
       state.push("div_close", "div", -1);
-      return true;
     },
   });
 
@@ -65,7 +63,7 @@ function setupMarkdownIt(md) {
       const contentLength = splitContent.length - 1;
 
       for (let i = 0; i <= contentLength; ++i) {
-        token = state.push("text", "", 0);
+        token = state.push("inline", "", 0);
         token.content = splitContent[i];
 
         if (i !== contentLength) {

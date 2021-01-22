@@ -550,4 +550,11 @@ acceptance("RpN BBCode", function (needs) {
       "goto tag works"
     );
   });
+  test("height restrict [heightrestrict]", function (assert) {
+    assert.cookedBlock(
+      "[heightrestrict=100]\ntext\n[/heightrestrict]",
+      '<div class="bbcode-height-restrict" style="height: 100px;"><p>text</p></div>',
+      "height restrict works"
+    );
+  });
 });

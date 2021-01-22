@@ -24,6 +24,7 @@ SIZE......................BBCODE-022
 Spoiler...................BBCODE-023
 Block.....................BBCODE-024
 Text Message..............BBCODE-025
+Height Restrict...........BBCODE-026
 */
 
 @import "common/foundation/variables";
@@ -1071,5 +1072,17 @@ p {
         left: -4px;
       }
     }
+  }
+}
+
+/*************************************************
+*** Height Restrict                  BBCODE-026***
+*************************************************/
+.bbcode-height-restrict {
+  & > *,
+  .image-wrapper,
+  img {
+    height: 100% !important; //this is needed in order to overcome the sizing that discourse does on its own to images
+    width: auto !important;
   }
 }

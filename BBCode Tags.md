@@ -563,3 +563,13 @@ If icon style is not given, defaults to `far`
 
 <a href="#user-anchor-TAG">inline text</a>
 ```
+
+## TAG-035: Height Restrict
+
+```
+[heightrestrict=#]img[/heightrestrict]
+```
+
+```html
+<div class="bbcode-height-restrict" style="height: #px;">img</div>
+```

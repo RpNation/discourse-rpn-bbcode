@@ -236,37 +236,43 @@ acceptance("RpN BBCode", function (needs) {
     BUILT_IN_FONTS.forEach((font) => {
       assert.cookedInline(
         `[font=${font}]font[/font]`,
-        `<span style="font-family:${font},Helvetica,Arial,sans-serif;">font</span>`,
+        `<span style="font-family: ${font},Helvetica,Arial,sans-serif;">font</span>`,
         `inline built in ${font} fonts work`
       );
     });
     BUILT_IN_FONTS.forEach((font) => {
       assert.cookedBlock(
         `[font=${font}]\nfont\n[/font]`,
-        `<div style="font-family:${font},Helvetica,Arial,sans-serif;"><p>font</p></div>`,
+        `<div style="font-family: ${font},Helvetica,Arial,sans-serif;"><p>font</p></div>`,
         "block built in fonts work"
       );
     });
-    assert.cookedBlock(
+    assert.cooked(
       "[font=Playfair Display]google font[/font]",
-      '<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css2?family=Playfair+Display">' +
-        '<div style="font-family:Playfair Display,Helvetica,Arial,sans-serif;"><p>google font</p></div>',
+      '<div style="font-family: Playfair Display,Helvetica,Arial,sans-serif;" data-bbcode-gfont="Playfair+Display"><p>google font</p></div>' +
+        '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display" data-rendered-gfont="Playfair+Display">',
       "google font works"
     );
     assert.cookedInline(
       '[font name="arial"]font[/font]',
-      '<span style="font-family:arial,Helvetica,Arial,sans-serif;">font</span>',
+      '<span style="font-family: arial,Helvetica,Arial,sans-serif;">font</span>',
       "name option works"
     );
     assert.cookedInline(
       '[font family="arial"]font[/font]',
-      '<span style="font-family:arial,Helvetica,Arial,sans-serif;">font</span>',
+      '<span style="font-family: arial,Helvetica,Arial,sans-serif;">font</span>',
       "family option works"
     );
     assert.cookedInline(
       '[font family="arial" size="12px" color="red"]font[/font]',
-      '<span style="font-family:arial,Helvetica,Arial,sans-serif;font-size:12px;color:red;">font</span>',
+      '<span style="font-family: arial,Helvetica,Arial,sans-serif;font-size:12px;color:red;">font</span>',
       "multi option (name, size, color) works"
+    );
+    assert.cooked(
+      '[font family="Raleway" weight=500 italics=true]google font[/font]',
+      '<div style="font-family: Raleway,Helvetica,Arial,sans-serif;font-style: italic;font-weight: 500;" data-bbcode-gfont="Raleway:ital@1,wght@500"><p>google font</p></div>' +
+        '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Raleway:ital@1,wght@500" data-rendered-gfont="Raleway:ital@1,wght@500">',
+      "multi option (family weight (numeric) italics) works with google fonts"
     );
   });
   test("block tag [block]", function (assert) {

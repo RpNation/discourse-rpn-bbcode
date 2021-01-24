@@ -28,7 +28,7 @@ For documentation, see [wiki](https://github.com/Ghan04/discourse-rpn-bbcode/wik
 |        Super Script<sup>3</sup> ⌨️        |     Tables ☠️     |                        |        Mail ✔️        |
 |          Google Font Library ✔️           |  Center Block ❓  |                        |     Newspaper 🚧      |
 |        HTML Comment<sup>4</sup> ⌨️        |   Background ✔️   |                        |       Checks ✔️       |
-|            Paragraph Indent ✔️            |     Border ✔️     |                        | Font Awesome Icons 🚧 |
+|            Paragraph Indent ✔️            |     Border ✔️     |                        | Font Awesome Icons ✔️ |
 | Bold, Italic, Underline, Strikethrough Ⓜ️ |   Accordions ✔️   |                        |        OOC ✔️         |
 |                 Color ✔️                  |   Scroll Box ✔️   |                        |                       |
 |               Font Size ✔️                |    Div Box ❓     |                        |                       |

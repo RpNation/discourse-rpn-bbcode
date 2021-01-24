@@ -42,7 +42,8 @@ function generateFontTagAttributes({
   color,
   size,
   weight,
-  italics,
+  italic,
+  italics = italic, //default support both as it can get confusing
 }) {
   let fontAttributes = [];
   let dataValue = "";

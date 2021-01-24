@@ -8,6 +8,10 @@ import { withPluginApi } from "discourse/lib/plugin-api";
  * @param {HTMLElement} post the post itself
  */
 function addGoogleFont(post) {
+  // Cleans up post if we're editing
+  const priorLinks = post.querySelectorAll("link[data-rendered-gfont]");
+  priorLinks.forEach((oldLink) => post.removeChild(oldLink));
+
   const elements = post.querySelectorAll("[data-bbcode-gfont]");
   if (!elements.length) {
     return;
@@ -21,9 +25,7 @@ function addGoogleFont(post) {
       gFonts.push(data);
     }
   });
-  // Cleans up post if we're editing
-  const priorLinks = post.querySelectorAll("link[data-rendered-gfont]");
-  priorLinks.forEach((oldLink) => post.removeChild(oldLink));
+
   post.appendChild(frag);
 }
 

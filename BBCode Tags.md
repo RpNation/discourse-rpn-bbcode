@@ -240,21 +240,42 @@ Valid fonts also include [Google Fonts](https://fonts.google.com/).
 
 ```html
 <div style="font-family: built in, Helvetica, Arial, sans-serif;">this is a built in font</div>
-<div style="font-family: Google Font, Helvetica, Arial, sans-serif;">this is a google font</div>
-<link rel=stylesheet type=text/css href="https://fonts.googleapis.com/css2?family=Google+Font">
+<div
+  style="font-family: Google Font, Helvetica, Arial, sans-serif;"
+  data-bbcode-gfont="Google+Font"
+>
+  this is a google font
+</div>
+<link rel=stylesheet type=text/css href="https://fonts.googleapis.com/css2?family=Google+Font"
+data-rendered-gfont="Google+Font">
 ```
 
 **Multi Options**  
 :exclamation: `color` and `size` are both optional. Only `family` or `name` is required.  
 `family` and `name` do the same thing.
 
-`valid size`: Must match [TAG-031: Size] constraints.
+`valid size`: Must match [TAG-031: Size] constraints.  
+`VALUE`: font-weight. Either a numeric within 1-1000 inclusive, or a phrase as below:
+
+> thin  
+> extra-light  
+> light  
+> regular  
+> medium  
+> semi-bold  
+> bold  
+> extra-bold  
+> black
+
+The `italics` option can also be just `italic`, as to prevent confusion.
 
 ```
 [font name="font"]multi[/font]
 [font family="font"]multi[/font]
 
 [font name="font" color="valid css color" size="valid size"]optional[/font]
+
+[font family="gfont" weight=VALUE italics=true]font styles[/font]
 ```
 
 ```html
@@ -265,6 +286,16 @@ Valid fonts also include [Google Fonts](https://fonts.google.com/).
 >
   optional
 </div>
+
+<div
+  style="font-family: gfont, Helvertica, Arial, sans-serif; font-style: italic; font-weight: VALUE;"
+  data-bbcode-gfont="gfont:ital@1,wght@VALUE"
+>
+  font styles
+</div>
+<link rel=stylesheet type=text/css
+href="https://fonts.googleapis.com/css2?family=gfont:ital@1,wght@VALUE"
+data-rendered-gfont="gfont:ital@1,wght@VALUE">
 ```
 
 ## TAG-018: Block

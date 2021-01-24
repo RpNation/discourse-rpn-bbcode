@@ -289,13 +289,13 @@ The `italics` option can also be just `italic`, as to prevent confusion.
 
 <div
   style="font-family: gfont, Helvertica, Arial, sans-serif; font-style: italic; font-weight: VALUE;"
-  data-bbcode-gfont="gfont:ital@1,wght@VALUE"
+  data-bbcode-gfont="gfont:ital,wght@1,VALUE"
 >
   font styles
 </div>
 <link rel=stylesheet type=text/css
 href="https://fonts.googleapis.com/css2?family=gfont:ital@1,wght@VALUE"
-data-rendered-gfont="gfont:ital@1,wght@VALUE">
+data-rendered-gfont="gfont:ital,wght@1,VALUE">
 ```
 
 ## TAG-018: Block

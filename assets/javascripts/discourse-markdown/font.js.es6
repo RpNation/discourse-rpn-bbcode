@@ -61,7 +61,7 @@ function generateFontTagAttributes({
   if (italics) {
     styleValue += "font-style: italic;";
     if (googleFont) {
-      dataValue += ":ital@1";
+      dataValue += ":ital";
     }
   }
 
@@ -76,7 +76,9 @@ function generateFontTagAttributes({
     }
     styleValue += `font-weight: ${translatedWeight};`;
     if (googleFont) {
-      dataValue += (dataValue.endsWith(":ital@1") ? "," : ":") + "wght@" + translatedWeight;
+      dataValue += `${dataValue.endsWith(":ital") ? "," : ":"}wght@${
+        dataValue.endsWith(":ital") ? "1," : ""
+      }${translatedWeight}`;
     }
   }
 

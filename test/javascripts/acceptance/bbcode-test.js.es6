@@ -270,8 +270,8 @@ acceptance("RpN BBCode", function (needs) {
     );
     assert.cooked(
       '[font family="Raleway" weight=500 italics=true]google font[/font]',
-      '<div style="font-family: Raleway,Helvetica,Arial,sans-serif;font-style: italic;font-weight: 500;" data-bbcode-gfont="Raleway:ital@1,wght@500"><p>google font</p></div>' +
-        '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Raleway:ital@1,wght@500" data-rendered-gfont="Raleway:ital@1,wght@500">',
+      '<div style="font-family: Raleway,Helvetica,Arial,sans-serif;font-style: italic;font-weight: 500;" data-bbcode-gfont="Raleway:ital,wght@1,500"><p>google font</p></div>' +
+        '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@1,500" data-rendered-gfont="Raleway:ital,wght@1,500">',
       "multi option (family weight (numeric) italics) works with google fonts"
     );
   });

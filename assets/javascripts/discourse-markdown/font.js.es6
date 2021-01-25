@@ -61,7 +61,7 @@ function generateFontTagAttributes({
   if (italics) {
     styleValue += "font-style: italic;";
     if (googleFont) {
-      dataValue += ":ital";
+      dataValue += ":ital" + (weight ? "" : "@1");
     }
   }
 

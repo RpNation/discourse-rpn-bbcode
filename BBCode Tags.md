@@ -88,14 +88,16 @@
 </div>
 ```
 
-## TAG-008: NOBR
+## TAG-008: NOBR & BR
 
 ```
 [nobr]lorem ipsum[/nobr]
+[br][/br]
 ```
 
 ```html
 <!--replaces all line breaks with spaces in lorem ipsum-->
+<br data-bbcode-nobr-ignore="true" />
 ```
 
 ## TAG-009: Divide

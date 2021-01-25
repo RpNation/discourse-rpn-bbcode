@@ -114,7 +114,13 @@ acceptance("RpN BBCode", function (needs) {
       "scroll works"
     );
   });
-  //skip nobr
+  test("nobr tag with br [nobr][br]", function (assert) {
+    assert.cookedBlock(
+      "[nobr]\ntext text text\n[br][/br]\ntext text text\n[/nobr]",
+      '<div data-bbcode-nobr="true">text text text<br data-bbcode-nobr-ignore="true">text text text</div>',
+      "nobr works"
+    );
+  });
   test("divide tag [divide]", function (assert) {
     assert.cookedInline(
       "[divide]inline text[/divide]",

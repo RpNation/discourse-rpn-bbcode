@@ -34,7 +34,7 @@ For documentation, see [wiki](https://github.com/Ghan04/discourse-rpn-bbcode/wik
 |               Font Size ✔️                |    Div Box ❓     |                        |                       |
 |          Left, Center, Right 🚧           |    Anchors ✔️     |                        |                       |
 |                Spoiler ✔️                 | Rows & Columns 🚧 |                        |                       |
-|                  NOBR 🚧                  |                   |                        |                       |
+|                  NOBR ✔️                  |                   |                        |                       |
 |             Inline Spoiler 🚧             |                   |                        |                       |
 
 <sup>1</sup> Headers & Subheaders can be rebaked into the equivalent number of #

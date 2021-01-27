@@ -44,3 +44,7 @@ For documentation, see [wiki](https://github.com/Ghan04/discourse-rpn-bbcode/wik
 <sup>3</sup> This bbcode is no longer needed. Discourse accepts the proper HTML comment tag in the Markdown engine. Example: `<sub>2</sub>`
 
 <sup>4</sup> This bbcode is no longer needed. Discourse accepts the proper HTML comment tag in the Markdown engine. Example: `<!--This is a comment. Comments are not displayed in the browser-->`
+
+### Text Replacement Method: List of completed tags:
+
+- color

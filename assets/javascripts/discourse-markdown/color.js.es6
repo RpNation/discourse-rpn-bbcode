@@ -35,15 +35,18 @@ function setupMarkdownIt(md) {
     matcher: /(\[color=(.*?)\])/gi,
     onMatch: function (buffer, matches, state) {
       const tagInfo = parseBBCodeTag(matches[0], 0, matches[0].length);
-      let token = new state.Token("span_open", "span", 1);
-      token.attrs = [["style", `color:${tagInfo.attrs["_default"]}`]];
+      let token = new state.Token("div_open", "div", 1);
+      token.attrs = [
+        ["style", `color:${tagInfo.attrs["_default"]}`],
+        ["class", "bbcode-inline"],
+      ];
       buffer.push(token);
     },
   });
   TEXT_RULER.push("color_close", {
     matcher: /(\[\/color\])/gi,
     onMatch: function (buffer, matches, state) {
-      let token = new state.Token("span_close", "span", -1);
+      let token = new state.Token("div_close", "div", -1);
       buffer.push(token);
     },
   });
@@ -51,6 +54,7 @@ function setupMarkdownIt(md) {
 }
 
 export function setup(helper) {
+  helper.allowList(["div.bbcode-inline"]);
   helper.allowList({
     custom(tag, name, value) {
       if ((tag === "div" || tag === "span") && name === "style") {

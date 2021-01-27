@@ -3,6 +3,7 @@
  * @example [color=red]text[/color]
  */
 import { registerOption } from "pretty-text/pretty-text";
+import { parseBBCodeTag } from "pretty-text/engines/discourse-markdown/bbcode-block";
 import { wrap } from "./bbcode-helpers";
 
 registerOption(
@@ -12,6 +13,7 @@ registerOption(
 function setupMarkdownIt(md) {
   const INLINE_RULER = md.inline.bbcode.ruler;
   const BLOCK_RULER = md.block.bbcode.ruler;
+  const TEXT_RULER = md.core.textPostProcess.ruler;
 
   BLOCK_RULER.push("color", {
     tag: "color",
@@ -28,6 +30,24 @@ function setupMarkdownIt(md) {
     tag: "color",
     wrap: wrap("span", "style", (tagInfo) => `color:${tagInfo.attrs["_default"]}`),
   });
+
+  TEXT_RULER.push("color_open", {
+    matcher: /(\[color=(.*?)\])/gi,
+    onMatch: function (buffer, matches, state) {
+      const tagInfo = parseBBCodeTag(matches[0], 0, matches[0].length);
+      let token = new state.Token("span_open", "span", 1);
+      token.attrs = [["style", `color:${tagInfo.attrs["_default"]}`]];
+      buffer.push(token);
+    },
+  });
+  TEXT_RULER.push("color_close", {
+    matcher: /(\[\/color\])/gi,
+    onMatch: function (buffer, matches, state) {
+      let token = new state.Token("span_close", "span", -1);
+      buffer.push(token);
+    },
+  });
+  md.utils.isWhiteSpace = () => true; //lets the text rulers not need white space padding to be parsed
 }
 
 export function setup(helper) {

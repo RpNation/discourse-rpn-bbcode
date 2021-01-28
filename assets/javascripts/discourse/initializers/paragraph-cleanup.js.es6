@@ -22,7 +22,7 @@ function removePara(post) {
  * @param api
  */
 function initializeParaClean(api) {
-  api.decorateCookedElement((elem) => removePara(elem), { id: "cleans up orphaned p tags" });
+  // api.decorateCookedElement((elem) => removePara(elem), { id: "cleans up orphaned p tags" });
 }
 
 export default {

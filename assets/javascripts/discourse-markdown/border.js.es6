@@ -48,7 +48,7 @@ function setupMarkdownIt(md) {
       buffer.push(token);
     },
   });
-  md.utils.isWhiteSpace = () => true; //lets the text rulers not need white space padding to be parsed
+  // md.utils.isWhiteSpace = () => true; //lets the text rulers not need white space padding to be parsed
 }
 
 export function setup(helper) {

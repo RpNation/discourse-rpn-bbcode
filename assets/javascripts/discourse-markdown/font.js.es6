@@ -108,36 +108,36 @@ function generateFontTagAttributes({
 }
 
 function setupMarkdownIt(md) {
-  const INLINE_RULER = md.inline.bbcode.ruler;
-  const BLOCK_RULER = md.block.bbcode.ruler;
+  // const INLINE_RULER = md.inline.bbcode.ruler;
+  // const BLOCK_RULER = md.block.bbcode.ruler;
   const TEXT_RULER = md.core.textPostProcess.ruler;
 
-  BLOCK_RULER.push("font", {
-    tag: "font",
-    before: function (state, tagInfo) {
-      let token = state.push("div_open", "div", 1);
-      token.attrs = generateFontTagAttributes(tagInfo.attrs);
-    },
-    after: function (state) {
-      state.push("div_close", "div", -1);
-    },
-  });
+  // BLOCK_RULER.push("font", {
+  //   tag: "font",
+  //   before: function (state, tagInfo) {
+  //     let token = state.push("div_open", "div", 1);
+  //     token.attrs = generateFontTagAttributes(tagInfo.attrs);
+  //   },
+  //   after: function (state) {
+  //     state.push("div_close", "div", -1);
+  //   },
+  // });
 
-  INLINE_RULER.push("font", {
-    tag: "font",
-    wrap: function (startToken, endToken, tagInfo) {
-      startToken.type = "span_open";
-      startToken.tag = "span";
-      startToken.attrs = generateFontTagAttributes(tagInfo.attrs);
-      startToken.nesting = 1;
-      startToken.content = "";
+  // INLINE_RULER.push("font", {
+  //   tag: "font",
+  //   wrap: function (startToken, endToken, tagInfo) {
+  //     startToken.type = "span_open";
+  //     startToken.tag = "span";
+  //     startToken.attrs = generateFontTagAttributes(tagInfo.attrs);
+  //     startToken.nesting = 1;
+  //     startToken.content = "";
 
-      endToken.type = "span_close";
-      endToken.tag = "span";
-      endToken.content = "";
-      endToken.nesting = -1;
-    },
-  });
+  //     endToken.type = "span_close";
+  //     endToken.tag = "span";
+  //     endToken.content = "";
+  //     endToken.nesting = -1;
+  //   },
+  // });
 
   TEXT_RULER.push("font_open", {
     matcher: /(\[font[= ](.*?)\])/gi,

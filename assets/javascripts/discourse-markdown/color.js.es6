@@ -11,25 +11,25 @@ registerOption(
 );
 
 function setupMarkdownIt(md) {
-  const INLINE_RULER = md.inline.bbcode.ruler;
-  const BLOCK_RULER = md.block.bbcode.ruler;
+  // const INLINE_RULER = md.inline.bbcode.ruler;
+  // const BLOCK_RULER = md.block.bbcode.ruler;
   const TEXT_RULER = md.core.textPostProcess.ruler;
 
-  BLOCK_RULER.push("color", {
-    tag: "color",
-    before: function (state, tagInfo) {
-      let token = state.push("div_open", "div", 1);
-      token.attrs = [["style", `color:${tagInfo.attrs["_default"]}`]];
-    },
-    after: function (state) {
-      state.push("div_close", "div", -1);
-    },
-  });
+  // BLOCK_RULER.push("color", {
+  //   tag: "color",
+  //   before: function (state, tagInfo) {
+  //     let token = state.push("div_open", "div", 1);
+  //     token.attrs = [["style", `color:${tagInfo.attrs["_default"]}`]];
+  //   },
+  //   after: function (state) {
+  //     state.push("div_close", "div", -1);
+  //   },
+  // });
 
-  INLINE_RULER.push("color", {
-    tag: "color",
-    wrap: wrap("span", "style", (tagInfo) => `color:${tagInfo.attrs["_default"]}`),
-  });
+  // INLINE_RULER.push("color", {
+  //   tag: "color",
+  //   wrap: wrap("span", "style", (tagInfo) => `color:${tagInfo.attrs["_default"]}`),
+  // });
 
   TEXT_RULER.push("color_open", {
     matcher: /(\[color=(.*?)\])/gi,

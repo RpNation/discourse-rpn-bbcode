@@ -10,23 +10,23 @@ registerOption(
 );
 
 function setupMarkdownIt(md) {
-  const BLOCK_RULER = md.block.bbcode.ruler;
+  // const BLOCK_RULER = md.block.bbcode.ruler;
   const TEXT_RULER = md.core.textPostProcess.ruler;
 
-  BLOCK_RULER.push("border", {
-    tag: "border",
-    before: function (state, tagInfo) {
-      let styleOption = tagInfo.attrs["_default"];
-      let token = state.push("div_open", "div", 1);
-      token.attrs = [
-        ["class", "bbcode-border"],
-        ["style", "border: " + styleOption],
-      ];
-    },
-    after: function (state) {
-      state.push("div_close", "div", -1);
-    },
-  });
+  // BLOCK_RULER.push("border", {
+  //   tag: "border",
+  //   before: function (state, tagInfo) {
+  //     let styleOption = tagInfo.attrs["_default"];
+  //     let token = state.push("div_open", "div", 1);
+  //     token.attrs = [
+  //       ["class", "bbcode-border"],
+  //       ["style", "border: " + styleOption],
+  //     ];
+  //   },
+  //   after: function (state) {
+  //     state.push("div_close", "div", -1);
+  //   },
+  // });
 
   TEXT_RULER.push("border_open", {
     matcher: /(\[border=((.*?)|(".*?"))\])/gi,

@@ -10,23 +10,23 @@ registerOption(
 );
 
 function setupMarkdownIt(md) {
-  const BLOCK_RULER = md.block.bbcode.ruler;
+  // const BLOCK_RULER = md.block.bbcode.ruler;
   const TEXT_RULER = md.core.textPostProcess.ruler;
 
-  BLOCK_RULER.push("bg", {
-    tag: "bg",
-    before: function (state, tagInfo) {
-      let bgOption = tagInfo.attrs["_default"];
-      let token = state.push("div_open", "div", 1);
-      token.attrs = [
-        ["class", "bbcode-background"],
-        ["style", "background-color: " + bgOption],
-      ];
-    },
-    after: function (state) {
-      state.push("div_close", "div", -1);
-    },
-  });
+  // BLOCK_RULER.push("bg", {
+  //   tag: "bg",
+  //   before: function (state, tagInfo) {
+  //     let bgOption = tagInfo.attrs["_default"];
+  //     let token = state.push("div_open", "div", 1);
+  //     token.attrs = [
+  //       ["class", "bbcode-background"],
+  //       ["style", "background-color: " + bgOption],
+  //     ];
+  //   },
+  //   after: function (state) {
+  //     state.push("div_close", "div", -1);
+  //   },
+  // });
 
   TEXT_RULER.push("bg_open", {
     matcher: /(\[bg=((.*?)|(".*?"))\])/gi,

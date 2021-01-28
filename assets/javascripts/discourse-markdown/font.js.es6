@@ -4,6 +4,7 @@
  * @example [font family="Raleway" weight=number/name italics=true]
  */
 import { registerOption } from "pretty-text/pretty-text";
+import { parseBBCodeTag } from "pretty-text/engines/discourse-markdown/bbcode-block";
 import { parseFontSize } from "./bbcode-helpers";
 
 registerOption((siteSettings, opts) => (opts.features["font"] = !!siteSettings.rpn_bbcode_enabled));
@@ -109,6 +110,7 @@ function generateFontTagAttributes({
 function setupMarkdownIt(md) {
   const INLINE_RULER = md.inline.bbcode.ruler;
   const BLOCK_RULER = md.block.bbcode.ruler;
+  const TEXT_RULER = md.core.textPostProcess.ruler;
 
   BLOCK_RULER.push("font", {
     tag: "font",
@@ -136,10 +138,29 @@ function setupMarkdownIt(md) {
       endToken.nesting = -1;
     },
   });
+
+  TEXT_RULER.push("font_open", {
+    matcher: /(\[font[= ](.*?)\])/gi,
+    onMatch: function (buffer, matches, state) {
+      const tagInfo = parseBBCodeTag(matches[0], 0, matches[0].length);
+      let token = new state.Token("div_open", "div", 1);
+      token.attrs = generateFontTagAttributes(tagInfo.attrs);
+      token.attrJoin("class", "bbcode-inline");
+      buffer.push(token);
+    },
+  });
+  TEXT_RULER.push("font_close", {
+    matcher: /(\[\/font\])/gi,
+    onMatch: function (buffer, matches, state) {
+      let token = new state.Token("div_close", "div", -1);
+      buffer.push(token);
+    },
+  });
+  md.utils.isWhiteSpace = () => true; //lets the text rulers not need white space padding to be parsed
 }
 
 export function setup(helper) {
-  helper.allowList(["div[data-bbcode-gfont=*]", "span[data-bbcode-gfont=*]"]);
+  helper.allowList(["div[data-bbcode-gfont=*]", "span[data-bbcode-gfont=*]", "div.bbcode-inline"]);
   helper.allowList({
     custom(tag, name, value) {
       if ((tag === "div" || tag === "span") && name === "style") {

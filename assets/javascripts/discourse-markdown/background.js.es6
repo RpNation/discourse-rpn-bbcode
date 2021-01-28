@@ -29,7 +29,7 @@ function setupMarkdownIt(md) {
   });
 
   TEXT_RULER.push("bg_open", {
-    matcher: /(\[bg=((.*?)|(".*?"))\])/gi, // support multi line since some people use this for css injection
+    matcher: /(\[bg=((.*?)|(".*?"))\])/gi,
     onMatch: function (buffer, matches, state) {
       const tagInfo = parseBBCodeTag(matches[0], 0, matches[0].length);
       const bgOption = tagInfo.attrs["_default"];

@@ -48,3 +48,4 @@ For documentation, see [wiki](https://github.com/Ghan04/discourse-rpn-bbcode/wik
 ### Text Replacement Method: List of completed tags:
 
 - color
+- bg

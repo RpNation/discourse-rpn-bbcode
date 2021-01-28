@@ -3,6 +3,7 @@
  * @example [bg=red]text[/bg]
  */
 import { registerOption } from "pretty-text/pretty-text";
+import { parseBBCodeTag } from "pretty-text/engines/discourse-markdown/bbcode-block";
 
 registerOption(
   (siteSettings, opts) => (opts.features["background"] = !!siteSettings.rpn_bbcode_enabled)
@@ -10,6 +11,7 @@ registerOption(
 
 function setupMarkdownIt(md) {
   const BLOCK_RULER = md.block.bbcode.ruler;
+  const TEXT_RULER = md.core.textPostProcess.ruler;
 
   BLOCK_RULER.push("bg", {
     tag: "bg",
@@ -25,6 +27,28 @@ function setupMarkdownIt(md) {
       state.push("div_close", "div", -1);
     },
   });
+
+  TEXT_RULER.push("bg_open", {
+    matcher: /(\[bg=((.*?)|(".*?"))\])/gi, // support multi line since some people use this for css injection
+    onMatch: function (buffer, matches, state) {
+      const tagInfo = parseBBCodeTag(matches[0], 0, matches[0].length);
+      const bgOption = tagInfo.attrs["_default"];
+      let token = new state.Token("div_open", "div", 1);
+      token.attrs = [
+        ["class", "bbcode-background"],
+        ["style", "background-color: " + bgOption],
+      ];
+      buffer.push(token);
+    },
+  });
+  TEXT_RULER.push("bg_close", {
+    matcher: /(\[\/bg\])/gi,
+    onMatch: function (buffer, matches, state) {
+      let token = new state.Token("div_close", "div", -1);
+      buffer.push(token);
+    },
+  });
+  md.utils.isWhiteSpace = () => true; //lets the text rulers not need white space padding to be parsed
 }
 
 export function setup(helper) {

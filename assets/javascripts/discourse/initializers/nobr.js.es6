@@ -4,7 +4,7 @@
 import { withPluginApi } from "discourse/lib/plugin-api";
 
 /**
- * Adds relevant font links inside a given post
+ * removes line breaks from nobr
  * @param {HTMLElement} post the post itself
  */
 function removeBr(post) {

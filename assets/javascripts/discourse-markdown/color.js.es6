@@ -4,7 +4,7 @@
  */
 import { registerOption } from "pretty-text/pretty-text";
 import { parseBBCodeTag } from "pretty-text/engines/discourse-markdown/bbcode-block";
-import { wrap } from "./bbcode-helpers";
+// import { wrap } from "./bbcode-helpers";
 
 registerOption(
   (siteSettings, opts) => (opts.features["color"] = !!siteSettings.rpn_bbcode_enabled)

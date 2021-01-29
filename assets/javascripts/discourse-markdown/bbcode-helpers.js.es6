@@ -75,3 +75,20 @@ export function parseFontSize(fontValue) {
   }
   return fontSize;
 }
+
+/**
+ * These following functions help set up the md engine for the TEXT_RULERs for us
+ *
+ * removes boilerplate coding
+ */
+
+function setupMarkdownIt(md) {
+  md.utils.isWhiteSpace = () => true; //lets the text rulers not need white space padding to be parsed
+}
+
+export function setup(helper) {
+  helper.allowList(["div.bbcode-inline-block", "div.bbcode-inline"]);
+  if (helper.markdownIt) {
+    helper.registerPlugin(setupMarkdownIt);
+  }
+}

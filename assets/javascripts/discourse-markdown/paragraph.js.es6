@@ -73,7 +73,7 @@ function paragraph(state, startLine /*, endLine*/) {
     i++;
   }
 
-  content = content.trim();
+  // content = content.trim();
   // END CUSTOM CODE
 
   state.line = nextLine;
@@ -82,7 +82,8 @@ function paragraph(state, startLine /*, endLine*/) {
   // we keep this nonexistent token to keep the original
   // purpose of passing metadata down to the link ruler.
   // The renderer will naturally remove it.
-  token = state.push("nonexistent", "foo", 0);
+  token = state.push("paragraph_open", "p", 1);
+  // token.hidden = true;
   token.map = [startLine, state.line];
   // CUSTOM
   token.leading_space = hasLeadingSpace;
@@ -94,7 +95,7 @@ function paragraph(state, startLine /*, endLine*/) {
   // CUSTOM
   token.leading_space = hasLeadingSpace;
 
-  state.push("softbreak", "br", 0); // RPN CUSTOM
+  state.push("paragraph_close", "p", -1); // RPN CUSTOM
 
   state.parentType = oldParentType;
   return true;
@@ -122,8 +123,18 @@ function isWhiteSpace(code) {
   return false;
 }
 
+function paragraphOpen() {
+  return "";
+}
+
+function paragraphClose(tokens, idx, options /*, env */) {
+  return options.xhtmlOut ? "<br />\n" : "<br>\n";
+}
+
 export function setup(helper) {
   helper.registerPlugin((md) => {
     md.block.ruler.at("paragraph", paragraph);
+    md.renderer.rules.paragraph_open = paragraphOpen;
+    md.renderer.rules.paragraph_close = paragraphClose;
   });
 }

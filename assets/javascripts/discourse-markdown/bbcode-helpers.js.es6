@@ -81,12 +81,12 @@ export function parseFontSize(fontValue) {
  * making paragraph tag disappear
  */
 
-function paragraphOpen() {
-  return "";
+function paragraphOpen(tokens, idx, options /*, env */) {
+  return options.xhtmlOut ? "<br />\n" : "<br>\n";
 }
 
 function paragraphClose(tokens, idx, options /*, env */) {
-  return options.xhtmlOut ? "<br />\n<br />\n" : "<br>\n<br>\n";
+  return options.xhtmlOut ? "<br />\n" : "<br>\n";
 }
 export function setup(helper) {
   helper.allowList(["div.bbcode-inline-block", "div.bbcode-inline"]);

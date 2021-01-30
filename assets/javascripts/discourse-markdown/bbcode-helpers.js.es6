@@ -77,18 +77,21 @@ export function parseFontSize(fontValue) {
 }
 
 /**
- * These following functions help set up the md engine for the TEXT_RULERs for us
- *
- * removes boilerplate coding
+ * The following functions enables better rendering by adding commonly used classes and
+ * making paragraph tag disappear
  */
 
-function setupMarkdownIt(md) {
-  md.utils.isWhiteSpace = () => true; //lets the text rulers not need white space padding to be parsed
+function paragraphOpen() {
+  return "";
 }
 
+function paragraphClose(tokens, idx, options /*, env */) {
+  return options.xhtmlOut ? "<br />\n<br />\n" : "<br>\n<br>\n";
+}
 export function setup(helper) {
   helper.allowList(["div.bbcode-inline-block", "div.bbcode-inline"]);
-  if (helper.markdownIt) {
-    helper.registerPlugin(setupMarkdownIt);
-  }
+  helper.registerPlugin((md) => {
+    md.renderer.rules.paragraph_open = paragraphOpen;
+    md.renderer.rules.paragraph_close = paragraphClose;
+  });
 }

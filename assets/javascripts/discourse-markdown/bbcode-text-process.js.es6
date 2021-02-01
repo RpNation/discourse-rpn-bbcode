@@ -6,6 +6,8 @@
  * This will create a new ruler that does not have the requirements of text replacement containing whitespace boundaries.
  */
 
+const BBCODE_TAG = /\[(.*)\]/;
+
 function BBCodeTextProcess(content, state, ruler) {
   let result = null;
   let match;
@@ -17,6 +19,11 @@ function BBCodeTextProcess(content, state, ruler) {
     // something is wrong
     if (match.index < pos) {
       break;
+    }
+
+    // if match isn't a bbcode tag, skip. Let prev error handler break out of while loop for us.
+    if (!match[0].match(BBCODE_TAG)) {
+      continue;
     }
 
     result = result || [];

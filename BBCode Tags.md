@@ -606,3 +606,17 @@ If icon style is not given, defaults to `far`
 ```html
 <div class="bbcode-height-restrict" style="height: #px;">img</div>
 ```
+
+## TAG-036: Indent
+
+Max value is 5
+
+```
+[indent]text[/indent]
+[indent=3]text[/indent]
+```
+
+```html
+<div style="margin-left: 20px">text</div>
+<div style="margin-left: 60px">text</div>
+```

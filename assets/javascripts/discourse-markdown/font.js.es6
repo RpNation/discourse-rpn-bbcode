@@ -4,6 +4,7 @@
  * @example [font family="Raleway" weight=number/name italics=true]
  */
 import { registerOption } from "pretty-text/pretty-text";
+import { parseBBCodeTag } from "pretty-text/engines/discourse-markdown/bbcode-block";
 import { parseFontSize } from "./bbcode-helpers";
 
 registerOption((siteSettings, opts) => (opts.features["font"] = !!siteSettings.rpn_bbcode_enabled));
@@ -107,39 +108,58 @@ function generateFontTagAttributes({
 }
 
 function setupMarkdownIt(md) {
-  const INLINE_RULER = md.inline.bbcode.ruler;
-  const BLOCK_RULER = md.block.bbcode.ruler;
+  // const INLINE_RULER = md.inline.bbcode.ruler;
+  // const BLOCK_RULER = md.block.bbcode.ruler;
+  const TEXT_RULER = md.core.textPostProcess.ruler;
 
-  BLOCK_RULER.push("font", {
-    tag: "font",
-    before: function (state, tagInfo) {
-      let token = state.push("div_open", "div", 1);
+  // BLOCK_RULER.push("font", {
+  //   tag: "font",
+  //   before: function (state, tagInfo) {
+  //     let token = state.push("div_open", "div", 1);
+  //     token.attrs = generateFontTagAttributes(tagInfo.attrs);
+  //   },
+  //   after: function (state) {
+  //     state.push("div_close", "div", -1);
+  //   },
+  // });
+
+  // INLINE_RULER.push("font", {
+  //   tag: "font",
+  //   wrap: function (startToken, endToken, tagInfo) {
+  //     startToken.type = "span_open";
+  //     startToken.tag = "span";
+  //     startToken.attrs = generateFontTagAttributes(tagInfo.attrs);
+  //     startToken.nesting = 1;
+  //     startToken.content = "";
+
+  //     endToken.type = "span_close";
+  //     endToken.tag = "span";
+  //     endToken.content = "";
+  //     endToken.nesting = -1;
+  //   },
+  // });
+
+  TEXT_RULER.push("font_open", {
+    matcher: /(\[font[= ](.*?)\])/gi,
+    onMatch: function (buffer, matches, state) {
+      const tagInfo = parseBBCodeTag(matches[0], 0, matches[0].length);
+      let token = new state.Token("div_open", "div", 1);
       token.attrs = generateFontTagAttributes(tagInfo.attrs);
-    },
-    after: function (state) {
-      state.push("div_close", "div", -1);
+      token.attrJoin("class", "bbcode-inline");
+      buffer.push(token);
     },
   });
-
-  INLINE_RULER.push("font", {
-    tag: "font",
-    wrap: function (startToken, endToken, tagInfo) {
-      startToken.type = "span_open";
-      startToken.tag = "span";
-      startToken.attrs = generateFontTagAttributes(tagInfo.attrs);
-      startToken.nesting = 1;
-      startToken.content = "";
-
-      endToken.type = "span_close";
-      endToken.tag = "span";
-      endToken.content = "";
-      endToken.nesting = -1;
+  TEXT_RULER.push("font_close", {
+    matcher: /(\[\/font\])/gi,
+    onMatch: function (buffer, matches, state) {
+      let token = new state.Token("div_close", "div", -1);
+      buffer.push(token);
     },
   });
 }
 
 export function setup(helper) {
-  helper.allowList(["div[data-bbcode-gfont=*]", "span[data-bbcode-gfont=*]"]);
+  helper.allowList(["div[data-bbcode-gfont=*]", "span[data-bbcode-gfont=*]", "div.bbcode-inline"]);
   helper.allowList({
     custom(tag, name, value) {
       if ((tag === "div" || tag === "span") && name === "style") {

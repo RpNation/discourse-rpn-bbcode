@@ -30,6 +30,7 @@
       "function setupMarkdownIt(md) {",
       "  const INLINE_RULER = md.inline.bbcode.ruler;",
       "  const BLOCK_RULER = md.block.bbcode.ruler;",
+      "  const TEXT_RULER = md.core.textPostProcess.ruler;",
       "",
       "$4",
       "}",

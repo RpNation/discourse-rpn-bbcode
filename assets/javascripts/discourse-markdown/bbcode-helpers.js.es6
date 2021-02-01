@@ -75,3 +75,23 @@ export function parseFontSize(fontValue) {
   }
   return fontSize;
 }
+
+/**
+ * The following functions enables better rendering by adding commonly used classes and
+ * making paragraph tag disappear
+ */
+
+function paragraphOpen(tokens, idx, options /*, env */) {
+  return options.xhtmlOut ? "<br />\n" : "<br>\n";
+}
+
+function paragraphClose(tokens, idx, options /*, env */) {
+  return options.xhtmlOut ? "<br />\n" : "<br>\n";
+}
+export function setup(helper) {
+  helper.allowList(["div.bbcode-inline-block", "div.bbcode-inline"]);
+  helper.registerPlugin((md) => {
+    md.renderer.rules.paragraph_open = paragraphOpen;
+    md.renderer.rules.paragraph_close = paragraphClose;
+  });
+}

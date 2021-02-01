@@ -3,34 +3,57 @@
  * @example [color=red]text[/color]
  */
 import { registerOption } from "pretty-text/pretty-text";
-import { wrap } from "./bbcode-helpers";
+import { parseBBCodeTag } from "pretty-text/engines/discourse-markdown/bbcode-block";
+// import { wrap } from "./bbcode-helpers";
 
 registerOption(
   (siteSettings, opts) => (opts.features["color"] = !!siteSettings.rpn_bbcode_enabled)
 );
 
 function setupMarkdownIt(md) {
-  const INLINE_RULER = md.inline.bbcode.ruler;
-  const BLOCK_RULER = md.block.bbcode.ruler;
+  // const INLINE_RULER = md.inline.bbcode.ruler;
+  // const BLOCK_RULER = md.block.bbcode.ruler;
+  const TEXT_RULER = md.core.textPostProcess.ruler;
 
-  BLOCK_RULER.push("color", {
-    tag: "color",
-    before: function (state, tagInfo) {
-      let token = state.push("div_open", "div", 1);
-      token.attrs = [["style", `color:${tagInfo.attrs["_default"]}`]];
-    },
-    after: function (state) {
-      state.push("div_close", "div", -1);
+  // BLOCK_RULER.push("color", {
+  //   tag: "color",
+  //   before: function (state, tagInfo) {
+  //     let token = state.push("div_open", "div", 1);
+  //     token.attrs = [["style", `color:${tagInfo.attrs["_default"]}`]];
+  //   },
+  //   after: function (state) {
+  //     state.push("div_close", "div", -1);
+  //   },
+  // });
+
+  // INLINE_RULER.push("color", {
+  //   tag: "color",
+  //   wrap: wrap("span", "style", (tagInfo) => `color:${tagInfo.attrs["_default"]}`),
+  // });
+
+  TEXT_RULER.push("color_open", {
+    matcher: /(\[color=(.*?)\])/gi,
+    onMatch: function (buffer, matches, state) {
+      const tagInfo = parseBBCodeTag(matches[0], 0, matches[0].length);
+      let token = new state.Token("div_open", "div", 1);
+      token.attrs = [
+        ["style", `color:${tagInfo.attrs["_default"]}`],
+        ["class", "bbcode-inline"],
+      ];
+      buffer.push(token);
     },
   });
-
-  INLINE_RULER.push("color", {
-    tag: "color",
-    wrap: wrap("span", "style", (tagInfo) => `color:${tagInfo.attrs["_default"]}`),
+  TEXT_RULER.push("color_close", {
+    matcher: /(\[\/color\])/gi,
+    onMatch: function (buffer, matches, state) {
+      let token = new state.Token("div_close", "div", -1);
+      buffer.push(token);
+    },
   });
 }
 
 export function setup(helper) {
+  helper.allowList(["div.bbcode-inline"]);
   helper.allowList({
     custom(tag, name, value) {
       if ((tag === "div" || tag === "span") && name === "style") {

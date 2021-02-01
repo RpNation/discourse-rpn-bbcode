@@ -32,10 +32,11 @@ For documentation, see [wiki](https://github.com/Ghan04/discourse-rpn-bbcode/wik
 | Bold, Italic, Underline, Strikethrough Ⓜ️ |   Accordions ✔️   |                        |        OOC ✔️         |
 |                 Color ✔️                  |   Scroll Box ✔️   |                        |                       |
 |               Font Size ✔️                |    Div Box ❓     |                        |                       |
-|          Left, Center, Right 🚧           |    Anchors ✔️     |                        |                       |
+|          Left, Center, Right ✔️           |    Anchors ✔️     |                        |                       |
 |                Spoiler ✔️                 | Rows & Columns 🚧 |                        |                       |
 |                  NOBR ✔️                  |                   |                        |                       |
 |             Inline Spoiler 🚧             |                   |                        |                       |
+|                 Indent ✔️                 |                   |                        |                       |
 
 <sup>1</sup> Headers & Subheaders can be rebaked into the equivalent number of #
 
@@ -47,5 +48,8 @@ For documentation, see [wiki](https://github.com/Ghan04/discourse-rpn-bbcode/wik
 
 ### Text Replacement Method: List of completed tags:
 
-- color
+- border
 - bg
+- font
+- color
+- indent

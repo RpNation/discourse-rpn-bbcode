@@ -60,3 +60,13 @@ For documentation, see [wiki](https://github.com/Ghan04/discourse-rpn-bbcode/wik
 - heightrestrict
 - fieldset
 - spoiler
+- justify
+- row column
+
+### TAGS THAT NEED TO BE REFACTORED
+
+- tabs
+- text message ?
+- mail
+- note
+- accordion

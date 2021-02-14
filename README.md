@@ -56,3 +56,7 @@ For documentation, see [wiki](https://github.com/Ghan04/discourse-rpn-bbcode/wik
 - indent
 - scroll
 - nobr
+- Center, Left, Right
+- heightrestrict
+- fieldset
+- spoiler

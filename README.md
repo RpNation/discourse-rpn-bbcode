@@ -64,8 +64,8 @@ For documentation, see [wiki](https://github.com/Ghan04/discourse-rpn-bbcode/wik
 - row column
 - note
 - tabs
+- mail
 
 ### TAGS THAT NEED TO BE REFACTORED
 
-- mail
 - accordion

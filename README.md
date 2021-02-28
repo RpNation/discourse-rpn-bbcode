@@ -62,11 +62,10 @@ For documentation, see [wiki](https://github.com/Ghan04/discourse-rpn-bbcode/wik
 - spoiler
 - justify
 - row column
+- note
+- tabs
 
 ### TAGS THAT NEED TO BE REFACTORED
 
-- tabs
-- text message ?
 - mail
-- note
 - accordion

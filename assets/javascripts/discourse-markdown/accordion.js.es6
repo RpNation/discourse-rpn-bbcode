@@ -3,6 +3,7 @@
  * @example [accordion][slide=title]content[/slide][/accordion]
  */
 import { registerOption } from "pretty-text/pretty-text";
+import { parseBBCodeTag } from "pretty-text/engines/discourse-markdown/bbcode-block";
 
 registerOption(
   (siteSettings, opts) => (opts.features["accordion"] = !!siteSettings.rpn_bbcode_enabled)
@@ -10,10 +11,31 @@ registerOption(
 
 function setupMarkdownIt(md) {
   const BLOCK_RULER = md.block.bbcode.ruler;
+  const TEXT_RULER = md.core.textPostProcess.ruler;
 
   BLOCK_RULER.push("accordion", {
     tag: "accordion",
     wrap: "div.bbcode-accordion",
+  });
+
+  TEXT_RULER.push("accordion_open", {
+    matcher: /(\[accordion(=.*)?\])/gi,
+    onMatch: function (buffer, matches, state) {
+      const tagInfo = parseBBCodeTag(matches[0], 0, matches[0].length);
+      // TODO ADD accordion options
+
+      let token = new state.Token("div_open", "div", 1);
+      token.attrs = [["class", "bbcode-accordion"]];
+      buffer.push(token);
+    },
+  });
+
+  TEXT_RULER.push("accordion_close", {
+    matcher: /(\[\/accordion\])/gi,
+    onMatch: function (buffer, matches, state) {
+      let token = new state.Token("div_close", "div", -1);
+      buffer.push(token);
+    },
   });
 
   BLOCK_RULER.push("slide", {

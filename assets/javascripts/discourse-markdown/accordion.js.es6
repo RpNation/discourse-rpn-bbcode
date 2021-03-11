@@ -10,18 +10,18 @@ registerOption(
 );
 
 function setupMarkdownIt(md) {
-  const BLOCK_RULER = md.block.bbcode.ruler;
+  // const BLOCK_RULER = md.block.bbcode.ruler;
   const TEXT_RULER = md.core.textPostProcess.ruler;
 
-  BLOCK_RULER.push("accordion", {
-    tag: "accordion",
-    wrap: "div.bbcode-accordion",
-  });
+  // BLOCK_RULER.push("accordion", {
+  //   tag: "accordion",
+  //   wrap: "div.bbcode-accordion",
+  // });
 
   TEXT_RULER.push("accordion_open", {
     matcher: /(\[accordion(=.*)?\])/gi,
     onMatch: function (buffer, matches, state) {
-      const tagInfo = parseBBCodeTag(matches[0], 0, matches[0].length);
+      // const tagInfo = parseBBCodeTag(matches[0], 0, matches[0].length);
       // TODO ADD accordion options
 
       let token = new state.Token("div_open", "div", 1);
@@ -38,23 +38,48 @@ function setupMarkdownIt(md) {
     },
   });
 
-  BLOCK_RULER.push("slide", {
-    tag: "slide",
-    before: function (state, tagInfo) {
-      let slideTitle = tagInfo.attrs["_default"];
-      let token = state.push("button_open", "button", 1);
+  // BLOCK_RULER.push("slide", {
+  //   tag: "slide",
+  //   before: function (state, tagInfo) {
+  //     let slideTitle = tagInfo.attrs["_default"];
+  //     let token = state.push("button_open", "button", 1);
+  //     token.attrs = [["class", "bbcode-slide-title"]];
+
+  //     token = state.push("text", "", 0);
+  //     token.content = slideTitle;
+
+  //     state.push("button_close", "button", -1);
+
+  //     token = state.push("div_open", "div", 1);
+  //     token.attrs = [["class", "bbcode-slide-content"]];
+  //   },
+  //   after: function (state) {
+  //     state.push("div_close", "div", -1);
+  //   },
+  // });
+
+  TEXT_RULER.push("slide_open", {
+    matcher: /(\[slide(=.*)?\])/gi,
+    onMatch: function (buffer, matches, state) {
+      const tagInfo = parseBBCodeTag(matches[0], 0, matches[0].length);
+      // add slide options
+      let token = new state.Token("button_open", "button", 1);
       token.attrs = [["class", "bbcode-slide-title"]];
-
-      token = state.push("text", "", 0);
-      token.content = slideTitle;
-
-      state.push("button_close", "button", -1);
-
-      token = state.push("div_open", "div", 1);
+      token.content = tagInfo.attrs["_default"];
+      buffer.push(token);
+      token = new state.Token("button_close", "button", -1);
+      buffer.push(token);
+      token = new state.Token("div_open", "div", 1);
       token.attrs = [["class", "bbcode-slide-content"]];
+      buffer.push(token);
     },
-    after: function (state) {
-      state.push("div_close", "div", -1);
+  });
+
+  TEXT_RULER.push("slide_close", {
+    matcher: /(\[\/slide\])/gi,
+    onMatch: function (buffer, matches, state) {
+      let token = new state.Token("div_close", "div", -1);
+      buffer.push(token);
     },
   });
 }

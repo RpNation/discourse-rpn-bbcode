@@ -65,6 +65,8 @@ function setupMarkdownIt(md) {
       // add slide options
       let token = new state.Token("button_open", "button", 1);
       token.attrs = [["class", "bbcode-slide-title"]];
+      buffer.push(token);
+      token = new state.Token("text", "", 0);
       token.content = tagInfo.attrs["_default"];
       buffer.push(token);
       token = new state.Token("button_close", "button", -1);

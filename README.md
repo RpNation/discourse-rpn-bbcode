@@ -34,7 +34,7 @@ For documentation, see [wiki](https://github.com/Ghan04/discourse-rpn-bbcode/wik
 |               Font Size ✔️                |    Div Box ❓     |                        |                       |
 |          Left, Center, Right ✔️           |    Anchors ✔️     |                        |                       |
 |                Spoiler ✔️                 | Rows & Columns 🚧 |                        |                       |
-|                  NOBR ✔️                  |                   |                        |                       |
+|                  NOBR ✔️                  |      divs ✔️      |                        |                       |
 |             Inline Spoiler 🚧             |                   |                        |                       |
 |                 Indent ✔️                 |                   |                        |                       |
 
@@ -65,6 +65,7 @@ For documentation, see [wiki](https://github.com/Ghan04/discourse-rpn-bbcode/wik
 - note
 - tabs
 - mail
+- divs
 
 ### TAGS THAT NEED TO BE REFACTORED
 

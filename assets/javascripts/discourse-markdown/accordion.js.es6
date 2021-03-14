@@ -4,6 +4,7 @@
  */
 import { registerOption } from "pretty-text/pretty-text";
 import { parseBBCodeTag } from "pretty-text/engines/discourse-markdown/bbcode-block";
+import { generateFontTagAttributes } from "./font";
 
 registerOption(
   (siteSettings, opts) => (opts.features["accordion"] = !!siteSettings.rpn_bbcode_enabled)
@@ -117,16 +118,44 @@ function setupMarkdownIt(md) {
   //   },
   // });
 
+  // [slide title="title" align="right" font="" style="style" open]
+  // TODO add font, color, size
   TEXT_RULER.push("slide_open", {
-    matcher: /(\[slide(=.*)?\])/gi,
+    matcher: /(\[slide([= ](.*?))?\])/gi,
     onMatch: function (buffer, matches, state) {
       const tagInfo = parseBBCodeTag(matches[0], 0, matches[0].length);
       // add slide options
       let token = new state.Token("button_open", "button", 1);
-      token.attrs = [["class", "bbcode-slide-title"]];
+      const attrs = [];
+      if (tagInfo.attrs.align) {
+        attrs.push(["data-bbcode-slide-align", tagInfo.attrs.align]);
+      }
+      if (tagInfo.attrs.open) {
+        attrs.push(["data-bbcode-slide-open", true]);
+      }
+      let fontParsed = generateFontTagAttributes({
+        ...tagInfo.attrs,
+        _default: tagInfo.attrs.font,
+      });
+      let styleValue = "";
+      const style = fontParsed.find((e) => e[0] === "style");
+      if (style) {
+        fontParsed = fontParsed.filter((element) => element[0] !== "style");
+        styleValue += style[1];
+      }
+      if (tagInfo.attrs.style) {
+        styleValue += tagInfo.attrs.style;
+      }
+      attrs.push(["style", styleValue]);
+      token.attrs = [
+        ["class", "bbcode-slide-title"],
+        ["data-bbcode-slide-new", true],
+        ...fontParsed,
+        ...attrs,
+      ];
       buffer.push(token);
       token = new state.Token("text", "", 0);
-      token.content = tagInfo.attrs["_default"];
+      token.content = tagInfo.attrs["_default"] || tagInfo.attrs.title || "Slide";
       buffer.push(token);
       token = new state.Token("button_close", "button", -1);
       buffer.push(token);
@@ -152,11 +181,20 @@ export function setup(helper) {
     "div.bbcode-slide-content",
     "div[data-bbcode-accordion-block]",
     "div[data-bbcode-accordion-float]",
+    "button[data-bbcode-slide-new]",
+    "button[data-bbcode-slide-align]",
+    "button[data-bbcode-slide-open]",
+    "button[data-bbcode-gfont]",
   ]);
   helper.allowList({
     custom(tag, name, value) {
       if (tag === "div" && name === "style") {
         return /^(width: \d+%;)$/.exec(value);
+      }
+    },
+    custom(tag, name, value) {
+      if (tag === "button" && name === "style") {
+        return /^(.*)$/.exec(value);
       }
     },
   });

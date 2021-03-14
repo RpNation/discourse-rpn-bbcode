@@ -692,7 +692,17 @@ p {
       background-color: gray;
     }
 
-    &:after {
+    &[data-bbcode-slide-align="left" i] {
+      text-align: left;
+    }
+    &[data-bbcode-slide-align="right" i] {
+      text-align: right;
+    }
+    &[data-bbcode-slide-align="center" i] {
+      text-align: center;
+    }
+
+    &[data-bbcode-slide-new]:after {
       content: "\02795";
       font-size: 13px;
       color: #777;
@@ -701,7 +711,7 @@ p {
     }
   }
 
-  .bbcode-slide-title.active:after {
+  .bbcode-slide-title.active[data-bbcode-slide-new]:after {
     content: "\2796";
   }
 

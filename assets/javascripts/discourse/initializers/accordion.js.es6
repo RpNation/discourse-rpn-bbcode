@@ -15,6 +15,15 @@ async function addSlideCode(post) {
     return;
   }
 
+  // Stores codes so it won't be in the regex
+  const codeStorage = [];
+  const codeList = post.getElementsByTagName("code");
+  for (let i = 0; i < codeList.length; i++) {
+    const num = codeStorage.push(codeList[i].innerHTML) - 1;
+    codeList[i].innerHTML = "";
+    codeList[i].setAttribute("data-code", num);
+  }
+
   // Lazy load in the accordion.js
   await loadScript("/plugins/discourse-rpn-bbcode/javascripts/accordion.js");
   accordions.forEach((accordion) => {
@@ -26,6 +35,13 @@ async function addSlideCode(post) {
     // eslint-disable-next-line no-undef
     slides.forEach((slide) => applySlide(slide));
   });
+
+  // repopulates code
+  for (let i = 0; i < codeList.length; i++) {
+    const num = codeList[i].getAttribute("data-code");
+    codeList[i].innerHTML = codeStorage[num];
+    codeList[i].removeAttribute("data-code");
+  }
 }
 
 /**

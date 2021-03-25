@@ -4,6 +4,9 @@
 import loadScript from "discourse/lib/load-script";
 import { withPluginApi } from "discourse/lib/plugin-api";
 
+const SLIDE_OPEN_REGEX = /(\{slide=([\s\S]+?)\})/gim;
+const SLIDE_CLOSE_REGEX = /(\{\/slide\}(<br>)*)/gim;
+
 /**
  * Adds the inline js for the slides of an accordion inside a given post
  * @param {HTMLElement} post the post itself
@@ -23,6 +26,16 @@ async function addSlideCode(post) {
     codeList[i].innerHTML = "";
     codeList[i].setAttribute("data-code", num);
   }
+  accordions.forEach((accordion) => {
+    let rawHTML = accordion.innerHTML;
+    rawHTML = rawHTML.replace(
+      SLIDE_OPEN_REGEX,
+      (...match) =>
+        `<button class="bbcode-slide-title">${match[2]}</button><div class="bbcode-slide-content">`
+    );
+    rawHTML = rawHTML.replace(SLIDE_CLOSE_REGEX, "</div>");
+    accordion.innerHTML = rawHTML;
+  });
 
   // Lazy load in the accordion.js
   await loadScript("/plugins/discourse-rpn-bbcode/javascripts/accordion.js");

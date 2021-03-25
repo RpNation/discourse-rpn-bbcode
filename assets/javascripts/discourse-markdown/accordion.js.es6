@@ -160,7 +160,14 @@ function setupMarkdownIt(md) {
       token = new state.Token("button_close", "button", -1);
       buffer.push(token);
       token = new state.Token("div_open", "div", 1);
-      token.attrs = [["class", "bbcode-slide-content"]];
+      if (tagInfo.attrs.open) {
+        token.attrs = [
+          ["class", "bbcode-slide-content"],
+          ["style", "display: block;"],
+        ];
+      } else {
+        token.attrs = [["class", "bbcode-slide-content"]];
+      }
       buffer.push(token);
     },
   });
@@ -190,6 +197,11 @@ export function setup(helper) {
     custom(tag, name, value) {
       if (tag === "div" && name === "style") {
         return /^(width: \d+%;)$/.exec(value);
+      }
+    },
+    custom(tag, name, value) {
+      if (tag === "div" && name === "style") {
+        return /^(display: block;)$/.exec(value);
       }
     },
     custom(tag, name, value) {

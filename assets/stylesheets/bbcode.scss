@@ -711,7 +711,8 @@ p {
     }
   }
 
-  .bbcode-slide-title.active[data-bbcode-slide-new]:after {
+  .bbcode-slide-title.active[data-bbcode-slide-new]:after,
+  .bbcode-slide-title[data-bbcode-slide-open][data-bbcode-slide-new]:after {
     content: "\2796";
   }
 

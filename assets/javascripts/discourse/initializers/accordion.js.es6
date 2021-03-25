@@ -28,11 +28,12 @@ async function addSlideCode(post) {
   }
   accordions.forEach((accordion) => {
     let rawHTML = accordion.innerHTML;
-    rawHTML = rawHTML.replace(
-      SLIDE_OPEN_REGEX,
-      (...match) =>
-        `<button class="bbcode-slide-title">${match[2]}</button><div class="bbcode-slide-content">`
-    );
+    rawHTML = rawHTML.replace(SLIDE_OPEN_REGEX, (...match) => {
+      const parsed = slideParser(match[2]);
+      return `<button class="bbcode-slide-title" ${parsed.data}>${
+        parsed.title
+      }</button><div class="bbcode-slide-content" ${parsed.open ? 'style="display: block;"' : ""}>`;
+    });
     rawHTML = rawHTML.replace(SLIDE_CLOSE_REGEX, "</div>");
     accordion.innerHTML = rawHTML;
   });
@@ -55,6 +56,44 @@ async function addSlideCode(post) {
     codeList[i].innerHTML = codeStorage[num];
     codeList[i].removeAttribute("data-code");
   }
+}
+
+/**
+ * Parses the input slide for options
+ * @param {string} input
+ */
+function slideParser(input) {
+  let inputArray = input.split("|");
+  const parsed = { data: "" };
+  if (inputArray.length === 1) {
+    parsed.title = input;
+    return parsed;
+  }
+  inputArray = inputArray.map((value) => value.trim());
+  if (inputArray.includes("open")) {
+    const index = inputArray.indexOf("open");
+    inputArray.splice(index, 1);
+    parsed.open = true;
+  }
+  if (inputArray.includes("left")) {
+    const index = inputArray.indexOf("left");
+    inputArray.splice(index, 1);
+    parsed.data += 'data-bbcode-slide-align="left" ';
+  }
+  if (inputArray.includes("right")) {
+    const index = inputArray.indexOf("right");
+    inputArray.splice(index, 1);
+    parsed.data += 'data-bbcode-slide-align="right" ';
+  }
+  if (inputArray.includes("center")) {
+    const index = inputArray.indexOf("center");
+    inputArray.splice(index, 1);
+    parsed.data += 'data-bbcode-slide-align="center" ';
+  }
+  if (inputArray.length) {
+    parsed.title = inputArray[0];
+  }
+  return parsed;
 }
 
 /**

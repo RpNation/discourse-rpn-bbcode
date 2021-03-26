@@ -108,6 +108,7 @@ function toggleBBCodeSlide(evt) {
 
   siblingSlides.forEach(function (sibling) {
     sibling.classList.remove("active");
+    sibling.removeAttribute("data-bbcode-slide-open");
   });
   siblingContent.forEach(function (sibling) {
     slideUp(sibling, 500);

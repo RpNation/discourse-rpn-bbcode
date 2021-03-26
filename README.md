@@ -26,16 +26,17 @@ For documentation, see [wiki](https://github.com/Ghan04/discourse-rpn-bbcode/wik
 |              Blockquotes ✔️               |     Sides ✔️      |                        |    Progress Bar ✔️    |
 |         Sub Script<sup>2</sup> ⌨️         |      Tabs ✔️      |                        |    Sticky Note 🚧     |
 |        Super Script<sup>3</sup> ⌨️        |     Tables ☠️     |                        |        Mail ✔️        |
-|          Google Font Library ✔️           |  Center Block ❓  |                        |     Newspaper 🚧      |
+|          Google Font Library ✔️           |  Center Block ✔️  |                        |     Newspaper ✔️      |
 |        HTML Comment<sup>4</sup> ⌨️        |   Background ✔️   |                        |       Checks ✔️       |
 |            Paragraph Indent ✔️            |     Border ✔️     |                        | Font Awesome Icons ✔️ |
 | Bold, Italic, Underline, Strikethrough Ⓜ️ |   Accordions ✔️   |                        |        OOC ✔️         |
 |                 Color ✔️                  |   Scroll Box ✔️   |                        |                       |
-|               Font Size ✔️                |    Div Box ❓     |                        |                       |
-|          Left, Center, Right 🚧           |    Anchors ✔️     |                        |                       |
-|                Spoiler ✔️                 | Rows & Columns 🚧 |                        |                       |
+|               Font Size ✔️                |    Div Box ✔️     |                        |                       |
+|          Left, Center, Right ✔️           |    Anchors ✔️     |                        |                       |
+|                Spoiler ✔️                 | Rows & Columns ✔️ |                        |                       |
 |                  NOBR ✔️                  |                   |                        |                       |
-|             Inline Spoiler 🚧             |                   |                        |                       |
+|             Inline Spoiler ✔️             |                   |                        |                       |
+|                 Indent ✔️                 |                   |                        |                       |
 
 <sup>1</sup> Headers & Subheaders can be rebaked into the equivalent number of #
 
@@ -44,8 +45,3 @@ For documentation, see [wiki](https://github.com/Ghan04/discourse-rpn-bbcode/wik
 <sup>3</sup> This bbcode is no longer needed. Discourse accepts the proper HTML comment tag in the Markdown engine. Example: `<sub>2</sub>`
 
 <sup>4</sup> This bbcode is no longer needed. Discourse accepts the proper HTML comment tag in the Markdown engine. Example: `<!--This is a comment. Comments are not displayed in the browser-->`
-
-### Text Replacement Method: List of completed tags:
-
-- color
-- bg

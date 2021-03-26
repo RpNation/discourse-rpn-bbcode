@@ -23,7 +23,7 @@ function setupMarkdownIt(md) {
       token.attrs = [["class", "bbcode-progress-text"]];
 
       token = state.push("inline", "", 0);
-      token.content = content;
+      token.content = content.replace(/[\r\n]+/g, " ");
       token.children = [];
 
       state.push("div_close", "div", -1);

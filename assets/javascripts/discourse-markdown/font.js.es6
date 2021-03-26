@@ -36,7 +36,7 @@ const WEIGHTS = {
  * Generates the appropriate attributes for a token.
  * @param tagInfo.attrs pass in all attrs as an object
  */
-function generateFontTagAttributes({
+export function generateFontTagAttributes({
   family,
   name = family,
   _default: fontFamily = name, //family, name, and _default are all the same anyway

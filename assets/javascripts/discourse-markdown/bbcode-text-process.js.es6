@@ -52,7 +52,7 @@ export function setup(helper) {
   helper.registerPlugin((md) => {
     const ruler = md.core.textPostProcess.ruler;
     const replacer = (content, state) => BBCodeTextProcess(content, state, ruler);
-    md.core.ruler.push("bbcode", (state) =>
+    md.core.ruler.before("linkify", "bbcode", (state) =>
       md.options.discourse.helpers.textReplace(state, replacer, true)
     );
   });

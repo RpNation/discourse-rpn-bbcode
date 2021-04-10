@@ -24,7 +24,7 @@ For documentation, see [wiki](https://github.com/Ghan04/discourse-rpn-bbcode/wik
 |               Highlights ✔️               |  Image Float ✔️   |   Height Restrict ✔️   |    Text Message ✔️    |
 |             Justified Text ✔️             |   Fieldsets ✔️    |    Challonge Ⓜ️ 🚧     |       Blocks ✔️       |
 |              Blockquotes ✔️               |     Sides ✔️      |                        |    Progress Bar ✔️    |
-|         Sub Script<sup>2</sup> ⌨️         |      Tabs ✔️      |                        |    Sticky Note 🚧     |
+|         Sub Script<sup>2</sup> ⌨️         |      Tabs ✔️      |                        |    Sticky Note ✔️     |
 |        Super Script<sup>3</sup> ⌨️        |     Tables ☠️     |                        |        Mail ✔️        |
 |          Google Font Library ✔️           |  Center Block ✔️  |                        |     Newspaper ✔️      |
 |        HTML Comment<sup>4</sup> ⌨️        |   Background ✔️   |                        |       Checks ✔️       |

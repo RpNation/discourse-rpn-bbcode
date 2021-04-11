@@ -43,8 +43,8 @@ export function parseFontSize(fontValue) {
     unitless_min: 1,
   };
 
-  fontSize.unit = parsedSize[2];
-  if ((value = parsedSize[1])) {
+  if (parsedSize && (value = parsedSize[1])) {
+    fontSize.unit = parsedSize[2];
     switch (fontSize.unit) {
       case "px":
         if (value > sizeRanges.px_max) {
@@ -75,6 +75,19 @@ export function parseFontSize(fontValue) {
   }
   return fontSize;
 }
+
+/**
+ * Generates and provides an unique class prefix for the current instance of the generator
+ * @param md markdown
+ * @returns random class prefix unique to the current instance of markdown
+ */
+// export function getClassPrefixer(md) {
+//   if (!md.options.classPrefix) {
+//     const random = Math.floor(Math.random() * 1000000);
+//     md.options.classPrefix = random;
+//   }
+//   return md.options.classPrefix;
+// }
 
 /**
  * The following functions enables better rendering by adding commonly used classes and

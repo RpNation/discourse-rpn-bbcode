@@ -62,7 +62,7 @@ function setupMarkdownIt(md) {
       token.attrs = [["class", "bbcode-tab-links"]];
       buffer.push(token);
       token = new state.Token("text", "", 0);
-      token.content = tagInfo.attrs["_default"];
+      token.content = tagInfo.attrs["_default"] || "";
       buffer.push(token);
       token = new state.Token("button_close", "button", -1);
       buffer.push(token);

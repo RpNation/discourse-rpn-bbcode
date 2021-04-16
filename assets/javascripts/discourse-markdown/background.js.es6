@@ -32,7 +32,7 @@ function setupMarkdownIt(md) {
     matcher: /(\[bg=((.*?)|(".*?"))\])/gi,
     onMatch: function (buffer, matches, state) {
       const tagInfo = parseBBCodeTag(matches[0], 0, matches[0].length);
-      const bgOption = tagInfo.attrs["_default"];
+      const bgOption = tagInfo.attrs["_default"] || "";
       let token = new state.Token("div_open", "div", 1);
       token.attrs = [
         ["class", "bbcode-background"],

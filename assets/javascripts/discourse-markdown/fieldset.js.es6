@@ -40,7 +40,7 @@ function setupMarkdownIt(md) {
     matcher: /(\[fieldset=((.*?)|(".*?"))\])/gi,
     onMatch: function (buffer, matches, state) {
       const tagInfo = parseBBCodeTag(matches[0], 0, matches[0].length);
-      const title = tagInfo.attrs["_default"];
+      const title = tagInfo.attrs["_default"] || "";
 
       let token = new state.Token("fieldset_open", "fieldset", 1);
       token.attrs = [["class", "bbcode-fieldset"]];

@@ -53,6 +53,13 @@ p {
   display: inline-block;
 }
 
+.lightbox {
+  img {
+    max-width: 100% !important;
+    height: auto;
+  }
+}
+
 /*************************************************
 *** Image Float                      BBCODE-001***
 *************************************************/
@@ -1110,8 +1117,8 @@ p {
 *** ISpoiler                         BBCODE-027***
 *************************************************/
 span.ispoiler {
-  background-color: rgba(0,0,0,0);
-  color: rgba(0,0,0,0);
+  background-color: rgba(0, 0, 0, 0);
+  color: rgba(0, 0, 0, 0);
   text-shadow: #8592a9 0 0 14px;
   cursor: pointer;
 }

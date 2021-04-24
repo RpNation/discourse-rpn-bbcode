@@ -4,6 +4,7 @@
  */
 import { registerOption } from "pretty-text/pretty-text";
 import { parseBBCodeTag } from "pretty-text/engines/discourse-markdown/bbcode-block";
+// import { getClassPrefixer } from "./bbcode-helpers";
 
 registerOption((siteSettings, opts) => (opts.features["div"] = !!siteSettings.rpn_bbcode_enabled));
 

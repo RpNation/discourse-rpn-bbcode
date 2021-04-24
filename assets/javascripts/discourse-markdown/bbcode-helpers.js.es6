@@ -33,7 +33,7 @@ export function wrap(tag, attr, callback) {
 export function parseFontSize(fontValue) {
   let value;
   let fontSize = { valid: true };
-  const parsedSize = /(\d+\.?\d?)(px|rem)?/.exec(fontValue);
+  const parsedSize = /(\d+\.?\d?)(px|rem)?/i.exec(fontValue);
   const sizeRanges = {
     px_max: 36,
     px_min: 8,
@@ -44,7 +44,7 @@ export function parseFontSize(fontValue) {
   };
 
   if (parsedSize && (value = parsedSize[1])) {
-    fontSize.unit = parsedSize[2];
+    fontSize.unit = parsedSize[2].toLowerCase();
     switch (fontSize.unit) {
       case "px":
         if (value > sizeRanges.px_max) {

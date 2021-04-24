@@ -14,7 +14,11 @@ function setupMarkdownIt(md) {
 
   INLINE_RULER.push("check", {
     tag: "check",
-    wrap: wrap("div", "class", (tagInfo) => "bbcode-check-" + tagInfo.attrs._default.trim()),
+    wrap: wrap(
+      "div",
+      "class",
+      (tagInfo) => "bbcode-check-" + (tagInfo.attrs["_default"].trim() || "dot")
+    ),
   });
 }
 

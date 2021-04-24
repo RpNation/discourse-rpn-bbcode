@@ -31,7 +31,7 @@ function setupMarkdownIt(md) {
       const height = tagInfo.attrs["_default"];
       let token = new state.Token("div_open", "div", 1);
       token.attrs = [
-        ["class", "bbcode-background"],
+        ["class", "bbcode-height-restrict"],
         ["style", `height: ${height}px;`],
       ];
       buffer.push(token);

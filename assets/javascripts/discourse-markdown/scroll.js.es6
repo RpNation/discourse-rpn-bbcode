@@ -28,7 +28,7 @@ function setupMarkdownIt(md) {
   //     return true;
   //   },
   // });
-  TEXT_RULER.push("side_open", {
+  TEXT_RULER.push("scroll_open", {
     matcher: /\[scroll=(\d)*px\]/gi,
     onMatch: function (buffer, matches, state) {
       const tagInfo = parseBBCodeTag(matches[0], 0, matches[0].length);
@@ -46,8 +46,8 @@ function setupMarkdownIt(md) {
     },
   });
 
-  TEXT_RULER.push("side_close", {
-    matcher: /(\[\/side\])/gi,
+  TEXT_RULER.push("scroll_close", {
+    matcher: /(\[\/scroll\])/gi,
     onMatch: function (buffer, matches, state) {
       let token = new state.Token("div_close", "div", -1);
       buffer.push(token);

@@ -25,6 +25,7 @@ Spoiler...................BBCODE-023
 Block.....................BBCODE-024
 Text Message..............BBCODE-025
 Height Restrict...........BBCODE-026
+ISpoiler..................BBCODE-027
 */
 
 @import "common/foundation/variables";
@@ -163,7 +164,7 @@ p {
     border-bottom: 3px solid #2980b9;
   }
 
-  &-rule-dotted {
+  &-dotted {
     @extend .bbcode-horizontal-rule;
     border-bottom: 1px dotted #2980b9;
   }
@@ -1103,4 +1104,14 @@ p {
     height: 100% !important; //this is needed in order to overcome the sizing that discourse does on its own to images
     width: auto !important;
   }
+}
+
+/*************************************************
+*** ISpoiler                         BBCODE-027***
+*************************************************/
+span.ispoiler {
+  background-color: rgba(0,0,0,0);
+  color: rgba(0,0,0,0);
+  text-shadow: #8592a9 0 0 14px;
+  cursor: pointer;
 }

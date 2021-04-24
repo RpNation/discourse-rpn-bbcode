@@ -17,7 +17,7 @@ function setupMarkdownIt(md) {
       let token = state.push("div_open", "div", 1);
       token.attrs = [["class", "bbcode-note"]];
       token = state.push("div_open", "div", 1);
-      token.attrs = [["class", "bbcode-tape"]];
+      token.attrs = [["class", "bbcode-note-tape"]];
       state.push("div_close", "div", -1);
       token = state.push("div_open", "div", 1);
       token.attrs = [["class", "bbcode-note-content"]];

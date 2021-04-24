@@ -14,7 +14,7 @@ function setupMarkdownIt(md) {
   BLOCK_RULER.push("progress", {
     tag: "progress",
     replace: function (state, tagInfo, content) {
-      let progressOption = tagInfo.attrs["_default"];
+      let progressOption = tagInfo.attrs["_default"] || "100";
 
       let token = state.push("div_open", "div", 1);
       token.attrs = [["class", "bbcode-progress"]];

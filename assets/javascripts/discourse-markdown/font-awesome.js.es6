@@ -16,7 +16,10 @@ function handleIconStyles(tagAttributes) {
     styles: "",
   };
 
-  for (let i = 2; i < tagAttributes.length; i++) {
+  for (let i = 0; i < tagAttributes.length; i++) {
+    if (tagAttributes[i] === "fa") {
+      iconStyles.classes = `${iconStyles.classes} far`;
+    }
     if ((currentMatch = tagAttributes[i].match(duotoneMatch))) {
       iconStyles.styles = `${iconStyles.styles} --${currentMatch[1]}:${currentMatch[2]};`;
     } else {
@@ -43,17 +46,12 @@ function setupMarkdownIt(md) {
     replace: function (state, tagInfo, content) {
       const tagAttributes = content.split(/\s/);
       if (tagAttributes.length > 1) {
-        let iconType = tagAttributes[0].length === 2 ? "far" : tagAttributes[0];
-        let iconReference = tagAttributes[1].replace(/fa\w*/, iconType);
         let iconAttributes = handleIconStyles(tagAttributes);
-        let token = state.push("svg_open", "svg", 1);
+        let token = state.push("icon_open", "i", 1);
         if (iconAttributes.length) {
-          token.attrs = iconAttributes;
+          token.attrs = [...iconAttributes, ["data-bbcode-font-awesome", "true"]];
         }
-        token = state.push("use_open", "use", 1);
-        token.attrs = [["href", `#${iconReference}`]];
-        token = state.push("use_close", "use", -1);
-        token = state.push("svg_close", "svg", -1);
+        token = state.push("icon_close", "i", -1);
         return true;
       }
     },
@@ -61,7 +59,20 @@ function setupMarkdownIt(md) {
 }
 
 export function setup(helper) {
-  helper.allowList(["svg[class=*]", "svg[style=*]", "use[href=*]"]);
+  helper.allowList([
+    "svg[class=*]",
+    "svg[style=*]",
+    "use[href=*]",
+    "i[class=*]",
+    "i[data-bbcode-font-awesome=*]",
+  ]);
+  helper.allowList({
+    custom(tag, name, value) {
+      if (tag === "i" && name === "style") {
+        return /^(--fa-(.*?);(\s?))+$/.exec(value);
+      }
+    },
+  });
   if (helper.markdownIt) {
     helper.registerPlugin(setupMarkdownIt);
   }

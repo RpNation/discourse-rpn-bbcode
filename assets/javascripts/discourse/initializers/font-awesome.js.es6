@@ -1,7 +1,6 @@
 /**
  * @file Find and transform Font Awesome Icons.
  */
-import loadScript from "discourse/lib/load-script";
 import { withPluginApi } from "discourse/lib/plugin-api";
 
 /**
@@ -13,12 +12,38 @@ async function transformFontAwesome(post) {
   if (!nobrTags.length) {
     return;
   }
-  await loadScript("/plugins/discourse-rpn-bbcode/javascripts/font-awesome.js");
   if (window.FontAwesome) {
-    window.FontAwesomeConfig.autoReplaceSvg = "nest";
-    window.FontAwesome.dom.i2svg({ node: post });
-    window.FontAwesomeConfig.autoReplaceSvg = false;
+    applyFontAwesome(post);
+  } else {
+    if (window.awaitingRender) {
+      window.awaitingRender.push(post);
+    } else {
+      window.awaitingRender = [post];
+    }
+    Object.defineProperty(window, "FontAwesome", {
+      configurable: true,
+      set(v) {
+        Object.defineProperty(window, "FontAwesome", {
+          configurable: true,
+          enumerable: true,
+          writable: true,
+          value: v,
+        });
+        window.awaitingRender.forEach((unrendered) => applyFontAwesome(unrendered));
+        delete window.awaitingRender;
+      },
+    });
   }
+}
+
+/**
+ * Applies FontAwesome to the post
+ * @param {HTMLElement} post post to apply font awesome to
+ */
+function applyFontAwesome(post) {
+  window.FontAwesomeConfig.autoReplaceSvg = "nest";
+  window.FontAwesome.dom.i2svg({ node: post });
+  window.FontAwesomeConfig.autoReplaceSvg = false;
 }
 
 /**

@@ -99,7 +99,11 @@ function toggleBBCodeSlide(evt) {
     return getChildren(n.parentNode.firstChild, n, selector);
   }
 
-  evt.currentTarget.classList.toggle("active");
+  if (evt.currentTarget.getAttribute("data-bbcode-slide-open")) {
+    evt.currentTarget.removeAttribute("data-bbcode-slide-open");
+  } else {
+    evt.currentTarget.classList.toggle("active");
+  }
 
   /** @type {HTMLElement[]} */
   var slide = evt.currentTarget.nextElementSibling;

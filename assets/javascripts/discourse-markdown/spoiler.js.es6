@@ -41,7 +41,7 @@ function setupMarkdownIt(md) {
   // });
 
   TEXT_RULER.push("spoiler_open", {
-    matcher: /(\[spoiler(=.*)?\])/gi,
+    matcher: /(\[spoiler(=.*?)?\])/gi,
     onMatch: function (buffer, matches, state) {
       const tagInfo = parseBBCodeTag(matches[0], 0, matches[0].length);
       const title = tagInfo.attrs["_default"];

@@ -121,16 +121,18 @@ function setupMarkdownIt(md) {
   // [slide title="title" align="right" font="" style="style" open]
   // TODO add font, color, size
   TEXT_RULER.push("slide_open", {
-    matcher: /(\[slide([= ](.*?))?\])/gi,
+    matcher: /(\[slide([= ](.*?))?( open)?\])/gi,
     onMatch: function (buffer, matches, state) {
       const tagInfo = parseBBCodeTag(matches[0], 0, matches[0].length);
+      // matches ( open)?
+      const open = !!matches[4];
       // add slide options
       let token = new state.Token("button_open", "button", 1);
       const attrs = [];
       if (tagInfo.attrs.align) {
         attrs.push(["data-bbcode-slide-align", tagInfo.attrs.align]);
       }
-      if (tagInfo.attrs.open) {
+      if (open) {
         attrs.push(["data-bbcode-slide-open", true]);
       }
       let fontParsed = generateFontTagAttributes({
@@ -160,7 +162,7 @@ function setupMarkdownIt(md) {
       token = new state.Token("button_close", "button", -1);
       buffer.push(token);
       token = new state.Token("div_open", "div", 1);
-      if (tagInfo.attrs.open) {
+      if (open) {
         token.attrs = [
           ["class", "bbcode-slide-content"],
           ["style", "display: block;"],

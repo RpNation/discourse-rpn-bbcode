@@ -44,7 +44,7 @@ export function parseFontSize(fontValue) {
   };
 
   if (parsedSize && (value = parsedSize[1])) {
-    fontSize.unit = parsedSize[2].toLowerCase();
+    fontSize.unit = (parsedSize[2] || "").toLowerCase();
     switch (fontSize.unit) {
       case "px":
         if (value > sizeRanges.px_max) {

@@ -17,7 +17,7 @@ function setupMarkdownIt(md) {
     wrap: wrap(
       "div",
       "class",
-      (tagInfo) => "bbcode-check-" + (tagInfo.attrs["_default"].trim() || "dot")
+      (tagInfo) => "bbcode-check-" + (tagInfo.attrs["_default"] || "dot").trim()
     ),
   });
 }

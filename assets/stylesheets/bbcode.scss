@@ -1106,6 +1106,7 @@ p {
 *************************************************/
 .bbcode-height-restrict {
   & > *,
+  .lightbox,
   .image-wrapper,
   img {
     height: 100% !important; //this is needed in order to overcome the sizing that discourse does on its own to images

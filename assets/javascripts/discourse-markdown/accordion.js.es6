@@ -134,7 +134,6 @@ function setupMarkdownIt(md) {
       }
       if (open) {
         attrs.push(["data-bbcode-slide-open", true]);
-        attrs.push(["class", "active"]);
       }
       let fontParsed = generateFontTagAttributes({
         ...tagInfo.attrs,

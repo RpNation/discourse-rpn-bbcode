@@ -9,9 +9,10 @@ registerOption(
 );
 
 function setupMarkdownIt(md) {
-  const BLOCK_RULER = md.block.bbcode.ruler;
+  const INLINE_RULER = md.inline.bbcode.ruler;
+  // const BLOCK_RULER = md.block.bbcode.ruler;
 
-  BLOCK_RULER.push("thinprogress", {
+  INLINE_RULER.push("thinprogress", {
     tag: "thinprogress",
     replace: function (state, tagInfo, content) {
       let progressOption = tagInfo.attrs["_default"] || "100%";
@@ -22,8 +23,8 @@ function setupMarkdownIt(md) {
       token = state.push("div_open", "div", 1);
       token.attrs = [["class", "bbcode-progress-text"]];
 
-      token = state.push("inline", "", 0);
-      token.content = content.replace(/[\r\n]+/g, " ");
+      token = state.push("text", "", 0);
+      token.content = (content || "").replace(/[\r\n]+/g, " ");
       token.children = [];
 
       state.push("div_close", "div", -1);

@@ -32,39 +32,40 @@ ISpoiler..................BBCODE-027
 
 // Edits the <p> tags that markdown-it auto generates
 // This will allow for easier CSS implementation
+.cooked {
+  p {
+    margin: 0;
+    margin-bottom: 15px;
 
-p {
-  margin: 0;
-  margin-bottom: 15px;
+    &:last-child {
+      margin-bottom: 0;
+    }
 
-  &:last-child {
-    margin-bottom: 0;
+    &:only-child {
+      margin-bottom: 0;
+    }
   }
 
-  &:only-child {
-    margin-bottom: 0;
+  br + ul {
+    margin-top: 1em !important;
   }
-}
 
-br + ul {
-  margin-top: 1em;
-}
+  li > br:first-of-type {
+    display: none;
+  }
 
-li > br:first-of-type {
-  display: none;
-}
+  .bbcode-inline {
+    display: inline;
+  }
+  .bbcode-inline-block {
+    display: inline-block;
+  }
 
-.bbcode-inline {
-  display: inline;
-}
-.bbcode-inline-block {
-  display: inline-block;
-}
-
-.lightbox {
-  img {
-    max-width: 100% !important;
-    height: auto;
+  .lightbox {
+    img {
+      max-width: 100% !important;
+      height: auto;
+    }
   }
 }
 

@@ -46,6 +46,10 @@ p {
   }
 }
 
+br + ul {
+  margin-top: 1em;
+}
+
 li > br:first-of-type {
   display: none;
 }

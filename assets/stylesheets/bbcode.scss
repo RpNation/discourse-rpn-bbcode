@@ -46,6 +46,10 @@ p {
   }
 }
 
+li > br:first-of-type {
+  display: none;
+}
+
 .bbcode-inline {
   display: inline;
 }

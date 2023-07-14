@@ -8,6 +8,7 @@ import { parseBBCodeTag } from "pretty-text/engines/discourse-markdown/bbcode-bl
 
 registerOption((siteSettings, opts) => (opts.features["div"] = !!siteSettings.rpn_bbcode_enabled));
 
+/*
 function setupMarkdownIt(md) {
   const TEXT_RULER = md.core.textPostProcess.ruler;
 
@@ -35,6 +36,45 @@ export function setup(helper) {
     custom(tag, name, value) {
       if (tag === "div" && name === "style") {
         //return /^[\s\S]+$/.exec(value);
+        return true;
+      }
+    },
+  });
+
+  if (helper.markdownIt) {
+    helper.registerPlugin(setupMarkdownIt);
+  }
+}
+
+*/
+
+function setupMarkdownIt(md) {
+  const TEXT_RULER = md.core.ruler;
+
+  TEXT_RULER.push("div_open", {
+    matcher: /\[div=(.*?)\]/gi,
+    onMatch: function (match, state) {
+      const tagInfo = parseBBCodeTag(match, 0, match.length);
+      const styleAttr = tagInfo.attrs["_default"];
+      const encodedStyleAttr = encodeURI(styleAttr);
+      let token = state.push("div_open", "div", 1);
+      token.attrs = [["style", encodedStyleAttr]];
+    },
+  });
+
+  TEXT_RULER.push("div_close", {
+    matcher: /\[\/div\]/gi,
+    onMatch: function (match, state) {
+      state.push("div_close", "div", -1);
+    },
+  });
+}
+
+export function setup(helper) {
+  helper.allowList(["div.bbcode-inline"]);
+  helper.allowList({
+    custom(tag, name, value) {
+      if (tag === "div" && name === "style") {
         return true;
       }
     },

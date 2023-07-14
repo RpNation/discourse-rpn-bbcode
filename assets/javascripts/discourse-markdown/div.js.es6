@@ -34,7 +34,8 @@ export function setup(helper) {
   helper.allowList({
     custom(tag, name, value) {
       if (tag === "div" && name === "style") {
-        return /^[\s\S]+$/.exec(value);
+        //return /^[\s\S]+$/.exec(value);
+        return /^(background:\s*url\(.+\))$/.exec(value);
       }
     },
   });

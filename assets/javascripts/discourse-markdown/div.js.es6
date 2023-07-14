@@ -35,7 +35,7 @@ export function setup(helper) {
     custom(tag, name, value) {
       if (tag === "div" && name === "style") {
         //return /^[\s\S]+$/.exec(value);
-        return /^(background:\s*url\(.+\))$/.exec(value);
+        return true;
       }
     },
   });

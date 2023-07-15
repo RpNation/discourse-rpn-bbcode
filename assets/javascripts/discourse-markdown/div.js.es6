@@ -11,6 +11,7 @@ registerOption((siteSettings, opts) => (opts.features["div"] = !!siteSettings.rp
 function setupMarkdownIt(md) {
   const TEXT_RULER = md.core.textPostProcess.ruler;
 
+/*
   TEXT_RULER.push("div_open", {
     matcher: /(\[div=(.*?)\])/gi,
     onMatch: function (buffer, matches, state) {
@@ -20,6 +21,20 @@ function setupMarkdownIt(md) {
       buffer.push(token);
     },
   });
+*/
+
+TEXT_RULER.push("div_open", {
+    matcher: /(\[div=(.*?)\])/gi,
+    onMatch: function (buffer, matches, state) {
+      const tagInfo = parseBBCodeTag(matches[0], 0, matches[0].length);
+      let token = new state.Token("div_open", "div", 1);
+      const escapedAttrs = tagInfo.attrs["_default"].replace(/url\((["'])(.*?)\1\)/g, "url&#40;$1$2$1&#41;");
+      token.attrs = [["style", escapedAttrs]];
+
+      buffer.push(token);
+    },
+  });
+
   TEXT_RULER.push("div_close", {
     matcher: /(\[\/div\])/gi,
     onMatch: function (buffer, matches, state) {

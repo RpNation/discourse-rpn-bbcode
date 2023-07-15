@@ -11,12 +11,38 @@ registerOption((siteSettings, opts) => (opts.features["div"] = !!siteSettings.rp
 function setupMarkdownIt(md) {
   const TEXT_RULER = md.core.textPostProcess.ruler;
 
-  TEXT_RULER.push("div_open", {
+   TEXT_RULER.push("div_open", {
     matcher: /(\[div=(.*?)\])/gi,
     onMatch: function (buffer, matches, state) {
       const tagInfo = parseBBCodeTag(matches[0], 0, matches[0].length);
       let token = new state.Token("div_open", "div", 1);
-      token.attrs = [["style", tagInfo.attrs["_default"]]];
+      const attrs = [];
+      
+      // Parse and extract styles from the tag
+      const styleMatch = /style=(['"])(.*?)\1/gi.exec(tagInfo.attrs["_default"]);
+      if (styleMatch) {
+        const styles = styleMatch[2];
+        
+        // Split styles by semicolon
+        const styleList = styles.split(";");
+        styleList.forEach((style) => {
+          const [property, value] = style.split(":");
+          
+          // Trim property and value
+          const trimmedProperty = property.trim();
+          const trimmedValue = value.trim();
+          
+          // Handle background:url separately
+          if (trimmedProperty === "background" && trimmedValue.startsWith("url(") && trimmedValue.endsWith(")")) {
+            const url = trimmedValue.slice(4, -1).trim();
+            attrs.push(["style", `background-image: url('${url}');`]);
+          } else {
+            attrs.push(["style", `${trimmedProperty}: ${trimmedValue};`]);
+          }
+        });
+      }
+      
+      token.attrs = attrs;
       buffer.push(token);
     },
   });

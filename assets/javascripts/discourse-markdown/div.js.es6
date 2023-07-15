@@ -16,7 +16,19 @@ function setupMarkdownIt(md) {
     onMatch: function (buffer, matches, state) {
       const tagInfo = parseBBCodeTag(matches[0], 0, matches[0].length);
       let token = new state.Token("div_open", "div", 1);
-      token.attrs = [["style", tagInfo.attrs["_default"].replace(/"/g, "&quot;")]];
+      const styleAttr = tagInfo.attrs["_default"];
+
+      // Check if the style attribute contains an image URL
+      const isImageUrl = styleAttr.includes("url(");
+
+      if (isImageUrl) {
+        // If an image URL is present, remove the <a> tag from the style attribute
+        const cleanStyleAttr = styleAttr.replace(/<a\b[^>]*>(.*?)<\/a>/gi, "");
+        token.attrs = [["style", cleanStyleAttr]];
+      } else {
+        token.attrs = [["style", styleAttr]];
+      }
+
       buffer.push(token);
     },
   });

@@ -16,7 +16,7 @@ function setupMarkdownIt(md) {
     onMatch: function (buffer, matches, state) {
       const tagInfo = parseBBCodeTag(matches[0], 0, matches[0].length);
       let token = new state.Token("div_open", "div", 1);
-      token.attrs = [["style", tagInfo.attrs["_default"]]];
+      token.attrs = [["style", tagInfo.attrs["_default"].replace(/"/g, "&quot;")]];
       buffer.push(token);
     },
   });

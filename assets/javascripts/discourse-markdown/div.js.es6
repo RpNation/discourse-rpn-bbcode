@@ -16,31 +16,7 @@ function setupMarkdownIt(md) {
     onMatch: function (buffer, matches, state) {
       const tagInfo = parseBBCodeTag(matches[0], 0, matches[0].length);
       let token = new state.Token("div_open", "div", 1);
-      const attrs = [];
-
-      const stylesMatch = /style=(['"])(.*?)\1/gi.exec(tagInfo.attrs["_default"]);
-      if (stylesMatch) {
-        const styles = stylesMatch[2];
-        const styleList = styles.split(";");
-
-        styleList.forEach((style) => {
-          const [property, value] = style.split(":");
-          const trimmedProperty = property.trim();
-          const trimmedValue = value.trim();
-
-          if (trimmedProperty === "background" && trimmedValue.startsWith("url(") && trimmedValue.endsWith(")")) {
-            const urlMatch = /url\((['"]?)(.*?)\1\)/gi.exec(trimmedValue);
-            if (urlMatch) {
-              const url = urlMatch[2];
-              attrs.push(["style", `background-image: url(${url});`]);
-            }
-          } else {
-            attrs.push(["style", `${trimmedProperty}: ${trimmedValue};`]);
-          }
-        });
-      }
-
-      token.attrs = attrs;
+      token.attrs = [["style", tagInfo.attrs["_default"]]];
       buffer.push(token);
     },
   });
@@ -69,4 +45,3 @@ export function setup(helper) {
     helper.registerPlugin(setupMarkdownIt);
   }
 }
-

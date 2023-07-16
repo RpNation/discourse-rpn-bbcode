@@ -11,11 +11,6 @@ registerOption((siteSettings, opts) => (opts.features["div"] = !!siteSettings.rp
 function setupMarkdownIt(md) {
   const TEXT_RULER = md.core.textPostProcess.ruler;
 
-  const linkifyIndex = TEXT_RULER.getRules("linkify").indexOf(md.linkify);
-    if (linkifyIndex !== -1) {
-      TEXT_RULER.getRules("linkify").splice(linkifyIndex, 1);
-    }
-
   TEXT_RULER.push("div_open", {
     matcher: /(\[div=(.*?)\])/gi,
     onMatch: function (buffer, matches, state) {
@@ -23,6 +18,9 @@ function setupMarkdownIt(md) {
       let token = new state.Token("div_open", "div", 1);
       token.attrs = [["style", tagInfo.attrs["_default"]]];
       buffer.push(token);
+
+      // Disable URL conversion for URLs within [div] tags
+      state.md.inline.ruler.disable(["autolink"]);
     },
   });
 
@@ -31,6 +29,9 @@ function setupMarkdownIt(md) {
     onMatch: function (buffer, matches, state) {
       let token = new state.Token("div_close", "div", -1);
       buffer.push(token);
+
+      // Re-enable URL conversion after [/div] tag
+      state.md.inline.ruler.enable(["autolink"]);
     },
   });
 }

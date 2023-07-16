@@ -34,17 +34,7 @@ function BBCodeTextProcess(content, state, ruler) {
       result.push(token);
     }
 
-    // Check if it's a [div] tag and disable linkify for its content
-    if (match[0].startsWith("[div")) {
-      state.disable("linkify");
-    }
-
     ruler.applyRule(result, match, state);
-
-    // Re-enable linkify after processing [div] tag
-    if (match[0].startsWith("[/div")) {
-      state.enable("linkify");
-    }
 
     pos = match.index + match[0].length;
   }
@@ -61,8 +51,12 @@ function BBCodeTextProcess(content, state, ruler) {
 export function setup(helper) {
   helper.registerPlugin((md) => {
     const ruler = md.core.textPostProcess.ruler;
-    const replacer = (content, state) =>
-      BBCodeTextProcess(content, state, ruler);
+    const replacer = (content, state) => BBCodeTextProcess(content, state, ruler);
+
+    // Disable the "linkify" rule
+    md.core.ruler.disable("linkify");
+
+    // Register the "bbcode" rule
     md.core.ruler.before("linkify", "bbcode", (state) =>
       md.options.discourse.helpers.textReplace(state, replacer, true)
     );

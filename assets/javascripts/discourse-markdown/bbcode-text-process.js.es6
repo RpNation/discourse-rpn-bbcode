@@ -53,9 +53,6 @@ export function setup(helper) {
     const ruler = md.core.textPostProcess.ruler;
     const replacer = (content, state) => BBCodeTextProcess(content, state, ruler);
 
-    // Disable the "linkify" rule
-    md.core.ruler.disable("linkify");
-
     // Register the "bbcode" rule
     md.core.ruler.before("linkify", "bbcode", (state) =>
       md.options.discourse.helpers.textReplace(state, replacer, true)

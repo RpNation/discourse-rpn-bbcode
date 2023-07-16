@@ -11,8 +11,6 @@ registerOption((siteSettings, opts) => (opts.features["div"] = !!siteSettings.rp
 function setupMarkdownIt(md) {
   const TEXT_RULER = md.core.textPostProcess.ruler;
 
-  md.linkify.rules.link = () => {};
-
   TEXT_RULER.push("div_open", {
     matcher: /(\[div=(.*?)\])/gi,
     onMatch: function (buffer, matches, state) {

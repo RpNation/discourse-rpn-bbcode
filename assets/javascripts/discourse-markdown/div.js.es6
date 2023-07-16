@@ -1,6 +1,6 @@
 /**
- * @file Adds [color] to bbcode
- * @example [color=red]text[/color]
+ * @file Adds [div] to bbcode
+ * @example [div=background-color:#77777]text[/div]
  */
 import { registerOption } from "pretty-text/pretty-text";
 import { parseBBCodeTag } from "pretty-text/engines/discourse-markdown/bbcode-block";
@@ -8,9 +8,20 @@ import { parseBBCodeTag } from "pretty-text/engines/discourse-markdown/bbcode-bl
 
 registerOption((siteSettings, opts) => {
   opts.features["div"] = !!siteSettings.rpn_bbcode_enabled;
-  opts.features["linkify"] = false; // Disable the linkify feature
-  opts.markdownItRules = {linkify: false};
 });
+
+const modifiedParseBBCodeTag = (tag, startPos, endPos) => {
+  if (tag.tagName === "url") {
+    return {
+      tagName: "url",
+      attrs: tag.attrs,
+      content: tag.content,
+      text: tag.content,
+    };
+  }
+
+  return parseBBCodeTag(tag, startPos, endPos);
+};
 
 function setupMarkdownIt(md) {
   const TEXT_RULER = md.core.textPostProcess.ruler;
@@ -18,7 +29,7 @@ function setupMarkdownIt(md) {
   TEXT_RULER.push("div_open", {
     matcher: /(\[div=(.*?)\])/gi,
     onMatch: function (buffer, matches, state) {
-      const tagInfo = parseBBCodeTag(matches[0], 0, matches[0].length);
+      const tagInfo = modifiedParseBBCodeTag(matches[0], 0, matches[0].length);
       let token = new state.Token("div_open", "div", 1);
       token.attrs = [["style", tagInfo.attrs["_default"]]];
       buffer.push(token);

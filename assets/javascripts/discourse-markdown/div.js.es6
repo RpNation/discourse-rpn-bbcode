@@ -18,7 +18,10 @@ function setupMarkdownIt(md) {
     onMatch: function (buffer, matches, state) {
       const tagInfo = parseBBCodeTag(matches[0], 0, matches[0].length);
       let token = new state.Token("div_open", "div", 1);
-      token.attrs = [["style", tagInfo.attrs["_default"]]];
+      const styleProps = tagInfo.attrs["_default"];
+      const escapedContent = md.utils.escapeHtml(styleProps)
+      console.log(`Escaped Content Looks like: ${escapedContent}`);
+      token.attrs = [["style", escapedContent]];
       buffer.push(token);
     },
   });

@@ -6,7 +6,10 @@ import { registerOption } from "pretty-text/pretty-text";
 import { parseBBCodeTag } from "pretty-text/engines/discourse-markdown/bbcode-block";
 // import { getClassPrefixer } from "./bbcode-helpers";
 
-registerOption((siteSettings, opts) => (opts.features["div"] = !!siteSettings.rpn_bbcode_enabled));
+registerOption((siteSettings, opts) => {
+  opts.features["div"] = !!siteSettings.rpn_bbcode_enabled;
+  opts.features["linkify"] = false; // Disable the linkify feature
+});
 
 function setupMarkdownIt(md) {
   const TEXT_RULER = md.core.textPostProcess.ruler;

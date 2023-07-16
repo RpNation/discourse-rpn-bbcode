@@ -9,6 +9,7 @@ import { parseBBCodeTag } from "pretty-text/engines/discourse-markdown/bbcode-bl
 registerOption((siteSettings, opts) => {
   opts.features["div"] = !!siteSettings.rpn_bbcode_enabled;
   opts.features["linkify"] = false; // Disable the linkify feature
+  opts.markdownItRules = {linkify: false};
 });
 
 function setupMarkdownIt(md) {
@@ -21,9 +22,6 @@ function setupMarkdownIt(md) {
       let token = new state.Token("div_open", "div", 1);
       token.attrs = [["style", tagInfo.attrs["_default"]]];
       buffer.push(token);
-
-      // Disable URL conversion for URLs within [div] tags
-      state.md.inline.ruler.disable(["autolink"]);
     },
   });
 
@@ -32,9 +30,6 @@ function setupMarkdownIt(md) {
     onMatch: function (buffer, matches, state) {
       let token = new state.Token("div_close", "div", -1);
       buffer.push(token);
-
-      // Re-enable URL conversion after [/div] tag
-      state.md.inline.ruler.enable(["autolink"]);
     },
   });
 }
@@ -44,8 +39,7 @@ export function setup(helper) {
   helper.allowList({
     custom(tag, name, value) {
       if (tag === "div" && name === "style") {
-        //return /^[\s\S]+$/.exec(value);
-        return true;
+        return /^[\s\S]+$/.exec(value);
       }
     },
   });

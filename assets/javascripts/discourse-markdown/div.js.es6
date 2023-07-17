@@ -17,6 +17,7 @@ function setupMarkdownIt(md) {
     matcher: /(\[div=(.*?)\])/gi,
     onMatch: function (buffer, matches, state) {
       const tagInfo = parseBBCodeTag(matches[0], 0, matches[0].length);
+      console.log(`I'm trying to match for Div! ${tagInfo}`)
       let token = new state.Token("div_open", "div", 1);
       let styleProps = tagInfo.attrs["_default"];
       if (hasBackgroundUrl(styleProps)) styleProps = addLinkifyEscapeCharacter(styleProps);
@@ -35,6 +36,7 @@ function setupMarkdownIt(md) {
 }
 
 function hasBackgroundUrl(tagAttributes) {
+  console.log(`Passed Tag Attr: ${tagAttributes}`);
   return /.*(background:url\().*/.test(tagAttributes);
 }
 

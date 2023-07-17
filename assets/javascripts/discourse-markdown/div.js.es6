@@ -18,7 +18,9 @@ function setupMarkdownIt(md) {
     onMatch: function (buffer, matches, state) {
       const tagInfo = parseBBCodeTag(matches[0], 0, matches[0].length);
       let token = new state.Token("div_open", "div", 1);
-      token.attrs = [["style", tagInfo.attrs["_default"]]];
+      let styleProps = tagInfo.attrs["_default"];
+      if (hasBackgroundUrl(styleProps)) styleProps = addLinkifyEscapeCharacter(styleProps);
+      token.attrs = [["style", styleProps]];
       buffer.push(token);
     },
   });
@@ -30,6 +32,17 @@ function setupMarkdownIt(md) {
       buffer.push(token);
     },
   });
+}
+
+function hasBackgroundUrl(tagAttributes) {
+  return /.*(background:url\().*/.test(tagAttributes);
+}
+
+function addLinkifyEscapeCharacter(styleProps) {
+  console.log(`This tag had a background URL: ${styleProps}`);
+  let testProps = styleProps.replace(/(https?\:)/, "$1\\");
+  console.log(`New Props: ${testProps}`)
+  return testProps;
 }
 
 export function setup(helper) {

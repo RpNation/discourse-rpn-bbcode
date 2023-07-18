@@ -32,7 +32,7 @@ function setupMarkdownIt(md) {
   // });
 
   TEXT_RULER.push("color_open", {
-    matcher: /(\[color=(.*?)\])/gi,
+    matcher: /(<color=(.*?)>)/gi,
     onMatch: function (buffer, matches, state) {
       const tagInfo = parseBBCodeTag(matches[0], 0, matches[0].length);
       let token = new state.Token("div_open", "div", 1);
@@ -44,7 +44,7 @@ function setupMarkdownIt(md) {
     },
   });
   TEXT_RULER.push("color_close", {
-    matcher: /(\[\/color\])/gi,
+    matcher: /(<\/color>)/gi,
     onMatch: function (buffer, matches, state) {
       let token = new state.Token("div_close", "div", -1);
       buffer.push(token);

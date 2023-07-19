@@ -29,7 +29,7 @@ function setupMarkdownIt(md) {
   // });
 
   TEXT_RULER.push("border_open", {
-    matcher: /(\[border=((.*?)|(".*?"))\])/gi,
+    matcher: /(\[border=(([\S\s]*?)|("[\S\s]*?"))\])/gi,
     onMatch: function (buffer, matches, state) {
       const tagInfo = parseBBCodeTag(matches[0], 0, matches[0].length);
       const border = tagInfo.attrs["_default"];

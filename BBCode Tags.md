@@ -5,14 +5,16 @@
 
 ## TAG-001: Image Float
 
+:exclamation: Supports both inline and block level. However it will only use div. Everything else is the same.
+
 ```
 [imageFloat=left]insert image tag here[/imageFloat]
 [imageFloat=right]insert image tag here[/imageFloat]
 ```
 
 ```html
-<span class="float-left">insert image tag here</span>
-<span class="float-right">insert image tag here</span>
+<div class="float-left">insert image tag here</div>
+<div class="float-right">insert image tag here</div>
 ```
 
 ## TAG-002: Highlight
@@ -86,14 +88,16 @@
 </div>
 ```
 
-## TAG-008: NOBR
+## TAG-008: NOBR & BR
 
 ```
 [nobr]lorem ipsum[/nobr]
+[br][/br]
 ```
 
 ```html
 <!--replaces all line breaks with spaces in lorem ipsum-->
+<br data-bbcode-nobr-ignore="true" />
 ```
 
 ## TAG-009: Divide
@@ -157,13 +161,14 @@
 ```
 
 ```html
-<table class="bbcode-blockquote">
-  <tr>
-    <td class="bbcode-blockquote-left"></td>
-    <td class="bbcode-blockquote-content">lorem ipsum</td>
-    <td class="bbcode-blockquote-right"></td>
-  </tr>
-</table>
+<div class="bbcode-blockquote">
+  <div class="bbcode-blockquote-left"></div>
+  <div class="bbcode-blockquote-content">
+    lorem ipsum
+    <div class="bbcode-blockquote-speaker">author</div>
+  </div>
+  <div class="bbcode-blockquote-right"></div>
+</div>
 ```
 
 ## TAG-014: Paragraph Indent
@@ -203,11 +208,11 @@
 
 ```html
 <div class="bbcode-textmessage">
-  <div class="name">Recipient</div>
+  <div class="bbcode-textmessage-name">Recipient</div>
   <div class="bbcode-textmessage-overflow">
     <div class="bbcode-textmessage-content">
-      <div class="bbcode-message-them them">message from Recipient</div>
-      <div class="bbcode-message-me me">message from sender</div>
+      <div class="bbcode-message-them">message from Recipient</div>
+      <div class="bbcode-message-me">message from sender</div>
     </div>
   </div>
 </div>
@@ -237,21 +242,42 @@ Valid fonts also include [Google Fonts](https://fonts.google.com/).
 
 ```html
 <div style="font-family: built in, Helvetica, Arial, sans-serif;">this is a built in font</div>
-<div style="font-family: Google Font, Helvetica, Arial, sans-serif;">this is a google font</div>
-<link rel=stylesheet type=text/css href="https://fonts.googleapis.com/css2?family=Google+Font">
+<div
+  style="font-family: Google Font, Helvetica, Arial, sans-serif;"
+  data-bbcode-gfont="Google+Font"
+>
+  this is a google font
+</div>
+<link rel=stylesheet type=text/css href="https://fonts.googleapis.com/css2?family=Google+Font"
+data-rendered-gfont="Google+Font">
 ```
 
 **Multi Options**  
 :exclamation: `color` and `size` are both optional. Only `family` or `name` is required.  
 `family` and `name` do the same thing.
 
-`valid size`: Must match [TAG-031: Size] constraints.
+`valid size`: Must match [TAG-031: Size] constraints.  
+`VALUE`: font-weight. Either a numeric within 1-1000 inclusive, or a phrase as below:
+
+> thin  
+> extra-light  
+> light  
+> regular  
+> medium  
+> semi-bold  
+> bold  
+> extra-bold  
+> black
+
+The `italics` option can also be just `italic`, as to prevent confusion.
 
 ```
 [font name="font"]multi[/font]
 [font family="font"]multi[/font]
 
 [font name="font" color="valid css color" size="valid size"]optional[/font]
+
+[font family="gfont" weight=VALUE italics=true]font styles[/font]
 ```
 
 ```html
@@ -262,6 +288,16 @@ Valid fonts also include [Google Fonts](https://fonts.google.com/).
 >
   optional
 </div>
+
+<div
+  style="font-family: gfont, Helvertica, Arial, sans-serif; font-style: italic; font-weight: VALUE;"
+  data-bbcode-gfont="gfont:ital,wght@1,VALUE"
+>
+  font styles
+</div>
+<link rel=stylesheet type=text/css
+href="https://fonts.googleapis.com/css2?family=gfont:ital@1,wght@VALUE"
+data-rendered-gfont="gfont:ital,wght@1,VALUE">
 ```
 
 ## TAG-018: Block
@@ -286,26 +322,30 @@ Valid fonts also include [Google Fonts](https://fonts.google.com/).
 ```
 
 ```html
-<table class="bbcode-block-Option">
-  <tr>
-    <td class="bbcode-block-icon"></td>
-    <td class="bbcode-block-content">lorem ipsum</td>
-  </tr>
-</table>
+<div class="bbcode-block" data-bbcode-block="Option">
+  <div class="bbcode-block-icon"></div>
+  <div class="bbcode-block-content">lorem ipsum</div>
+</div>
 ```
 
-## TAG-019: Progress
+## TAG-019: Progress & Thin Progress
 
 `value`: percentage
 
 ```
 [progress=value]inline text[/progress]
+[thinprogress=value]inline text[/thinprogress]
 ```
 
 ```html
 <div class="bbcode-progress">
   <div class="bbcode-progress-text">inline text</div>
   <div class="bbcode-progress-bar" style="width: calc(value% - 6px);"></div>
+  <div class="bbcode-progress-bar-other"></div>
+</div>
+<div class="bbcode-progress-thin">
+  <div class="bbcode-progress-text">inline text</div>
+  <div class="bbcode-progress-bar" style="width: value%;"></div>
   <div class="bbcode-progress-bar-other"></div>
 </div>
 ```
@@ -329,44 +369,34 @@ Valid fonts also include [Google Fonts](https://fonts.google.com/).
 ## TAG-021: Mail
 
 ```
-[mail=send]
-[person]Name[/person]
-[subject]subject title[/subject]
-inline text
+[mail type=send person=Name subject="Subject Title"]
+lorem ipsum
 [/mail]
 
-[mail=receive]
-[person]Name[/person]
-[subject]subject title[/subject]
-inline text
+[mail type=receive person=Name subject="Subject Title"]
+lorem ipsum
 [/mail]
 ```
 
 ```html
-<div class="bbcode-email-send">
-  <div class="bbcode-email-top-send">Send New Email</div>
-  <div class="bbcode-email-first-row"></div>
-  <div class="bbcode-email-second-row"></div>
-  <div class="bbcode-email-main">
-    <div class="bbcode-email-person">Name</div>
-    <div class="bbcode-email-subject">subject title</div>
-    inline text
+<div class="bbcode-email" data-bbcode-email="send">
+  <div class="bbcode-email-top"></div>
+  <div class="bbcode-email-address">Name</div>
+  <div class="bbcode-email-subject">Subject Title</div>
+  <div class="bbcode-email-content">lorem ipsum</div>
+  <div class="bbcode-email-footer">
+    <div class="bbcode-email-button"></div>
   </div>
-  <div class="bbcode-email-footer"></div>
-  <div class="bbcode-email-button"></div>
 </div>
 
-<div class="bbcode-email-send">
-  <div class="bbcode-email-top-receive">New Email Received</div>
-  <div class="bbcode-email-first-row"></div>
-  <div class="bbcode-email-second-row"></div>
-  <div class="bbcode-email-main">
-    <div class="bbcode-email-person">Name</div>
-    <div class="bbcode-email-subject">subject title</div>
-    inline text
+<div class="bbcode-email" data-bbcode-email="receive">
+  <div class="bbcode-email-top"></div>
+  <div class="bbcode-email-address">Name</div>
+  <div class="bbcode-email-subject">Subject Title</div>
+  <div class="bbcode-email-content">lorem ipsum</div>
+  <div class="bbcode-email-footer">
+    <div class="bbcode-email-button"></div>
   </div>
-  <div class="bbcode-email-footer"></div>
-  <div class="bbcode-email-button"></div>
 </div>
 ```
 
@@ -436,7 +466,7 @@ inline text
 
 ```html
 <div class="bbcode-tab">
-  <button class="bbcode-tab-links" onclick="openBBCodeTab(event)">title</button>
+  <button class="bbcode-tab-links">title</button>
   <div class="bbcode-tab-content">lorem ipsum</div>
 </div>
 ```
@@ -525,12 +555,12 @@ lorem ipsum
 
 ```html
 <div class="bbcode-spoiler">
-  <button class="bbcode-spoiler-button" onclick="toggleBBCodeSpoiler(event)">Spoiler</button>
+  <button class="bbcode-spoiler-button">Spoiler</button>
   <div class="bbcode-spoiler-content">lorem ipsum</div>
 </div>
 
 <div class="bbcode-spoiler">
-  <button class="bbcode-spoiler-button" onclick="toggleBBCodeSpoiler(event)">Spoiler: title</button>
+  <button class="bbcode-spoiler-button">Spoiler: title</button>
   <div class="bbcode-spoiler-content">lorem ipsum</div>
 </div>
 ```
@@ -563,9 +593,30 @@ If icon style is not given, defaults to `far`
 
 ```html
 <a id="user-anchor-TAG">inline text</a>
-<a
-  href="javascript:;"
-  onclick="document.location.hash=''; document.location.hash='user-anchor-TAG';"
-  >inline text</a
->
+
+<a href="#user-anchor-TAG">inline text</a>
+```
+
+## TAG-035: Height Restrict
+
+```
+[heightrestrict=#]img[/heightrestrict]
+```
+
+```html
+<div class="bbcode-height-restrict" style="height: #px;">img</div>
+```
+
+## TAG-036: Indent
+
+Max value is 5
+
+```
+[indent]text[/indent]
+[indent=3]text[/indent]
+```
+
+```html
+<div style="margin-left: 20px">text</div>
+<div style="margin-left: 60px">text</div>
 ```

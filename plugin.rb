@@ -5,7 +5,7 @@
 # version: 0.1
 # authors: Ghan, Alteras, TheDarkWizard, FaithWynters
 # url: https://github.com/RpNation/discourse-rpn-bbcode
-register_asset "javascripts/tabs.js"
-register_asset "javascripts/accordion.js"
-register_asset "javascripts/spoiler.js"
+
+enabled_site_setting :rpn_bbcode_enabled
+
 register_asset "stylesheets/bbcode.scss"
